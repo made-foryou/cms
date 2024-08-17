@@ -64,9 +64,6 @@ class TestCase extends Orchestra
      */
     public function getEnvironmentSetUp($app): void
     {
-        config()->set('database.default', 'sqlite');
-        config()->set('app.key', 'base64:NjVnZ292bjJ3dW94NnIxYjV2eG92ZjNpZ3RqZ2tvMzk=');
-
         $migration = include __DIR__ . '/../database/migrations/create_made_cms_users_table.php.stub';
         $migration->up();
 
