@@ -1,5 +1,5 @@
 <?php
 
-use VendorName\Skeleton\Tests\TestCase;
+use Made\Cms\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);
