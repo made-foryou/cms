@@ -10,11 +10,11 @@ use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
 use Livewire\Features\SupportTesting\Testable;
+use Made\Cms\Commands\CmsCommand;
+use Made\Cms\Testing\TestsCms;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Made\Cms\Commands\CmsCommand;
-use Made\Cms\Testing\TestsCms;
 
 class CmsServiceProvider extends PackageServiceProvider
 {
