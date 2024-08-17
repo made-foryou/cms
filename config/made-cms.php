@@ -19,4 +19,21 @@ return [
 
     ],
 
+    /**
+     * ### Database
+     */
+    'database' => [
+
+        /**
+         * ### Table prefix
+         *
+         * This value will be used with prefixing the generated database tables
+         * from this plugin.
+         *
+         * @var string
+         */
+        'table_prefix' => env('MADE_CMS_DATABASE_TABLE_PREFIX', 'made_cms_'),
+
+    ],
+
 ];

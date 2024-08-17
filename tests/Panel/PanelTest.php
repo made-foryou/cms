@@ -6,5 +6,5 @@ uses(RefreshDatabase::class);
 
 test('the panel can be accessed', function () {
     $this->get('/' . config('made-cms.panel.path'))
-        ->assertRedirect();
+        ->assertSuccessful();
 });
