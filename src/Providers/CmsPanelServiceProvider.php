@@ -11,6 +11,10 @@ class CmsPanelServiceProvider extends PanelProvider
     public const string ID = 'cms-panel';
 
     /**
+     * Sets the ID and path for the given panel.
+     *
+     * @param  Panel  $panel  The panel to configure.
+     * @return Panel The configured panel.
      * @throws Exception
      */
     public function panel(Panel $panel): Panel
