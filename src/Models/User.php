@@ -79,8 +79,6 @@ class User extends Authenticatable implements FilamentUser
 
     /**
      * Create a new factory instance for the model.
-     *
-     * @return UserFactory
      */
     protected static function newFactory(): UserFactory
     {
