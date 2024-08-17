@@ -66,6 +66,5 @@ class TestCase extends Orchestra
     {
         $migration = include __DIR__ . '/../database/migrations/create_made_cms_users_table.php.stub';
         $migration->up();
-
     }
 }
