@@ -13,8 +13,10 @@ use Filament\Support\SupportServiceProvider;
 use Filament\Tables\TablesServiceProvider;
 use Filament\Widgets\WidgetsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Foundation\Application;
 use Livewire\LivewireServiceProvider;
 use Made\Cms\CmsServiceProvider;
+use Made\Cms\Providers\CmsPanelServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
 
@@ -29,7 +31,13 @@ class TestCase extends Orchestra
         );
     }
 
-    protected function getPackageProviders($app)
+    /**
+     * Get the package service providers that should be registered.
+     *
+     * @param  Application  $app  The application instance.
+     * @return array The list of package service providers to be registered.
+     */
+    protected function getPackageProviders($app): array
     {
         return [
             ActionsServiceProvider::class,
@@ -45,16 +53,21 @@ class TestCase extends Orchestra
             TablesServiceProvider::class,
             WidgetsServiceProvider::class,
             CmsServiceProvider::class,
+            CmsPanelServiceProvider::class,
         ];
     }
 
-    public function getEnvironmentSetUp($app)
+    /**
+     * Set up the environment for testing.
+     *
+     * @param  Application  $app  The application instance.
+     */
+    public function getEnvironmentSetUp($app): void
     {
-        config()->set('database.default', 'testing');
+        config()->set('database.default', 'sqlite');
+        config()->set('database.connections.sqlite.database', ':memory:');
 
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_cms_table.php.stub';
+        $migration = include __DIR__ . '/../database/migrations/create_made_cms_users_table.php.stub';
         $migration->up();
-        */
     }
 }

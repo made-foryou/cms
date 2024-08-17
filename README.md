@@ -17,38 +17,69 @@ You can install the package via composer:
 composer require made-foryou/cms
 ```
 
-You can publish and run the migrations with:
+Next we have to install the plugin and publish it's files to the project.
 
 ```bash
-php artisan vendor:publish --tag="cms-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="cms-config"
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="cms-views"
+php artisan made-cms:install
 ```
 
 This is the contents of the published config file:
 
 ```php
+<?php
+
+// config for Made/Cms
 return [
+
+    /**
+     * ### Panel
+     */
+    'panel' => [
+
+        /**
+         * ### Panel path
+         *
+         * Using this setting, you can adjust the path in the URL where the CMS is available.
+         *
+         * @var string
+         */
+        'path' => env('MADE_CMS_PANEL_PATH', 'made'),
+
+    ],
+
+    /**
+     * ### Database
+     */
+    'database' => [
+
+        /**
+         * ### Table prefix
+         *
+         * This value will be used with prefixing the generated database tables
+         * from this plugin.
+         *
+         * @var string
+         */
+        'table_prefix' => env('MADE_CMS_DATABASE_TABLE_PREFIX', 'made_cms_'),
+
+    ],
+
 ];
+
 ```
 
-## Usage
+## Create the user
 
-```php
-$cms = new Made\Cms();
-echo $cms->echoPhrase('Hello, Made!');
+To create a cms user which can be used as an administrator / superuser account you run the following:
+
+```bash
+php artisan made:user
 ```
+
+This command will ask you some questions which you have to answer to create the user.
+
+After that you are ready to log in into the CMS panel on the selected path (default: `/made`).
+
 
 ## Testing
 
