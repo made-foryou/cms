@@ -2,7 +2,6 @@
 
 namespace Made\Cms;
 
-use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
@@ -18,7 +17,7 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class CmsServiceProvider extends PackageServiceProvider
 {
-    public static string $name = 'cms';
+    public static string $name = 'made-cms';
 
     public static string $viewNamespace = 'cms';
 
@@ -41,7 +40,7 @@ class CmsServiceProvider extends PackageServiceProvider
 
         $configFileName = $package->shortName();
 
-        if (file_exists($package->basePath("/../config/{$configFileName}.php"))) {
+        if (file_exists($package->basePath("/../config/$configFileName.php"))) {
             $package->hasConfigFile();
         }
 
