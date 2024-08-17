@@ -27,6 +27,7 @@ class CmsPanelServiceProvider extends PanelProvider
      *
      * @param  Panel  $panel  The panel to configure.
      * @return Panel The configured panel.
+     *
      * @throws Exception
      */
     public function panel(Panel $panel): Panel
