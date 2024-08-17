@@ -2,7 +2,6 @@
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Made\Cms\Models\User;
-
 use Made\Cms\Providers\CmsPanelServiceProvider;
 
 use function Pest\Laravel\assertDatabaseCount;

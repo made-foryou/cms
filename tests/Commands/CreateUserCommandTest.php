@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-
 use Made\Cms\Models\User;
 
 use function Pest\Laravel\assertDatabaseHas;
