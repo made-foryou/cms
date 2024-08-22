@@ -201,7 +201,8 @@ class CmsServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            'create_made_cms_users_table',
+            '1724332495_create_made_cms_users_table',
+            '1724332505_create_made_cms_roles',
         ];
     }
 }

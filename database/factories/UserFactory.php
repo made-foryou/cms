@@ -5,6 +5,7 @@ namespace Made\Cms\Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
 
 class UserFactory extends Factory
@@ -14,6 +15,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
+            'role_id' => Role::factory()->createOne()->id,
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => Carbon::now(),
