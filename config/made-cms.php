@@ -17,6 +17,20 @@ return [
          */
         'path' => env('MADE_CMS_PANEL_PATH', 'made'),
 
+        /**
+         * #### Panel domain
+         *
+         * This setting ensures that the CMS panel is associated with these
+         * domain names.
+         *
+         * For instance, if you wish to make the CMS panel accessible only
+         * through a subdomain, leave the path setting empty and enter
+         * the subdomain here.
+         *
+         * @var null|string|string[]
+         */
+        'domain' => env('MADE_CMS_PANEL_DOMAIN'),
+
     ],
 
     /**
