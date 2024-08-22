@@ -34,7 +34,8 @@ class CmsPanelServiceProvider extends PanelProvider
     {
         return $panel
             ->id(self::ID)
-            ->path(config('made-cms.panel.path'))
+            ->path(config('made-cms.panel.path', ''))
+            ->domain(config('made-cms.panel.domain'))
             ->authGuard('made')
             ->brandName('Made CMS')
             ->colors([
