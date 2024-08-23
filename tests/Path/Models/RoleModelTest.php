@@ -2,7 +2,10 @@
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Made\Cms\Models\Permission;
 use Made\Cms\Models\Role;
+
+use Made\Cms\Models\User;
 
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;
@@ -55,4 +58,22 @@ it('knows if it is default', function () {
     $role->refresh();
 
     expect($role->is_default)->toBe(false);
+});
+
+it('can have users', function () {
+    $role = Role::factory()->createOne();
+
+    $user = User::factory()->create([
+        'role_id' => $role->id,
+    ]);
+
+    expect($role->users->count())->toBe(1);
+});
+
+it('can have permissions', function () {
+    $role = Role::factory()
+        ->has(Permission::factory()->count(10))
+        ->createOne();
+
+    expect($role->permissions->count())->toBe(10);
 });

@@ -34,12 +34,11 @@ return new class extends Migration
                 $table->text('description')->nullable();
 
                 $table->timestamps();
-                $table->softDeletes();
             }
         );
 
         Schema::create(
-            $prefix . 'role_permission',
+            $prefix . 'permission_role',
             function (Blueprint $table) use ($prefix) {
                 $table->foreignId('role_id')
                     ->references('id')

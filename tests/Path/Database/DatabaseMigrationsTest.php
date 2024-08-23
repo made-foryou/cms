@@ -15,5 +15,5 @@ dataset('tables', [
     'users',
     'roles',
     'permissions',
-    'role_permission',
+    'permission_role',
 ]);

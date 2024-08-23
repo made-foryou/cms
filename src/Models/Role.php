@@ -3,8 +3,11 @@
 namespace Made\Cms\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Made\Cms\Database\Factories\RoleFactory;
 use Made\Cms\Database\HasDatabaseTablePrefix;
 
@@ -18,8 +21,11 @@ use Made\Cms\Database\HasDatabaseTablePrefix;
  * @property string|null $description
  * @property boolean $is_default
  * @property Carbon $created_at
- * @property Carbon $updated_at
- * @property Carbon|null $deleted_at
+ * @property-read Carbon $updated_at
+ * @property-read Carbon|null $deleted_at
+ *
+ * @property-read Collection<Permission> $permissions
+ * @property-read Collection<User> $users
  *
  * @method static Role create(array $attributes = [])
  */
@@ -71,6 +77,29 @@ class Role extends Model
 
         $this->is_default = true;
         $this->save();
+    }
+
+    /**
+     * Get the permissions associated with the role.
+     *
+     * @return BelongsToMany
+     */
+    public function permissions(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            related: Permission::class,
+            table: $this->prefixTableName('permission_role')
+        );
+    }
+
+    /**
+     * Retrieves the collection of users associated with this instance.
+     *
+     * @return HasMany The relationship instance that provides access to the collection of users.
+     */
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class);
     }
 
     /**

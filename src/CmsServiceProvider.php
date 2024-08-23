@@ -10,7 +10,7 @@ use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Config;
 use Livewire\Features\SupportTesting\Testable;
-use Made\Cms\Commands\CreateUser;
+use Made\Cms\Commands\MadeCmsSetupCommand;
 use Made\Cms\Models\User;
 use Made\Cms\Testing\TestsCms;
 use ReflectionException;
@@ -159,7 +159,7 @@ class CmsServiceProvider extends PackageServiceProvider
     protected function getCommands(): array
     {
         return [
-            CreateUser::class,
+            MadeCmsSetupCommand::class,
         ];
     }
 
