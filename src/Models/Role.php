@@ -19,11 +19,10 @@ use Made\Cms\Database\HasDatabaseTablePrefix;
  * @property-read int $id
  * @property string $name
  * @property string|null $description
- * @property boolean $is_default
+ * @property bool $is_default
  * @property Carbon $created_at
  * @property-read Carbon $updated_at
  * @property-read Carbon|null $deleted_at
- *
  * @property-read Collection<Permission> $permissions
  * @property-read Collection<User> $users
  *
@@ -66,8 +65,6 @@ class Role extends Model
      *
      * This function will reset the current default role, as there can only
      * be one default role.
-     *
-     * @return void
      */
     public function makeDefault(): void
     {
@@ -81,8 +78,6 @@ class Role extends Model
 
     /**
      * Get the permissions associated with the role.
-     *
-     * @return BelongsToMany
      */
     public function permissions(): BelongsToMany
     {

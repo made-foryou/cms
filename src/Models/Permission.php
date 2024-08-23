@@ -19,7 +19,6 @@ use Made\Cms\Database\HasDatabaseTablePrefix;
  * @property string|null $description
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
- *
  * @property-read Collection<Role> $roles
  *
  * @method static Permission create(array $attributes = [])
@@ -81,8 +80,6 @@ class Permission extends Model
 
     /**
      * Create a new factory instance for the model.
-     *
-     * @return PermissionFactory
      */
     protected static function newFactory(): PermissionFactory
     {

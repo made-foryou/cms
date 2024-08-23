@@ -22,7 +22,7 @@ test('it creates a cms user', function () {
         ->expectsQuestion('What password will it be using?', fake()->word)
         ->assertSuccessful();
 
-    assertDatabaseHas((new Role())->getTable(), [
+    assertDatabaseHas((new Role)->getTable(), [
         'name' => 'Administrator',
         'is_default' => true,
     ]);

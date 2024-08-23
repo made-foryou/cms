@@ -4,7 +4,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Made\Cms\Models\Permission;
 use Made\Cms\Models\Role;
-
 use Made\Cms\Models\User;
 
 use function Pest\Laravel\assertDatabaseCount;
