@@ -16,6 +16,7 @@ use Made\Cms\Database\HasDatabaseTablePrefix;
  * @property-read int $id
  * @property string $name
  * @property string|null $description
+ * @property boolean $is_default
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Carbon|null $deleted_at
@@ -34,6 +35,7 @@ class Role extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'is_default' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
@@ -48,6 +50,28 @@ class Role extends Model
         'name',
         'description',
     ];
+
+    /**
+     * Make the current role the default role.
+     *
+     * This method sets the 'is_default' property of the current role to true
+     * and saves the changes to the database. It also updates the
+     * 'is_default' property of all other roles to false.
+     *
+     * This function will reset the current default role, as there can only
+     * be one default role.
+     *
+     * @return void
+     */
+    public function makeDefault(): void
+    {
+        Role::query()
+            ->where('is_default', true)
+            ->update(['is_default' => false]);
+
+        $this->is_default = true;
+        $this->save();
+    }
 
     /**
      * Retrieves the prefixed table name.
