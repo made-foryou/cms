@@ -12,6 +12,7 @@ class UserPolicy
     public function accessPanel(User $user): bool
     {
         $permissions = $user->role->permissions()->pluck('key');
+
         return $permissions->contains('accessPanel');
     }
 }
