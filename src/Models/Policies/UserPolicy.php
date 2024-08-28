@@ -7,13 +7,17 @@ use Made\Cms\Models\User;
 
 class UserPolicy
 {
+    use CmsPermissions;
     use HandlesAuthorization;
 
-    public function accessPanel(User $user, User $subject): bool
+    /**
+     * Checks whether the specified user has access to the panel.
+     *
+     * @param  User  $user  The user for which to check access.
+     * @return bool True if the user has access to the panel, false otherwise.
+     */
+    public function accessPanel(User $user): bool
     {
-        return $user->role->permissions()
-            ->is($subject::class, 'accessPanel')
-            ->get()
-            ->isNotEmpty();
+        return $this->can($user, __FUNCTION__);
     }
 }
