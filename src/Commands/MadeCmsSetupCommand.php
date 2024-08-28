@@ -98,6 +98,5 @@ class MadeCmsSetupCommand extends Command
         ]);
         $role->permissions()->attach($permission);
 
-
     }
 }
