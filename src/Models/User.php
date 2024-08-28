@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Made\Cms\Database\Factories\UserFactory;
 use Made\Cms\Database\HasDatabaseTablePrefix;
@@ -16,6 +17,7 @@ use Made\Cms\Database\HasDatabaseTablePrefix;
  * The user model which is being used for the cms users.
  *
  * @property-read int $id
+ * @property int $role_id
  * @property string $name
  * @property string $email
  * @property Carbon|null $email_verified_at
@@ -23,6 +25,7 @@ use Made\Cms\Database\HasDatabaseTablePrefix;
  * @property string|null $remember_token
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property-read Role $role
  *
  * @method static User create(array $attributes = [])
  */
@@ -38,6 +41,7 @@ class User extends Authenticatable implements FilamentUser
      */
     protected $casts = [
         'id' => 'integer',
+        'role_id' => 'integer',
         'email_verified_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
@@ -67,6 +71,16 @@ class User extends Authenticatable implements FilamentUser
     }
 
     /**
+     * Retrieves the associated Role model for the current instance.
+     *
+     * @return BelongsTo The relationship to the Role model.
+     */
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    /**
      * Checks whether the user can access the given panel.
      *
      * @param  Panel  $panel  The panel to check access for.
@@ -74,7 +88,7 @@ class User extends Authenticatable implements FilamentUser
      */
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
+        return $this->can('accessPanel', $this);
     }
 
     /**

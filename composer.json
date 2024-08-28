@@ -41,7 +41,8 @@
     "autoload": {
         "psr-4": {
             "Made\\Cms\\": "src/",
-            "Made\\Cms\\Database\\Factories\\": "database/factories/"
+            "Made\\Cms\\Database\\Factories\\": "database/factories/",
+            "Made\\Cms\\Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {

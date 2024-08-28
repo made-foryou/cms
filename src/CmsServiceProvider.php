@@ -9,8 +9,10 @@ use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Features\SupportTesting\Testable;
-use Made\Cms\Commands\CreateUser;
+use Made\Cms\Commands\MadeCmsSetupCommand;
+use Made\Cms\Models\Policies\UserPolicy;
 use Made\Cms\Models\User;
 use Made\Cms\Testing\TestsCms;
 use ReflectionException;
@@ -95,6 +97,9 @@ class CmsServiceProvider extends PackageServiceProvider
             'model' => User::class,
         ]);
 
+        // Registering policies
+        Gate::policy(User::class, UserPolicy::class);
+
         // Asset Registration
         FilamentAsset::register(
             $this->getAssets(),
@@ -159,7 +164,7 @@ class CmsServiceProvider extends PackageServiceProvider
     protected function getCommands(): array
     {
         return [
-            CreateUser::class,
+            MadeCmsSetupCommand::class,
         ];
     }
 
@@ -201,7 +206,8 @@ class CmsServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            'create_made_cms_users_table',
+            '1724332495_create_made_cms_users_table',
+            '1724332505_create_made_cms_roles',
         ];
     }
 }

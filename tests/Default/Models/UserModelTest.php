@@ -1,11 +1,14 @@
 <?php
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Made\Cms\Database\Seeders\CmsCoreSeeder;
+use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
 use Made\Cms\Providers\CmsPanelServiceProvider;
 
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\seed;
 
 uses(RefreshDatabase::class);
 
@@ -31,6 +34,18 @@ test('it can access the cms panel', function () {
 
     expect(
         $model->canAccessPanel(
+            filament()->getPanel(CmsPanelServiceProvider::ID)
+        )
+    )->toBeFalse();
+
+    seed(CmsCoreSeeder::class);
+
+    $trueUser = User::factory()->create([
+        'role_id' => Role::query()->default()->first()->id,
+    ]);
+
+    expect(
+        $trueUser->canAccessPanel(
             filament()->getPanel(CmsPanelServiceProvider::ID)
         )
     )->toBeTrue();

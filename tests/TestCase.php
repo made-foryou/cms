@@ -67,7 +67,15 @@ class TestCase extends Orchestra
         config()->set('database.default', 'sqlite');
         config()->set('database.connections.sqlite.database', ':memory:');
 
-        $migration = include __DIR__ . '/../database/migrations/create_made_cms_users_table.php.stub';
-        $migration->up();
+        $directory = __DIR__ . '/../database/migrations/';
+        $files = scandir($directory);
+
+        foreach ($files as $file) {
+            if (str_ends_with($file, '.php.stub')) {
+                $migration = include $directory . $file;
+
+                $migration->up();
+            }
+        }
     }
 }
