@@ -10,7 +10,7 @@ class PermissionFactory extends Factory
     /**
      * The name of the factory's corresponding model.
      *
-     * @var class-string<Permission}>
+     * @var class-string<Permission>
      */
     protected $model = Permission::class;
 
