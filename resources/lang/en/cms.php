@@ -10,7 +10,7 @@ return [
     ],
 
     'permissions' => [
-        'cms.access' => [
+        'accessPanel' => [
             'name' => 'Access to the cms panel.',
             'description' => 'This permission gives you access to the cms panel. You need this permission to log into the panel.',
         ],

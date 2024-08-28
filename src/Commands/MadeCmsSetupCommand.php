@@ -79,8 +79,8 @@ class MadeCmsSetupCommand extends Command
 
         /** @var Role $role */
         $role = Role::create([
-            'name' => $name ?? __('cms.role.default.name'),
-            'description' => __('cms.role.default.description'),
+            'name' => $name ?? __('made-cms::cms.role.default.name'),
+            'description' => __('made-cms::cms.role.default.description'),
         ]);
 
         $role->makeDefault();
@@ -93,8 +93,9 @@ class MadeCmsSetupCommand extends Command
         // Access to the panel
         $permission = Permission::query()->firstOrCreate([
             'key' => 'accessPanel',
-            'name' => __('cms.permissions.cms.access.name'),
-            'description' => __('cms.permissions.cms.access.description'),
+            'subject' => User::class,
+            'name' => __('made-cms::cms.permissions.accessPanel.name'),
+            'description' => __('made-cms::cms.permissions.accessPanel.description'),
         ]);
         $role->permissions()->attach($permission);
     }

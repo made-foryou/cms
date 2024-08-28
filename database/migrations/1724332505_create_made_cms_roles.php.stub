@@ -30,8 +30,11 @@ return new class extends Migration
                 $table->id();
 
                 $table->string('key');
+                $table->string('subject');
                 $table->string('name')->nullable();
                 $table->text('description')->nullable();
+
+                $table->unique(['key', 'subject'], 'uk_p_key_subject');
 
                 $table->timestamps();
             }

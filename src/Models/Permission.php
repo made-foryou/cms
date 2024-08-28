@@ -7,14 +7,17 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Query\Builder;
 use Made\Cms\Database\Factories\PermissionFactory;
 use Made\Cms\Database\HasDatabaseTablePrefix;
+use Made\Cms\QueryBuilders\PermissionQueryBuilder;
 
 /**
  * ### Permission
  *
  * @property-read int $id
  * @property string $key
+ * @property string $subject
  * @property string|null $name
  * @property string|null $description
  * @property-read Carbon $created_at
@@ -46,6 +49,7 @@ class Permission extends Model
      */
     protected $fillable = [
         'key',
+        'subject',
         'name',
         'description',
     ];
@@ -76,6 +80,16 @@ class Permission extends Model
     public function getTable(): string
     {
         return $this->prefixTableName('permissions');
+    }
+
+    /**
+     * Create a new Eloquent query builder for the model.
+     *
+     * @param  Builder  $query
+     */
+    public function newEloquentBuilder($query): PermissionQueryBuilder
+    {
+        return new PermissionQueryBuilder($query);
     }
 
     /**

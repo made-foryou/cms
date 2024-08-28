@@ -5,6 +5,7 @@ namespace Made\Cms\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Made\Cms\Models\Permission;
 use Made\Cms\Models\Role;
+use Made\Cms\Models\User;
 
 class CmsCoreSeeder extends Seeder
 {
@@ -20,6 +21,7 @@ class CmsCoreSeeder extends Seeder
         // Access to the panel
         $permission = Permission::query()->firstOrCreate([
             'key' => 'accessPanel',
+            'subject' => User::class,
             'name' => 'Access to the cms panel.',
             'description' => 'This permission gives you access to the cms panel. You need this permission to log into the panel.',
         ]);

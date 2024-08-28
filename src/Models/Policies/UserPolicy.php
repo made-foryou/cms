@@ -9,10 +9,11 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-    public function accessPanel(User $user): bool
+    public function accessPanel(User $user, User $subject): bool
     {
-        $permissions = $user->role->permissions()->pluck('key');
-
-        return $permissions->contains('accessPanel');
+        return $user->role->permissions()
+            ->is($subject::class, 'accessPanel')
+            ->get()
+            ->isNotEmpty();
     }
 }
