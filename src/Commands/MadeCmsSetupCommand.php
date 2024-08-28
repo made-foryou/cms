@@ -97,6 +97,5 @@ class MadeCmsSetupCommand extends Command
             'description' => __('cms.permissions.cms.access.description'),
         ]);
         $role->permissions()->attach($permission);
-
     }
 }
