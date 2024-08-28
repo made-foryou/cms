@@ -92,7 +92,7 @@ class MadeCmsSetupCommand extends Command
     {
         // Access to the panel
         $permission = Permission::query()->firstOrCreate([
-            'key' => 'cms.access',
+            'key' => 'accessPanel',
             'name' => __('cms.permissions.cms.access.name'),
             'description' => __('cms.permissions.cms.access.description'),
         ]);

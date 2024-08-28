@@ -12,9 +12,8 @@ use function Pest\Laravel\seed;
 uses(RefreshDatabase::class);
 
 test('the panel can be accessed', function () {
-    $response = get('http://cms.test-project.test');
-
-    $response->assertRedirect('http://cms.test-project.test/login');
+    get('/' . config('made-cms.panel.path'))
+        ->assertRedirect('/' . config('made-cms.panel.path') . '/login');
 });
 
 test('it can be accessed when logged in', function () {
@@ -29,6 +28,6 @@ test('it can be accessed when logged in', function () {
 
     actingAs($user, 'made');
 
-    get('http://cms.test-project.test')
+    get('/' . config('made-cms.panel.path'))
         ->assertSuccessful();
 });
