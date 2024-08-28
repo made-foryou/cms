@@ -4,7 +4,8 @@ namespace Made\Cms\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
-use Made\Cms\Models\Permission;
+use Made\Cms\Exceptions\MissingDefaultRoleException;
+use Made\Cms\Helpers\Permissions;
 use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
 
@@ -14,6 +15,22 @@ class MadeCmsSetupCommand extends Command
 
     public $description = 'Setting up and configuring the Made CMS.';
 
+    /**
+     * Executes the handle command.
+     *
+     * This method is responsible for handling the command execution logic.
+     * It configures the Made CMS, creates a default role if it doesn't already exist,
+     * prompts the user to enter the person's name, email and password,
+     * creates a new User with the provided details,
+     * associates the created User with the default Role,
+     * saves the User to the database,
+     * creates core permissions for the default Role,
+     * and returns a success code.
+     *
+     * @return int The success code indicating the command execution status.
+     *
+     * @throws MissingDefaultRoleException
+     */
     public function handle(): int
     {
         $this->info('Configuring Made CMS...');
@@ -88,15 +105,21 @@ class MadeCmsSetupCommand extends Command
         return $role;
     }
 
-    protected function createCorePermissions(Role $role): void
+    /**
+     * Creates the core permissions.
+     *
+     * This method creates the core permission 'accessPanel' for the User class.
+     * The permission is created with a predefined name and description.
+     *
+     * @throws MissingDefaultRoleException
+     */
+    protected function createCorePermissions(): void
     {
-        // Access to the panel
-        $permission = Permission::query()->firstOrCreate([
-            'key' => 'accessPanel',
-            'subject' => User::class,
-            'name' => __('made-cms::cms.permissions.accessPanel.name'),
-            'description' => __('made-cms::cms.permissions.accessPanel.description'),
-        ]);
-        $role->permissions()->attach($permission);
+        Permissions::create(
+            'accessPanel',
+            User::class,
+            __('made-cms::cms.permissions.accessPanel.name'),
+            __('made-cms::cms.permissions.accessPanel.description'),
+        );
     }
 }
