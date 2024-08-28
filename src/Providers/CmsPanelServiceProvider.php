@@ -6,10 +6,10 @@ use Exception;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Support\Enums\MaxWidth;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -17,6 +17,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Made\Cms\Filament\Resources\UserResource;
 
 class CmsPanelServiceProvider extends PanelProvider
 {
@@ -41,9 +42,10 @@ class CmsPanelServiceProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Blue,
             ])
-            ->pages([
-                Dashboard::class,
+            ->resources([
+                UserResource::class,
             ])
+            ->pages([])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -58,6 +60,7 @@ class CmsPanelServiceProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->login();
+            ->login()
+            ->maxContentWidth(MaxWidth::Full);
     }
 }
