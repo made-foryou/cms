@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Made\Cms\Models\Permission;
 use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
 
@@ -8,7 +9,7 @@ use function Pest\Laravel\assertDatabaseHas;
 
 uses(RefreshDatabase::class);
 
-test('it creates a cms user', function () {
+it('provides the basic setup for the cms.', function () {
     $name = fake()->name;
     $email = fake()->email;
 
@@ -27,6 +28,7 @@ test('it creates a cms user', function () {
         'is_default' => true,
     ]);
 
+    /** @var Role $role */
     $role = Role::query()->default()->first();
 
     assertDatabaseHas((new User)->getTable(), [

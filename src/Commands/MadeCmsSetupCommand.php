@@ -4,6 +4,7 @@ namespace Made\Cms\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
+use Made\Cms\Models\Permission;
 use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
 
@@ -35,9 +36,13 @@ class MadeCmsSetupCommand extends Command
             'password' => Hash::make($password),
         ]);
 
+        $user->role()->associate($role);
+
         $user->email_verified_at = now();
 
         $user->save();
+
+        $this->createCorePermissions($role);
 
         $this->info('The user has been created!');
 
@@ -55,7 +60,7 @@ class MadeCmsSetupCommand extends Command
     protected function defaultRole(): ?Role
     {
         return Role::query()
-            ->where('is_default', true)
+            ->default()
             ->first();
     }
 
@@ -72,6 +77,7 @@ class MadeCmsSetupCommand extends Command
     {
         $name = $this->ask('What do you want to call the default role?');
 
+        /** @var Role $role */
         $role = Role::create([
             'name' => $name ?? __('cms.role.default.name'),
             'description' => __('cms.role.default.description'),
@@ -80,5 +86,18 @@ class MadeCmsSetupCommand extends Command
         $role->makeDefault();
 
         return $role;
+    }
+
+    protected function createCorePermissions(Role $role): void
+    {
+        // Access to the panel
+        $permission = Permission::query()->firstOrCreate([
+            'key' => 'cms.access',
+            'name' => __('cms.permissions.cms.access.name'),
+            'description' => __('cms.permissions.cms.access.description'),
+        ]);
+        $role->permissions()->attach($permission);
+
+
     }
 }

@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\Builder;
 use Made\Cms\Database\Factories\RoleFactory;
 use Made\Cms\Database\HasDatabaseTablePrefix;
+use Made\Cms\QueryBuilders\RoleQueryBuilder;
 
 /**
  * ### Role
@@ -27,6 +29,7 @@ use Made\Cms\Database\HasDatabaseTablePrefix;
  * @property-read Collection<User> $users
  *
  * @method static Role create(array $attributes = [])
+ * @method static RoleQueryBuilder query()
  */
 class Role extends Model
 {
@@ -115,5 +118,16 @@ class Role extends Model
     protected static function newFactory(): RoleFactory
     {
         return RoleFactory::new();
+    }
+
+    /**
+     * Create a new Eloquent query builder for the model.
+     *
+     * @param  Builder  $query
+     * @return RoleQueryBuilder
+     */
+    public function newEloquentBuilder($query): RoleQueryBuilder
+    {
+        return new RoleQueryBuilder($query);
     }
 }

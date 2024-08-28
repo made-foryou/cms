@@ -69,7 +69,15 @@ class SubDomainTestCase extends Orchestra
         config()->set('made-cms.panel.path', '');
         config()->set('made-cms.panel.domain', 'cms.test-project.test');
 
-        $migration = include __DIR__ . '/../database/migrations/create_made_cms_users_table.php.stub';
-        $migration->up();
+        $directory = __DIR__ . '/../database/migrations/';
+        $files = scandir($directory);
+
+        foreach ($files as $file) {
+            if (str_ends_with($file, '.php.stub')) {
+                $migration = include $directory . $file;
+
+                $migration->up();
+            }
+        }
     }
 }
