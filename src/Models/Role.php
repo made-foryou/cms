@@ -124,7 +124,6 @@ class Role extends Model
      * Create a new Eloquent query builder for the model.
      *
      * @param  Builder  $query
-     * @return RoleQueryBuilder
      */
     public function newEloquentBuilder($query): RoleQueryBuilder
     {
