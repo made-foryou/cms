@@ -40,6 +40,9 @@ return [
                 'password' => 'Wachtwoord',
                 'remember_token' => 'Onthoud mij token',
             ],
+            'helpers' => [
+                'password' => 'Pas dit veld alleen aan zodra je het wachtwoord van de gebruiker wilt wijzigen.',
+            ],
         ],
     ],
 ];

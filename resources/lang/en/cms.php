@@ -38,6 +38,9 @@ return [
                 'password' => 'Password',
                 'remember_token' => 'Remember me token',
             ],
+            'helpers' => [
+                'password' => 'Adjust this field only once you want to change the user\'s password.',
+            ],
         ],
     ],
 ];

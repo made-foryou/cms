@@ -3,10 +3,12 @@
 namespace Made\Cms\Filament\Resources;
 
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
@@ -30,43 +32,58 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-m-users';
 
+    /**
+     * Configures the form structure, including field definitions and sections for user data.
+     *
+     * @param  Form  $form  An instance of the Form object to be configured.
+     * @return Form The configured Form object.
+     */
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Select::make('role_id')
-                    ->label(__('made-cms::cms.resources.user.fields.role'))
-                    ->relationship('role', 'name')
-                    ->preload()
-                    ->searchable()
-                    ->required(),
+                Section::make('Gebruiker')
+                    ->description('Gegevens van de gebruiker.')
+                    ->aside()
+                    ->schema([
 
-                TextInput::make('name')
-                    ->label(__('made-cms::cms.resources.common.name'))
-                    ->required(),
+                        Select::make('role_id')
+                            ->label(__('made-cms::cms.resources.user.fields.role'))
+                            ->relationship('role', 'name')
+                            ->preload()
+                            ->searchable()
+                            ->required(),
 
-                TextInput::make('email')
-                    ->label(__('made-cms::cms.resources.common.email'))
-                    ->required(),
+                        TextInput::make('name')
+                            ->label(__('made-cms::cms.resources.common.name'))
+                            ->required(),
 
-                DatePicker::make('email_verified_at')
-                    ->label(__('made-cms::cms.resources.user.fields.email_verified_at')),
+                        TextInput::make('email')
+                            ->label(__('made-cms::cms.resources.common.email'))
+                            ->required(),
 
-                TextInput::make('password')
-                    ->label(__('made-cms::cms.resources.user.fields.password'))
-                    ->password()
-                    ->required(fn (string $context): bool => $context === 'create'),
+                        DatePicker::make('email_verified_at')
+                            ->label(__('made-cms::cms.resources.user.fields.email_verified_at')),
 
-                Placeholder::make('created_at')
-                    ->label(__('made-cms::cms.resources.common.created_at'))
-                    ->content(fn (?User $record): string => $record?->created_at?->diffForHumans() ?? '-'),
-
-                Placeholder::make('updated_at')
-                    ->label(__('made-cms::cms.resources.common.updated_at'))
-                    ->content(fn (?User $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+                        TextInput::make('password')
+                            ->label(__('made-cms::cms.resources.user.fields.password'))
+                            ->password()
+                            ->helperText(
+                                fn (string $context): string => $context === 'edit'
+                                    ? __('made-cms::cms.resources.user.helpers.password')
+                                    : ''
+                            )
+                            ->required(fn (string $context): bool => $context === 'create'),
+                    ]),
             ]);
     }
 
+    /**
+     * Configures the table structure, including column definitions, actions, and bulk actions.
+     *
+     * @param  Table  $table  An instance of the Table object to be configured.
+     * @return Table The configured Table object.
+     */
     public static function table(Table $table): Table
     {
         return $table
@@ -126,6 +143,75 @@ class UserResource extends Resource
             ->defaultPaginationPageOption(25);
     }
 
+    /**
+     * Configures the infolist structure, including section and field definitions.
+     *
+     * @param  Infolist  $infolist  An instance of the Infolist object to be configured.
+     * @return Infolist The configured Infolist object.
+     */
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                \Filament\Infolists\Components\Section::make('Gebruiker')
+                    ->description('Gegevens van de gebruiker.')
+                    ->aside()
+                    ->columns()
+                    ->schema([
+
+                        TextEntry::make('name')
+                            ->label(__('made-cms::cms.resources.common.name')),
+
+                        TextEntry::make('email')
+                            ->label(__('made-cms::cms.resources.common.email')),
+
+                    ]),
+
+                \Filament\Infolists\Components\Section::make('Beheer')
+                    ->description('Gegevens voor het beheer van deze gebruiker.')
+                    ->aside()
+                    ->columns()
+                    ->schema([
+
+                        TextEntry::make('role.name')
+                            ->label(__('made-cms::cms.resources.user.fields.role')),
+
+                        TextEntry::make('email_verified_at')
+                            ->label(__('made-cms::cms.resources.user.fields.email_verified_at'))
+                            ->date(),
+
+                    ]),
+
+                \Filament\Infolists\Components\Section::make('Administratie')
+                    ->description('Gegevens voor de administratie.')
+                    ->aside()
+                    ->columns()
+                    ->schema([
+
+                        TextEntry::make('id')
+                            ->label('id'),
+
+                        TextEntry::make('created_at')
+                            ->label(__('made-cms::cms.resources.common.created_at'))
+                            ->date(),
+
+                        TextEntry::make('updated_at')
+                            ->label(__('made-cms::cms.resources.common.updated_at'))
+                            ->date(),
+
+                        TextEntry::make('deleted_at')
+                            ->label(__('made-cms::cms.resources.common.deleted_at'))
+                            ->date(),
+
+                    ]),
+            ]);
+    }
+
+    /**
+     * Retrieves a list of pages for user resources with their corresponding routes.
+     *
+     * @return array An associative array where the keys are page identifiers and the values are routes.
+     */
     public static function getPages(): array
     {
         return [
@@ -136,16 +222,44 @@ class UserResource extends Resource
         ];
     }
 
+    /**
+     * Retrieves the global search Eloquent query with the associated role relation.
+     *
+     * This method extends the default global search query by including the 'role'
+     * relationship for more comprehensive search results.
+     *
+     * @return Builder The modified Eloquent query builder instance.
+     */
     public static function getGlobalSearchEloquentQuery(): Builder
     {
         return parent::getGlobalSearchEloquentQuery()->with(['role']);
     }
 
+    /**
+     * Retrieves the globally searchable attributes.
+     *
+     * This method returns an array of attribute names that are considered
+     * globally searchable. These attributes typically include fields that
+     * are commonly used in search operations across different parts of the
+     * application.
+     *
+     * @return array An array of attribute names that are globally searchable.
+     */
     public static function getGloballySearchableAttributes(): array
     {
         return ['name', 'email', 'role.name'];
     }
 
+    /**
+     * Retrieves the global search result details for a given record.
+     *
+     * This method returns an array containing specific details of the provided record,
+     * such as the role name if the record has an associated role.
+     *
+     * @param  Model  $record  The record from which details are to be fetched.
+     * @return array An associative array containing the details of the record.
+     *               E.g., ['Role' => 'Admin'] if the record has a role.
+     */
     public static function getGlobalSearchResultDetails(Model $record): array
     {
         $details = [];
