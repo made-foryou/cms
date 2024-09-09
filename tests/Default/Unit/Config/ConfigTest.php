@@ -7,6 +7,11 @@ describe('Panel configuration', function () {
         expect(config('made-cms.panel.path'))
             ->toBe('made');
     });
+
+    test('it has a panel resources setting', function () {
+        expect(config('made-cms.panel.resources.user.group'))
+            ->toBeNull();
+    });
 });
 
 describe('Database configuration', function () {

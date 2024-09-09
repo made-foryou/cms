@@ -31,6 +31,27 @@ return [
          */
         'domain' => env('MADE_CMS_PANEL_DOMAIN'),
 
+        /**
+         * ### Resources
+         */
+        'resources' => [
+
+            'user' => [
+
+                /**
+                 * #### User resource navigation group
+                 *
+                 * You can change the user resource navigation group with
+                 * this configuration setting.
+                 *
+                 * @var string
+                 */
+                'group' => null,
+
+            ],
+
+        ],
+
     ],
 
     /**
