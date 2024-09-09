@@ -18,6 +18,7 @@ return [
 
     'groups' => [
         'user' => 'Gebruikersbeheer',
+        'administration' => 'Administratie',
     ],
 
     'resources' => [
@@ -42,6 +43,16 @@ return [
             ],
             'helpers' => [
                 'password' => 'Pas dit veld alleen aan zodra je het wachtwoord van de gebruiker wilt wijzigen.',
+            ],
+            'sections' => [
+                'user' => [
+                    'label' => 'Gebruiker',
+                    'description' => 'Gegevens van de gebruiker.',
+                ],
+                'management' => [
+                    'label' => 'Beheer',
+                    'description' => 'Gegevens voor het beheer van deze gebruiker.',
+                ],
             ],
         ],
     ],

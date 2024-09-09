@@ -17,10 +17,12 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Made\Cms\Filament\Resources;
+use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
 use Made\Cms\Providers\CmsPanelServiceProvider;
 
@@ -42,8 +44,8 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('Gebruiker')
-                    ->description('Gegevens van de gebruiker.')
+                Section::make(__('made-cms::cms.resources.user.sections.user.label'))
+                    ->description(__('made-cms::cms.resources.user.sections.user.description'))
                     ->aside()
                     ->schema([
 
@@ -125,6 +127,15 @@ class UserResource extends Resource
                     ->sortable()
                     ->visibleFrom('xl'),
             ])
+            ->filters([
+                SelectFilter::make('role_id')
+                    ->label(__('made-cms::cms.resources.user.fields.role'))
+                    ->options(
+                        Role::all()->mapWithKeys(
+                            fn (Role $role) => [$role->id => $role->name]
+                        )
+                    ),
+            ])
             ->actions([
                 ViewAction::make()
                     ->iconButton(),
@@ -153,8 +164,10 @@ class UserResource extends Resource
     {
         return $infolist
             ->schema([
-                \Filament\Infolists\Components\Section::make('Gebruiker')
-                    ->description('Gegevens van de gebruiker.')
+                \Filament\Infolists\Components\Section::make(
+                    __('made-cms::cms.resources.user.sections.user.label')
+                )
+                    ->description(__('made-cms::cms.resources.user.sections.user.description'))
                     ->aside()
                     ->columns()
                     ->schema([
@@ -165,31 +178,24 @@ class UserResource extends Resource
                         TextEntry::make('email')
                             ->label(__('made-cms::cms.resources.common.email')),
 
-                    ]),
-
-                \Filament\Infolists\Components\Section::make('Beheer')
-                    ->description('Gegevens voor het beheer van deze gebruiker.')
-                    ->aside()
-                    ->columns()
-                    ->schema([
-
-                        TextEntry::make('role.name')
-                            ->label(__('made-cms::cms.resources.user.fields.role')),
-
                         TextEntry::make('email_verified_at')
                             ->label(__('made-cms::cms.resources.user.fields.email_verified_at'))
-                            ->date(),
+                            ->date()
+                            ->columns(),
 
                     ]),
 
-                \Filament\Infolists\Components\Section::make('Administratie')
-                    ->description('Gegevens voor de administratie.')
+                \Filament\Infolists\Components\Section::make(__('made-cms::cms.resources.user.sections.management.label'))
+                    ->description(__('made-cms::cms.resources.user.sections.management.description'))
                     ->aside()
                     ->columns()
                     ->schema([
 
                         TextEntry::make('id')
                             ->label('id'),
+
+                        TextEntry::make('role.name')
+                            ->label(__('made-cms::cms.resources.user.fields.role')),
 
                         TextEntry::make('created_at')
                             ->label(__('made-cms::cms.resources.common.created_at'))
@@ -201,7 +207,8 @@ class UserResource extends Resource
 
                         TextEntry::make('deleted_at')
                             ->label(__('made-cms::cms.resources.common.deleted_at'))
-                            ->date(),
+                            ->date()
+                            ->hidden(fn (User $user) => $user->deleted_at === null),
 
                     ]),
             ]);
@@ -281,7 +288,8 @@ class UserResource extends Resource
      */
     public static function getNavigationGroup(): ?string
     {
-        return __('made-cms::cms.groups.user');
+        return config('made-cms.panel.resources.user.group')
+            ?? __('made-cms::cms.groups.administration');
     }
 
     /**

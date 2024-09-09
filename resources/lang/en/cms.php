@@ -18,6 +18,7 @@ return [
 
     'groups' => [
         'user' => 'User Management',
+        'administration' => 'Administration',
     ],
 
     'resources' => [
@@ -40,6 +41,16 @@ return [
             ],
             'helpers' => [
                 'password' => 'Adjust this field only once you want to change the user\'s password.',
+            ],
+            'sections' => [
+                'user' => [
+                    'label' => 'User',
+                    'description' => 'User details.',
+                ],
+                'management' => [
+                    'label' => 'Management',
+                    'description' => 'Data for managing this user.',
+                ],
             ],
         ],
     ],
