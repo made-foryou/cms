@@ -6,6 +6,7 @@ use Exception;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -17,7 +18,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Made\Cms\Filament\Resources\UserResource;
+use Made\Cms\Filament\Clusters\Administration\Resources\UserResource;
 
 class CmsPanelServiceProvider extends PanelProvider
 {
@@ -43,9 +44,12 @@ class CmsPanelServiceProvider extends PanelProvider
                 'primary' => Color::Blue,
             ])
             ->resources([
-                UserResource::class,
+                //                UserResource::class,
             ])
-            ->pages([])
+            ->discoverClusters(in: __DIR__ . '/../Filament/Clusters', for: 'Made\\Cms\\Filament\\Clusters')
+            ->pages([
+                Dashboard::class,
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

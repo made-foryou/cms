@@ -1,10 +1,10 @@
 <?php
 
-namespace Made\Cms\Filament\Resources\UserResource\Pages;
+namespace Made\Cms\Filament\Clusters\Administration\Resources\UserResource\Pages;
 
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
-use Made\Cms\Filament\Resources\UserResource;
+use Made\Cms\Filament\Clusters\Administration\Resources\UserResource;
 
 class ListUsers extends ListRecords
 {
