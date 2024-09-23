@@ -8,7 +8,9 @@ class Administration extends Cluster
 {
     protected static ?string $navigationIcon = 'heroicon-s-users';
 
-    protected static ?string $navigationLabel = 'Gebruikers & Rechten';
+    protected static ?string $navigationLabel = 'Gebruikersbeheer';
 
-    protected static ?string $navigationGroup = 'Administration';
+    protected static ?string $navigationGroup = 'Administratie';
+
+    protected static ?string $clusterBreadcrumb = 'Administratie';
 }
