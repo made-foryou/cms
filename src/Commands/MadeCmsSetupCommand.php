@@ -37,10 +37,6 @@ class MadeCmsSetupCommand extends Command
 
         $role = $this->defaultRole();
 
-        if (! $role) {
-            $role = $this->createDefaultRole();
-        }
-
         $name = $this->ask('What is the persons name?');
 
         $email = $this->ask('What is the persons mail address?');
@@ -58,8 +54,6 @@ class MadeCmsSetupCommand extends Command
         $user->email_verified_at = now();
 
         $user->save();
-
-        $this->createCorePermissions($role);
 
         $this->info('The user has been created!');
 
@@ -79,47 +73,5 @@ class MadeCmsSetupCommand extends Command
         return Role::query()
             ->default()
             ->first();
-    }
-
-    /**
-     * Creates the default Role.
-     *
-     * This method prompts the user to enter a name for the default Role.
-     * It then creates a Role with the provided name and predefined description.
-     * The created Role is set as the default Role.
-     *
-     * @return Role The created default Role.
-     */
-    protected function createDefaultRole(): Role
-    {
-        $name = $this->ask('What do you want to call the default role?');
-
-        /** @var Role $role */
-        $role = Role::create([
-            'name' => $name ?? __('made-cms::cms.role.default.name'),
-            'description' => __('made-cms::cms.role.default.description'),
-        ]);
-
-        $role->makeDefault();
-
-        return $role;
-    }
-
-    /**
-     * Creates the core permissions.
-     *
-     * This method creates the core permission 'accessPanel' for the User class.
-     * The permission is created with a predefined name and description.
-     *
-     * @throws MissingDefaultRoleException
-     */
-    protected function createCorePermissions(): void
-    {
-        Permissions::create(
-            'accessPanel',
-            User::class,
-            __('made-cms::cms.permissions.accessPanel.name'),
-            __('made-cms::cms.permissions.accessPanel.description'),
-        );
     }
 }
