@@ -28,6 +28,6 @@ test('it can be accessed when logged in', function () {
 
     actingAs($user, 'made');
 
-    $response = get('/' . config('made-cms.panel.path'))
-        ->assertRedirect('/' . config('made-cms.panel.path') . '/users');
+    get('/' . config('made-cms.panel.path'))
+        ->assertSuccessful();
 });

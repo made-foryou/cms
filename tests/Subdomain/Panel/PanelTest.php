@@ -30,5 +30,5 @@ test('it can be accessed when logged in', function () {
     actingAs($user, 'made');
 
     get('http://cms.test-project.test')
-        ->assertRedirect('http://cms.test-project.test/users');
+        ->assertSuccessful();
 });
