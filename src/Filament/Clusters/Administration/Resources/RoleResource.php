@@ -2,21 +2,12 @@
 
 namespace Made\Cms\Filament\Clusters\Administration\Resources;
 
-use Filament\Forms\Components\Checkbox;
-use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
+use Filament\Forms;
 use Filament\Resources\Resource;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+use Filament\Tables;
 use Made\Cms\Filament\Clusters\Administration;
 use Made\Cms\Filament\Clusters\Administration\Resources\RoleResource\Pages;
+use Made\Cms\Filament\Clusters\Administration\Resources\RoleResource\RelationManagers;
 use Made\Cms\Models\Role;
 
 class RoleResource extends Resource
@@ -33,46 +24,46 @@ class RoleResource extends Resource
 
     protected static ?string $breadcrumb = 'Rollen';
 
-    public static function form(Form $form): Form
+    public static function form(Forms\Form $form): Forms\Form
     {
         return $form
             ->schema([
-                Section::make(__('made-cms::roles.sections.main.heading'))
+                Forms\Components\Section::make(__('made-cms::roles.sections.main.heading'))
                     ->description(__('made-cms::roles.sections.main.description'))
                     ->aside()
                     ->schema([
-                        TextInput::make('name')
+                        Forms\Components\TextInput::make('name')
                             ->label(__('made-cms::roles.fields.name.label'))
                             ->required(),
 
-                        Textarea::make('description')
+                        Forms\Components\Textarea::make('description')
                             ->label(__('made-cms::roles.fields.description.label'))
                             ->helperText(__('made-cms::roles.fields.description.helperText')),
 
-                        Checkbox::make('is_default')
+                        Forms\Components\Checkbox::make('is_default')
                             ->label(__('made-cms::roles.fields.is_default.label'))
                             ->helperText(__('made-cms::roles.fields.is_default.helperText')),
 
-                        Placeholder::make('created_at')
+                        Forms\Components\Placeholder::make('created_at')
                             ->label(__('made-cms::roles.fields.created_at.label'))
                             ->content(fn (?Role $record): string => $record?->created_at?->diffForHumans() ?? '-'),
                     ]),
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(Tables\Table $table): Tables\Table
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                Tables\Columns\TextColumn::make('name')
                     ->label(__('made-cms::roles.fields.name.label'))
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('description')
+                Tables\Columns\TextColumn::make('description')
                     ->label(__('made-cms::roles.fields.description.label')),
 
-                TextColumn::make('is_default')
+                Tables\Columns\TextColumn::make('is_default')
                     ->tooltip(__('made-cms::roles.fields.is_default.helperText'))
                     ->label(__('made-cms::roles.fields.is_default.label'))
                     ->badge()
@@ -83,12 +74,12 @@ class RoleResource extends Resource
                 //
             ])
             ->actions([
-                EditAction::make(),
-                DeleteAction::make(),
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -99,6 +90,13 @@ class RoleResource extends Resource
             'index' => Pages\ListRoles::route('/'),
             'create' => Pages\CreateRole::route('/create'),
             'edit' => Pages\EditRole::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            RelationManagers\PermissionsRelationManager::class,
         ];
     }
 
