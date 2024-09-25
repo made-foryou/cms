@@ -5,9 +5,11 @@ namespace Made\Cms\Filament\Clusters\Administration\Resources;
 use Filament\Forms;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Made\Cms\Filament\Clusters\Administration;
 use Made\Cms\Filament\Clusters\Administration\Resources\RoleResource\Pages;
-use Made\Cms\Filament\Clusters\Administration\Resources\RoleResource\RelationManagers;
+use Made\Cms\Models\Permission;
 use Made\Cms\Models\Role;
 
 class RoleResource extends Resource
@@ -48,7 +50,39 @@ class RoleResource extends Resource
                             ->label(__('made-cms::roles.fields.created_at.label'))
                             ->content(fn (?Role $record): string => $record?->created_at?->diffForHumans() ?? '-'),
                     ]),
+
+                Forms\Components\Section::make(__('made-cms::roles.sections.permissions.label'))
+                    ->description(__('made-cms::roles.sections.permissions.description'))
+                    ->aside()
+                    ->columns([
+                        'default' => 1,
+                        'lg' => 2,
+                    ])
+                    ->schema(self::getPermissionSections()),
             ]);
+    }
+
+    protected static function getPermissionSections(): array
+    {
+        $sections = collect();
+
+        $permissions = Permission::all()->groupBy('subject');
+
+        $permissions->each(fn (Collection $collection) => $sections->push(
+            Forms\Components\Section::make(__('made-cms::class_names.' . $collection->first()->subject . '.title'))
+                ->description(__('made-cms::class_names.' . $collection->first()->subject . '.description'))
+                ->schema([
+                    Forms\Components\CheckboxList::make('permissions')
+                        ->relationship('permissions', 'name', fn (Builder $query) => $query->where('subject', $collection->first()->subject))
+                        ->descriptions($collection->mapWithKeys(
+                            fn (Permission $permission) => [$permission->id => $permission->description],
+                        )->toArray()),
+                ])
+                ->columnSpan(1)
+                ->collapsible(),
+        ));
+
+        return $sections->toArray();
     }
 
     public static function table(Tables\Table $table): Tables\Table
@@ -96,7 +130,7 @@ class RoleResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\PermissionsRelationManager::class,
+            //            RelationManagers\PermissionsRelationManager::class,
         ];
     }
 

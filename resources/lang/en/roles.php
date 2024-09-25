@@ -6,6 +6,10 @@ return [
             'heading' => 'Rol',
             'description' => 'Algemene gegevens van de rol.',
         ],
+        'permissions' => [
+            'label' => 'Permissions',
+            'description' => 'Select the permissions you want to give to this role.',
+        ],
     ],
     'fields' => [
         'name' => [

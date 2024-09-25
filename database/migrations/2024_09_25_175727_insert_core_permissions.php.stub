@@ -1,0 +1,31 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        // Creating the default role.
+        $role = \Made\Cms\Models\Role::create([
+            'name' => config('made-cms.setup.super_role.name'),
+            'description' => config('made-cms.setup.super_role.description'),
+        ]);
+        $role->makeDefault();
+
+        // Creating the user permissions
+        \Made\Cms\Helpers\Permissions::create(
+            key: 'user.access_panel',
+            subject: \Made\Cms\Models\User::class,
+            name: 'CMS Access',
+            description: 'Provides access to the CMS.',
+        );
+
+        \Made\Cms\Helpers\Permissions::create(
+            key: 'user.view_any',
+            subject: \Made\Cms\Models\User::class,
+            name: 'View Any',
+            description: 'Can list the users of the cms panel.',
+        );
+    }
+};
