@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Features\SupportTesting\Testable;
 use Made\Cms\Commands\MadeCmsSetupCommand;
+use Made\Cms\Models\Policies\RolePolicy;
 use Made\Cms\Models\Policies\UserPolicy;
+use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
 use Made\Cms\Testing\TestsCms;
 use ReflectionException;
@@ -99,6 +101,7 @@ class CmsServiceProvider extends PackageServiceProvider
 
         // Registering policies
         Gate::policy(User::class, UserPolicy::class);
+        Gate::policy(Role::class, RolePolicy::class);
 
         // Asset Registration
         FilamentAsset::register(

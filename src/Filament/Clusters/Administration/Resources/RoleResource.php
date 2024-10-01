@@ -68,18 +68,27 @@ class RoleResource extends Resource
 
         $permissions = Permission::all()->groupBy('subject');
 
-        $permissions->each(fn (Collection $collection) => $sections->push(
-            Forms\Components\Section::make(__('made-cms::class_names.' . $collection->first()->subject . '.title'))
-                ->description(__('made-cms::class_names.' . $collection->first()->subject . '.description'))
+        $permissions->each(fn (Collection $collection, string $key) => $sections->push(
+            Forms\Components\Section::make(__('made-cms::class_names.' . $key . '.title'))
+                ->description(__('made-cms::class_names.' . $key . '.description'))
                 ->schema([
                     Forms\Components\CheckboxList::make('permissions')
-                        ->relationship('permissions', 'name', fn (Builder $query) => $query->where('subject', $collection->first()->subject))
-                        ->descriptions($collection->mapWithKeys(
-                            fn (Permission $permission) => [$permission->id => $permission->description],
-                        )->toArray()),
+                        ->relationship(
+                            name: 'permissions',
+                            titleAttribute: 'name',
+                            modifyQueryUsing: fn (Builder $query) => $query->where('subject', $key)
+                        )
+                        ->descriptions(
+                            descriptions: $collection->mapWithKeys(
+                                fn (Permission $permission) => [$permission->id => $permission->description],
+                            )->toArray()
+                        )
+                        ->disabled(fn (?Role $record): bool => $record?->is_default ?? false)
+                        ->bulkToggleable(),
                 ])
                 ->columnSpan(1)
-                ->collapsible(),
+                ->collapsible()
+                ->collapsed(fn (?Role $record): bool => $record?->is_default ?? false),
         ));
 
         return $sections->toArray();

@@ -24,8 +24,100 @@ return new class extends Migration
         \Made\Cms\Helpers\Permissions::create(
             key: 'user.view_any',
             subject: \Made\Cms\Models\User::class,
-            name: 'View Any',
+            name: 'View all users',
             description: 'Can list the users of the cms panel.',
+        );
+
+        \Made\Cms\Helpers\Permissions::create(
+            key: 'user.view',
+            subject: \Made\Cms\Models\User::class,
+            name: 'View a user',
+            description: 'Can view a single user.',
+        );
+
+        \Made\Cms\Helpers\Permissions::create(
+            key: 'user.create',
+            subject: \Made\Cms\Models\User::class,
+            name: 'Create a user',
+            description: 'Can create a new user.',
+        );
+
+        \Made\Cms\Helpers\Permissions::create(
+            key: 'user.update',
+            subject: \Made\Cms\Models\User::class,
+            name: 'Update a user',
+            description: 'Can update a user.',
+        );
+
+        \Made\Cms\Helpers\Permissions::create(
+            key: 'user.delete',
+            subject: \Made\Cms\Models\User::class,
+            name: 'Delete a user',
+            description: 'Can delete a user.',
+        );
+
+        \Made\Cms\Helpers\Permissions::create(
+            key: 'user.restore',
+            subject: \Made\Cms\Models\User::class,
+            name: 'Restore a user',
+            description: 'Can restore a user.',
+        );
+
+        \Made\Cms\Helpers\Permissions::create(
+            key: 'user.force_delete',
+            subject: \Made\Cms\Models\User::class,
+            name: 'Force delete a user',
+            description: 'Can force delete a user.',
+        );
+
+        // Roles
+        \Made\Cms\Helpers\Permissions::create(
+            key: 'role.view_any',
+            subject: \Made\Cms\Models\Role::class,
+            name: 'View all roles',
+            description: 'Can list the roles of the cms panel.',
+        );
+
+        \Made\Cms\Helpers\Permissions::create(
+            key: 'role.view',
+            subject: \Made\Cms\Models\Role::class,
+            name: 'View a role',
+            description: 'Can view a single role.',
+        );
+
+        \Made\Cms\Helpers\Permissions::create(
+            key: 'role.create',
+            subject: \Made\Cms\Models\Role::class,
+            name: 'Create a role',
+            description: 'Can create a new role.',
+        );
+
+        \Made\Cms\Helpers\Permissions::create(
+            key: 'role.update',
+            subject: \Made\Cms\Models\Role::class,
+            name: 'Update a role',
+            description: 'Can update a role.',
+        );
+
+        \Made\Cms\Helpers\Permissions::create(
+            key: 'role.delete',
+            subject: \Made\Cms\Models\Role::class,
+            name: 'Delete a role',
+            description: 'Can delete a role.',
+        );
+
+        \Made\Cms\Helpers\Permissions::create(
+            key: 'role.restore',
+            subject: \Made\Cms\Models\Role::class,
+            name: 'Restore a role',
+            description: 'Can restore a role.',
+        );
+
+        \Made\Cms\Helpers\Permissions::create(
+            key: 'role.force_delete',
+            subject: \Made\Cms\Models\Role::class,
+            name: 'Force delete a role',
+            description: 'Can force delete a role.',
         );
     }
 };

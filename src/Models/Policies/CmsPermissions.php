@@ -19,8 +19,6 @@ trait CmsPermissions
         string $permission,
         ?string $subject = null
     ): bool {
-        dump($permission);
-
         return $user->role->permissions()
             ->is(($subject === null ? $user::class : $subject), $permission)
             ->get()

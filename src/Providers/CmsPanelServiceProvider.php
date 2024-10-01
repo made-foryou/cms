@@ -18,7 +18,6 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Made\Cms\Filament\Clusters\Administration\Resources\UserResource;
 
 class CmsPanelServiceProvider extends PanelProvider
 {
@@ -43,12 +42,10 @@ class CmsPanelServiceProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Blue,
             ])
-            ->resources([
-                //                UserResource::class,
-            ])
+            ->resources([])
             ->discoverClusters(in: __DIR__ . '/../Filament/Clusters', for: 'Made\\Cms\\Filament\\Clusters')
             ->pages([
-                Dashboard::class,
+                //                Dashboard::class,
             ])
             ->middleware([
                 EncryptCookies::class,
