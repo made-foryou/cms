@@ -21,6 +21,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 use Made\Cms\Filament\Clusters\Administration;
 use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
@@ -77,6 +78,9 @@ class UserResource extends Resource
                                     ? __('made-cms::cms.resources.user.helpers.password')
                                     : ''
                             )
+                            ->required(fn (string $context): bool => $context === 'create')
+                            ->dehydrateStateUsing(fn ($state): string => Hash::make($state))
+                            ->dehydrated(fn ($state): bool => filled($state))
                             ->required(fn (string $context): bool => $context === 'create'),
                     ]),
             ]);
