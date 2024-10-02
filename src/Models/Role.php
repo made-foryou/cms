@@ -27,6 +27,8 @@ use Made\Cms\QueryBuilders\RoleQueryBuilder;
  * @property-read Carbon|null $deleted_at
  * @property-read Collection<Permission> $permissions
  * @property-read Collection<User> $users
+ * @property-read Collection<Permission> $userPermissions
+ * @property-read Collection<Permission> $rolePermissions
  *
  * @method static Role create(array $attributes = [])
  * @method static RoleQueryBuilder query()
@@ -88,6 +90,32 @@ class Role extends Model
             related: Permission::class,
             table: $this->prefixTableName('permission_role')
         );
+    }
+
+    /**
+     * Retrieve the permissions associated with the user.
+     *
+     * This method returns the permissions that are specifically assigned
+     * to the given user, filtered by the subject type `User::class`.
+     *
+     * @return BelongsToMany The set of permissions for the user.
+     */
+    public function userPermissions(): BelongsToMany
+    {
+        return $this->permissions()->where('subject', User::class);
+    }
+
+    /**
+     * Retrieve the permissions associated with the roles.
+     *
+     * This method returns the permissions that are specifically assigned
+     * to the given user, filtered by the subject type `Role::class`.
+     *
+     * @return BelongsToMany The set of permissions for the user.
+     */
+    public function rolePermissions(): BelongsToMany
+    {
+        return $this->permissions()->where('subject', Role::class);
     }
 
     /**

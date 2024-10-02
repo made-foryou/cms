@@ -68,28 +68,34 @@ class RoleResource extends Resource
 
         $permissions = Permission::all()->groupBy('subject');
 
-        $permissions->each(fn (Collection $collection, string $key) => $sections->push(
-            Forms\Components\Section::make(__('made-cms::class_names.' . $key . '.title'))
-                ->description(__('made-cms::class_names.' . $key . '.description'))
-                ->schema([
-                    Forms\Components\CheckboxList::make('permissions')
-                        ->relationship(
-                            name: 'permissions',
-                            titleAttribute: 'name',
-                            modifyQueryUsing: fn (Builder $query) => $query->where('subject', $key)
-                        )
-                        ->descriptions(
-                            descriptions: $collection->mapWithKeys(
-                                fn (Permission $permission) => [$permission->id => $permission->description],
-                            )->toArray()
-                        )
-                        ->disabled(fn (?Role $record): bool => $record?->is_default ?? false)
-                        ->bulkToggleable(),
-                ])
-                ->columnSpan(1)
-                ->collapsible()
-                ->collapsed(fn (?Role $record): bool => $record?->is_default ?? false),
-        ));
+        $permissions->each(function (Collection $collection, string $key) use (&$sections) {
+
+            $relation = explode('.', $collection->first()->key)[0];
+
+            $sections->push(
+                Forms\Components\Section::make(__('made-cms::class_names.' . $key . '.title'))
+                    ->description(__('made-cms::class_names.' . $key . '.description'))
+                    ->schema([
+                        Forms\Components\CheckboxList::make($relation . 'Permissions')
+                            ->relationship(
+                                name: 'permissions',
+                                titleAttribute: 'name',
+                                modifyQueryUsing: fn (Builder $query) => $query->where('subject', $key)
+                            )
+                            ->descriptions(
+                                descriptions: $collection->mapWithKeys(
+                                    fn (Permission $permission) => [$permission->id => $permission->description],
+                                )->toArray()
+                            )
+                            ->meta('key', $key)
+                            ->disabled(fn (?Role $record): bool => $record?->is_default ?? false)
+                            ->bulkToggleable(),
+                    ])
+                    ->columnSpan(1)
+                    ->collapsible()
+                    ->collapsed(fn (?Role $record): bool => $record?->is_default ?? false),
+            );
+        });
 
         return $sections->toArray();
     }
