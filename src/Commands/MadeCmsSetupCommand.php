@@ -3,8 +3,9 @@
 namespace Made\Cms\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
-use Made\Cms\Exceptions\MissingDefaultRoleException;
+use Made\Cms\Database\Seeders\CmsCoreSeeder;
 use Made\Cms\Helpers\Permissions;
 use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
@@ -28,14 +29,21 @@ class MadeCmsSetupCommand extends Command
      * and returns a success code.
      *
      * @return int The success code indicating the command execution status.
-     *
-     * @throws MissingDefaultRoleException
      */
     public function handle(): int
     {
         $this->info('Configuring Made CMS...');
 
         $role = $this->defaultRole();
+
+        if (empty($role)) {
+            Artisan::call('db:seed', [
+                '--class' => CmsCoreSeeder::class,
+                '--force' => true,
+            ]);
+
+            $role = $this->defaultRole();
+        }
 
         $name = $this->ask('What is the persons name?');
 
