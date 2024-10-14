@@ -1,0 +1,47 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Made\Cms\Pages\Enums\Status;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create(
+            table: config('made-cms.database.table_prefix') . 'pages',
+            callback: function (Blueprint $table) {
+                $table->id();
+
+                $table->string('name');
+                $table->string('slug');
+
+                $table->string('status')
+                    ->default(
+                        Status::Draft->value
+                    );
+
+                $table->text('content')
+                    ->default('{}');
+
+                /**
+                 * Filled as soon as the model is saved. This tracks who
+                 * modified/created this part.
+                 */
+                $table->foreignId('author')
+                    ->references('id')
+                    ->on(config('made-cms.database.table_prefix') . 'users')
+                    ->restrictOnDelete();
+
+                $table->timestamps();
+                $table->softDeletes();
+            }
+        );
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists(config('made-cms.database.table_prefix') . 'pages');
+    }
+};
