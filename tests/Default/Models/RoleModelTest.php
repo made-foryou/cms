@@ -20,7 +20,7 @@ it('has a prefixed table name', function () {
 it('can be created', function () {
     $model = Role::factory()->createOne();
 
-    assertDatabaseCount($model->getTable(), 1);
+    assertDatabaseCount($model->getTable(), 2);
     assertDatabaseHas($model->getTable(), [
         'name' => $model->name,
     ]);

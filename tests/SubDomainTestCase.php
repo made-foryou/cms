@@ -64,8 +64,6 @@ class SubDomainTestCase extends Orchestra
      */
     public function getEnvironmentSetUp($app): void
     {
-        config()->set('database.default', 'sqlite');
-        config()->set('database.connections.sqlite.database', ':memory:');
         config()->set('made-cms.panel.path', '');
         config()->set('made-cms.panel.domain', 'cms.test-project.test');
 

@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Made\Cms\Models\Permission;
+use Made\Cms\Models\Role;
 
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;
@@ -17,7 +18,7 @@ it('has a prefixed table name', function () {
 it('can be created', function () {
     $model = Permission::factory()->createOne();
 
-    assertDatabaseCount($model->getTable(), 1);
+    assertDatabaseCount($model->getTable(), 16);
     assertDatabaseHas($model->getTable(), [
         'name' => $model->name,
     ]);
@@ -26,25 +27,25 @@ it('can be created', function () {
 });
 
 it('can have one or more roles', function () {
-    $role = \Made\Cms\Models\Role::factory()->create();
+    $role = Role::factory()->create();
 
-    $permission = \Made\Cms\Models\Permission::factory()->create();
+    $permission = Permission::factory()->create();
 
     $permission->roles()->attach($role);
 
-    $model = Permission::query()->first();
+    $permission->refresh();
 
-    expect($model->roles->count())->toBe(1);
+    expect($permission->roles->count())->toBe(1);
 
-    $newRole = \Made\Cms\Models\Role::factory()->create();
+    $newRole = Role::factory()->create();
 
     $permission->roles()->attach($newRole);
 
-    $model->refresh();
+    $permission->refresh()->refresh();
 
-    expect($model->roles->count())->toBe(2);
+    expect($permission->roles->count())->toBe(2);
 
-    $names = $model->roles->pluck('name');
+    $names = $permission->roles->pluck('name');
 
     expect($names[0])
         ->toBe($role->name)

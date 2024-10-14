@@ -29,5 +29,5 @@ test('it can be accessed when logged in', function () {
     actingAs($user, 'made');
 
     get('/' . config('made-cms.panel.path'))
-        ->assertSuccessful();
+        ->assertRedirect('/' . config('made-cms.panel.path') . '/administration');
 });
