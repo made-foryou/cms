@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Application;
 use Livewire\LivewireServiceProvider;
 use Made\Cms\CmsServiceProvider;
+use Made\Cms\Database\Seeders\CmsCoreSeeder;
 use Made\Cms\Providers\CmsPanelServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
@@ -29,6 +30,8 @@ class TestCase extends Orchestra
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'Made\\Cms\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
+
+        $this->seed(CmsCoreSeeder::class);
     }
 
     /**
@@ -64,9 +67,6 @@ class TestCase extends Orchestra
      */
     public function getEnvironmentSetUp($app): void
     {
-        config()->set('database.default', 'sqlite');
-        config()->set('database.connections.sqlite.database', ':memory:');
-
         $directory = __DIR__ . '/../database/migrations/';
         $files = scandir($directory);
 

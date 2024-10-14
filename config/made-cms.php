@@ -3,6 +3,13 @@
 // config for Made/Cms
 return [
 
+    'setup' => [
+        'super_role' => [
+            'name' => 'Administrator',
+            'description' => 'Main role of the Made CMS. This is the default role which gets access to all permissions.',
+        ],
+    ],
+
     /**
      * ### Panel
      */
@@ -30,27 +37,6 @@ return [
          * @var null|string|string[]
          */
         'domain' => env('MADE_CMS_PANEL_DOMAIN'),
-
-        /**
-         * ### Resources
-         */
-        'resources' => [
-
-            'user' => [
-
-                /**
-                 * #### User resource navigation group
-                 *
-                 * You can change the user resource navigation group with
-                 * this configuration setting.
-                 *
-                 * @var string
-                 */
-                'group' => null,
-
-            ],
-
-        ],
 
     ],
 

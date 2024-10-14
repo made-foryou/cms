@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Features\SupportTesting\Testable;
 use Made\Cms\Commands\MadeCmsSetupCommand;
+use Made\Cms\Models\Policies\RolePolicy;
 use Made\Cms\Models\Policies\UserPolicy;
+use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
 use Made\Cms\Testing\TestsCms;
 use ReflectionException;
@@ -99,6 +101,7 @@ class CmsServiceProvider extends PackageServiceProvider
 
         // Registering policies
         Gate::policy(User::class, UserPolicy::class);
+        Gate::policy(Role::class, RolePolicy::class);
 
         // Asset Registration
         FilamentAsset::register(
@@ -206,8 +209,9 @@ class CmsServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            '1724332495_create_made_cms_users_table',
-            '1724332505_create_made_cms_roles',
+            '2024_09_25_175617_create_made_cms_users_table',
+            '2024_09_25_175647_create_made_cms_roles_tables',
+            '2024_09_25_175727_insert_core_permissions',
         ];
     }
 }

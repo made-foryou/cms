@@ -12,6 +12,8 @@ use function Pest\Laravel\seed;
 uses(RefreshDatabase::class);
 
 it('cannot create permissions while missing a default role', function () {
+    \Made\Cms\Models\Role::query()->truncate();
+
     Permissions::create(
         fake()->word(),
         fake()->word(),

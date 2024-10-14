@@ -1,6 +1,6 @@
 <?php
 
-namespace Made\Cms\Filament\Resources;
+namespace Made\Cms\Filament\Clusters\Administration\Resources;
 
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
@@ -21,7 +21,8 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Made\Cms\Filament\Resources;
+use Illuminate\Support\Facades\Hash;
+use Made\Cms\Filament\Clusters\Administration;
 use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
 use Made\Cms\Providers\CmsPanelServiceProvider;
@@ -32,7 +33,9 @@ class UserResource extends Resource
 
     protected static ?string $slug = 'users';
 
-    protected static ?string $navigationIcon = 'heroicon-m-users';
+    protected static ?string $navigationIcon = 'heroicon-m-user';
+
+    protected static ?string $cluster = Administration::class;
 
     /**
      * Configures the form structure, including field definitions and sections for user data.
@@ -75,6 +78,9 @@ class UserResource extends Resource
                                     ? __('made-cms::cms.resources.user.helpers.password')
                                     : ''
                             )
+                            ->required(fn (string $context): bool => $context === 'create')
+                            ->dehydrateStateUsing(fn ($state): string => Hash::make($state))
+                            ->dehydrated(fn ($state): bool => filled($state))
                             ->required(fn (string $context): bool => $context === 'create'),
                     ]),
             ]);
@@ -222,10 +228,10 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Resources\UserResource\Pages\ListUsers::route('/'),
-            'create' => Resources\UserResource\Pages\CreateUser::route('/create'),
-            'view' => Resources\UserResource\Pages\ViewUser::route('/{record}'),
-            'edit' => Resources\UserResource\Pages\EditUser::route('/{record}/edit'),
+            'index' => \Made\Cms\Filament\Clusters\Administration\Resources\UserResource\Pages\ListUsers::route('/'),
+            'create' => \Made\Cms\Filament\Clusters\Administration\Resources\UserResource\Pages\CreateUser::route('/create'),
+            'view' => \Made\Cms\Filament\Clusters\Administration\Resources\UserResource\Pages\ViewUser::route('/{record}'),
+            'edit' => \Made\Cms\Filament\Clusters\Administration\Resources\UserResource\Pages\EditUser::route('/{record}/edit'),
         ];
     }
 
@@ -276,20 +282,6 @@ class UserResource extends Resource
         }
 
         return $details;
-    }
-
-    /**
-     * Gets the navigation group for the current user.
-     *
-     * This method returns the navigation group for the current user in the CMS.
-     * The navigation group is a string that represents the user's group in the CMS.
-     *
-     * @return string|null The navigation group for the current user, or null if it cannot be determined.
-     */
-    public static function getNavigationGroup(): ?string
-    {
-        return config('made-cms.panel.resources.user.group')
-            ?? __('made-cms::cms.groups.administration');
     }
 
     /**

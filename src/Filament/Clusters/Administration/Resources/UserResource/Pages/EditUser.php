@@ -1,10 +1,10 @@
 <?php
 
-namespace Made\Cms\Filament\Resources\UserResource\Pages;
+namespace Made\Cms\Filament\Clusters\Administration\Resources\UserResource\Pages;
 
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
-use Made\Cms\Filament\Resources\UserResource;
+use Made\Cms\Filament\Clusters\Administration\Resources\UserResource;
 
 class EditUser extends EditRecord
 {
