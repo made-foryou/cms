@@ -2,6 +2,15 @@
 
 All notable changes to `cms` will be documented in this file.
 
+## 0.3.0 Administration - 2024-10-14
+
+### What's Changed
+
+* User management by @mennotempelaar in https://github.com/made-foryou/cms/pull/14
+* Roles and permissions by @mennotempelaar in https://github.com/made-foryou/cms/pull/15
+
+**Full Changelog**: https://github.com/made-foryou/cms/compare/0.2.0...0.3.0
+
 ## 0.2.0 Roles & Permissions - 2024-08-28
 
 ### What's Changed
