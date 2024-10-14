@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Made\Cms\Pages\Enums\Status;
+use Made\Cms\Enums\PageStatus;
 
 return new class extends Migration
 {
@@ -19,7 +19,7 @@ return new class extends Migration
 
                 $table->string('status')
                     ->default(
-                        Status::Draft->value
+                        PageStatus::Draft->value
                     );
 
                 $table->text('content')

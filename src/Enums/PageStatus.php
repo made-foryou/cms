@@ -1,8 +1,8 @@
 <?php
 
-namespace Made\Cms\Pages\Enums;
+namespace Made\Cms\Enums;
 
-enum Status: string
+enum PageStatus: string
 {
     case Draft = 'draft';
     case Published = 'published';
