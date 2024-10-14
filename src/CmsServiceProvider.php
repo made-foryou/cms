@@ -211,7 +211,6 @@ class CmsServiceProvider extends PackageServiceProvider
         return [
             '2024_09_25_175617_create_made_cms_users_table',
             '2024_09_25_175647_create_made_cms_roles_tables',
-            '2024_09_25_175727_insert_core_permissions',
         ];
     }
 }
