@@ -29,7 +29,7 @@ return new class extends Migration
                  * Filled as soon as the model is saved. This tracks who
                  * modified/created this part.
                  */
-                $table->foreignId('author')
+                $table->foreignId('author_id')
                     ->references('id')
                     ->on(config('made-cms.database.table_prefix') . 'users')
                     ->restrictOnDelete();
