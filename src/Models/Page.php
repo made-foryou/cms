@@ -3,10 +3,12 @@
 namespace Made\Cms\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Made\Cms\Database\HasDatabaseTablePrefix;
 use Made\Cms\Enums\PageStatus;
+use Made\Cms\Observers\PageModelObserver;
 
 /**
  * @property-read int $id
@@ -20,9 +22,45 @@ use Made\Cms\Enums\PageStatus;
  * @property-read Carbon|null $deleted_at
  * @property-read User $author
  */
+#[ObservedBy(PageModelObserver::class)]
 class Page extends Model
 {
     use HasDatabaseTablePrefix;
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'integer',
+        'status' => PageStatus::class,
+        'content' => 'array',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
+    ];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'slug',
+        'status',
+        'content',
+    ];
+
+    /**
+     * The model's attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'content' => '[]',
+    ];
 
     /**
      * Defines the relationship between this model and the User model.

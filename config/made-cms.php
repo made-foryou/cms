@@ -57,4 +57,13 @@ return [
 
     ],
 
+    /**
+     * ### Content
+     */
+    'content' => [
+        'blocks' => [
+            //
+        ],
+    ],
+
 ];
