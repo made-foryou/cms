@@ -18,7 +18,7 @@ class RoleResource extends Resource
 
     protected static ?string $slug = 'roles';
 
-    protected static ?string $navigationIcon = 'heroicon-m-shield-check';
+    protected static ?string $navigationIcon = 'heroicon-s-shield-check';
 
     protected static ?string $cluster = Administration::class;
 

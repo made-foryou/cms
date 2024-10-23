@@ -33,7 +33,7 @@ class UserResource extends Resource
 
     protected static ?string $slug = 'users';
 
-    protected static ?string $navigationIcon = 'heroicon-m-user';
+    protected static ?string $navigationIcon = 'heroicon-s-users';
 
     protected static ?string $cluster = Administration::class;
 

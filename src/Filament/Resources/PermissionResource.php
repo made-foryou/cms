@@ -14,6 +14,9 @@ use Filament\Tables\Table;
 use Made\Cms\Filament\Resources\PermissionResource\Pages;
 use Made\Cms\Models\Permission;
 
+/**
+ * @deprecated not being used.
+ */
 class PermissionResource extends Resource
 {
     protected static ?string $model = Permission::class;
