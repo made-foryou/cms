@@ -15,8 +15,6 @@ trait ContentStrips
         foreach ($configured as $strip) {
 
             if (! class_exists($strip)) {
-                dump('not existing');
-
                 continue;
             }
 
