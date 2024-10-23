@@ -5,6 +5,8 @@ namespace Made\Cms\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
+ * @method static string renderContentStrips(array $content)
+ *
  * @extends \Made\Cms\Cms
  */
 class Cms extends Facade
