@@ -5,7 +5,7 @@ namespace Made\Cms\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Made\Cms\Cms
+ * @extends \Made\Cms\Cms
  */
 class Cms extends Facade
 {
