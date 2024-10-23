@@ -5,6 +5,7 @@ return [
     'groups' => [
         'user' => 'User Management',
         'administration' => 'Administration',
+        'website_management' => 'Website management',
     ],
 
     'resources' => [
@@ -38,6 +39,11 @@ return [
                     'description' => 'Data for managing this user.',
                 ],
             ],
+        ],
+
+        'page' => [
+            'label' => 'Pages',
+            'singular' => 'Page',
         ],
     ],
 ];

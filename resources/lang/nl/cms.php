@@ -5,6 +5,7 @@ return [
     'groups' => [
         'user' => 'Gebruikersbeheer',
         'administration' => 'Administratie',
+        'website_management' => 'Website beheer',
     ],
 
     'resources' => [
@@ -40,6 +41,11 @@ return [
                     'description' => 'Gegevens voor het beheer van deze gebruiker.',
                 ],
             ],
+        ],
+
+        'page' => [
+            'label' => 'Pagina\'s',
+            'singular' => 'Pagina',
         ],
     ],
 ];

@@ -22,8 +22,7 @@ return new class extends Migration
                         PageStatus::Draft->value
                     );
 
-                $table->text('content')
-                    ->default('{}');
+                $table->json('content');
 
                 /**
                  * Filled as soon as the model is saved. This tracks who
