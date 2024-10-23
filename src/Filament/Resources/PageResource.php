@@ -3,7 +3,10 @@
 namespace Made\Cms\Filament\Resources;
 
 use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -18,11 +21,14 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Made\Cms\Enums\PageStatus;
 use Made\Cms\Filament\Resources\PageResource\Pages;
 use Made\Cms\Models\Page;
 
 class PageResource extends Resource
 {
+    use ContentStrips;
+
     protected static ?string $model = Page::class;
 
     protected static ?string $slug = 'pages';
@@ -33,25 +39,66 @@ class PageResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('Pagina')
-                    ->aside()
-                    ->schema([
-                        TextInput::make('name')
-                            ->required(),
+                Tabs::make()
+                    ->tabs([
 
-                        TextInput::make('slug')
-                            ->required()
-                            ->prefix('/')
-                            ->suffixAction(
-                                Action::make('generate-slug')
-                                    ->label('Maak automatisch een slug aan de hand van de pagina naam.')
-                                    ->icon('heroicon-s-arrow-path')
-                                    ->action(fn (Get $get, Set $set, ?string $state) => $set(
-                                        'slug',
-                                        Str::slug($get('name'))
-                                    ))
-                            ),
-                    ]),
+                        Tabs\Tab::make(__('made-cms::pages.tabs.page'))
+                            ->icon('heroicon-s-pencil')
+                            ->schema([
+                                Group::make()
+                                    ->schema([
+                                        Section::make()
+                                            ->schema([
+                                                TextInput::make('name')
+                                                    ->required(),
+
+                                                TextInput::make('slug')
+                                                    ->required()
+                                                    ->prefix('/')
+                                                    ->suffixAction(
+                                                        Action::make('generate-slug')
+                                                            ->label('Maak automatisch een slug aan de hand van de pagina naam.')
+                                                            ->icon('heroicon-s-arrow-path')
+                                                            ->action(fn (Get $get, Set $set, ?string $state) => $set(
+                                                                'slug',
+                                                                Str::slug($get('name'))
+                                                            ))
+                                                    ),
+                                            ]),
+                                    ])
+                                    ->columnSpan(['lg' => 2]),
+
+                                Group::make()
+                                    ->schema([
+                                        Section::make(__('made-cms::pages.sections.status'))
+                                            ->schema([
+                                                Select::make('status')
+                                                    ->options(PageStatus::options()),
+                                            ]),
+                                    ]),
+                            ])
+                            ->columns(3),
+
+                        Tabs\Tab::make(__('made-cms::pages.tabs.content'))
+                            ->icon('heroicon-s-rectangle-group')
+                            ->schema([
+                                Section::make(__('made-cms::pages.fields.content.label'))
+                                    ->description(__('made-cms::pages.fields.content.description'))
+                                    ->icon('heroicon-s-rectangle-group')
+                                    ->schema([
+                                        \Filament\Forms\Components\Builder::make('content')
+                                            ->label('')
+                                            ->addActionLabel(__('made-cms::pages.fields.content.add_button'))
+                                            ->collapsible()
+                                            ->collapsed()
+                                            ->blockPreviews()
+                                            ->blocks(self::contentStrips()),
+                                    ]),
+                            ]),
+
+                    ])
+                    ->contained(false)
+                    ->columnSpanFull(),
             ]);
     }
 
