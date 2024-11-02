@@ -7,6 +7,7 @@ use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -21,6 +22,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Made\Cms\Enums\MetaRobot;
 use Made\Cms\Enums\PageStatus;
 use Made\Cms\Filament\Resources\PageResource\Pages;
 use Made\Cms\Models\Page;
@@ -50,9 +52,13 @@ class PageResource extends Resource
                                         Section::make()
                                             ->schema([
                                                 TextInput::make('name')
+                                                    ->label(__('made-cms::pages.fields.name.label'))
+                                                    ->helperText(__('made-cms::pages.fields.name.description'))
                                                     ->required(),
 
                                                 TextInput::make('slug')
+                                                    ->label(__('made-cms::pages.fields.slug.label'))
+                                                    ->helperText(__('made-cms::pages.fields.slug.description'))
                                                     ->required()
                                                     ->prefix('/')
                                                     ->suffixAction(
@@ -70,9 +76,11 @@ class PageResource extends Resource
 
                                 Group::make()
                                     ->schema([
-                                        Section::make(__('made-cms::pages.sections.status'))
+                                        Section::make()
                                             ->schema([
                                                 Select::make('status')
+                                                    ->label(__('made-cms::pages.fields.status.label'))
+                                                    ->helperText(__('made-cms::pages.fields.status.description'))
                                                     ->options(PageStatus::options()),
                                             ]),
                                     ]),
@@ -95,6 +103,36 @@ class PageResource extends Resource
                                             ->blocks(self::contentStrips()),
                                     ]),
                             ]),
+
+                        Tabs\Tab::make(__('made-cms::cms.resources.page.tabs.meta'))
+                            ->icon('heroicon-s-adjustments-horizontal')
+                            ->schema([
+                                Section::make('Title')
+                                    ->schema([
+                                        TextInput::make('title')
+                                            ->label(__('made-cms::cms.resources.meta.title.label'))
+                                            ->helperText(__('made-cms::cms.resources.meta.title.description'))
+                                            ->maxLength(60),
+
+                                        Textarea::make('description')
+                                            ->label(__('made-cms::cms.resources.meta.description.label'))
+                                            ->helperText(__('made-cms::cms.resources.meta.description.description'))
+                                            ->maxLength(160),
+                                    ])
+                                    ->columnSpan(['lg' => 2]),
+
+                                Section::make()
+                                    ->relationship('meta')
+                                    ->schema([
+                                        Select::make('robot')
+                                            ->label(__('made-cms::cms.resources.meta.robot.label'))
+                                            ->helperText(__('made-cms::cms.resources.meta.robot.description'))
+                                            ->options(MetaRobot::options()),
+
+                                    ])
+                                    ->columnSpan(['lg' => 1]),
+                            ])
+                            ->columns(3),
 
                     ])
                     ->contained(false)

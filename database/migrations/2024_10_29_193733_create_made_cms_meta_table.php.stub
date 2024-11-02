@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Made\Cms\Database\HasDatabaseTablePrefix;
+use Made\Cms\Enums\MetaRobot;
+
+return new class extends Migration
+{
+    use HasDatabaseTablePrefix;
+
+    public function up(): void
+    {
+        Schema::create($this->prefixTableName('meta'), function (Blueprint $table) {
+            $table->id();
+
+            $table->morphs('describable');
+
+            $table->string('title');
+            $table->text('description');
+
+            $table->string('robot')
+                ->default(MetaRobot::IndexAndFollow->value);
+
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists($this->prefixTableName('meta'));
+    }
+};

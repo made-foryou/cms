@@ -44,6 +44,25 @@ return [
         'page' => [
             'label' => 'Pages',
             'singular' => 'Page',
+
+            'tabs' => [
+                'meta' => 'Meta',
+            ],
+        ],
+
+        'meta' => [
+            'title' => [
+                'label' => 'Page title',
+                'description' => 'The page-title which will be displayed in search results and within the browser tab.',
+            ],
+            'description' => [
+                'label' => 'Description',
+                'description' => 'A short descriptive description about the contents of the page. This description will be displayed within the search results.',
+            ],
+            'robot' => [
+                'label' => 'Robot setting',
+                'description' => 'The robots meta tag lets you use a granular, page-specific approach to controlling how an individual HTML page should be indexed and served to users in Google Search results.',
+            ],
         ],
     ],
 ];

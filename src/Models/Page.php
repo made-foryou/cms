@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Made\Cms\Database\HasDatabaseTablePrefix;
 use Made\Cms\Enums\PageStatus;
 use Made\Cms\Observers\PageModelObserver;
@@ -72,6 +73,14 @@ class Page extends Model
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    /**
+     * The relation to the metadata for the page.
+     */
+    public function meta(): MorphOne
+    {
+        return $this->morphOne(Meta::class, 'describable');
     }
 
     /**

@@ -9,6 +9,7 @@ return [
     'tabs' => [
         'page' => 'Page',
         'content' => 'Content',
+        'meta' => 'Meta',
     ],
 
     'sections' => [
