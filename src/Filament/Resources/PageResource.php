@@ -107,7 +107,8 @@ class PageResource extends Resource
                         Tabs\Tab::make(__('made-cms::cms.resources.page.tabs.meta'))
                             ->icon('heroicon-s-adjustments-horizontal')
                             ->schema([
-                                Section::make('Title')
+                                Section::make(__('made-cms::cms.resources.meta.sections.page_meta.title'))
+                                    ->description(__('made-cms::cms.resources.meta.sections.page_meta.description'))
                                     ->schema([
                                         TextInput::make('title')
                                             ->label(__('made-cms::cms.resources.meta.title.label'))
@@ -121,13 +122,26 @@ class PageResource extends Resource
                                     ])
                                     ->columnSpan(['lg' => 2]),
 
-                                Section::make()
+                                Section::make(__('made-cms::cms.resources.meta.sections.meta.title'))
+                                    ->description(__('made-cms::cms.resources.meta.sections.meta.description'))
                                     ->relationship('meta')
+                                    ->collapsed()
                                     ->schema([
                                         Select::make('robot')
                                             ->label(__('made-cms::cms.resources.meta.robot.label'))
                                             ->helperText(__('made-cms::cms.resources.meta.robot.description'))
-                                            ->options(MetaRobot::options()),
+                                            ->options(MetaRobot::options())
+                                            ->default(MetaRobot::IndexAndFollow->value),
+
+                                        Select::make('canonicals')
+                                            ->label(__('made-cms::cms.resources.meta.canonicals.label'))
+                                            ->helperText(__('made-cms::cms.resources.meta.canonicals.description'))
+                                            ->multiple()
+                                            ->options(
+                                                Page::select(['id', 'name'])
+                                                    ->get()
+                                                    ->mapWithKeys(fn ($page) => [$page->id => $page->name])
+                                            ),
 
                                     ])
                                     ->columnSpan(['lg' => 1]),

@@ -23,6 +23,9 @@ return new class extends Migration
             $table->string('robot')
                 ->default(MetaRobot::IndexAndFollow->value);
 
+            $table->text('canonicals')
+                ->nullable();
+
             $table->timestamps();
         });
     }

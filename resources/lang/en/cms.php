@@ -63,6 +63,20 @@ return [
                 'label' => 'Robot setting',
                 'description' => 'The robots meta tag lets you use a granular, page-specific approach to controlling how an individual HTML page should be indexed and served to users in Google Search results.',
             ],
+            'canonicals' => [
+                'label' => 'Canonical links',
+                'description' => 'By default, the canonical link is automatically generated based on the current URL. If you want to add some extra, you can add multiple canonical links here.',
+            ],
+            'sections' => [
+                'page_meta' => [
+                    'title' => 'Page meta information',
+                    'description' => 'Information about the page which is being used for indexing by search engines.',
+                ],
+                'meta' => [
+                    'title' => 'Search engine settings',
+                    'description' => 'Settings which will be used to control how this page is indexed and served to search engines.',
+                ],
+            ],
         ],
     ],
 ];
