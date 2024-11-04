@@ -6,7 +6,6 @@ use Exception;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -18,7 +17,6 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Made\Cms\Filament\Resources\PageResource;
 
 class CmsPanelServiceProvider extends PanelProvider
 {
@@ -43,13 +41,12 @@ class CmsPanelServiceProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Blue,
             ])
-            ->resources([
-                PageResource::class,
-            ])
+            ->discoverResources(in: __DIR__ . '/../Filament/Resources', for: 'Made\\Cms\\Filament\\Resources')
+            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverClusters(in: __DIR__ . '/../Filament/Clusters', for: 'Made\\Cms\\Filament\\Clusters')
-            ->pages([
-                //                Dashboard::class,
-            ])
+            ->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
+            ->discoverPages(in: __DIR__ . '/../Filament/Pages', for: 'Made\\Cms\\Filament\\Pages')
+            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -65,6 +62,7 @@ class CmsPanelServiceProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->login()
+            ->default(config('made-cms.panel.default') ?? true)
             ->maxContentWidth(MaxWidth::Full);
     }
 }
