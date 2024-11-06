@@ -50,6 +50,15 @@ return [
             ],
         ],
 
+        'settings' => [
+            'website' => [
+                'online' => [
+                    'label' => 'Website accessible?',
+                    'description' => 'The website is accessible only when this is on.',
+                ],
+            ],
+        ],
+
         'meta' => [
             'title' => [
                 'label' => 'Page title',
