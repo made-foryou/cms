@@ -52,9 +52,16 @@ return [
 
         'settings' => [
             'website' => [
+                'title' => 'Website settings',
+                'label' => 'Settings',
                 'online' => [
                     'label' => 'Website accessible?',
                     'description' => 'The website is accessible only when this is on.',
+                ],
+                'sections' => [
+                    'general' => [
+                        'title' => 'Website general settings',
+                    ],
                 ],
             ],
         ],
