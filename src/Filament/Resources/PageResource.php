@@ -18,6 +18,7 @@ use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -109,6 +110,7 @@ class PageResource extends Resource
                             ->schema([
                                 Section::make(__('made-cms::cms.resources.meta.sections.page_meta.title'))
                                     ->description(__('made-cms::cms.resources.meta.sections.page_meta.description'))
+                                    ->relationship('meta')
                                     ->schema([
                                         TextInput::make('title')
                                             ->label(__('made-cms::cms.resources.meta.title.label'))
@@ -172,7 +174,8 @@ class PageResource extends Resource
                     ->since(),
             ])
             ->filters([
-                //
+                SelectFilter::make('locale')
+                    ->label(__('made-cms::cms.resources.page.filters.locale.label')),
             ])
             ->actions([
                 EditAction::make(),

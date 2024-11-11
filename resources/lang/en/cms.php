@@ -48,6 +48,12 @@ return [
             'tabs' => [
                 'meta' => 'Meta',
             ],
+
+            'filters' => [
+                'locale' => [
+                    'label' => 'Language',
+                ],
+            ],
         ],
 
         'settings' => [
