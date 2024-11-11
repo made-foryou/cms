@@ -2,8 +2,10 @@
 
 namespace Made\Cms\Filament\Pages;
 
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Pages\SettingsPage;
@@ -58,6 +60,23 @@ class WebsiteSettingsPage extends SettingsPage
                                     ->toArray()
                             ),
 
+                    ])
+                    ->columnSpan(4),
+
+                Section::make('Talen')
+                    ->aside()
+                    ->schema([
+                        Repeater::make('locales')
+                            ->label('Talen')
+                            ->deletable(false)
+                            ->schema([
+                                TextInput::make('name'),
+
+                                TextInput::make('code'),
+
+                                Toggle::make('enabled'),
+                            ])
+                            ->addActionLabel('Taal toevoegen'),
                     ])
                     ->columnSpan(4),
             ])

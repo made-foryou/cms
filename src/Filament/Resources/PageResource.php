@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Made\Cms\Enums\MetaRobot;
 use Made\Cms\Enums\PageStatus;
+use Made\Cms\Facades\Cms;
 use Made\Cms\Filament\Resources\PageResource\Pages;
 use Made\Cms\Models\Page;
 
@@ -175,7 +176,8 @@ class PageResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('locale')
-                    ->label(__('made-cms::cms.resources.page.filters.locale.label')),
+                    ->label(__('made-cms::cms.resources.page.filters.locale.label'))
+                    ->options(Cms::localeOptions()),
             ])
             ->actions([
                 EditAction::make(),

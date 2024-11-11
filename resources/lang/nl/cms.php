@@ -58,8 +58,8 @@ return [
 
         'settings' => [
             'website' => [
-                'title' => 'Pagina instellingen',
-                'label' => 'Pagina instellingen',
+                'title' => 'Website instellingen',
+                'label' => 'Website instellingen',
                 'online' => [
                     'label' => 'Website bereikbaar?',
                     'description' => 'De website is alleen bereikbaar zodra deze instelling is aangezet.',

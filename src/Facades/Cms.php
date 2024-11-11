@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static string renderContentStrips(array $content)
+ * @method static array localeOptions($disabled = true)
  *
  * @extends \Made\Cms\Cms
  */
