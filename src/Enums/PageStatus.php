@@ -20,6 +20,14 @@ enum PageStatus: string
         };
     }
 
+    public function color(): string
+    {
+        return match ($this) {
+            self::Draft => 'info',
+            self::Published => 'success',
+        };
+    }
+
     /**
      * Generates an associative array of case values and their corresponding
      * labels.

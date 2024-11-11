@@ -165,6 +165,14 @@ class PageResource extends Resource
                     ->searchable()
                     ->sortable(),
 
+                TextColumn::make('locale')
+                    ->formatStateUsing(fn ($state) => Cms::localeOptions()[$state]),
+
+                TextColumn::make('status')
+                    ->badge()
+                    ->color(fn (PageStatus $state) => $state->color())
+                    ->formatStateUsing(fn (PageStatus $state) => $state->label()),
+
                 TextColumn::make('slug')
                     ->searchable()
                     ->sortable(),
