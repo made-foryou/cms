@@ -15,6 +15,7 @@ use Made\Cms\Observers\PageModelObserver;
  * @property-read int $id
  * @property string $name
  * @property string $slug
+ * @property string $locale
  * @property PageStatus $status
  * @property array $content
  * @property int $author_id
@@ -50,6 +51,7 @@ class Page extends Model
     protected $fillable = [
         'name',
         'slug',
+        'locale',
         'status',
         'content',
     ];
