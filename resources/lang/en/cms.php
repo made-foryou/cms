@@ -45,6 +45,22 @@ return [
             'label' => 'Pages',
             'singular' => 'Page',
 
+            'fields' => [
+                'locale' => [
+                    'label' => 'Language',
+                    'description' => 'The language which the page content is written in.',
+                ],
+            ],
+
+            'table' => [
+                'name' => 'Name',
+                'locale' => 'Language',
+                'status' => 'Status',
+                'slug' => 'Slug',
+                'author' => 'Author',
+                'updated_at' => 'Updated at',
+            ],
+
             'tabs' => [
                 'meta' => 'Meta',
             ],

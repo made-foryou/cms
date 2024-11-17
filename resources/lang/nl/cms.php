@@ -45,6 +45,22 @@ return [
             'label' => 'Pagina\'s',
             'singular' => 'Pagina',
 
+            'fields' => [
+                'locale' => [
+                    'label' => 'Taal',
+                    'description' => 'De taal van de inhoud van de pagina.',
+                ],
+            ],
+
+            'table' => [
+                'name' => 'Naam',
+                'locale' => 'Taal',
+                'status' => 'Status',
+                'slug' => 'Slug',
+                'author' => 'Auteur',
+                'updated_at' => 'Gewijzigd op',
+            ],
+
             'tabs' => [
                 'meta' => 'Meta',
             ],

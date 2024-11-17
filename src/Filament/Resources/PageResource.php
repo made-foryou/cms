@@ -84,6 +84,12 @@ class PageResource extends Resource
                                                     ->label(__('made-cms::pages.fields.status.label'))
                                                     ->helperText(__('made-cms::pages.fields.status.description'))
                                                     ->options(PageStatus::options()),
+
+                                                Select::make('locale')
+                                                    ->label(__('made-cms::cms.resources.page.fields.locale.label'))
+                                                    ->helperText(__('made-cms::cms.resources.page.fields.locale.description'))
+                                                    ->options(Cms::localeOptions())
+                                                    ->default(config('app.locale')),
                                             ]),
                                     ]),
                             ])
@@ -162,24 +168,30 @@ class PageResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('made-cms::cms.resources.page.table.name'))
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('locale')
+                    ->label(__('made-cms::cms.resources.page.table.locale'))
                     ->formatStateUsing(fn ($state) => Cms::localeOptions()[$state]),
 
                 TextColumn::make('status')
+                    ->label(__('made-cms::cms.resources.page.table.status'))
                     ->badge()
                     ->color(fn (PageStatus $state) => $state->color())
                     ->formatStateUsing(fn (PageStatus $state) => $state->label()),
 
                 TextColumn::make('slug')
+                    ->label(__('made-cms::cms.resources.page.table.slug'))
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('author.name'),
+                TextColumn::make('author.name')
+                    ->label(__('made-cms::cms.resources.page.table.author')),
 
                 TextColumn::make('updated_at')
+                    ->label(__('made-cms::cms.resources.page.table.updated_at'))
                     ->since(),
             ])
             ->filters([
