@@ -1,7 +1,7 @@
 {
     "name": "made-foryou/cms",
     "description": "CMS Package for Made in Filament",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "keywords": [
         "made-foryou",
         "laravel",
