@@ -42,6 +42,7 @@ class WebsiteSettingsPage extends SettingsPage
         return $form
             ->schema([
                 Section::make(__('made-cms::cms.resources.settings.website.sections.general.title'))
+                    ->description(__('made-cms::cms.resources.settings.website.sections.general.description'))
                     ->aside()
                     ->schema([
 
@@ -63,20 +64,26 @@ class WebsiteSettingsPage extends SettingsPage
                     ])
                     ->columnSpan(4),
 
-                Section::make('Talen')
+                Section::make(__('made-cms::cms.resources.settings.website.sections.languages.title'))
+                    ->description(__('made-cms::cms.resources.settings.website.sections.languages.description'))
                     ->aside()
                     ->schema([
                         Repeater::make('locales')
-                            ->label('Talen')
+                            ->label('')
                             ->deletable(false)
+                            ->collapsible()
+                            ->collapsed()
                             ->schema([
-                                TextInput::make('name'),
+                                TextInput::make('name')
+                                    ->required()
+                                    ->live(onBlur: true),
 
                                 TextInput::make('code'),
 
                                 Toggle::make('enabled'),
                             ])
-                            ->addActionLabel('Taal toevoegen'),
+                            ->addActionLabel('Taal toevoegen')
+                            ->itemLabel(fn (array $state) => $state['name'] ?? '??'),
                     ])
                     ->columnSpan(4),
             ])

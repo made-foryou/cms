@@ -82,7 +82,12 @@ return [
                 ],
                 'sections' => [
                     'general' => [
-                        'title' => 'Website general settings',
+                        'title' => 'Website',
+                        'description' => 'Website settings that set up operation and initial functionality.',
+                    ],
+                    'languages' => [
+                        'title' => 'Languages',
+                        'description' => 'The languages in which the website will provide content. The languages here can still be activated and/or deactivated so they can be filled in before being made active.',
                     ],
                 ],
             ],

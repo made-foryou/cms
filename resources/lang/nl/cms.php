@@ -82,7 +82,12 @@ return [
                 ],
                 'sections' => [
                     'general' => [
-                        'title' => 'Algemene website instellingen',
+                        'title' => 'Website',
+                        'description' => 'Website-instellingen die de werking en initiële functionaliteit instellen.',
+                    ],
+                    'languages' => [
+                        'title' => 'Talen',
+                        'description' => 'De talen waarin de website inhoud zal verzorgen. De talen hier kunnen nog geactiveerd en/of gedeactiveerd worden zodat deze eerst nog ingevuld kunnen worden voordat ze actief worden gemaakt.',
                     ],
                 ],
             ],
