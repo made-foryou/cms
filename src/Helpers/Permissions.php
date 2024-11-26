@@ -13,6 +13,39 @@ use Made\Cms\Models\Role;
 class Permissions
 {
     /**
+     * @var array|string[]
+     */
+    protected static array $modelPermissions = [
+        'view_any',
+        'view',
+        'create',
+        'update',
+        'delete',
+        'restore',
+        'force_delete',
+    ];
+
+    /**
+     * Create permissions entries for a given model based on predefined model permissions.
+     *
+     * @param  string  $key  The key representing the model.
+     * @param  string<class-string>  $subject  The subject associated with the permissions.
+     *
+     * @throws MissingDefaultRoleException
+     */
+    public static function createForModel(string $key, string $subject): void
+    {
+        foreach (self::$modelPermissions as $permission) {
+            self::create(
+                key: $key . '.' . $permission,
+                subject: $subject,
+                name: __("made-cms::permissions.{$key}.{$permission}.name"),
+                description: __("made-cms::permissions.{$key}.{$permission}.description"),
+            );
+        }
+    }
+
+    /**
      * Creates a new permission and give the default admin role access
      * to the permission.
      *

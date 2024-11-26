@@ -5,7 +5,10 @@ namespace Made\Cms\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Made\Cms\Cms
+ * @method static string renderContentStrips(array $content)
+ * @method static array localeOptions($disabled = true)
+ *
+ * @extends \Made\Cms\Cms
  */
 class Cms extends Facade
 {

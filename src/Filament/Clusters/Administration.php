@@ -6,7 +6,7 @@ use Filament\Clusters\Cluster;
 
 class Administration extends Cluster
 {
-    protected static ?string $navigationIcon = 'heroicon-s-users';
+    protected static ?string $navigationIcon = 'heroicon-s-lock-open';
 
     protected static ?string $navigationLabel = 'Gebruikersbeheer';
 

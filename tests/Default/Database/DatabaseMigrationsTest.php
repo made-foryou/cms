@@ -28,4 +28,8 @@ dataset('tables', [
         'permission_role',
         15,
     ],
+    'pages' => [
+        'pages',
+        0,
+    ],
 ]);

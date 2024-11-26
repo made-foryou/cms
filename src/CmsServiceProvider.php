@@ -49,13 +49,16 @@ class CmsServiceProvider extends PackageServiceProvider
                 $command
                     ->publishConfigFile()
                     ->publishMigrations()
-                    ->askToRunMigrations();
+                    ->askToRunMigrations()
+                    ->askToStarRepoOnGitHub('made-foryou/cms');
             });
 
         $configFileName = $package->shortName();
 
         if (file_exists($package->basePath("/../config/$configFileName.php"))) {
-            $package->hasConfigFile();
+            $package->hasConfigFile([
+                'made-cms', 'settings',
+            ]);
         }
 
         if (file_exists($package->basePath('/../database/migrations'))) {
@@ -123,6 +126,18 @@ class CmsServiceProvider extends PackageServiceProvider
                 $this->publishes([
                     $file->getRealPath() => base_path("stubs/cms/{$file->getFilename()}"),
                 ], 'cms-stubs');
+            }
+
+            foreach (app(Filesystem::class)->files(__DIR__ . '/../database/settings/') as $file) {
+                $this->publishes([
+                    __DIR__ . "/../database/settings/{$file->getFilename()}" => app_path(
+                        '/../database/settings/' . str_replace(
+                            '.stub',
+                            '',
+                            $file->getFilename()
+                        )
+                    ),
+                ], 'cms-setting-migrations');
             }
         }
 
@@ -211,7 +226,9 @@ class CmsServiceProvider extends PackageServiceProvider
         return [
             '2024_09_25_175617_create_made_cms_users_table',
             '2024_09_25_175647_create_made_cms_roles_tables',
-            '2024_09_25_175727_insert_core_permissions',
+            '2024_10_14_144913_create_made_cms_pages_table',
+            '2024_10_29_193733_create_made_cms_meta_table',
+            '2024_11_04_174245_create_made_cms_settings_table',
         ];
     }
 }

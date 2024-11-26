@@ -17,7 +17,7 @@ return [
 
         /**
          * ### Panel path
-         *
+         * ____
          * Using this setting, you can adjust the path in the URL where the CMS is available.
          *
          * @var string
@@ -26,7 +26,7 @@ return [
 
         /**
          * #### Panel domain
-         *
+         * ____
          * This setting ensures that the CMS panel is associated with these
          * domain names.
          *
@@ -37,6 +37,18 @@ return [
          * @var null|string|string[]
          */
         'domain' => env('MADE_CMS_PANEL_DOMAIN'),
+
+        /**
+         * ### Panel default
+         * _____
+         *
+         * Makes the Made panel the default one which makes sure that the
+         * created resources from the project will be automatically
+         * added to this panel.
+         *
+         * @var bool
+         */
+        'default' => true,
 
     ],
 
@@ -55,6 +67,15 @@ return [
          */
         'table_prefix' => env('MADE_CMS_DATABASE_TABLE_PREFIX', 'made_cms_'),
 
+    ],
+
+    /**
+     * ### Content
+     */
+    'content' => [
+        'blocks' => [
+            //
+        ],
     ],
 
 ];
