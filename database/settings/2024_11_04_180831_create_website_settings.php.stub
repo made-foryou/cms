@@ -8,11 +8,13 @@ return new class extends SettingsMigration
     {
         $this->migrator->add('web.online', true);
         $this->migrator->add('web.landing_page');
+        $this->migrator->add('web.locales', []);
     }
 
     public function down(): void
     {
         $this->migrator->delete('web.online');
         $this->migrator->delete('web.landing_page');
+        $this->migrator->delete('web.locales');
     }
 };

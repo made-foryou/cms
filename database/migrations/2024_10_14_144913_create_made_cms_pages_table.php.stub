@@ -46,6 +46,7 @@ return new class extends Migration
             callback: function (Blueprint $table) {
                 $table->foreignId('parent_id')
                     ->nullable()
+                    ->after('id')
                     ->references('id')
                     ->on(config('made-cms.database.table_prefix') . 'pages')
                     ->nullOnDelete();
