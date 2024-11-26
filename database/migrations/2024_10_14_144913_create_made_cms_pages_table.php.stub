@@ -40,6 +40,17 @@ return new class extends Migration
                 $table->softDeletes();
             }
         );
+
+        Schema::table(
+            table: config('made-cms.database.table_prefix') . 'pages',
+            callback: function (Blueprint $table) {
+                $table->foreignId('parent_id')
+                    ->nullable()
+                    ->references('id')
+                    ->on(config('made-cms.database.table_prefix') . 'pages')
+                    ->nullOnDelete();
+            }
+        );
     }
 
     public function down(): void

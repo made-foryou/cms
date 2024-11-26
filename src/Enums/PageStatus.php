@@ -28,6 +28,13 @@ enum PageStatus: string
         };
     }
 
+    public static function values(): array
+    {
+        return collect(self::cases())
+            ->map(fn (self $case) => $case->value)
+            ->toArray();
+    }
+
     /**
      * Generates an associative array of case values and their corresponding
      * labels.
