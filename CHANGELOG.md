@@ -2,6 +2,14 @@
 
 All notable changes to `cms` will be documented in this file.
 
+## 0.4.0 Pages - 2024-11-26
+
+### What's Changed
+
+* Feature/pages by @mennotempelaar in https://github.com/made-foryou/cms/pull/17
+
+**Full Changelog**: https://github.com/made-foryou/cms/compare/0.3.0...0.4.0
+
 ## 0.3.0 Administration - 2024-10-14
 
 ### What's Changed
