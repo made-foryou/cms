@@ -2,8 +2,10 @@
 
 namespace Made\Cms\Filament\Resources;
 
-use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\BulkActionGroup;
@@ -30,21 +32,46 @@ class LanguageResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                    ->required(),
 
-                TextInput::make('country'),
+                Group::make()
+                    ->schema([
+                        Section::make()
+                            ->schema([
+                                TextInput::make('name')
+                                    ->label(__('made-cms::cms.resources.common.name'))
+                                    ->required(),
 
-                TextInput::make('locale')
-                    ->required(),
+                                TextInput::make('country')
+                                    ->label(__('made-cms::cms.resources.language.fields.country.label')),
 
-                TextInput::make('abbreviation')
-                    ->required(),
+                                TextInput::make('locale')
+                                    ->label(__('made-cms::cms.resources.language.fields.locale.label'))
+                                    ->helperText(__('made-cms::cms.resources.language.fields.locale.description'))
+                                    ->required(),
 
-                Checkbox::make('is_default'),
+                                TextInput::make('abbreviation')
+                                    ->label(__('made-cms::cms.resources.language.fields.abbreviation.label'))
+                                    ->helperText(__('made-cms::cms.resources.language.fields.abbreviation.description'))
+                                    ->required(),
+                            ]),
+                    ])
+                    ->columnSpan(['lg' => 2]),
 
-                Checkbox::make('is_enabled'),
-            ]);
+                Group::make()
+                    ->schema([
+                        Section::make()
+                            ->schema([
+                                Toggle::make('is_default')
+                                    ->label(__('made-cms::cms.resources.language.fields.is_default.label'))
+                                    ->helperText(__('made-cms::cms.resources.language.fields.is_default.description')),
+
+                                Toggle::make('is_enabled')
+                                    ->label(__('made-cms::cms.resources.language.fields.is_enabled.label'))
+                                    ->helperText(__('made-cms::cms.resources.language.fields.is_enabled.description')),
+                            ]),
+                    ]),
+            ])
+            ->columns(3);
     }
 
     public static function table(Table $table): Table

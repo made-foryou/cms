@@ -79,6 +79,32 @@ return [
         'language' => [
             'label' => 'Languages',
             'singular' => 'Language',
+
+            'fields' => [
+                'country' => [
+                    'label' => 'Country',
+                ],
+
+                'locale' => [
+                    'label' => 'Locale',
+                    'description' => 'The locale of the language is used for selecting the translations.',
+                ],
+
+                'abbreviation' => [
+                    'label' => 'Abbreviation',
+                    'description' => 'This abbreviation will be added to the url which selects this language.',
+                ],
+
+                'is_default' => [
+                    'label' => 'Default language',
+                    'description' => 'Is this language the default language to be loaded from the website when there is none selected?',
+                ],
+
+                'is_enabled' => [
+                    'label' => 'Language enabling',
+                    'description' => 'Can this language be used within the website?',
+                ],
+            ],
         ],
 
         'settings' => [
