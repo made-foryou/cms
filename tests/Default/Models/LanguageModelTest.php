@@ -56,3 +56,13 @@ it('knows if it is default', function () {
 
     expect($language->is_default)->toBe(false);
 });
+
+it('can have pages', function () {
+    $language = Language::factory()->default()->createOne();
+
+    $pages = \Made\Cms\Models\Page::factory()->count(10)->createQuietly([
+        'language_id' => $language,
+    ]);
+
+    expect($language->pages->count())->toBe(10);
+});

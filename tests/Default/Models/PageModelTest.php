@@ -43,7 +43,6 @@ test('it generates an author according the logged in user', function () {
     $page = new Page;
     $page->name = 'test';
     $page->slug = 'test';
-    $page->locale = 'en';
     $page->content = [];
     $page->save();
 

@@ -16,7 +16,6 @@ class PageFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'slug' => $this->faker->slug(),
-            'locale' => $this->faker->word(),
             'status' => PageStatus::Draft->value,
             'content' => $this->faker->paragraphs(3, true),
             'author_id' => fn () => User::factory()->createOne()->id,
