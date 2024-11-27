@@ -25,7 +25,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Made\Cms\Enums\MetaRobot;
 use Made\Cms\Enums\PageStatus;
-use Made\Cms\Facades\Cms;
 use Made\Cms\Filament\Resources\PageResource\Pages;
 use Made\Cms\Models\Page;
 
@@ -171,9 +170,8 @@ class PageResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('locale')
-                    ->label(__('made-cms::cms.resources.page.table.locale'))
-                    ->formatStateUsing(fn ($state) => Cms::localeOptions()[$state]),
+                TextColumn::make('language.name')
+                    ->label(__('made-cms::cms.resources.page.table.locale')),
 
                 TextColumn::make('status')
                     ->label(__('made-cms::cms.resources.page.table.status'))
@@ -194,9 +192,9 @@ class PageResource extends Resource
                     ->since(),
             ])
             ->filters([
-                SelectFilter::make('locale')
-                    ->label(__('made-cms::cms.resources.page.filters.locale.label'))
-                    ->options(Cms::localeOptions()),
+                SelectFilter::make('language_id')
+                    ->relationship('language', 'name')
+                    ->label(__('made-cms::cms.resources.page.filters.locale.label')),
             ])
             ->actions([
                 EditAction::make(),
