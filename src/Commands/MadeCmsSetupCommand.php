@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 use Made\Cms\Database\Seeders\CmsCoreSeeder;
 use Made\Cms\Helpers\Permissions;
+use Made\Cms\Models\Language;
 use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
 
@@ -52,6 +53,13 @@ class MadeCmsSetupCommand extends Command
             $role = $this->defaultRole();
         }
 
+        $language = $this->defaultLanguage();
+
+        if (empty($language)) {
+            $this->info('Creating default language...');
+            $language = $this->createDefaultLanguage();
+        }
+
         $result = $this->ask('Do you want to create a default user? (y/n)', 'n');
 
         if ($result === 'n') {
@@ -94,5 +102,29 @@ class MadeCmsSetupCommand extends Command
         return Role::query()
             ->default()
             ->first();
+    }
+
+    protected function defaultLanguage(): ?Language
+    {
+        return Language::query()
+            ->where('is_default', true)
+            ->first();
+    }
+
+    protected function createDefaultLanguage(): Language
+    {
+        $language = new Language([
+            'name' => 'English',
+            'country' => 'America',
+            'locale' => 'en',
+            'abbreviation' => 'en',
+        ]);
+        $language->is_enabled = true;
+        $language->save();
+
+        $language->makeDefault();
+        $language->refresh();
+
+        return $language;
     }
 }

@@ -15,6 +15,10 @@ return [
             'created_at' => 'Created at',
             'updated_at' => 'Updated at',
             'deleted_at' => 'Deleted at',
+            'default' => 'Default',
+            'not_default' => 'Not default',
+            'enabled' => 'Enabled',
+            'not_enabled' => 'Not enabled',
         ],
 
         'user' => [
@@ -70,6 +74,11 @@ return [
                     'label' => 'Language',
                 ],
             ],
+        ],
+
+        'language' => [
+            'label' => 'Languages',
+            'singular' => 'Language',
         ],
 
         'settings' => [

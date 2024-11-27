@@ -15,6 +15,10 @@ return [
             'created_at' => 'Aangemaakt op',
             'updated_at' => 'Gewijzigd op',
             'deleted_at' => 'Verwijderd op',
+            'default' => 'Standaard',
+            'not_default' => 'Niet standaard',
+            'enabled' => 'Geactiveerd',
+            'not_enabled' => 'Niet geactiveerd',
         ],
 
         'user' => [
@@ -70,6 +74,11 @@ return [
                     'label' => 'Taal',
                 ],
             ],
+        ],
+
+        'language' => [
+            'label' => 'Talen',
+            'singular' => 'Taal',
         ],
 
         'settings' => [
