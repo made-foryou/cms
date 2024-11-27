@@ -2,8 +2,10 @@
 
 namespace Made\Cms\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
@@ -19,6 +21,7 @@ use Illuminate\Support\Carbon;
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
  * @property-read Carbon|null $deleted_at
+ * @property-read Collection<Page> $pages
  */
 class Language extends Model
 {
@@ -55,6 +58,17 @@ class Language extends Model
 
         $this->is_default = true;
         $this->save();
+    }
+
+    /**
+     * Establishes a one-to-many relationship with the Page model.
+     */
+    public function pages(): HasMany
+    {
+        return $this->hasMany(
+            related: Page::class,
+            foreignKey: 'language_id'
+        );
     }
 
     /**

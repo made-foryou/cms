@@ -17,8 +17,11 @@ return new class extends Migration
                 $table->string('name');
                 $table->string('slug');
 
-                $table->string('locale')
-                    ->default(config('app.locale'));
+                $table->foreignId('language_id')
+                    ->nullable()
+                    ->references('id')
+                    ->on(config('made-cms.database.table_prefix') . 'languages')
+                    ->nullOnDelete();
 
                 $table->string('status')
                     ->default(
