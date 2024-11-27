@@ -85,11 +85,10 @@ class PageResource extends Resource
                                                     ->helperText(__('made-cms::pages.fields.status.description'))
                                                     ->options(PageStatus::options()),
 
-                                                Select::make('locale')
+                                                Select::make('language')
+                                                    ->relationship('language')
                                                     ->label(__('made-cms::cms.resources.page.fields.locale.label'))
-                                                    ->helperText(__('made-cms::cms.resources.page.fields.locale.description'))
-                                                    ->options(Cms::localeOptions())
-                                                    ->default(config('app.locale')),
+                                                    ->helperText(__('made-cms::cms.resources.page.fields.locale.description')),
                                             ]),
                                     ]),
                             ])

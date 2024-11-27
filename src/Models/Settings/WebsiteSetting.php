@@ -2,7 +2,6 @@
 
 namespace Made\Cms\Models\Settings;
 
-use Illuminate\Support\Collection;
 use Made\Cms\Models\Page;
 use Spatie\LaravelSettings\Settings;
 
@@ -17,8 +16,6 @@ class WebsiteSetting extends Settings
      * Selected page id which will be used as the landing page.
      */
     public ?int $landing_page = null;
-
-    public array $locales = [];
 
     /**
      * Checks if the website is currently online.
@@ -42,11 +39,6 @@ class WebsiteSetting extends Settings
         }
 
         return Page::findOrFail($this->landing_page);
-    }
-
-    public function getLocales(): Collection
-    {
-        return collect($this->locales);
     }
 
     /**

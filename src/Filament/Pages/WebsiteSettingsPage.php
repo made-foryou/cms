@@ -2,10 +2,8 @@
 
 namespace Made\Cms\Filament\Pages;
 
-use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Pages\SettingsPage;
@@ -61,29 +59,6 @@ class WebsiteSettingsPage extends SettingsPage
                                     ->toArray()
                             ),
 
-                    ])
-                    ->columnSpan(4),
-
-                Section::make(__('made-cms::cms.resources.settings.website.sections.languages.title'))
-                    ->description(__('made-cms::cms.resources.settings.website.sections.languages.description'))
-                    ->aside()
-                    ->schema([
-                        Repeater::make('locales')
-                            ->label('')
-                            ->deletable(false)
-                            ->collapsible()
-                            ->collapsed()
-                            ->schema([
-                                TextInput::make('name')
-                                    ->required()
-                                    ->live(onBlur: true),
-
-                                TextInput::make('code'),
-
-                                Toggle::make('enabled'),
-                            ])
-                            ->addActionLabel('Taal toevoegen')
-                            ->itemLabel(fn (array $state) => $state['name'] ?? '??'),
                     ])
                     ->columnSpan(4),
             ])
