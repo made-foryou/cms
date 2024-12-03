@@ -22,14 +22,22 @@ dataset('tables', [
     ],
     'permissions' => [
         'permissions',
-        15,
+        43,
     ],
     'permission_role' => [
         'permission_role',
-        15,
+        43,
     ],
     'pages' => [
         'pages',
+        0,
+    ],
+    'meta' => [
+        'meta',
+        0,
+    ],
+    'languages' => [
+        'languages',
         0,
     ],
 ]);

@@ -16,9 +16,11 @@ it('has a prefixed table name', function () {
 });
 
 it('can be created', function () {
+    $count = Permission::query()->count();
+
     $model = Permission::factory()->createOne();
 
-    assertDatabaseCount($model->getTable(), 16);
+    assertDatabaseCount($model->getTable(), ($count + 1));
     assertDatabaseHas($model->getTable(), [
         'name' => $model->name,
     ]);
