@@ -33,7 +33,7 @@ it('can be made default', function () {
     /** @var Language $language */
     $language = $models->random(1)->first();
 
-    $language->makeDefault();
+    \Made\Cms\Language\Actions\MakeLanguageDefault::run($language);
 
     assertDatabaseHas($language->getTable(), [
         'name' => $language->name,

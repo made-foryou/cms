@@ -13,7 +13,7 @@ use Illuminate\Support\Carbon;
  * @property-read int $id
  * @property string $name
  * @property string|null $country
- * @property string $locale
+ * @property int $language_id
  * @property string $abbreviation
  * @property string|null $image
  * @property bool $is_default
@@ -46,19 +46,6 @@ class Language extends Model
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
-
-    /**
-     * Sets the current language instance as the default language.
-     */
-    public function makeDefault(): void
-    {
-        Language::query()
-            ->where('is_default', true)
-            ->update(['is_default' => false]);
-
-        $this->is_default = true;
-        $this->save();
-    }
 
     /**
      * Establishes a one-to-many relationship with the Page model.
