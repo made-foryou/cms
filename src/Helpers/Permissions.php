@@ -39,8 +39,8 @@ class Permissions
             self::create(
                 key: $key . '.' . $permission,
                 subject: $subject,
-                name: __("made-cms::permissions.{$key}.{$permission}.name"),
-                description: __("made-cms::permissions.{$key}.{$permission}.description"),
+                name: __("made-cms::cms.permissions.{$key}.{$permission}.name"),
+                description: __("made-cms::cms.permissions.{$key}.{$permission}.description"),
             );
         }
     }

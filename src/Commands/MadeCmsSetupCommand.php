@@ -41,6 +41,10 @@ class MadeCmsSetupCommand extends Command
             '--tag' => 'cms-setting-migrations',
         ]);
 
+        $this->info('Migrating the settings...');
+
+        $this->callSilently('migrate');
+
         $this->info('Configuring Made CMS...');
 
         $role = $this->defaultRole();

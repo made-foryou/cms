@@ -73,8 +73,8 @@ class RoleResource extends Resource
             $relation = explode('.', $collection->first()->key)[0];
 
             $sections->push(
-                Forms\Components\Section::make(__('made-cms::class_names.' . $key . '.title'))
-                    ->description(__('made-cms::class_names.' . $key . '.description'))
+                Forms\Components\Section::make(__('made-cms::cms.class_names.' . $key . '.title'))
+                    ->description(__('made-cms::cms.class_names.' . $key . '.description'))
                     ->schema([
                         Forms\Components\CheckboxList::make($relation . 'Permissions')
                             ->relationship(
