@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Made\Cms\Database\HasDatabaseTablePrefix;
 use Made\Cms\Enums\PageStatus;
+use Made\Cms\Language\Models\Language;
 use Made\Cms\Observers\PageModelObserver;
 
 /**
@@ -110,7 +111,8 @@ class Page extends Model
     {
         return $this->belongsTo(
             related: Language::class,
-            foreignKey: 'language_id'
+            foreignKey: 'language_id',
+            ownerKey: 'id',
         );
     }
 

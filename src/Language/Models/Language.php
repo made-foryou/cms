@@ -1,6 +1,6 @@
 <?php
 
-namespace Made\Cms\Models;
+namespace Made\Cms\Language\Models;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Made\Cms\Language\Builders\LanguageBuilder;
+use Made\Cms\Models\Page;
 
 /**
  * @property-read int $id
@@ -22,6 +24,8 @@ use Illuminate\Support\Carbon;
  * @property-read Carbon $updated_at
  * @property-read Carbon|null $deleted_at
  * @property-read Collection<Page> $pages
+ *
+ * @method static LanguageBuilder query()
  */
 class Language extends Model
 {
@@ -64,5 +68,13 @@ class Language extends Model
     public function getTable(): string
     {
         return config('made-cms.database.table_prefix') . 'languages';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function newEloquentBuilder($query): LanguageBuilder
+    {
+        return new LanguageBuilder($query);
     }
 }

@@ -26,6 +26,7 @@ use Illuminate\Support\Str;
 use Made\Cms\Enums\MetaRobot;
 use Made\Cms\Enums\PageStatus;
 use Made\Cms\Filament\Resources\PageResource\Pages;
+use Made\Cms\Language\Models\Language;
 use Made\Cms\Models\Page;
 
 class PageResource extends Resource
@@ -82,10 +83,18 @@ class PageResource extends Resource
                                                 Select::make('status')
                                                     ->label(__('made-cms::pages.fields.status.label'))
                                                     ->helperText(__('made-cms::pages.fields.status.description'))
-                                                    ->options(PageStatus::options()),
+                                                    ->options(PageStatus::options())
+                                                    ->default(array_key_first(PageStatus::options())),
 
                                                 Select::make('language')
-                                                    ->relationship('language')
+                                                    ->relationship('language', 'name')
+                                                    ->preload()
+                                                    ->default(
+                                                        Language::query()
+                                                            ->default()
+                                                            ->first()
+                                                            ->id
+                                                    )
                                                     ->label(__('made-cms::cms.resources.page.fields.locale.label'))
                                                     ->helperText(__('made-cms::cms.resources.page.fields.locale.description')),
                                             ]),

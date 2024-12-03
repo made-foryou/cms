@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Made\Cms\Models\Language;
+use Made\Cms\Language\Models\Language;
 
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;

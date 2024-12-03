@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Made\Cms\Database\Seeders\CmsCoreSeeder;
 use Made\Cms\Helpers\Permissions;
 use Made\Cms\Language\Actions\MakeLanguageDefault;
-use Made\Cms\Models\Language;
+use Made\Cms\Language\Models\Language;
 use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
 

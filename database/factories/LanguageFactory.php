@@ -3,7 +3,7 @@
 namespace Made\Cms\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Made\Cms\Models\Language;
+use Made\Cms\Language\Models\Language;
 
 class LanguageFactory extends Factory
 {

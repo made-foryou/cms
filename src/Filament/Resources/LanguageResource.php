@@ -16,7 +16,7 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Made\Cms\Filament\Resources\LanguageResource\Pages;
-use Made\Cms\Models\Language;
+use Made\Cms\Language\Models\Language;
 
 class LanguageResource extends Resource
 {

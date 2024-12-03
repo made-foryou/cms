@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Made\Cms\Language\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use Made\Cms\Models\Language;
+use Made\Cms\Language\Models\Language;
 
 class MakeLanguageDefault
 {
