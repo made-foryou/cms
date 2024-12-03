@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 use Made\Cms\Database\Seeders\CmsCoreSeeder;
 use Made\Cms\Helpers\Permissions;
+use Made\Cms\Language\Actions\MakeLanguageDefault;
+use Made\Cms\Language\Models\Language;
 use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
 
@@ -39,6 +41,10 @@ class MadeCmsSetupCommand extends Command
             '--tag' => 'cms-setting-migrations',
         ]);
 
+        $this->info('Migrating the settings...');
+
+        $this->callSilently('migrate');
+
         $this->info('Configuring Made CMS...');
 
         $role = $this->defaultRole();
@@ -50,6 +56,13 @@ class MadeCmsSetupCommand extends Command
             ]);
 
             $role = $this->defaultRole();
+        }
+
+        $language = $this->defaultLanguage();
+
+        if (empty($language)) {
+            $this->info('Creating default language...');
+            $language = $this->createDefaultLanguage();
         }
 
         $result = $this->ask('Do you want to create a default user? (y/n)', 'n');
@@ -94,5 +107,30 @@ class MadeCmsSetupCommand extends Command
         return Role::query()
             ->default()
             ->first();
+    }
+
+    protected function defaultLanguage(): ?Language
+    {
+        return Language::query()
+            ->where('is_default', true)
+            ->first();
+    }
+
+    protected function createDefaultLanguage(): Language
+    {
+        $language = new Language([
+            'name' => 'English',
+            'country' => 'America',
+            'locale' => 'en',
+            'abbreviation' => 'en',
+        ]);
+        $language->is_enabled = true;
+        $language->save();
+
+        MakeLanguageDefault::run($language);
+
+        $language->refresh();
+
+        return $language;
     }
 }

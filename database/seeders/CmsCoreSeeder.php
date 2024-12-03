@@ -5,6 +5,10 @@ namespace Made\Cms\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Made\Cms\Exceptions\MissingDefaultRoleException;
 use Made\Cms\Helpers\Permissions;
+use Made\Cms\Language\Models\Language;
+use Made\Cms\Models\Meta;
+use Made\Cms\Models\Page;
+use Made\Cms\Models\Permission;
 use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
 
@@ -37,8 +41,8 @@ class CmsCoreSeeder extends Seeder
         Permissions::create(
             key: 'user.access_panel',
             subject: User::class,
-            name: __('made-cms::permissions.user.access_panel.name'),
-            description: __('made-cms::permissions.user.access_panel.description'),
+            name: __('made-cms::cms.permissions.user.access_panel.name'),
+            description: __('made-cms::cms.permissions.user.access_panel.description'),
         );
 
         Permissions::createForModel('user', User::class);
@@ -67,5 +71,13 @@ class CmsCoreSeeder extends Seeder
         $this->userPermissions();
 
         $this->rolePermissions();
+
+        Permissions::createForModel('permission', Permission::class);
+
+        Permissions::createForModel('page', Page::class);
+
+        Permissions::createForModel('meta', Meta::class);
+
+        Permissions::createForModel('language', Language::class);
     }
 }

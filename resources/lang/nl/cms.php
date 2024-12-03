@@ -1,11 +1,238 @@
 <?php
 
+use Made\Cms\Models;
+
 // translations for Made/Cms
 return [
     'groups' => [
         'user' => 'Gebruikersbeheer',
         'administration' => 'Administratie',
         'website_management' => 'Website beheer',
+    ],
+
+    'class_names' => [
+        Models\User::class => [
+            'title' => 'Gebruikers',
+            'description' => 'Beheren van de CMS gebruikers.',
+        ],
+        Models\Role::class => [
+            'title' => 'Rollen',
+            'description' => 'Beheren van de rollen binnen het CMS.',
+        ],
+        Models\Permission::class => [
+            'title' => 'Permissies',
+            'description' => 'Beheren van permissies die binnen het CMS gelden.',
+        ],
+        Models\Page::class => [
+            'title' => 'Pagina\'s',
+            'description' => 'Beheren van de paginas binnen de website.',
+        ],
+        Models\Meta::class => [
+            'title' => 'Meta',
+            'description' => 'Beheren van de meta gegevens van de onderdelen in de website.',
+        ],
+        \Made\Cms\Language\Models\Language::class => [
+            'title' => 'Talen',
+            'description' => 'Beheren van de talen van de website.',
+        ],
+    ],
+
+    'permissions' => [
+        'fields' => [
+            'subject' => [
+                'label' => 'Onderwerp',
+            ],
+        ],
+
+        'user' => [
+            'view_any' => [
+                'name' => 'Overzicht van de gebruikers zien',
+                'description' => 'Hiermee kan de gebruiker het overzicht van alle gebruikers bekijken.',
+            ],
+            'view' => [
+                'name' => 'Een gebruiker bekijken',
+                'description' => 'Hiermee kan de gebruiker de detail gegevens van een gebruiker bekijken.',
+            ],
+            'create' => [
+                'name' => 'Een gebruiker aanmaken',
+                'description' => 'Hiermee kan de gebruiker een nieuwe gebruiker toevoegen.',
+            ],
+            'update' => [
+                'name' => 'Een gebruiker wijzigen',
+                'description' => 'Hiermee kan de gebruiker een bestaande gebruiker wijzigen.',
+            ],
+            'delete' => [
+                'name' => 'Een gebruiker verwijderen',
+                'description' => 'Hiermee kan de gebruiker een bestaande gebruiker verwijderen.',
+            ],
+            'restore' => [
+                'name' => 'Een gebruiker herstellen',
+                'description' => 'Hiermee kan de gebruiker een verwijderde gebruiker herstellen.',
+            ],
+            'force_delete' => [
+                'name' => 'Een gebruiker geforceerd verwijderen',
+                'description' => 'Hiermee kan de gebruiker een gebruiker geforceerd verwijderen.',
+            ],
+            'access_panel' => [
+                'name' => 'Toegang tot het cms paneel',
+                'description' => 'Hiermee kan de gebruiker inloggen in het Made CMS.',
+            ],
+        ],
+
+        'role' => [
+            'view_any' => [
+                'name' => 'Overzicht van alle rollen zien',
+                'description' => 'Hiermee kan de gebruiker het overzicht van alle rollen bekijken.',
+            ],
+            'view' => [
+                'name' => 'Een rol bekijken',
+                'description' => 'Hiermee kan de gebruiker de detail gegevens van een rol en zijn permissies bekijken.',
+            ],
+            'create' => [
+                'name' => 'Een rol aanmaken',
+                'description' => 'Hiermee kan de gebruiker een nieuwe rol toevoegen.',
+            ],
+            'update' => [
+                'name' => 'Een rol wijzigen',
+                'description' => 'Hiermee kan de gebruiker een bestaande rol wijzigen.',
+            ],
+            'delete' => [
+                'name' => 'Een rol verwijderen',
+                'description' => 'Hiermee kan de gebruiker een bestaande rol verwijderen.',
+            ],
+            'restore' => [
+                'name' => 'Een rol herstellen',
+                'description' => 'Hiermee kan de gebruiker een verwijderde rol herstellen.',
+            ],
+            'force_delete' => [
+                'name' => 'Een rol geforceerd verwijderen',
+                'description' => 'Hiermee kan de gebruiker een rol geforceerd verwijderen.',
+            ],
+        ],
+
+        'permission' => [
+            'view_any' => [
+                'name' => 'Overzicht van alle permissies zien',
+                'description' => 'Hiermee kan de gebruiker een overzicht zien van alle permissies.',
+            ],
+            'view' => [
+                'name' => 'Permissie bekijken',
+                'description' => 'Hiermee kan de gebruiker de detail gegevens van een permissie zien.',
+            ],
+            'create' => [
+                'name' => 'Permissie aanmaken',
+                'description' => 'Hiermee kan de gebruiker een nieuwe permissie toevoegen.',
+            ],
+            'update' => [
+                'name' => 'Permissie wijzigen',
+                'description' => 'Hiermee kan de gebruiker een bestaande permissie wijzigen.',
+            ],
+            'delete' => [
+                'name' => 'Permissie verwijderen',
+                'description' => 'Hiermee kan de gebruiker een bestaande permissie verwijderen.',
+            ],
+            'restore' => [
+                'name' => 'Permissie herstellen',
+                'description' => 'Hiermee kan de gebruiker een verwijderde permissie herstellen.',
+            ],
+            'force_delete' => [
+                'name' => 'Geforceerd een permissie verwijderen',
+                'description' => 'Hiermee kan de gebruiker een permissie geforceerd verwijderen.',
+            ],
+        ],
+
+        'page' => [
+            'view_any' => [
+                'name' => 'Overzicht van alle pagina\'s zien',
+                'description' => 'Hiermee kan de gebruiker een overzicht zien van alle pagina\'s.',
+            ],
+            'view' => [
+                'name' => 'Pagina bekijken',
+                'description' => 'Hiermee kan de gebruiker de detail gegevens van een pagina zien.',
+            ],
+            'create' => [
+                'name' => 'Pagina aanmaken',
+                'description' => 'Hiermee kan de gebruiker een nieuwe pagina toevoegen.',
+            ],
+            'update' => [
+                'name' => 'Pagina wijzigen',
+                'description' => 'Hiermee kan de gebruiker een bestaande pagina wijzigen.',
+            ],
+            'delete' => [
+                'name' => 'Pagina verwijderen',
+                'description' => 'Hiermee kan de gebruiker een bestaande pagina verwijderen.',
+            ],
+            'restore' => [
+                'name' => 'Pagina herstellen',
+                'description' => 'Hiermee kan de gebruiker een verwijderde pagina herstellen.',
+            ],
+            'force_delete' => [
+                'name' => 'Geforceerd een pagina verwijderen',
+                'description' => 'Hiermee kan de gebruiker een pagina geforceerd verwijderen.',
+            ],
+        ],
+
+        'meta' => [
+            'view_any' => [
+                'name' => 'Alle meta informatie bekijken',
+                'description' => 'Hiermee kan de gebruiker alle meta informatie zien van de onderdelen in het cms.',
+            ],
+            'view' => [
+                'name' => 'Meta informatie bekijken',
+                'description' => 'Hiermee kan de gebruiker de detail gegevens de meta informatie van een onderdeel zien.',
+            ],
+            'create' => [
+                'name' => 'Meta gegevens aanmaken',
+                'description' => 'Hiermee kan de gebruiker nieuwe meta gegevens toevoegen.',
+            ],
+            'update' => [
+                'name' => 'Meta gegevens wijzigen',
+                'description' => 'Hiermee kan de gebruiker bestaande meta gegevens wijzigen.',
+            ],
+            'delete' => [
+                'name' => 'Meta gegevens verwijderen',
+                'description' => 'Hiermee kan de gebruiker meta gegevens verwijderen.',
+            ],
+            'restore' => [
+                'name' => 'Meta gegevens herstellen',
+                'description' => 'Hiermee kan de gebruiker verwijderde meta gegevens herstellen.',
+            ],
+            'force_delete' => [
+                'name' => 'Geforceerd meta gegevens verwijderen',
+                'description' => 'Hiermee kan de gebruiker meta gegevens geforceerd verwijderen.',
+            ],
+        ],
+
+        'language' => [
+            'view_any' => [
+                'name' => 'Overzicht bekijken van talen',
+                'description' => 'Hiermee kan de gebruiker alle talen in de website zien.',
+            ],
+            'view' => [
+                'name' => 'Taal bekijken',
+                'description' => 'Hiermee kan de gebruiker de detail gegevens van een taal zien.',
+            ],
+            'create' => [
+                'name' => 'Taal toevoegen',
+                'description' => 'Hiermee kan de gebruiker een nieuwe taal toevoegen.',
+            ],
+            'update' => [
+                'name' => 'Taal wijzigen',
+                'description' => 'Hiermee kan de gebruiker een bestaande taal wijzigen.',
+            ],
+            'delete' => [
+                'name' => 'Taal verwijderen',
+                'description' => 'Hiermee kan de gebruiker een betaande taal verwijderen.',
+            ],
+            'restore' => [
+                'name' => 'Taal herstellen',
+                'description' => 'Hiermee kan een gebruiker een verwijderde taal herstellen en terugzetten.',
+            ],
+            'force_delete' => [
+                'name' => 'Geforceerd een taal verwijderen',
+                'description' => 'Hiermee kan een gebruiker een taal geforceerd verwijderen.',
+            ],
+        ],
     ],
 
     'resources' => [
@@ -15,6 +242,10 @@ return [
             'created_at' => 'Aangemaakt op',
             'updated_at' => 'Gewijzigd op',
             'deleted_at' => 'Verwijderd op',
+            'default' => 'Standaard',
+            'not_default' => 'Niet standaard',
+            'enabled' => 'Geactiveerd',
+            'not_enabled' => 'Niet geactiveerd',
         ],
 
         'user' => [
@@ -68,6 +299,51 @@ return [
             'filters' => [
                 'locale' => [
                     'label' => 'Taal',
+                ],
+            ],
+        ],
+
+        'language' => [
+            'label' => 'Talen',
+            'singular' => 'Taal',
+
+            'fields' => [
+                'country' => [
+                    'label' => 'Land',
+                ],
+
+                'locale' => [
+                    'label' => 'Taalcode',
+                    'description' => 'De taalcode van de taal wordt gebruikt om de vertalingen te selecteren.',
+                ],
+
+                'abbreviation' => [
+                    'label' => 'Afkorting',
+                    'description' => 'Deze afkorting wordt toegevoegd aan de url die deze taal selecteert.',
+                ],
+
+                'is_default' => [
+                    'label' => 'Standaard taal',
+                    'description' => 'Is deze taal de standaardtaal die wordt geladen vanaf de website als er geen is geselecteerd?',
+                ],
+
+                'is_enabled' => [
+                    'label' => 'Taal ingeschakeld?',
+                    'description' => 'Kan deze taal op de website worden gebruikt?',
+                ],
+
+                'image' => [
+                    'label' => 'Afbeelding',
+                    'description' => 'Deze afbeelding kan in elke taalswitch worden gebruikt om de taal weer te geven.',
+                ],
+            ],
+
+            'actions' => [
+                'default' => [
+                    'label' => 'Als standaard gebruiken',
+                    'heading' => ':name standaard maken?',
+                    'description' => 'Weet je zeker dat je :name als standaard wilt gebruiken?',
+                    'successTitle' => ':name wordt nu als standaard gebruikt.',
                 ],
             ],
         ],
