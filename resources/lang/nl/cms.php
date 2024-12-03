@@ -101,8 +101,13 @@ return [
                 ],
 
                 'is_enabled' => [
-                    'label' => 'Taal inschakelen',
+                    'label' => 'Taal ingeschakeld?',
                     'description' => 'Kan deze taal op de website worden gebruikt?',
+                ],
+
+                'image' => [
+                    'label' => 'Afbeelding',
+                    'description' => 'Deze afbeelding kan in elke taalswitch worden gebruikt om de taal weer te geven.',
                 ],
             ],
 

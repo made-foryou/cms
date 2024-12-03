@@ -101,8 +101,13 @@ return [
                 ],
 
                 'is_enabled' => [
-                    'label' => 'Enable language',
+                    'label' => 'Language enabled?',
                     'description' => 'Can this language be used within the website?',
+                ],
+
+                'image' => [
+                    'label' => 'Image',
+                    'description' => 'This image can be used within any language switch to represent the language.',
                 ],
             ],
 

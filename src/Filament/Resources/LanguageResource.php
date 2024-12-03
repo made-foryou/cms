@@ -2,6 +2,7 @@
 
 namespace Made\Cms\Filament\Resources;
 
+use Exception;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
@@ -16,6 +17,7 @@ use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Made\Cms\Filament\Resources\LanguageResource\Pages;
 use Made\Cms\Language\Filament\Actions\MakeDefaultAction;
@@ -58,7 +60,8 @@ class LanguageResource extends Resource
                                     ->required(),
 
                                 FileUpload::make('image')
-                                    ->label('Afbeelding')
+                                    ->label(__('made-cms::cms.resources.language.fields.image.label'))
+                                    ->helperText(__('made-cms::cms.resources.language.fields.image.description'))
                                     ->image()
                                     ->avatar()
                                     ->imageEditor(),
@@ -85,35 +88,46 @@ class LanguageResource extends Resource
             ->columns(3);
     }
 
+    /**
+     * @throws Exception
+     */
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('made-cms::cms.resources.common.name'))
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('country'),
+                TextColumn::make('country')
+                    ->label(__('made-cms::cms.resources.language.fields.country.label')),
 
-                TextColumn::make('locale'),
+                TextColumn::make('locale')
+                    ->label(__('made-cms::cms.resources.language.fields.locale.label')),
 
-                TextColumn::make('abbreviation'),
+                TextColumn::make('abbreviation')
+                    ->label(__('made-cms::cms.resources.language.fields.abbreviation.label')),
 
                 ImageColumn::make('image')
+                    ->label(__('made-cms::cms.resources.language.fields.image.label'))
                     ->circular(),
 
                 TextColumn::make('is_default')
+                    ->label(__('made-cms::cms.resources.language.fields.is_default.label'))
                     ->badge()
                     ->formatStateUsing(fn (bool $state) => ($state) ? __('made-cms::cms.resources.common.default') : __('made-cms::cms.resources.common.not_default'))
                     ->color(fn (bool $state) => ($state) ? 'success' : 'danger'),
 
                 TextColumn::make('is_enabled')
+                    ->label(__('made-cms::cms.resources.language.fields.is_enabled.label'))
                     ->badge()
                     ->formatStateUsing(fn (bool $state) => ($state) ? __('made-cms::cms.resources.common.enabled') : __('made-cms::cms.resources.common.not_enabled'))
                     ->color(fn (bool $state) => ($state) ? 'success' : 'danger'),
             ])
             ->filters([
-                //
+                TernaryFilter::make('is_enabled')
+                    ->label(__('made-cms::cms.resources.language.fields.is_enabled.label')),
             ])
             ->actions([
                 ActionGroup::make([
