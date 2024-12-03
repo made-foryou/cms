@@ -2,6 +2,14 @@
 
 All notable changes to `cms` will be documented in this file.
 
+## 0.5.0 Language management - 2024-12-03
+
+### What's Changed
+
+* Add language management feature to CMS by @mennotempelaar in https://github.com/made-foryou/cms/pull/18
+
+**Full Changelog**: https://github.com/made-foryou/cms/compare/0.4.0...0.5.0
+
 ## 0.4.0 Pages - 2024-11-26
 
 ### What's Changed
