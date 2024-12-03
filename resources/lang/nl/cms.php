@@ -79,6 +79,41 @@ return [
         'language' => [
             'label' => 'Talen',
             'singular' => 'Taal',
+
+            'fields' => [
+                'country' => [
+                    'label' => 'Land',
+                ],
+
+                'locale' => [
+                    'label' => 'Taalcode',
+                    'description' => 'De taalcode van de taal wordt gebruikt om de vertalingen te selecteren.',
+                ],
+
+                'abbreviation' => [
+                    'label' => 'Afkorting',
+                    'description' => 'Deze afkorting wordt toegevoegd aan de url die deze taal selecteert.',
+                ],
+
+                'is_default' => [
+                    'label' => 'Standaard taal',
+                    'description' => 'Is deze taal de standaardtaal die wordt geladen vanaf de website als er geen is geselecteerd?',
+                ],
+
+                'is_enabled' => [
+                    'label' => 'Taal inschakelen',
+                    'description' => 'Kan deze taal op de website worden gebruikt?',
+                ],
+            ],
+
+            'actions' => [
+                'default' => [
+                    'label' => 'Als standaard gebruiken',
+                    'heading' => ':name standaard maken?',
+                    'description' => 'Weet je zeker dat je :name als standaard wilt gebruiken?',
+                    'successTitle' => ':name wordt nu als standaard gebruikt.',
+                ],
+            ],
         ],
 
         'settings' => [

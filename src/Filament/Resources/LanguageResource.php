@@ -2,12 +2,14 @@
 
 namespace Made\Cms\Filament\Resources;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -16,6 +18,7 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Made\Cms\Filament\Resources\LanguageResource\Pages;
+use Made\Cms\Language\Filament\Actions\MakeDefaultAction;
 use Made\Cms\Language\Models\Language;
 
 class LanguageResource extends Resource
@@ -53,6 +56,13 @@ class LanguageResource extends Resource
                                     ->label(__('made-cms::cms.resources.language.fields.abbreviation.label'))
                                     ->helperText(__('made-cms::cms.resources.language.fields.abbreviation.description'))
                                     ->required(),
+
+                                FileUpload::make('image')
+                                    ->label('Afbeelding')
+                                    ->image()
+                                    ->avatar()
+                                    ->imageEditor(),
+
                             ]),
                     ])
                     ->columnSpan(['lg' => 2]),
@@ -63,7 +73,8 @@ class LanguageResource extends Resource
                             ->schema([
                                 Toggle::make('is_default')
                                     ->label(__('made-cms::cms.resources.language.fields.is_default.label'))
-                                    ->helperText(__('made-cms::cms.resources.language.fields.is_default.description')),
+                                    ->helperText(__('made-cms::cms.resources.language.fields.is_default.description'))
+                                    ->disabled(),
 
                                 Toggle::make('is_enabled')
                                     ->label(__('made-cms::cms.resources.language.fields.is_enabled.label'))
@@ -88,7 +99,8 @@ class LanguageResource extends Resource
 
                 TextColumn::make('abbreviation'),
 
-                ImageColumn::make('image'),
+                ImageColumn::make('image')
+                    ->circular(),
 
                 TextColumn::make('is_default')
                     ->badge()
@@ -104,8 +116,12 @@ class LanguageResource extends Resource
                 //
             ])
             ->actions([
-                EditAction::make(),
-                DeleteAction::make(),
+                ActionGroup::make([
+                    MakeDefaultAction::make(),
+                    EditAction::make(),
+                    DeleteAction::make(),
+                ]),
+
             ])
             ->bulkActions([
                 BulkActionGroup::make([

@@ -101,8 +101,17 @@ return [
                 ],
 
                 'is_enabled' => [
-                    'label' => 'Language enabling',
+                    'label' => 'Enable language',
                     'description' => 'Can this language be used within the website?',
+                ],
+            ],
+
+            'actions' => [
+                'default' => [
+                    'label' => 'Use as default',
+                    'heading' => 'Make the :name language standard?',
+                    'description' => 'Are you sure you want to use :name as your default language?',
+                    'successTitle' => ':name is now used as the standard.',
                 ],
             ],
         ],
