@@ -98,6 +98,13 @@ class PageResource extends Resource
                                                     )
                                                     ->label(__('made-cms::cms.resources.page.fields.locale.label'))
                                                     ->helperText(__('made-cms::cms.resources.page.fields.locale.description')),
+
+                                                Select::make('translated_from_id')
+                                                    ->label('Vertaling van')
+                                                    ->disabled()
+                                                    ->relationship('translatedFrom', 'name')
+                                                    ->helperText('Deze pagina is een vertaling van de hierboven geselecteerde pagina. Dit is niet te wijzigen.')
+                                                    ->visible(fn (Page $record) => $record->translated_from_id !== null),
                                             ]),
                                     ]),
                             ])

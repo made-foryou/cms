@@ -53,6 +53,13 @@ return new class extends Migration
                     ->references('id')
                     ->on(config('made-cms.database.table_prefix') . 'pages')
                     ->nullOnDelete();
+
+                $table->foreignId('translated_from_id')
+                    ->nullable()
+                    ->after('parent_id')
+                    ->references('id')
+                    ->on(config('made-cms.database.table_prefix') . 'pages')
+                    ->nullOnDelete();
             }
         );
     }
