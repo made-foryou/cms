@@ -104,7 +104,7 @@ class PageResource extends Resource
                                                     ->disabled()
                                                     ->relationship('translatedFrom', 'name')
                                                     ->helperText('Deze pagina is een vertaling van de hierboven geselecteerde pagina. Dit is niet te wijzigen.')
-                                                    ->visible(fn (Page $record) => $record->translated_from_id !== null),
+                                                    ->visible(fn (Get $get) => $get('translated_from_id') !== null),
                                             ]),
                                     ]),
                             ])
