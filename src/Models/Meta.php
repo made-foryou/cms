@@ -16,6 +16,7 @@ use Made\Cms\Database\HasDatabaseTablePrefix;
  * @property string $title
  * @property string $description
  * @property string $robot
+ * @property array $canonicals
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read Page $describable
@@ -29,6 +30,15 @@ class Meta extends Model
         'title',
         'description',
         'robot',
+        'canonicals',
+    ];
+
+    protected $casts = [
+        'id' => 'integer',
+        'describable_id' => 'integer',
+        'canonicals' => 'array',
+        'created' => 'datetime',
+        'updated' => 'datetime',
     ];
 
     /**

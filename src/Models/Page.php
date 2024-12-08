@@ -33,6 +33,8 @@ use Made\Cms\Observers\PageModelObserver;
  * @property-read Language|null $language
  * @property-read Page|null $parent
  * @property-read Collection<Page> $children
+ * @property-read null|Page $translatedFrom
+ * @property-read Collection<Page> $translations
  */
 #[ObservedBy(PageModelObserver::class)]
 class Page extends Model

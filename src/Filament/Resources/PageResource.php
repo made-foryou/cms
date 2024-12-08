@@ -29,6 +29,7 @@ use Made\Cms\Enums\PageStatus;
 use Made\Cms\Filament\Resources\PageResource\Pages;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Models\Page;
+use Made\Cms\Page\Filament\Actions\TranslateAction;
 
 class PageResource extends Resource
 {
@@ -215,7 +216,12 @@ class PageResource extends Resource
             ])
             ->actions([
                 ActionGroup::make([
-                    EditAction::make(),
+                    ActionGroup::make([
+                        TranslateAction::make(),
+                        EditAction::make(),
+                    ])
+                        ->dropdown(false),
+
                     DeleteAction::make(),
                 ]),
             ])

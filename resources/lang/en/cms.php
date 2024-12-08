@@ -301,6 +301,26 @@ return [
                     'label' => 'Language',
                 ],
             ],
+
+            'actions' => [
+                'translate' => [
+                    'label' => 'Make a translation',
+                    'heading' => 'Creating page translation',
+                    'description' => 'A copy of the page is prepared for the selected language. In this you can then continue translating the content.',
+                    'fields' => [
+                        'language' => [
+                            'label' => 'Language',
+                            'helperText' => 'For which language do you want to prepare a translation?',
+                        ],
+                    ],
+                    'failure' => [
+                        'title' => 'A translation of page :name already exists for the selected language.',
+                    ],
+                    'success' => [
+                        'title' => 'The translation has been created from page :name and is ready for further translation.',
+                    ],
+                ],
+            ],
         ],
 
         'language' => [

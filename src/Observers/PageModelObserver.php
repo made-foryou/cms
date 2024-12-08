@@ -9,6 +9,8 @@ class PageModelObserver
 {
     public function saving(Page $page): void
     {
-        $page->author()->associate(Auth::user());
+        if ($page->author_id === null && Auth::hasUser()) {
+            $page->author()->associate(Auth::user());
+        }
     }
 }
