@@ -29,6 +29,7 @@ use Made\Cms\Enums\PageStatus;
 use Made\Cms\Filament\Resources\PageResource\Pages;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Models\Page;
+use Made\Cms\Page\Filament\Actions\TranslateAction;
 
 class PageResource extends Resource
 {
@@ -98,6 +99,13 @@ class PageResource extends Resource
                                                     )
                                                     ->label(__('made-cms::cms.resources.page.fields.locale.label'))
                                                     ->helperText(__('made-cms::cms.resources.page.fields.locale.description')),
+
+                                                Select::make('translated_from_id')
+                                                    ->label('Vertaling van')
+                                                    ->disabled()
+                                                    ->relationship('translatedFrom', 'name')
+                                                    ->helperText('Deze pagina is een vertaling van de hierboven geselecteerde pagina. Dit is niet te wijzigen.')
+                                                    ->visible(fn (Get $get) => $get('translated_from_id') !== null),
                                             ]),
                                     ]),
                             ])
@@ -208,7 +216,12 @@ class PageResource extends Resource
             ])
             ->actions([
                 ActionGroup::make([
-                    EditAction::make(),
+                    ActionGroup::make([
+                        TranslateAction::make(),
+                        EditAction::make(),
+                    ])
+                        ->dropdown(false),
+
                     DeleteAction::make(),
                 ]),
             ])

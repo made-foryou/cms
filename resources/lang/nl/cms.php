@@ -301,6 +301,26 @@ return [
                     'label' => 'Taal',
                 ],
             ],
+
+            'actions' => [
+                'translate' => [
+                    'label' => 'Maak een vertaling',
+                    'heading' => 'Pagina vertaling aanmaken',
+                    'description' => 'Er wordt een kopie van de pagina klaar gezet voor de geselecteerde taal. Hierin kun je vervolgens de inhoud verder gaan vertalen.',
+                    'fields' => [
+                        'language' => [
+                            'label' => 'Taal',
+                            'helperText' => 'Voor welke taal wil je een vertaling klaarzetten?',
+                        ],
+                    ],
+                    'failure' => [
+                        'title' => 'Er bestaat al een vertaling van pagina :name voor de geselecteerde taal.',
+                    ],
+                    'success' => [
+                        'title' => 'De vertaling is aangemaakt van pagina :name en staat klaar om verder vertaald te worden.',
+                    ],
+                ],
+            ],
         ],
 
         'language' => [

@@ -15,4 +15,9 @@ class LanguageBuilder extends Builder
     {
         return $this->where('is_default', true);
     }
+
+    public function enabled(): self
+    {
+        return $this->where('is_enabled', true);
+    }
 }

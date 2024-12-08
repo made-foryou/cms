@@ -17,7 +17,8 @@ use Made\Cms\Observers\PageModelObserver;
 
 /**
  * @property-read int $id
- * @property-read int|null $parent_id
+ * @property int|null $parent_id
+ * @property int|null $translated_from_id
  * @property string $name
  * @property string $slug
  * @property int|null $language_id
@@ -32,6 +33,8 @@ use Made\Cms\Observers\PageModelObserver;
  * @property-read Language|null $language
  * @property-read Page|null $parent
  * @property-read Collection<Page> $children
+ * @property-read null|Page $translatedFrom
+ * @property-read Collection<Page> $translations
  */
 #[ObservedBy(PageModelObserver::class)]
 class Page extends Model
@@ -47,6 +50,7 @@ class Page extends Model
     protected $casts = [
         'id' => 'integer',
         'parent_id' => 'integer',
+        'translated_from_id' => 'integer',
         'language_id' => 'integer',
         'status' => PageStatus::class,
         'content' => 'array',
@@ -62,6 +66,7 @@ class Page extends Model
      */
     protected $fillable = [
         'parent_id',
+        'translated_from_id',
         'name',
         'slug',
         'language_id',
@@ -79,7 +84,9 @@ class Page extends Model
     ];
 
     /**
-     * Establishes a relationship to the parent page.
+     * Defines the relationship to the parent page.
+     *
+     * @return BelongsTo The associated parent page.
      */
     public function parent(): BelongsTo
     {
@@ -99,6 +106,32 @@ class Page extends Model
         return $this->hasMany(
             related: Page::class,
             foreignKey: 'parent_id'
+        );
+    }
+
+    /**
+     * The related page which this was translated from.
+     *
+     * @returns BelongsTo The relationship instance
+     */
+    public function translatedFrom(): BelongsTo
+    {
+        return $this->belongsTo(
+            related: Page::class,
+            foreignKey: 'translated_from_id'
+        );
+    }
+
+    /**
+     * Defines a relationship to retrieve all translations of this page.
+     *
+     * @return HasMany The related translations.
+     */
+    public function translations(): HasMany
+    {
+        return $this->hasMany(
+            related: Page::class,
+            foreignKey: 'translated_from_id',
         );
     }
 
@@ -129,7 +162,9 @@ class Page extends Model
     }
 
     /**
-     * The relation to the metadata for the page.
+     * Establishes a one-to-one polymorphic relationship with the Meta model.
+     *
+     * @return MorphOne A MorphOne relationship instance with the Meta model.
      */
     public function meta(): MorphOne
     {
