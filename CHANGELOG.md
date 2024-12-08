@@ -2,6 +2,14 @@
 
 All notable changes to `cms` will be documented in this file.
 
+## 0.6.0 Page translation - 2024-12-08
+
+### What's Changed
+
+* ✨ Pagina vertalen by @mennotempelaar in https://github.com/made-foryou/cms/pull/19
+
+**Full Changelog**: https://github.com/made-foryou/cms/compare/0.5.0...0.6.0
+
 ## 0.5.0 Language management - 2024-12-03
 
 ### What's Changed
