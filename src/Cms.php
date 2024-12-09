@@ -7,6 +7,10 @@ use Made\Cms\Models\Settings\WebsiteSetting;
 
 class Cms
 {
+    public const string ALL_ROUTES = 'all';
+
+    public const string PAGE_ROUTES = 'page';
+
     public function __construct(
         protected WebsiteSetting $websiteSetting,
     ) {}
@@ -36,11 +40,12 @@ class Cms
         return $html;
     }
 
-    public function localeOptions($disabled = true): array
+    public function routes($selection = self::ALL_ROUTES): void
     {
-        return $this->websiteSetting->getLocales()
-            ->filter(fn (array $locale) => ($disabled === true || $locale['enabled'] === true))
-            ->mapWithKeys(fn (array $locale) => [$locale['code'] => $locale['name']])
-            ->toArray();
+        if (in_array($selection, [self::ALL_ROUTES, self::PAGE_ROUTES], true)) {
+            $this->generatePageRoutes();
+        }
     }
+
+    protected function generatePageRoutes(): void {}
 }

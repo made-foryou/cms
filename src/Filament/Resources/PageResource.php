@@ -60,11 +60,24 @@ class PageResource extends Resource
                                                     ->helperText(__('made-cms::pages.fields.name.description'))
                                                     ->required(),
 
+                                                Select::make('parent_id')
+                                                    ->label('Onderdeel van')
+                                                    ->helperText('Deze pagina valt onder de hierboven geselecteerde pagina.')
+                                                    ->relationship(name: 'parent', titleAttribute: 'name', ignoreRecord: true)
+                                                    ->preload()
+                                                    ->searchable(),
+
                                                 TextInput::make('slug')
                                                     ->label(__('made-cms::pages.fields.slug.label'))
                                                     ->helperText(__('made-cms::pages.fields.slug.description'))
                                                     ->required()
-                                                    ->prefix('/')
+                                                    ->prefix(function (Page $record): string {
+                                                        $parts = $record->urlSchema();
+
+                                                        array_pop($parts);
+
+                                                        return '/' . implode('/', $parts) . '/';
+                                                    })
                                                     ->suffixAction(
                                                         Action::make('generate-slug')
                                                             ->label('Maak automatisch een slug aan de hand van de pagina naam.')
@@ -82,6 +95,7 @@ class PageResource extends Resource
                                     ->schema([
                                         Section::make()
                                             ->schema([
+
                                                 Select::make('status')
                                                     ->label(__('made-cms::pages.fields.status.label'))
                                                     ->helperText(__('made-cms::pages.fields.status.description'))
@@ -183,6 +197,11 @@ class PageResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('parent.name')
+                    ->label('Bovenliggende pagina')
+                    ->searchable()
+                    ->sortable(),
+
                 TextColumn::make('name')
                     ->label(__('made-cms::cms.resources.page.table.name'))
                     ->searchable()
@@ -213,6 +232,10 @@ class PageResource extends Resource
                 SelectFilter::make('language_id')
                     ->relationship('language', 'name')
                     ->label(__('made-cms::cms.resources.page.filters.locale.label')),
+
+                SelectFilter::make('parent_id')
+                    ->options(Page::query()->get()->mapWithKeys(fn ($page) => [$page->id => $page->name]))
+                    ->label('Bovenliggende pagina'),
             ])
             ->actions([
                 ActionGroup::make([

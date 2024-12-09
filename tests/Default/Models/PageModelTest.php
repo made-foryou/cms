@@ -7,6 +7,7 @@ use Made\Cms\Models\User;
 
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\mock;
 
 uses(RefreshDatabase::class);
 
@@ -92,4 +93,53 @@ test('meta relationship', function () {
 
     expect($result)->not()->toBeNull();
     expect($result->id)->toBe($meta->id);
+});
+
+test('url method returns slug for a page without parent', function () {
+    $page = new Page(['slug' => 'home']);
+
+    expect(implode('/', $page->urlSchema()))->toBe('home');
+});
+
+test('url method constructs URL for a page with parent', function () {
+    $parent = mock(Page::class)->makePartial();
+    $parent->slug = 'section';
+    $parent->shouldReceive('url')->andReturn('section');
+
+    $child = new Page(['slug' => 'article']);
+    $child->setRelation('parent', $parent);
+
+    expect(implode('/', $child->urlSchema()))->toBe('section/article');
+});
+
+test('url method constructs URL for multiple nested pages', function () {
+    $grandparent = mock(Page::class)->makePartial();
+    $grandparent->slug = 'blog';
+    $grandparent->shouldReceive('urlSchema')->andReturn(['blog']);
+
+    $parent = mock(Page::class)->makePartial();
+    $parent->slug = '2023';
+    $parent->setRelation('parent', $grandparent);
+
+    $child = new Page(['slug' => 'august']);
+    $child->setRelation('parent', $parent);
+
+    expect(implode('/', $child->urlSchema()))->toBe('blog/2023/august');
+});
+
+test('it creates a route when the pages gets saved', function () {
+    $user = User::factory()->create();
+
+    $this->actingAs($user);
+
+    $page = new Page;
+    $page->name = 'test';
+    $page->slug = 'test';
+    $page->content = [];
+    $page->save();
+
+    $page->refresh();
+
+    expect($page->route)->toBeInstanceOf(\Made\Cms\Shared\Models\Route::class);
+    expect($page->route->route)->toBe('/' . implode('/', $page->urlSchema()));
 });
