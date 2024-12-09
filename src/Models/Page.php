@@ -25,6 +25,7 @@ use Made\Cms\Shared\Models\Route;
  * @property int|null $language_id
  * @property PageStatus $status
  * @property array $content
+ * @property int $sort
  * @property int $author_id
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
@@ -56,6 +57,7 @@ class Page extends Model
         'language_id' => 'integer',
         'status' => PageStatus::class,
         'content' => 'array',
+        'sort' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
@@ -74,6 +76,7 @@ class Page extends Model
         'language_id',
         'status',
         'content',
+        'sort',
     ];
 
     /**

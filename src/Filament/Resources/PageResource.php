@@ -23,6 +23,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Made\Cms\Enums\MetaRobot;
 use Made\Cms\Enums\PageStatus;
@@ -71,7 +72,11 @@ class PageResource extends Resource
                                                     ->label(__('made-cms::pages.fields.slug.label'))
                                                     ->helperText(__('made-cms::pages.fields.slug.description'))
                                                     ->required()
-                                                    ->prefix(function (Page $record): string {
+                                                    ->prefix(function (?Page $record): string {
+                                                        if ($record === null || $record->parent === null) {
+                                                            return '/';
+                                                        }
+
                                                         $parts = $record->urlSchema();
 
                                                         array_pop($parts);
@@ -208,7 +213,8 @@ class PageResource extends Resource
                     ->sortable(),
 
                 TextColumn::make('language.name')
-                    ->label(__('made-cms::cms.resources.page.table.locale')),
+                    ->label(__('made-cms::cms.resources.page.table.locale'))
+                    ->icon(fn (Page $record) => ($record->language?->image ? Storage::url($record->language->image) : '')),
 
                 TextColumn::make('status')
                     ->label(__('made-cms::cms.resources.page.table.status'))
@@ -252,7 +258,14 @@ class PageResource extends Resource
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultPaginationPageOption(50)
+            ->reorderable('sort')
+            ->defaultSort(function ($query) {
+                return $query
+                    ->orderBy('parent_id', 'asc')
+                    ->orderBy('sort', 'asc');
+            });
     }
 
     public static function getPages(): array
