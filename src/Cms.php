@@ -78,7 +78,7 @@ class Cms
      */
     protected function getRoutes(): Collection
     {
-        if (true === app()->runningInConsole()) {
+        if (app()->runningInConsole() === true) {
             return Cache::get(self::CACHE_ROUTES, collect([]));
         }
 
