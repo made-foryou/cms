@@ -2,6 +2,12 @@
 
 All notable changes to `cms` will be documented in this file.
 
+## 0.7.1 Maintenance mode fix - 2024-12-30
+
+Fixes the feature for switching the website off and on.
+
+**Full Changelog**: https://github.com/made-foryou/cms/compare/0.7.0...1.7.1
+
 ## 0.7.0 Routing - 2024-12-30
 
 ### What's Changed
