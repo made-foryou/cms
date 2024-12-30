@@ -3,6 +3,7 @@
 .phpunit.result.cache
 .phpunit.cache
 .vscode
+.fleet
 build
 composer.lock
 coverage
