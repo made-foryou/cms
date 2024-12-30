@@ -40,7 +40,7 @@ class Controller extends BaseController
      */
     public function __invoke(Request $request)
     {
-        if (false === $this->websiteSetting->isOnline()) {
+        if ($this->websiteSetting->isOnline() === false) {
             abort(503);
         }
 
