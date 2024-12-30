@@ -141,8 +141,6 @@ class Cms
      * The generated route uses a predefined controller class to handle requests.
      *
      * This method is primarily used internally when configuring the application's routes.
-     *
-     * @return void
      */
     protected function generateLandingPageRoute(): void
     {
