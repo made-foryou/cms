@@ -13,4 +13,26 @@ class PageModelObserver
             $page->author()->associate(Auth::user());
         }
     }
+
+    public function saved(Page $page): void
+    {
+        if ($page->route === null && $page->isDirty(['parent_id', 'slug'])) {
+            $page->route()->create([
+                'route' => '/' . implode('/', $page->urlSchema()),
+            ]);
+        }
+
+        if ($page->route !== null) {
+            $page->route->update([
+                'route' => '/' . implode('/', $page->urlSchema()),
+            ]);
+        }
+    }
+
+    public function deleting(Page $page): void
+    {
+        if ($page->route !== null) {
+            $page->route->delete();
+        }
+    }
 }

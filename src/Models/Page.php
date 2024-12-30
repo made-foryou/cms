@@ -14,6 +14,7 @@ use Made\Cms\Database\HasDatabaseTablePrefix;
 use Made\Cms\Enums\PageStatus;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Observers\PageModelObserver;
+use Made\Cms\Shared\Models\Route;
 
 /**
  * @property-read int $id
@@ -24,6 +25,7 @@ use Made\Cms\Observers\PageModelObserver;
  * @property int|null $language_id
  * @property PageStatus $status
  * @property array $content
+ * @property int $sort
  * @property int $author_id
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
@@ -33,8 +35,9 @@ use Made\Cms\Observers\PageModelObserver;
  * @property-read Language|null $language
  * @property-read Page|null $parent
  * @property-read Collection<Page> $children
- * @property-read null|Page $translatedFrom
+ * @property-read Page|null $translatedFrom
  * @property-read Collection<Page> $translations
+ * @property-read Route|null $route
  */
 #[ObservedBy(PageModelObserver::class)]
 class Page extends Model
@@ -54,6 +57,7 @@ class Page extends Model
         'language_id' => 'integer',
         'status' => PageStatus::class,
         'content' => 'array',
+        'sort' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
@@ -72,6 +76,7 @@ class Page extends Model
         'language_id',
         'status',
         'content',
+        'sort',
     ];
 
     /**
@@ -162,6 +167,16 @@ class Page extends Model
     }
 
     /**
+     * Defines a polymorphic one-to-one relation to the Route model.
+     *
+     * @return MorphOne The morph one relation instance.
+     */
+    public function route(): MorphOne
+    {
+        return $this->morphOne(Route::class, 'routeable');
+    }
+
+    /**
      * Establishes a one-to-one polymorphic relationship with the Meta model.
      *
      * @return MorphOne A MorphOne relationship instance with the Meta model.
@@ -169,6 +184,17 @@ class Page extends Model
     public function meta(): MorphOne
     {
         return $this->morphOne(Meta::class, 'describable');
+    }
+
+    public function urlSchema(array &$parts = []): array
+    {
+        if ($this->parent !== null) {
+            $parts = $this->parent->urlSchema($parts);
+        }
+
+        $parts[] = $this->slug;
+
+        return $parts;
     }
 
     /**

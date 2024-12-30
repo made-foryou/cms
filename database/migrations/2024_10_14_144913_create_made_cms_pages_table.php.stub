@@ -30,6 +30,9 @@ return new class extends Migration
 
                 $table->json('content');
 
+                $table->integer('sort')
+                    ->default(1);
+
                 /**
                  * Filled as soon as the model is saved. This tracks who
                  * modified/created this part.
