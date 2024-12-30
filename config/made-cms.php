@@ -69,6 +69,22 @@ return [
 
     ],
 
+    'routing' => [
+
+        /**
+         * Route Controllers
+         *
+         * You can specify per Routeable model which controller to use. These controllers will be
+         * used when the matching route is of the routeable model type and will be used to
+         * render the page of the route.
+         *
+         * For creating the controllers take a closer look at the documentation about
+         *
+         * @var array<class-string<\Illuminate\Database\Eloquent\Model>, class-string<\Made\Cms\Http\Controllers\CmsRoutingContract>>,
+         */
+        'controllers' => [],
+    ],
+
     /**
      * ### Content
      */
