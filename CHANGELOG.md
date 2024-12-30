@@ -2,6 +2,14 @@
 
 All notable changes to `cms` will be documented in this file.
 
+## 0.7.0 Routing - 2024-12-30
+
+### What's Changed
+
+* Routing by @mennotempelaar in https://github.com/made-foryou/cms/pull/20
+
+**Full Changelog**: https://github.com/made-foryou/cms/compare/0.6.0...0.7.0
+
 ## 0.6.0 Page translation - 2024-12-08
 
 ### What's Changed
