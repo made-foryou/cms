@@ -40,6 +40,10 @@ class Controller extends BaseController
      */
     public function __invoke(Request $request)
     {
+        if (false === $this->websiteSetting->isOnline()) {
+            abort(503);
+        }
+
         $uri = $request->getRequestUri();
 
         if (strlen(trim($uri, '/')) === 0) {
