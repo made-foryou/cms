@@ -78,6 +78,10 @@ class Cms
      */
     protected function getRoutes(): Collection
     {
+        if (true === app()->runningInConsole()) {
+            return Cache::get(self::CACHE_ROUTES, collect([]));
+        }
+
         return Cache::rememberForever(self::CACHE_ROUTES, function (): Collection {
             return Route::query()->get();
         });
