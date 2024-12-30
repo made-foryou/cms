@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Made\Cms\Shared\Models;
 
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Carbon;
 use Made\Cms\Database\HasDatabaseTablePrefix;
 use Made\Cms\Models\Page;
+use Made\Cms\Shared\Observers\RouteObserver;
 
 /**
  * @property-read int $id
@@ -19,6 +21,7 @@ use Made\Cms\Models\Page;
  * @property-read Carbon $updated_at
  * @property-read Page $routeable
  */
+#[ObservedBy(RouteObserver::class)]
 class Route extends Model
 {
     use HasDatabaseTablePrefix;
