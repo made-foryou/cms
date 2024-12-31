@@ -3,9 +3,9 @@
 namespace Made\Cms\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Made\Cms\Enums\PageStatus;
 use Made\Cms\Models\Page;
 use Made\Cms\Models\User;
+use Made\Cms\Shared\Enums\PublishingStatus;
 
 class PageFactory extends Factory
 {
@@ -16,7 +16,7 @@ class PageFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'slug' => $this->faker->slug(),
-            'status' => PageStatus::Draft->value,
+            'status' => PublishingStatus::Draft->value,
             'content' => $this->faker->paragraphs(3, true),
             'author_id' => User::factory(),
         ];

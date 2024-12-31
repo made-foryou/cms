@@ -1,18 +1,20 @@
 <?php
 
-namespace Made\Cms\Models;
+declare(strict_types=1);
 
-use Carbon\Carbon;
+namespace Made\Cms\News\Models;
+
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Made\Cms\Database\HasDatabaseTablePrefix;
 use Made\Cms\Language\Models\Language;
+use Made\Cms\Models\Meta;
+use Made\Cms\Models\User;
 use Made\Cms\Shared\Contracts\DefinesAuthorContract;
 use Made\Cms\Shared\Contracts\RouteableContract;
 use Made\Cms\Shared\Enums\PublishingStatus;
@@ -22,32 +24,21 @@ use Made\Cms\Shared\Observers\RouteableObserver;
 
 /**
  * @property-read int $id
- * @property int|null $parent_id
+ * @property int|null $language_id
  * @property int|null $translated_from_id
  * @property string $name
  * @property string $slug
- * @property int|null $language_id
  * @property PublishingStatus $status
  * @property array $content
- * @property int $sort
  * @property int $author_id
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
  * @property-read Carbon|null $deleted_at
- * @property-read User $author
- * @property-read Meta|null $meta
- * @property-read Language|null $language
- * @property-read Page|null $parent
- * @property-read Collection<Page> $children
- * @property-read Page|null $translatedFrom
- * @property-read Collection<Page> $translations
- * @property-read Route|null $route
  */
 #[ObservedBy([AuthorDefiningObserver::class, RouteableObserver::class])]
-class Page extends Model implements DefinesAuthorContract, RouteableContract
+class Post extends Model implements DefinesAuthorContract, RouteableContract
 {
     use HasDatabaseTablePrefix;
-    use HasFactory;
     use SoftDeletes;
 
     /**
@@ -57,12 +48,13 @@ class Page extends Model implements DefinesAuthorContract, RouteableContract
      */
     protected $casts = [
         'id' => 'integer',
-        'parent_id' => 'integer',
-        'translated_from_id' => 'integer',
         'language_id' => 'integer',
+        'translated_from_id' => 'integer',
+        'name' => 'string',
+        'slug' => 'string',
         'status' => PublishingStatus::class,
         'content' => 'array',
-        'sort' => 'integer',
+        'author_id' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
@@ -74,14 +66,13 @@ class Page extends Model implements DefinesAuthorContract, RouteableContract
      * @var array<int, string>
      */
     protected $fillable = [
-        'parent_id',
+        'language_id',
         'translated_from_id',
         'name',
         'slug',
-        'language_id',
         'status',
         'content',
-        'sort',
+        'author_id',
     ];
 
     /**
@@ -94,32 +85,6 @@ class Page extends Model implements DefinesAuthorContract, RouteableContract
     ];
 
     /**
-     * Defines the relationship to the parent page.
-     *
-     * @return BelongsTo The associated parent page.
-     */
-    public function parent(): BelongsTo
-    {
-        return $this->belongsTo(
-            related: Page::class,
-            foreignKey: 'parent_id'
-        );
-    }
-
-    /**
-     * The relation to the child pages.
-     *
-     * @return HasMany The relationship instance.
-     */
-    public function children(): HasMany
-    {
-        return $this->hasMany(
-            related: Page::class,
-            foreignKey: 'parent_id'
-        );
-    }
-
-    /**
      * The related page which this was translated from.
      *
      * @returns BelongsTo The relationship instance
@@ -127,7 +92,7 @@ class Page extends Model implements DefinesAuthorContract, RouteableContract
     public function translatedFrom(): BelongsTo
     {
         return $this->belongsTo(
-            related: Page::class,
+            related: Post::class,
             foreignKey: 'translated_from_id'
         );
     }
@@ -140,7 +105,7 @@ class Page extends Model implements DefinesAuthorContract, RouteableContract
     public function translations(): HasMany
     {
         return $this->hasMany(
-            related: Page::class,
+            related: Post::class,
             foreignKey: 'translated_from_id',
         );
     }
@@ -219,6 +184,6 @@ class Page extends Model implements DefinesAuthorContract, RouteableContract
      */
     public function getTable(): string
     {
-        return $this->prefixTableName('pages');
+        return $this->prefixTableName('posts');
     }
 }

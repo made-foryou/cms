@@ -26,11 +26,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Made\Cms\Enums\MetaRobot;
-use Made\Cms\Enums\PageStatus;
 use Made\Cms\Filament\Resources\PageResource\Pages;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Models\Page;
 use Made\Cms\Page\Filament\Actions\TranslateAction;
+use Made\Cms\Shared\Enums\PublishingStatus;
 
 class PageResource extends Resource
 {
@@ -104,8 +104,8 @@ class PageResource extends Resource
                                                 Select::make('status')
                                                     ->label(__('made-cms::pages.fields.status.label'))
                                                     ->helperText(__('made-cms::pages.fields.status.description'))
-                                                    ->options(PageStatus::options())
-                                                    ->default(array_key_first(PageStatus::options())),
+                                                    ->options(PublishingStatus::options())
+                                                    ->default(array_key_first(PublishingStatus::options())),
 
                                                 Select::make('language')
                                                     ->relationship('language', 'name')
@@ -219,8 +219,8 @@ class PageResource extends Resource
                 TextColumn::make('status')
                     ->label(__('made-cms::cms.resources.page.table.status'))
                     ->badge()
-                    ->color(fn (PageStatus $state) => $state->color())
-                    ->formatStateUsing(fn (PageStatus $state) => $state->label()),
+                    ->color(fn (PublishingStatus $state) => $state->color())
+                    ->formatStateUsing(fn (PublishingStatus $state) => $state->label()),
 
                 TextColumn::make('slug')
                     ->label(__('made-cms::cms.resources.page.table.slug'))
