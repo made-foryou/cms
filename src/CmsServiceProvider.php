@@ -243,6 +243,7 @@ class CmsServiceProvider extends PackageServiceProvider
             '2024_10_29_193733_create_made_cms_meta_table',
             '2024_11_04_174245_create_made_cms_settings_table',
             '2024_12_08_190243_create_made_cms_routes_table',
+            '2024_12_30_200702_create_made_cms_posts_table',
         ];
     }
 }

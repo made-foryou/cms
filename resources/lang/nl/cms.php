@@ -418,4 +418,17 @@ return [
             ],
         ],
     ],
+
+    'clusters' => [
+        'news' => [
+            'label' => 'Nieuws',
+            'resources' => [
+                'posts' => [
+                    'label' => 'Berichten',
+                    'pluralLabel' => 'Berichten',
+                    'modelLabel' => 'Bericht',
+                ],
+            ],
+        ],
+    ],
 ];
