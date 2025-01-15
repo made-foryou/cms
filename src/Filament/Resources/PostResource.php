@@ -106,7 +106,7 @@ class PostResource extends Resource
 
                                         Section::make()
                                             ->schema([
-                                                
+
                                                 Select::make('status')
                                                     ->label(__('made-cms::cms.resources.post.fields.status.label'))
                                                     ->helperText(__('made-cms::cms.resources.post.fields.status.helperText'))
@@ -132,9 +132,9 @@ class PostResource extends Resource
                                                     ->helperText(__('made-cms::cms.resources.post.fields.translated_from.helperText'))
                                                     ->visible(fn (Get $get) => $get('translated_from_id') !== null),
 
-                                            ])
+                                            ]),
 
-                                    ])
+                                    ]),
 
                             ])
                             ->columns(3),

@@ -452,7 +452,7 @@ return [
                 ],
                 'translated_from' => [
                     'label' => 'Translated from',
-                    'helperText' => 'This news item is a translation of the news item selected above. It cannot be changed.'
+                    'helperText' => 'This news item is a translation of the news item selected above. It cannot be changed.',
                 ],
                 'content' => [
                     'label' => 'Content strips',

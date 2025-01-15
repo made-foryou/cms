@@ -427,7 +427,7 @@ return [
             'tabs' => [
                 'post' => 'Nieuwsbericht',
                 'content' => 'Inhoud',
-                'meta' => 'Meta gegevens'
+                'meta' => 'Meta gegevens',
             ],
             'fields' => [
                 'name' => [
@@ -448,7 +448,7 @@ return [
                 ],
                 'translated_from' => [
                     'label' => 'Vertaling van',
-                    'helperText' => 'Dit nieuwsbericht is een vertaling van het hierboven geselecteerde nieuwsbericht. Dit is niet te wijzigen.'
+                    'helperText' => 'Dit nieuwsbericht is een vertaling van het hierboven geselecteerde nieuwsbericht. Dit is niet te wijzigen.',
                 ],
                 'content' => [
                     'label' => 'Inhoudsstroken',
