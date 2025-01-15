@@ -65,7 +65,7 @@ class PostResource extends Resource
 
                                         Section::make()
                                             ->schema([
-                                                
+
                                                 TextInput::make('name')
                                                     ->label(__('made-cms::cms.resources.post.fields.name.label'))
                                                     ->helperText(__('made-cms::cms.resources.post.fields.name.helperText'))
