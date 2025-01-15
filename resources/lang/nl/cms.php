@@ -23,7 +23,7 @@ return [
             'title' => 'Permissies',
             'description' => 'Beheren van permissies die binnen het CMS gelden.',
         ],
-        Models\Page::class => [
+        \Made\Cms\Page\Models\Page::class => [
             'title' => 'Pagina\'s',
             'description' => 'Beheren van de paginas binnen de website.',
         ],
@@ -34,6 +34,10 @@ return [
         \Made\Cms\Language\Models\Language::class => [
             'title' => 'Talen',
             'description' => 'Beheren van de talen van de website.',
+        ],
+        \Made\Cms\News\Models\Post::class => [
+            'title' => 'Nieuwsberichten',
+            'description' => 'Beheren van het nieuws in de website.',
         ],
     ],
 
@@ -277,6 +281,10 @@ return [
             'singular' => 'Pagina',
 
             'fields' => [
+                'status' => [
+                    'label' => 'Status',
+                    'description' => 'Deze status van de pagina geeft aan waarvoor de pagina gebruikt kan worden. Zodra de status is ingesteld op gepubliceerd, kan elke bezoeker de pagina bekijken.',
+                ],
                 'locale' => [
                     'label' => 'Taal',
                     'description' => 'De taal van de inhoud van de pagina.',
@@ -288,7 +296,7 @@ return [
                 'locale' => 'Taal',
                 'status' => 'Status',
                 'slug' => 'Slug',
-                'author' => 'Auteur',
+                'created_by' => 'Aangemaakt door',
                 'updated_at' => 'Gewijzigd op',
             ],
 
@@ -414,6 +422,73 @@ return [
                 'meta' => [
                     'title' => 'Zoekmachine instellingen',
                     'description' => 'Instellingen die worden gebruikt om te bepalen hoe deze pagina wordt geïndexeerd en geserveerd aan zoekmachines.',
+                ],
+            ],
+        ],
+        'post' => [
+            'label' => 'Nieuwsberichten',
+            'singular' => 'Nieuwsbericht',
+            'tabs' => [
+                'post' => 'Nieuwsbericht',
+                'content' => 'Inhoud',
+                'meta' => 'Meta gegevens',
+            ],
+            'fields' => [
+                'name' => [
+                    'label' => 'Titel',
+                    'helperText' => 'De titel van het nieuwsbericht die zal worden gebruikt om het nieuwsbericht te presenteren en kan worden gebruikt voor de url.',
+                ],
+                'slug' => [
+                    'label' => 'Slug',
+                    'helperText' => 'Titel van het nieuwsbericht die kan worden gebruikt in de url. Deze waarde moet voldoen aan de url-standaarden en dit zijn kleine letters en geen spaties of speciale tekens.',
+                ],
+                'status' => [
+                    'label' => 'Status',
+                    'helperText' => 'Deze status van het nieuwsbericht geeft aan waarvoor het nieuwsbericht gebruikt kan worden. Zodra de status is ingesteld op gepubliceerd, kan elke bezoeker het nieuwsbericht bekijken.',
+                ],
+                'locale' => [
+                    'label' => 'Taal',
+                    'helperText' => 'De taal van de inhoud van het nieuwsbericht.',
+                ],
+                'translated_from' => [
+                    'label' => 'Vertaling van',
+                    'helperText' => 'Dit nieuwsbericht is een vertaling van het hierboven geselecteerde nieuwsbericht. Dit is niet te wijzigen.',
+                ],
+                'content' => [
+                    'label' => 'Inhoudsstroken',
+                    'helperText' => 'Nieuwsbericht-inhoud wordt opgebouwd uit stroken. Elke strook heeft zijn eigen instellingen en inhoud. Deze kunnen hier worden toegevoegd, versleept en/of verwijderd.',
+                    'add_button' => 'Nieuwe inhoudsstrook toevoegen',
+                ],
+                'meta' => [
+                    'title' => [
+                        'label' => 'Nieuwsbericht titel',
+                        'helperText' => 'Titel van het nieuwsbericht welke wordt weergegeven in de browser tab en in de zoek resultaten.',
+                    ],
+                    'description' => [
+                        'label' => 'Omschrijving',
+                        'helperText' => 'Een korte omschrijving van de inhoud van het nieuwsbericht. Deze omschrijving wordt gebruikt in de zoek resultaten.',
+                    ],
+                    'robot' => [
+                        'label' => 'Robot instelling',
+                        'helperText' => 'Met de meta-tag voor robots kun je een gedetailleerde, paginaspecifieke aanpak gebruiken om te bepalen hoe een individuele HTML-pagina moet worden geïndexeerd en aan gebruikers moet worden weergegeven in de zoekresultaten van Google.',
+                    ],
+                    'canonicals' => [
+                        'label' => 'Canonical links',
+                        'helperText' => 'Standaard wordt de canonieke link automatisch gegenereerd op basis van de huidige URL. Als je iets extra\'s wilt toevoegen, kun je hier meerdere canonieke links toevoegen.',
+                    ],
+                ],
+            ],
+        ],
+    ],
+
+    'clusters' => [
+        'news' => [
+            'label' => 'Nieuws',
+            'resources' => [
+                'posts' => [
+                    'label' => 'Nieuwsberichten',
+                    'pluralLabel' => 'Nieuwsberichten',
+                    'modelLabel' => 'Nieuwsbericht',
                 ],
             ],
         ],

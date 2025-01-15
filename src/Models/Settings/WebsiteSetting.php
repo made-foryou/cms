@@ -2,7 +2,7 @@
 
 namespace Made\Cms\Models\Settings;
 
-use Made\Cms\Models\Page;
+use Made\Cms\Page\Models\Page;
 use Spatie\LaravelSettings\Settings;
 
 class WebsiteSetting extends Settings

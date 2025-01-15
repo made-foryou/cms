@@ -5,9 +5,9 @@ namespace Made\Cms\Filament\Resources\PageResource\Pages;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
-use Made\Cms\Enums\PageStatus;
 use Made\Cms\Filament\Resources\PageResource;
-use Made\Cms\Models\Page;
+use Made\Cms\Page\Models\Page;
+use Made\Cms\Shared\Enums\PublishingStatus;
 
 class ListPages extends ListRecords
 {
@@ -27,7 +27,7 @@ class ListPages extends ListRecords
                 ->badge(Page::query()->count()),
         ];
 
-        collect(PageStatus::cases())->each(function (PageStatus $status) use (&$tabs) {
+        collect(PublishingStatus::cases())->each(function (PublishingStatus $status) use (&$tabs) {
             $tabs[$status->value] = Tab::make($status->label())
                 ->modifyQueryUsing(fn ($query) => $query->where('status', $status->value))
                 ->badge(

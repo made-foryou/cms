@@ -2,8 +2,8 @@
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Made\Cms\Models\Meta;
-use Made\Cms\Models\Page;
 use Made\Cms\Models\User;
+use Made\Cms\Page\Models\Page;
 
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;
@@ -28,15 +28,15 @@ test('page model can be created', function () {
     expect($model)->toBeInstanceOf(Page::class);
 });
 
-test('author relationship', function () {
+test('created by relationship', function () {
     $user = User::factory()->create();
-    $page = Page::factory()->createOneQuietly(['author_id' => $user->id]);
+    $page = Page::factory()->createOneQuietly(['created_by' => $user->id]);
 
-    expect($page->author)->toBeInstanceOf(User::class)
-        ->and($page->author->id)->toBe($user->id);
+    expect($page->createdBy)->toBeInstanceOf(User::class)
+        ->and($page->createdBy->id)->toBe($user->id);
 });
 
-test('it generates an author according the logged in user', function () {
+test('it generates an created by according the logged in user', function () {
     $user = User::factory()->create();
 
     $this->actingAs($user);
@@ -49,7 +49,7 @@ test('it generates an author according the logged in user', function () {
 
     $page->refresh();
 
-    expect($page->author->id)->toBe($user->id);
+    expect($page->createdBy->id)->toBe($user->id);
 
 });
 

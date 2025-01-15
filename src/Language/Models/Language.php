@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Made\Cms\Language\Builders\LanguageBuilder;
-use Made\Cms\Models\Page;
+use Made\Cms\Page\Models\Page;
 
 /**
  * @property-read int $id

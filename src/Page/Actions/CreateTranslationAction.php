@@ -5,7 +5,7 @@ namespace Made\Cms\Page\Actions;
 use Exception;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Made\Cms\Language\Models\Language;
-use Made\Cms\Models\Page;
+use Made\Cms\Page\Models\Page;
 
 class CreateTranslationAction
 {

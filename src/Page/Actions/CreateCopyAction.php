@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Made\Cms\Page\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use Made\Cms\Enums\PageStatus;
-use Made\Cms\Models\Page;
+use Made\Cms\Page\Models\Page;
+use Made\Cms\Shared\Enums\PublishingStatus;
 
 class CreateCopyAction
 {
@@ -18,7 +18,7 @@ class CreateCopyAction
 
         $copy->name = $page->name;
         $copy->slug = $page->slug;
-        $copy->status = PageStatus::Draft;
+        $copy->status = PublishingStatus::Draft;
         $copy->content = $page->content;
 
         $copy->save();
@@ -32,7 +32,7 @@ class CreateCopyAction
             ]);
         }
 
-        $copy->author()->associate(request()->user());
+        $copy->createdBy()->associate(request()->user());
         $copy->language()->associate($page->language);
 
         if ($page->parent !== null) {

@@ -60,7 +60,7 @@ it('knows if it is default', function () {
 it('can have pages', function () {
     $language = Language::factory()->default()->createOne();
 
-    $pages = \Made\Cms\Models\Page::factory()->count(10)->createQuietly([
+    $pages = \Made\Cms\Page\Models\Page::factory()->count(10)->createQuietly([
         'language_id' => $language,
     ]);
 

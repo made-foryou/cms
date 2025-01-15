@@ -9,8 +9,8 @@ use Filament\Forms\Components\Select;
 use Filament\Support\Enums\MaxWidth;
 use Filament\Tables\Actions\Action;
 use Made\Cms\Language\Models\Language;
-use Made\Cms\Models\Page;
 use Made\Cms\Page\Actions\CreateTranslationAction;
+use Made\Cms\Page\Models\Page;
 
 class TranslateAction extends Action
 {

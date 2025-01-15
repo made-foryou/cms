@@ -90,7 +90,40 @@ return [
      */
     'content' => [
         'blocks' => [
-            //
+            /**
+             * List of default content stip blocks.
+             *
+             * These blocks be added to every content strip field.
+             *
+             * @var class-string<\Made\Cms\Filament\Builder\ContentStrip>[]
+             */
+            'default' => [
+                //
+            ],
+
+            /**
+             * Page content strip blocks.
+             *
+             * These blocks will only be added to the content strip field for the
+             * Page model.
+             *
+             * @var class-string<\Made\Cms\Filament\Builder\ContentStrip>[]
+             */
+            \Made\Cms\Page\Models\Page::class => [
+                //
+            ],
+
+            /**
+             * News content strip blocks.
+             *
+             * These blocks will only be added to the content strip field for the
+             * Post model.
+             *
+             * @var class-string<\Made\Cms\Filament\Builder\ContentStrip>[]
+             */
+            \Made\Cms\News\Models\Post::class => [
+                //
+            ],
         ],
     ],
 

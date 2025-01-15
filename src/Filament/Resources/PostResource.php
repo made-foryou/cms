@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Made\Cms\Filament\Resources;
 
 use Filament\Forms\Components\Actions\Action;
@@ -7,72 +9,73 @@ use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
-use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ForceDeleteAction;
+use Filament\Tables\Actions\ForceDeleteBulkAction;
+use Filament\Tables\Actions\RestoreAction;
+use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 use Made\Cms\Enums\MetaRobot;
-use Made\Cms\Filament\Resources\PageResource\Pages;
+use Made\Cms\Filament\Clusters\NewsCluster;
 use Made\Cms\Language\Models\Language;
-use Made\Cms\Page\Filament\Actions\TranslateAction;
-use Made\Cms\Page\Models\Page;
+use Made\Cms\News\Models\Post;
 use Made\Cms\Shared\Enums\PublishingStatus;
 
-class PageResource extends Resource
+class PostResource extends Resource
 {
     use ContentStrips;
 
-    protected static ?string $model = Page::class;
+    protected static ?string $model = Post::class;
 
-    protected static ?string $slug = 'pages';
+    protected static ?string $slug = 'posts';
 
-    protected static ?string $navigationIcon = 'heroicon-s-globe-alt';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?string $cluster = NewsCluster::class;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+
                 Tabs::make()
                     ->tabs([
 
-                        Tabs\Tab::make(__('made-cms::pages.tabs.page'))
-                            ->icon('heroicon-s-pencil')
+                        Tab::make(__('made-cms::cms.resources.post.tabs.post'))
+                            ->icon('heroicon-o-pencil')
                             ->schema([
+
                                 Group::make()
                                     ->schema([
+
                                         Section::make()
                                             ->schema([
+
                                                 TextInput::make('name')
-                                                    ->label(__('made-cms::pages.fields.name.label'))
-                                                    ->helperText(__('made-cms::pages.fields.name.description'))
+                                                    ->label(__('made-cms::cms.resources.post.fields.name.label'))
+                                                    ->helperText(__('made-cms::cms.resources.post.fields.name.helperText'))
                                                     ->required(),
 
-                                                Select::make('parent_id')
-                                                    ->label('Onderdeel van')
-                                                    ->helperText('Deze pagina valt onder de hierboven geselecteerde pagina.')
-                                                    ->relationship(name: 'parent', titleAttribute: 'name', ignoreRecord: true)
-                                                    ->preload()
-                                                    ->searchable(),
-
                                                 TextInput::make('slug')
-                                                    ->label(__('made-cms::pages.fields.slug.label'))
-                                                    ->helperText(__('made-cms::pages.fields.slug.description'))
+                                                    ->label(__('made-cms::cms.resources.post.fields.slug.label'))
+                                                    ->helperText(__('made-cms::cms.resources.post.fields.slug.helperText'))
                                                     ->required()
-                                                    ->prefix(function (?Page $record): string {
+                                                    ->prefix(function (?Post $record): string {
                                                         if ($record === null || $record->parent === null) {
                                                             return '/';
                                                         }
@@ -92,18 +95,21 @@ class PageResource extends Resource
                                                                 Str::slug($get('name'))
                                                             ))
                                                     ),
+
                                             ]),
+
                                     ])
                                     ->columnSpan(['lg' => 2]),
 
                                 Group::make()
                                     ->schema([
+
                                         Section::make()
                                             ->schema([
 
                                                 Select::make('status')
-                                                    ->label(__('made-cms::pages.fields.status.label'))
-                                                    ->helperText(__('made-cms::pages.fields.status.description'))
+                                                    ->label(__('made-cms::cms.resources.post.fields.status.label'))
+                                                    ->helperText(__('made-cms::cms.resources.post.fields.status.helperText'))
                                                     ->options(PublishingStatus::options())
                                                     ->default(array_key_first(PublishingStatus::options())),
 
@@ -116,53 +122,63 @@ class PageResource extends Resource
                                                             ->first()
                                                             ->id
                                                     )
-                                                    ->label(__('made-cms::cms.resources.page.fields.locale.label'))
-                                                    ->helperText(__('made-cms::cms.resources.page.fields.locale.description')),
+                                                    ->label(__('made-cms::cms.resources.post.fields.locale.label'))
+                                                    ->helperText(__('made-cms::cms.resources.post.fields.locale.helperText')),
 
                                                 Select::make('translated_from_id')
-                                                    ->label('Vertaling van')
+                                                    ->label(__('made-cms::cms.resources.post.fields.translated_from.label'))
                                                     ->disabled()
                                                     ->relationship('translatedFrom', 'name')
-                                                    ->helperText('Deze pagina is een vertaling van de hierboven geselecteerde pagina. Dit is niet te wijzigen.')
+                                                    ->helperText(__('made-cms::cms.resources.post.fields.translated_from.helperText'))
                                                     ->visible(fn (Get $get) => $get('translated_from_id') !== null),
+
                                             ]),
+
                                     ]),
+
                             ])
                             ->columns(3),
 
-                        Tabs\Tab::make(__('made-cms::pages.tabs.content'))
+                        Tabs\Tab::make(__('made-cms::cms.resources.post.tabs.content'))
                             ->icon('heroicon-s-rectangle-group')
                             ->schema([
-                                Section::make(__('made-cms::pages.fields.content.label'))
-                                    ->description(__('made-cms::pages.fields.content.description'))
+
+                                Section::make(__('made-cms::cms.resources.post.fields.content.label'))
+                                    ->description(__('made-cms::cms.resources.post.fields.content.helperText'))
                                     ->icon('heroicon-s-rectangle-group')
                                     ->schema([
+
                                         \Filament\Forms\Components\Builder::make('content')
                                             ->label('')
-                                            ->addActionLabel(__('made-cms::pages.fields.content.add_button'))
+                                            ->addActionLabel(__('made-cms::cms.resources.post.fields.content.add_button'))
                                             ->collapsible()
                                             ->collapsed()
                                             ->blockPreviews()
-                                            ->blocks(self::contentStrips(Page::class)),
+                                            ->blocks(self::contentStrips(Post::class)),
+
                                     ]),
+
                             ]),
 
-                        Tabs\Tab::make(__('made-cms::cms.resources.page.tabs.meta'))
+                        Tabs\Tab::make(__('made-cms::cms.resources.post.tabs.meta'))
                             ->icon('heroicon-s-adjustments-horizontal')
                             ->schema([
-                                Section::make(__('made-cms::cms.resources.meta.sections.page_meta.title'))
-                                    ->description(__('made-cms::cms.resources.meta.sections.page_meta.description'))
+
+                                Section::make(__('made-cms::cms.resources.meta.sections.post_meta.title'))
+                                    ->description(__('made-cms::cms.resources.meta.sections.post_meta.description'))
                                     ->relationship('meta')
                                     ->schema([
+
                                         TextInput::make('title')
-                                            ->label(__('made-cms::cms.resources.meta.title.label'))
-                                            ->helperText(__('made-cms::cms.resources.meta.title.description'))
+                                            ->label(__('made-cms::cms.resources.post.fields.meta.title.label'))
+                                            ->helperText(__('made-cms::cms.resources.post.fields.meta.title.helperText'))
                                             ->maxLength(60),
 
                                         Textarea::make('description')
-                                            ->label(__('made-cms::cms.resources.meta.description.label'))
-                                            ->helperText(__('made-cms::cms.resources.meta.description.description'))
+                                            ->label(__('made-cms::cms.resources.post.fields.meta.description.label'))
+                                            ->helperText(__('made-cms::cms.resources.post.fields.meta.description.helperText'))
                                             ->maxLength(160),
+
                                     ])
                                     ->columnSpan(['lg' => 2]),
 
@@ -171,24 +187,26 @@ class PageResource extends Resource
                                     ->relationship('meta')
                                     ->collapsed()
                                     ->schema([
+
                                         Select::make('robot')
-                                            ->label(__('made-cms::cms.resources.meta.robot.label'))
-                                            ->helperText(__('made-cms::cms.resources.meta.robot.description'))
+                                            ->label(__('made-cms::cms.resources.post.fields.meta.robot.label'))
+                                            ->helperText(__('made-cms::cms.resources.post.fields.meta.robot.helperText'))
                                             ->options(MetaRobot::options())
                                             ->default(MetaRobot::IndexAndFollow->value),
 
                                         Select::make('canonicals')
-                                            ->label(__('made-cms::cms.resources.meta.canonicals.label'))
-                                            ->helperText(__('made-cms::cms.resources.meta.canonicals.description'))
+                                            ->label(__('made-cms::cms.resources.post.fields.meta.canonicals.label'))
+                                            ->helperText(__('made-cms::cms.resources.post.fields.meta.canonicals.helperText'))
                                             ->multiple()
                                             ->options(
-                                                Page::select(['id', 'name'])
+                                                Post::select(['id', 'name'])
                                                     ->get()
                                                     ->mapWithKeys(fn ($page) => [$page->id => $page->name])
                                             ),
 
                                     ])
                                     ->columnSpan(['lg' => 1]),
+
                             ])
                             ->columns(3),
 
@@ -202,129 +220,89 @@ class PageResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('parent.name')
-                    ->label('Bovenliggende pagina')
-                    ->searchable()
-                    ->sortable(),
+                TextColumn::make('language_id'),
+
+                TextColumn::make('translated_from_id'),
 
                 TextColumn::make('name')
-                    ->label(__('made-cms::cms.resources.page.table.name'))
                     ->searchable()
                     ->sortable(),
-
-                TextColumn::make('language.name')
-                    ->label(__('made-cms::cms.resources.page.table.locale'))
-                    ->icon(fn (Page $record) => ($record->language?->image ? Storage::url($record->language->image) : '')),
-
-                TextColumn::make('status')
-                    ->label(__('made-cms::cms.resources.page.table.status'))
-                    ->badge()
-                    ->color(fn (PublishingStatus $state) => $state->color())
-                    ->formatStateUsing(fn (PublishingStatus $state) => $state->label()),
 
                 TextColumn::make('slug')
-                    ->label(__('made-cms::cms.resources.page.table.slug'))
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('createdBy.name')
-                    ->label(__('made-cms::cms.resources.page.table.created_by')),
+                TextColumn::make('status'),
 
-                TextColumn::make('updated_at')
-                    ->label(__('made-cms::cms.resources.page.table.updated_at'))
-                    ->since(),
+                TextColumn::make('created_by'),
             ])
             ->filters([
-                SelectFilter::make('language_id')
-                    ->relationship('language', 'name')
-                    ->label(__('made-cms::cms.resources.page.filters.locale.label')),
-
-                SelectFilter::make('parent_id')
-                    ->options(Page::query()->get()->mapWithKeys(fn ($page) => [$page->id => $page->name]))
-                    ->label('Bovenliggende pagina'),
+                TrashedFilter::make(),
             ])
             ->actions([
-                ActionGroup::make([
-                    ActionGroup::make([
-                        TranslateAction::make(),
-                        EditAction::make(),
-                    ])
-                        ->dropdown(false),
-
-                    DeleteAction::make(),
-                ]),
+                EditAction::make(),
+                DeleteAction::make(),
+                RestoreAction::make(),
+                ForceDeleteAction::make(),
             ])
             ->bulkActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
                 ]),
-            ])
-            ->defaultPaginationPageOption(50)
-            ->reorderable('sort')
-            ->defaultSort(function ($query) {
-                return $query
-                    ->orderBy('parent_id', 'asc')
-                    ->orderBy('sort', 'asc');
-            });
+            ]);
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPages::route('/'),
-            'create' => Pages\CreatePage::route('/create'),
-            'edit' => Pages\EditPage::route('/{record}/edit'),
+            'index' => \Made\Cms\Filament\Resources\PostResource\Pages\ListPosts::route('/'),
+            'create' => \Made\Cms\Filament\Resources\PostResource\Pages\CreatePost::route('/create'),
+            'edit' => \Made\Cms\Filament\Resources\PostResource\Pages\EditPost::route('/{record}/edit'),
         ];
     }
 
-    public static function getGlobalSearchEloquentQuery(): Builder
+    public static function getEloquentQuery(): Builder
     {
-        return parent::getGlobalSearchEloquentQuery()->with(['author']);
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 
     public static function getGloballySearchableAttributes(): array
     {
-        return ['name', 'slug', 'author.name'];
-    }
-
-    public static function getGlobalSearchResultDetails(Model $record): array
-    {
-        $details = [];
-
-        if ($record->author) {
-            $details['Author'] = $record->author->name;
-        }
-
-        return $details;
+        return ['name', 'slug'];
     }
 
     /**
-     * Retrieves the navigation group for the website management section.
+     * Retrieves the navigation label for the resource.
      *
-     * @return string|null The navigation group label for website management, or null if not set.
+     * @return string The navigation label.
      */
-    public static function getNavigationGroup(): ?string
+    public static function getNavigationLabel(): string
     {
-        return __('made-cms::cms.groups.website_management');
+        return __('made-cms::cms.clusters.news.resources.posts.label');
     }
 
     /**
-     * Retrieves the singular label for the model.
+     * Retrieves the plural label for the resource.
      *
-     * @return string The singular label for the model.
+     * @return string|null The plural label if defined, or null otherwise.
+     */
+    public static function getPluralLabel(): ?string
+    {
+        return __('made-cms::cms.clusters.news.resources.posts.pluralLabel');
+    }
+
+    /**
+     * Retrieves the model label for the resource.
+     *
+     * @return string The model label.
      */
     public static function getModelLabel(): string
     {
-        return __('made-cms::cms.resources.page.singular');
-    }
-
-    /**
-     * Retrieves the plural label for the model.
-     *
-     * @return string The plural label for the model.
-     */
-    public static function getPluralModelLabel(): string
-    {
-        return __('made-cms::cms.resources.page.label');
+        return __('made-cms::cms.clusters.news.resources.posts.modelLabel');
     }
 }

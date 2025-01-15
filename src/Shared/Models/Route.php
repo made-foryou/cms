@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Carbon;
 use Made\Cms\Database\HasDatabaseTablePrefix;
-use Made\Cms\Models\Page;
+use Made\Cms\Page\Models\Page;
 use Made\Cms\Shared\Observers\RouteObserver;
 
 /**
