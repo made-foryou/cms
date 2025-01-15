@@ -23,7 +23,7 @@ return [
             'title' => 'Permissies',
             'description' => 'Beheren van permissies die binnen het CMS gelden.',
         ],
-        Models\Page::class => [
+        \Made\Cms\Page\Models\Page::class => [
             'title' => 'Pagina\'s',
             'description' => 'Beheren van de paginas binnen de website.',
         ],
@@ -34,6 +34,10 @@ return [
         \Made\Cms\Language\Models\Language::class => [
             'title' => 'Talen',
             'description' => 'Beheren van de talen van de website.',
+        ],
+        \Made\Cms\News\Models\Post::class => [
+            'title' => 'Nieuwsberichten',
+            'description' => 'Beheren van het nieuws in de website.',
         ],
     ],
 

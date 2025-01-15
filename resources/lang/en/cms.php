@@ -23,7 +23,7 @@ return [
             'title' => 'Permissions',
             'description' => 'Managing the permissions that apply within the CMS.',
         ],
-        Models\Page::class => [
+        \Made\Cms\Page\Models\Page::class => [
             'title' => 'Pages',
             'description' => 'Managing the pages within the CMS.',
         ],
@@ -34,6 +34,10 @@ return [
         \Made\Cms\Language\Models\Language::class => [
             'title' => 'Languages',
             'description' => 'Managing the languages within the CMS.',
+        ],
+        \Made\Cms\News\Models\Post::class => [
+            'title' => 'Posts',
+            'description' => 'Managing the news items within the CMS.',
         ],
     ],
 
