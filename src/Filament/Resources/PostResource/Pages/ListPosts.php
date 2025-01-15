@@ -10,6 +10,10 @@ class ListPosts extends ListRecords
 {
     protected static string $resource = PostResource::class;
 
+    public static ?string $title = 'Overzicht';
+
+    public static ?string $breadcrumb = 'Overzicht';
+
     protected function getHeaderActions(): array
     {
         return [

@@ -2,8 +2,15 @@
 
 namespace Made\Cms\Filament\Resources;
 
+use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
@@ -36,6 +43,60 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
+
+                Tabs::make()
+                    ->tabs([
+
+                        Tab::make(__('made-cms::cms.resources.post.tabs.post'))
+                            ->icon('heroicon-o-pencil')
+                            ->schema([
+
+                                Group::make()
+                                    ->schema([
+
+                                        Section::make()
+                                            ->schema([
+                                                
+                                                TextInput::make('name')
+                                                    ->label(__('made-cms::cms.resources.post.fields.name.label'))
+                                                    ->helperText(__('made-cms::cms.resources.post.fields.name.helperText'))
+                                                    ->required(),
+
+                                                TextInput::make('slug')
+                                                    ->label(__('made-cms::cms.resources.post.fields.slug.label'))
+                                                    ->helperText(__('made-cms::cms.resources.post.fields.slug.helperText'))
+                                                    ->required()
+                                                    ->prefix(function (?Post $record): string {
+                                                        if ($record === null || $record->parent === null) {
+                                                            return '/';
+                                                        }
+
+                                                        $parts = $record->urlSchema();
+
+                                                        array_pop($parts);
+
+                                                        return '/' . implode('/', $parts) . '/';
+                                                    })
+                                                    ->suffixAction(
+                                                        Action::make('generate-slug')
+                                                            ->label('Maak automatisch een slug aan de hand van de pagina naam.')
+                                                            ->icon('heroicon-s-arrow-path')
+                                                            ->action(fn (Get $get, Set $set, ?string $state) => $set(
+                                                                'slug',
+                                                                Str::slug($get('name'))
+                                                            ))
+                                                    ),
+
+                                            ]),
+
+                                    ])
+                                    ->columnSpan(['lg' => 2]),
+
+                            ])
+                            ->columns(3),
+
+                    ]),
+
                 TextInput::make('language_id')
                     ->integer(),
 

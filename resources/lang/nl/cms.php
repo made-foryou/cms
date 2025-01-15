@@ -417,6 +417,23 @@ return [
                 ],
             ],
         ],
+        'post' => [
+            'label' => 'Berichten',
+            'singular' => 'Bericht',
+            'tabs' => [
+                'post' => 'Bericht',
+            ],
+            'fields' => [
+                'name' => [
+                    'label' => 'Titel',
+                    'helperText' => 'De titel van de post die zal worden gebruikt om de post te presenteren en kan worden gebruikt voor de url.',
+                ],
+                'slug' => [
+                    'label' => 'Slug',
+                    'helperText' => 'Titel van de post die kan worden gebruikt in de url. Deze waarde moet voldoen aan de url-standaarden en dit zijn kleine letters en geen spaties of speciale tekens.',
+                ],
+            ],
+        ],
     ],
 
     'clusters' => [

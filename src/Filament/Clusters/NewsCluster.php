@@ -12,12 +12,12 @@ class NewsCluster extends Cluster
 
     protected static ?string $navigationGroup = 'Modules';
 
-    /**
-     * Retrieves the navigation label for the news cluster.
-     *
-     * @return string The localized navigation label for the news cluster.
-     */
     public static function getNavigationLabel(): string
+    {
+        return __('made-cms::cms.clusters.news.label');
+    }
+
+    public static function getClusterBreadcrumb(): ?string
     {
         return __('made-cms::cms.clusters.news.label');
     }

@@ -417,6 +417,23 @@ return [
                 ],
             ],
         ],
+        'post' => [
+            'label' => 'Posts',
+            'singular' => 'Post',
+            'tabs' => [
+                'post' => 'Post',
+            ],
+            'fields' => [
+                'name' => [
+                    'label' => 'Title',
+                    'helperText' => 'The title of the post which will be used to present the post and can be used for the url.',
+                ],
+                'slug' => [
+                    'label' => 'Slug',
+                    'helperText' => 'Title of the post which can be used in the url. This value must conform to the url standards and these are lowercase and no spaces or special characters.',
+                ],
+            ],
+        ],
     ],
 
     'clusters' => [
