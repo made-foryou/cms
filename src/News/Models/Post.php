@@ -54,7 +54,7 @@ class Post extends Model implements DefinesCreatedByContract, RouteableContract
         'slug' => 'string',
         'status' => PublishingStatus::class,
         'content' => 'array',
-        'author_id' => 'integer',
+        'created_by' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
@@ -72,7 +72,7 @@ class Post extends Model implements DefinesCreatedByContract, RouteableContract
         'slug',
         'status',
         'content',
-        'author_id',
+        'created_by',
     ];
 
     /**
@@ -131,9 +131,9 @@ class Post extends Model implements DefinesCreatedByContract, RouteableContract
      *
      * @return BelongsTo The relationship instance between this model and the User model.
      */
-    public function author(): BelongsTo
+    public function createdBy(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'author_id');
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     /**
