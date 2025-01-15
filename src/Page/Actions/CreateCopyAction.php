@@ -32,7 +32,7 @@ class CreateCopyAction
             ]);
         }
 
-        $copy->author()->associate(request()->user());
+        $copy->createdBy()->associate(request()->user());
         $copy->language()->associate($page->language);
 
         if ($page->parent !== null) {

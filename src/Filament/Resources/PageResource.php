@@ -227,8 +227,8 @@ class PageResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('author.name')
-                    ->label(__('made-cms::cms.resources.page.table.author')),
+                TextColumn::make('createdBy.name')
+                    ->label(__('made-cms::cms.resources.page.table.created_by')),
 
                 TextColumn::make('updated_at')
                     ->label(__('made-cms::cms.resources.page.table.updated_at'))

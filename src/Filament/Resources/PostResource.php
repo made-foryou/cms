@@ -234,7 +234,7 @@ class PostResource extends Resource
 
                 TextColumn::make('status'),
 
-                TextColumn::make('author_id'),
+                TextColumn::make('created_by'),
             ])
             ->filters([
                 TrashedFilter::make(),

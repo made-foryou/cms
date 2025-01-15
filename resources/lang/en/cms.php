@@ -296,7 +296,7 @@ return [
                 'locale' => 'Language',
                 'status' => 'Status',
                 'slug' => 'Slug',
-                'author' => 'Author',
+                'created_by' => 'Created by',
                 'updated_at' => 'Updated at',
             ],
 

@@ -64,7 +64,7 @@ test('associates user, language and relationships', function () {
 
     $copyPage = (new CreateCopyAction)->handle($originalPage);
 
-    expect($copyPage->author->id)->toBe($user->id)
+    expect($copyPage->createdBy->id)->toBe($user->id)
         ->and($copyPage->language->id)->toBe($language->id);
 
     if ($originalPage->parent) {

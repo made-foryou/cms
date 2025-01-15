@@ -18,7 +18,7 @@ class PageFactory extends Factory
             'slug' => $this->faker->slug(),
             'status' => PublishingStatus::Draft->value,
             'content' => $this->faker->paragraphs(3, true),
-            'author_id' => User::factory(),
+            'created_by' => User::factory(),
         ];
     }
 }
