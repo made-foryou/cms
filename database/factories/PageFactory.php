@@ -3,8 +3,8 @@
 namespace Made\Cms\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Made\Cms\Models\Page;
 use Made\Cms\Models\User;
+use Made\Cms\Page\Models\Page;
 use Made\Cms\Shared\Enums\PublishingStatus;
 
 class PageFactory extends Factory

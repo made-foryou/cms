@@ -2,8 +2,8 @@
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Made\Cms\Models\Meta;
-use Made\Cms\Models\Page;
 use Made\Cms\Models\User;
+use Made\Cms\Page\Models\Page;
 
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;

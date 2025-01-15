@@ -7,10 +7,10 @@ use Made\Cms\Exceptions\MissingDefaultRoleException;
 use Made\Cms\Helpers\Permissions;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Models\Meta;
-use Made\Cms\Models\Page;
 use Made\Cms\Models\Permission;
 use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
+use Made\Cms\Page\Models\Page;
 
 class CmsCoreSeeder extends Seeder
 {

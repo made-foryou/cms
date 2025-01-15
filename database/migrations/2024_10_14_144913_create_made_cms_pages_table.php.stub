@@ -1,12 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Made\Cms\Database\HasDatabaseTablePrefix;
 use Made\Cms\Shared\Enums\PublishingStatus;
 
 return new class extends Migration
 {
+    use HasDatabaseTablePrefix;
+
     public function up(): void
     {
         Schema::create(
@@ -37,9 +42,9 @@ return new class extends Migration
                  * Filled as soon as the model is saved. This tracks who
                  * modified/created this part.
                  */
-                $table->foreignId('author_id')
+                $table->foreignId('created_by')
                     ->references('id')
-                    ->on(config('made-cms.database.table_prefix') . 'users')
+                    ->on($this->prefixTableName('users'))
                     ->restrictOnDelete();
 
                 $table->timestamps();

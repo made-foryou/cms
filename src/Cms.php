@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route as RouteFacade;
 use Made\Cms\Filament\Builder\ContentStrip;
 use Made\Cms\Http\Controllers\Controller;
-use Made\Cms\Models\Page;
 use Made\Cms\Models\Settings\WebsiteSetting;
+use Made\Cms\Page\Models\Page;
 use Made\Cms\Shared\Models\Route;
 
 class Cms

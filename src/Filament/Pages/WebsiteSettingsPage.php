@@ -8,8 +8,8 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Pages\SettingsPage;
 use Illuminate\Contracts\Support\Htmlable;
-use Made\Cms\Models\Page;
 use Made\Cms\Models\Settings\WebsiteSetting;
+use Made\Cms\Page\Models\Page;
 
 class WebsiteSettingsPage extends SettingsPage
 {

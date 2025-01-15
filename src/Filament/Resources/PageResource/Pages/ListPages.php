@@ -6,7 +6,7 @@ use Filament\Actions\CreateAction;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
 use Made\Cms\Filament\Resources\PageResource;
-use Made\Cms\Models\Page;
+use Made\Cms\Page\Models\Page;
 use Made\Cms\Shared\Enums\PublishingStatus;
 
 class ListPages extends ListRecords

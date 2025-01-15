@@ -33,7 +33,11 @@ return new class extends Migration
 
             $table->json('content');
 
-            $table->foreignId('author_id')
+            /**
+             * Filled as soon as the model is saved. This tracks who
+             * modified/created this part.
+             */
+            $table->foreignId('created_by')
                 ->references('id')
                 ->on($this->prefixTableName('users'))
                 ->restrictOnDelete();

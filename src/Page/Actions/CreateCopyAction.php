@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Made\Cms\Page\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use Made\Cms\Models\Page;
+use Made\Cms\Page\Models\Page;
 use Made\Cms\Shared\Enums\PublishingStatus;
 
 class CreateCopyAction
