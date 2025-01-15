@@ -277,6 +277,10 @@ return [
             'singular' => 'Page',
 
             'fields' => [
+                'status' => [
+                    'label' => 'Status',
+                    'description' => 'This status of the page indicates what the page can be used for. Once the status is set to published, any visitor can view the page.',
+                ],
                 'locale' => [
                     'label' => 'Language',
                     'description' => 'The language which the page content is written in.',
@@ -411,6 +415,10 @@ return [
                     'title' => 'Page meta information',
                     'description' => 'Information about the page which is being used for indexing by search engines.',
                 ],
+                'post_meta' => [
+                    'title' => 'News post meta information',
+                    'description' => 'Information about the news post which is being used for indexing by search engines.',
+                ],
                 'meta' => [
                     'title' => 'Search engine settings',
                     'description' => 'Settings which will be used to control how this page is indexed and served to search engines.',
@@ -422,6 +430,8 @@ return [
             'singular' => 'Post',
             'tabs' => [
                 'post' => 'Post',
+                'content' => 'Content',
+                'meta' => 'Meta',
             ],
             'fields' => [
                 'name' => [
@@ -431,6 +441,41 @@ return [
                 'slug' => [
                     'label' => 'Slug',
                     'helperText' => 'Title of the post which can be used in the url. This value must conform to the url standards and these are lowercase and no spaces or special characters.',
+                ],
+                'status' => [
+                    'label' => 'Status',
+                    'helperText' => 'This status of the post indicates what the post can be used for. Once the status is set to published, any visitor can view the post.',
+                ],
+                'locale' => [
+                    'label' => 'Language',
+                    'helperText' => 'The language which the post content is written in.',
+                ],
+                'translated_from' => [
+                    'label' => 'Translated from',
+                    'helperText' => 'This news item is a translation of the news item selected above. It cannot be changed.'
+                ],
+                'content' => [
+                    'label' => 'Content strips',
+                    'helperText' => 'News item content is constructed from strips. Each strip in turn has its own settings and content. These can be added, dragged and/or deleted here.',
+                    'add_button' => 'Add new content strip',
+                ],
+                'meta' => [
+                    'title' => [
+                        'label' => 'News post title',
+                        'helperText' => 'The post-title which will be displayed in search results and within the browser tab.',
+                    ],
+                    'description' => [
+                        'label' => 'Description',
+                        'helperText' => 'A short descriptive description about the contents of this post. This description will be displayed within the search results.',
+                    ],
+                    'robot' => [
+                        'label' => 'Robot setting',
+                        'helperText' => 'The robots meta tag lets you use a granular, page-specific approach to controlling how an individual HTML page should be indexed and served to users in Google Search results.',
+                    ],
+                    'canonicals' => [
+                        'label' => 'Canonical links',
+                        'helperText' => 'By default, the canonical link is automatically generated based on the current URL. If you want to add some extra, you can add multiple canonical links here.',
+                    ],
                 ],
             ],
         ],
