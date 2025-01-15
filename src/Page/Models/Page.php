@@ -13,11 +13,13 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Made\Cms\Database\HasDatabaseTablePrefix;
 use Made\Cms\Language\Models\Language;
-use Made\Cms\Shared\Contracts\DefinesAuthorContract;
+use Made\Cms\Models\Meta;
+use Made\Cms\Models\User;
+use Made\Cms\Shared\Contracts\DefinesCreatedByContract;
 use Made\Cms\Shared\Contracts\RouteableContract;
 use Made\Cms\Shared\Enums\PublishingStatus;
 use Made\Cms\Shared\Models\Route;
-use Made\Cms\Shared\Observers\AuthorDefiningObserver;
+use Made\Cms\Shared\Observers\CreatedByDefiningObserver;
 use Made\Cms\Shared\Observers\RouteableObserver;
 
 /**
@@ -43,8 +45,8 @@ use Made\Cms\Shared\Observers\RouteableObserver;
  * @property-read Collection<Page> $translations
  * @property-read Route|null $route
  */
-#[ObservedBy([AuthorDefiningObserver::class, RouteableObserver::class])]
-class Page extends Model implements DefinesAuthorContract, RouteableContract
+#[ObservedBy([CreatedByDefiningObserver::class, RouteableObserver::class])]
+class Page extends Model implements DefinesCreatedByContract, RouteableContract
 {
     use HasDatabaseTablePrefix;
     use HasFactory;
@@ -63,6 +65,7 @@ class Page extends Model implements DefinesAuthorContract, RouteableContract
         'status' => PublishingStatus::class,
         'content' => 'array',
         'sort' => 'integer',
+        'created_by' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
@@ -166,9 +169,9 @@ class Page extends Model implements DefinesAuthorContract, RouteableContract
      *
      * @return BelongsTo The relationship instance between this model and the User model.
      */
-    public function author(): BelongsTo
+    public function createdBy(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'author_id');
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     /**

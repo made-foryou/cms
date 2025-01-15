@@ -15,11 +15,11 @@ use Made\Cms\Database\HasDatabaseTablePrefix;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Models\Meta;
 use Made\Cms\Models\User;
-use Made\Cms\Shared\Contracts\DefinesAuthorContract;
+use Made\Cms\Shared\Contracts\DefinesCreatedByContract;
 use Made\Cms\Shared\Contracts\RouteableContract;
 use Made\Cms\Shared\Enums\PublishingStatus;
 use Made\Cms\Shared\Models\Route;
-use Made\Cms\Shared\Observers\AuthorDefiningObserver;
+use Made\Cms\Shared\Observers\CreatedByDefiningObserver;
 use Made\Cms\Shared\Observers\RouteableObserver;
 
 /**
@@ -35,8 +35,8 @@ use Made\Cms\Shared\Observers\RouteableObserver;
  * @property-read Carbon $updated_at
  * @property-read Carbon|null $deleted_at
  */
-#[ObservedBy([AuthorDefiningObserver::class, RouteableObserver::class])]
-class Post extends Model implements DefinesAuthorContract, RouteableContract
+#[ObservedBy([CreatedByDefiningObserver::class, RouteableObserver::class])]
+class Post extends Model implements DefinesCreatedByContract, RouteableContract
 {
     use HasDatabaseTablePrefix;
     use SoftDeletes;

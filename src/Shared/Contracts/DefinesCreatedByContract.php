@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property int|null $author_id
+ * @property int|null $created_by
  *
  * @extends Model
  */
-interface DefinesAuthorContract
+interface DefinesCreatedByContract
 {
     /**
      * Defines the relationship between this model and the User model.
@@ -19,5 +19,5 @@ interface DefinesAuthorContract
      *
      * @return BelongsTo The relationship instance between this model and the User model.
      */
-    public function author(): BelongsTo;
+    public function createdBy(): BelongsTo;
 }
