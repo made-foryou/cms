@@ -154,7 +154,7 @@ class PostResource extends Resource
                                             ->collapsible()
                                             ->collapsed()
                                             ->blockPreviews()
-                                            ->blocks(self::contentStrips()),
+                                            ->blocks(self::contentStrips(Post::class)),
 
                                     ]),
 
