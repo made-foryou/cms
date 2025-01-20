@@ -31,7 +31,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 use Made\Cms\Enums\MetaRobot;
-use Made\Cms\Filament\Clusters\NewsCluster;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\News\Models\Post;
 use Made\Cms\Shared\Enums\PublishingStatus;
@@ -43,10 +42,6 @@ class PostResource extends Resource
     protected static ?string $model = Post::class;
 
     protected static ?string $slug = 'posts';
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    protected static ?string $cluster = NewsCluster::class;
 
     public static function form(Form $form): Form
     {
@@ -283,7 +278,7 @@ class PostResource extends Resource
      */
     public static function getNavigationLabel(): string
     {
-        return __('made-cms::cms.clusters.news.resources.posts.label');
+        return __('made-cms::cms.resources.post.label');
     }
 
     /**
@@ -293,7 +288,7 @@ class PostResource extends Resource
      */
     public static function getPluralLabel(): ?string
     {
-        return __('made-cms::cms.clusters.news.resources.posts.pluralLabel');
+        return __('made-cms::cms.resources.post.label');
     }
 
     /**
@@ -303,6 +298,16 @@ class PostResource extends Resource
      */
     public static function getModelLabel(): string
     {
-        return __('made-cms::cms.clusters.news.resources.posts.modelLabel');
+        return __('made-cms::cms.resources.post.singular');
+    }
+
+    /**
+     * Retrieves the navigation group for the resource.
+     *
+     * @return string|null The navigation group if defined, or null otherwise.
+     */
+    public static function getNavigationGroup(): ?string
+    {
+        return __('made-cms::cms.navigation_groups.news');
     }
 }

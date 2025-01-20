@@ -40,8 +40,6 @@ class PageResource extends Resource
 
     protected static ?string $slug = 'pages';
 
-    protected static ?string $navigationIcon = 'heroicon-s-globe-alt';
-
     public static function form(Form $form): Form
     {
         return $form
@@ -305,7 +303,7 @@ class PageResource extends Resource
      */
     public static function getNavigationGroup(): ?string
     {
-        return __('made-cms::cms.groups.website_management');
+        return __('made-cms::cms.navigation_groups.pages');
     }
 
     /**

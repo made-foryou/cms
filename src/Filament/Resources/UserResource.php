@@ -1,6 +1,6 @@
 <?php
 
-namespace Made\Cms\Filament\Clusters\Administration\Resources;
+namespace Made\Cms\Filament\Resources;
 
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
@@ -22,7 +22,6 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
-use Made\Cms\Filament\Clusters\Administration;
 use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
 use Made\Cms\Providers\CmsPanelServiceProvider;
@@ -32,10 +31,6 @@ class UserResource extends Resource
     protected static ?string $model = User::class;
 
     protected static ?string $slug = 'users';
-
-    protected static ?string $navigationIcon = 'heroicon-s-users';
-
-    protected static ?string $cluster = Administration::class;
 
     /**
      * Configures the form structure, including field definitions and sections for user data.
@@ -228,10 +223,10 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => \Made\Cms\Filament\Clusters\Administration\Resources\UserResource\Pages\ListUsers::route('/'),
-            'create' => \Made\Cms\Filament\Clusters\Administration\Resources\UserResource\Pages\CreateUser::route('/create'),
-            'view' => \Made\Cms\Filament\Clusters\Administration\Resources\UserResource\Pages\ViewUser::route('/{record}'),
-            'edit' => \Made\Cms\Filament\Clusters\Administration\Resources\UserResource\Pages\EditUser::route('/{record}/edit'),
+            'index' => \Made\Cms\Filament\Resources\UserResource\Pages\ListUsers::route('/'),
+            'create' => \Made\Cms\Filament\Resources\UserResource\Pages\CreateUser::route('/create'),
+            'view' => \Made\Cms\Filament\Resources\UserResource\Pages\ViewUser::route('/{record}'),
+            'edit' => \Made\Cms\Filament\Resources\UserResource\Pages\EditUser::route('/{record}/edit'),
         ];
     }
 
@@ -309,5 +304,10 @@ class UserResource extends Resource
     public static function getPluralLabel(): ?string
     {
         return __('made-cms::cms.resources.user.label');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('made-cms::cms.navigation_groups.security');
     }
 }

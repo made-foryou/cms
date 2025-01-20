@@ -239,6 +239,13 @@ return [
         ],
     ],
 
+    'navigation_groups' => [
+        'pages' => 'Pagina\'s',
+        'news' => 'Nieuws',
+        'website' => 'Website',
+        'security' => 'Beveiliging',
+    ],
+
     'resources' => [
         'common' => [
             'name' => 'Naam',
@@ -476,19 +483,6 @@ return [
                         'label' => 'Canonical links',
                         'helperText' => 'Standaard wordt de canonieke link automatisch gegenereerd op basis van de huidige URL. Als je iets extra\'s wilt toevoegen, kun je hier meerdere canonieke links toevoegen.',
                     ],
-                ],
-            ],
-        ],
-    ],
-
-    'clusters' => [
-        'news' => [
-            'label' => 'Nieuws',
-            'resources' => [
-                'posts' => [
-                    'label' => 'Nieuwsberichten',
-                    'pluralLabel' => 'Nieuwsberichten',
-                    'modelLabel' => 'Nieuwsbericht',
                 ],
             ],
         ],

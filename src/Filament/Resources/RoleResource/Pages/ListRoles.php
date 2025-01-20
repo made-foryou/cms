@@ -1,10 +1,10 @@
 <?php
 
-namespace Made\Cms\Filament\Clusters\Administration\Resources\RoleResource\Pages;
+namespace Made\Cms\Filament\Resources\RoleResource\Pages;
 
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
-use Made\Cms\Filament\Clusters\Administration\Resources\RoleResource;
+use Made\Cms\Filament\Resources\RoleResource;
 
 class ListRoles extends ListRecords
 {

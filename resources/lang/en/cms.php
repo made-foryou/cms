@@ -4,12 +4,6 @@ use Made\Cms\Models;
 
 // translations for Made/Cms
 return [
-    'groups' => [
-        'user' => 'User Management',
-        'administration' => 'Administration',
-        'website_management' => 'Website management',
-    ],
-
     'class_names' => [
         Models\User::class => [
             'title' => 'Users',
@@ -239,6 +233,13 @@ return [
         ],
     ],
 
+    'navigation_groups' => [
+        'pages' => 'Pages',
+        'news' => 'News',
+        'website' => 'Website',
+        'security' => 'Security',
+    ],
+
     'resources' => [
         'common' => [
             'name' => 'Name',
@@ -429,6 +430,7 @@ return [
                 ],
             ],
         ],
+
         'post' => [
             'label' => 'Posts',
             'singular' => 'Post',
@@ -480,19 +482,6 @@ return [
                         'label' => 'Canonical links',
                         'helperText' => 'By default, the canonical link is automatically generated based on the current URL. If you want to add some extra, you can add multiple canonical links here.',
                     ],
-                ],
-            ],
-        ],
-    ],
-
-    'clusters' => [
-        'news' => [
-            'label' => 'News',
-            'resources' => [
-                'posts' => [
-                    'label' => 'Posts',
-                    'pluralLabel' => 'Posts',
-                    'modelLabel' => 'Post',
                 ],
             ],
         ],

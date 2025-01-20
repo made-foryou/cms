@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Made\Cms\Database\Factories\LanguageFactory;
 use Made\Cms\Language\Builders\LanguageBuilder;
 use Made\Cms\Page\Models\Page;
 
@@ -76,5 +77,13 @@ class Language extends Model
     public function newEloquentBuilder($query): LanguageBuilder
     {
         return new LanguageBuilder($query);
+    }
+
+    /**
+     * Creates and returns a new instance of the LanguageFactory.
+     */
+    protected static function newFactory(): LanguageFactory
+    {
+        return LanguageFactory::new();
     }
 }

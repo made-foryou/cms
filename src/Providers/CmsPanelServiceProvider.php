@@ -6,6 +6,7 @@ use Exception;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -63,6 +64,24 @@ class CmsPanelServiceProvider extends PanelProvider
             ])
             ->login()
             ->default(config('made-cms.panel.default') ?? true)
-            ->maxContentWidth(MaxWidth::Full);
+            ->maxContentWidth(MaxWidth::Full)
+            ->navigationGroups([
+                NavigationGroup::make()
+                    ->label(fn (): string => __('made-cms::cms.navigation_groups.pages'))
+                    ->icon('heroicon-o-document-text')
+                    ->isCollapsed(),
+
+                NavigationGroup::make()
+                    ->label(fn (): string => __('made-cms::cms.navigation_groups.news'))
+                    ->icon('heroicon-o-newspaper'),
+
+                NavigationGroup::make()
+                    ->label(fn (): string => __('made-cms::cms.navigation_groups.website'))
+                    ->icon('heroicon-o-globe-alt'),
+
+                NavigationGroup::make()
+                    ->label(fn (): string => __('made-cms::cms.navigation_groups.security'))
+                    ->icon('heroicon-o-shield-check'),
+            ]);
     }
 }

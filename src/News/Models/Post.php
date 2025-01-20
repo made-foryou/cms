@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Made\Cms\News\Models;
 
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Made\Cms\Database\Factories\PostFactory;
 use Made\Cms\Database\HasDatabaseTablePrefix;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Models\Meta;
@@ -30,7 +32,7 @@ use Made\Cms\Shared\Observers\RouteableObserver;
  * @property string $slug
  * @property PublishingStatus $status
  * @property array $content
- * @property int $author_id
+ * @property int $created_by
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
  * @property-read Carbon|null $deleted_at
@@ -39,6 +41,7 @@ use Made\Cms\Shared\Observers\RouteableObserver;
 class Post extends Model implements DefinesCreatedByContract, RouteableContract
 {
     use HasDatabaseTablePrefix;
+    use HasFactory;
     use SoftDeletes;
 
     /**
@@ -185,5 +188,15 @@ class Post extends Model implements DefinesCreatedByContract, RouteableContract
     public function getTable(): string
     {
         return $this->prefixTableName('posts');
+    }
+
+    /**
+     * Creates and returns a new instance of the PostFactory.
+     *
+     * @return PostFactory The new factory instance.
+     */
+    protected static function newFactory(): PostFactory
+    {
+        return PostFactory::new();
     }
 }

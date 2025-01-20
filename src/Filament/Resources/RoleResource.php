@@ -1,14 +1,12 @@
 <?php
 
-namespace Made\Cms\Filament\Clusters\Administration\Resources;
+namespace Made\Cms\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Made\Cms\Filament\Clusters\Administration;
-use Made\Cms\Filament\Clusters\Administration\Resources\RoleResource\Pages;
 use Made\Cms\Models\Permission;
 use Made\Cms\Models\Role;
 
@@ -17,10 +15,6 @@ class RoleResource extends Resource
     protected static ?string $model = Role::class;
 
     protected static ?string $slug = 'roles';
-
-    protected static ?string $navigationIcon = 'heroicon-s-shield-check';
-
-    protected static ?string $cluster = Administration::class;
 
     protected static ?string $navigationLabel = 'Rollen';
 
@@ -136,9 +130,9 @@ class RoleResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListRoles::route('/'),
-            'create' => Pages\CreateRole::route('/create'),
-            'edit' => Pages\EditRole::route('/{record}/edit'),
+            'index' => \Made\Cms\Filament\Resources\RoleResource\Pages\ListRoles::route('/'),
+            'create' => \Made\Cms\Filament\Resources\RoleResource\Pages\CreateRole::route('/create'),
+            'edit' => \Made\Cms\Filament\Resources\RoleResource\Pages\EditRole::route('/{record}/edit'),
         ];
     }
 
@@ -152,5 +146,10 @@ class RoleResource extends Resource
     public static function getGloballySearchableAttributes(): array
     {
         return ['name'];
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('made-cms::cms.navigation_groups.security');
     }
 }

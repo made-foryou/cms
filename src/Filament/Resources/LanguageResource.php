@@ -29,8 +29,6 @@ class LanguageResource extends Resource
 
     protected static ?string $slug = 'languages';
 
-    protected static ?string $navigationIcon = 'heroicon-o-language';
-
     protected static ?int $navigationSort = 8;
 
     public static function form(Form $form): Form
@@ -165,7 +163,7 @@ class LanguageResource extends Resource
      */
     public static function getNavigationGroup(): ?string
     {
-        return __('made-cms::cms.groups.website_management');
+        return __('made-cms::cms.navigation_groups.website');
     }
 
     /**

@@ -1,9 +1,9 @@
 <?php
 
-namespace Made\Cms\Filament\Clusters\Administration\Resources\UserResource\Pages;
+namespace Made\Cms\Filament\Resources\UserResource\Pages;
 
 use Filament\Resources\Pages\CreateRecord;
-use Made\Cms\Filament\Clusters\Administration\Resources\UserResource;
+use Made\Cms\Filament\Resources\UserResource;
 
 class CreateUser extends CreateRecord
 {

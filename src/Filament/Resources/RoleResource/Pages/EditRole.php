@@ -1,10 +1,10 @@
 <?php
 
-namespace Made\Cms\Filament\Clusters\Administration\Resources\RoleResource\Pages;
+namespace Made\Cms\Filament\Resources\RoleResource\Pages;
 
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
-use Made\Cms\Filament\Clusters\Administration\Resources\RoleResource;
+use Made\Cms\Filament\Resources\RoleResource;
 
 class EditRole extends EditRecord
 {

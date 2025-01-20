@@ -1,10 +1,10 @@
 <?php
 
-namespace Made\Cms\Filament\Clusters\Administration\Resources\UserResource\Pages;
+namespace Made\Cms\Filament\Resources\UserResource\Pages;
 
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
-use Made\Cms\Filament\Clusters\Administration\Resources\UserResource;
+use Made\Cms\Filament\Resources\UserResource;
 
 class ViewUser extends ViewRecord
 {
