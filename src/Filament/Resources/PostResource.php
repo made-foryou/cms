@@ -29,8 +29,10 @@ use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Made\Cms\Enums\MetaRobot;
+use Made\Cms\Filament\Resources\PostResource\Pages;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\News\Models\Post;
 use Made\Cms\Shared\Enums\PublishingStatus;
@@ -215,22 +217,34 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('language_id'),
-
-                TextColumn::make('translated_from_id'),
 
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('slug')
+                TextColumn::make('translatedFrom.name')
+                    ->label('Vertaling van')
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('status'),
+                TextColumn::make('language.name')
+                    ->label(__('made-cms::cms.resources.page.table.locale'))
+                    ->icon(fn (Post $record) => ($record->language?->image ? Storage::url($record->language->image) : '')),
 
-                TextColumn::make('created_by'),
+                TextColumn::make('status')
+                    ->label(__('made-cms::cms.resources.page.table.status'))
+                    ->badge()
+                    ->color(fn (PublishingStatus $state) => $state->color())
+                    ->formatStateUsing(fn (PublishingStatus $state) => $state->label()),
+
+                TextColumn::make('createdBy.name'),
+
+                TextColumn::make('updated_at')
+                    ->label(__('made-cms::cms.resources.page.table.updated_at'))
+                    ->since(),
             ])
+            ->heading('Nieuwsberichten')
+            ->description('Hier vind je alle nieuwsberichten die aan de website zijn toegevoegd of de nieuwsberichten ook zichtbaar zijn voor bezoekers is afhankelijk van hun status.')
             ->filters([
                 TrashedFilter::make(),
             ])
@@ -246,15 +260,16 @@ class PostResource extends Resource
                     RestoreBulkAction::make(),
                     ForceDeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultPaginationPageOption(50);
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => \Made\Cms\Filament\Resources\PostResource\Pages\ListPosts::route('/'),
-            'create' => \Made\Cms\Filament\Resources\PostResource\Pages\CreatePost::route('/create'),
-            'edit' => \Made\Cms\Filament\Resources\PostResource\Pages\EditPost::route('/{record}/edit'),
+            'index' => Pages\ListPosts::route('/'),
+            'create' => Pages\CreatePost::route('/create'),
+            'edit' => Pages\EditPost::route('/{record}/edit'),
         ];
     }
 
