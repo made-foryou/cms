@@ -16,15 +16,15 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ForceDeleteAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
-use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -35,6 +35,7 @@ use Made\Cms\Enums\MetaRobot;
 use Made\Cms\Filament\Resources\PostResource\Pages;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\News\Models\Post;
+use Made\Cms\Page\Filament\Actions\TranslateAction;
 use Made\Cms\Shared\Enums\PublishingStatus;
 
 class PostResource extends Resource
@@ -246,13 +247,26 @@ class PostResource extends Resource
             ->heading('Nieuwsberichten')
             ->description('Hier vind je alle nieuwsberichten die aan de website zijn toegevoegd of de nieuwsberichten ook zichtbaar zijn voor bezoekers is afhankelijk van hun status.')
             ->filters([
+                SelectFilter::make('language_id')
+                    ->relationship('language', 'name')
+                    ->label(__('made-cms::cms.resources.page.filters.locale.label')),
+
+                SelectFilter::make('translated_from_id')
+                    ->options(Post::query()->get()->mapWithKeys(fn ($post) => [$post->id => $post->name]))
+                    ->label('Vertaling van'),
+
                 TrashedFilter::make(),
             ])
             ->actions([
-                EditAction::make(),
-                DeleteAction::make(),
-                RestoreAction::make(),
-                ForceDeleteAction::make(),
+                ActionGroup::make([
+                    ActionGroup::make([
+                        TranslateAction::make(),
+                        EditAction::make(),
+                    ])
+                        ->dropdown(false),
+
+                    DeleteAction::make(),
+                ]),
             ])
             ->bulkActions([
                 BulkActionGroup::make([
