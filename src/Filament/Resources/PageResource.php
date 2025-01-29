@@ -303,7 +303,7 @@ class PageResource extends Resource
      */
     public static function getNavigationGroup(): ?string
     {
-        return __('made-cms::cms.navigation_groups.pages');
+        return __('made-cms::cms.navigation_groups.website');
     }
 
     /**

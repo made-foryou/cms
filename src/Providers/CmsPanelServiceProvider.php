@@ -18,6 +18,11 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Made\Cms\Filament\Resources\LanguageResource;
+use Made\Cms\Filament\Resources\PageResource;
+use Made\Cms\Filament\Resources\PostResource;
+use Made\Cms\Filament\Resources\RoleResource;
+use Made\Cms\Filament\Resources\UserResource;
 
 class CmsPanelServiceProvider extends PanelProvider
 {
@@ -42,12 +47,9 @@ class CmsPanelServiceProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Blue,
             ])
-            ->discoverResources(in: __DIR__ . '/../Filament/Resources', for: 'Made\\Cms\\Filament\\Resources')
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
-            ->discoverClusters(in: __DIR__ . '/../Filament/Clusters', for: 'Made\\Cms\\Filament\\Clusters')
-            ->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
-            ->discoverPages(in: __DIR__ . '/../Filament/Pages', for: 'Made\\Cms\\Filament\\Pages')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            ->resources(
+                $this->getResources(),
+            )
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -67,21 +69,28 @@ class CmsPanelServiceProvider extends PanelProvider
             ->maxContentWidth(MaxWidth::Full)
             ->navigationGroups([
                 NavigationGroup::make()
-                    ->label(fn (): string => __('made-cms::cms.navigation_groups.pages'))
-                    ->icon('heroicon-o-document-text')
-                    ->isCollapsed(),
+                    ->label(fn (): string => __('made-cms::cms.navigation_groups.website'))
+                    ->icon('heroicon-o-globe-alt'),
 
                 NavigationGroup::make()
                     ->label(fn (): string => __('made-cms::cms.navigation_groups.news'))
                     ->icon('heroicon-o-newspaper'),
 
                 NavigationGroup::make()
-                    ->label(fn (): string => __('made-cms::cms.navigation_groups.website'))
-                    ->icon('heroicon-o-globe-alt'),
-
-                NavigationGroup::make()
                     ->label(fn (): string => __('made-cms::cms.navigation_groups.security'))
                     ->icon('heroicon-o-shield-check'),
             ]);
+    }
+
+    protected function getResources(): array
+    {
+        return [
+            LanguageResource::class,
+            PageResource::class,
+            PostResource::class,
+            RoleResource::class,
+            UserResource::class,
+            ...config('made-cms.panel.resources', []),
+        ];
     }
 }
