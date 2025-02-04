@@ -249,7 +249,6 @@ return [
         'no' => 'No',
         'all' => 'All',
         'other' => 'Other',
-        'overview' => 'Overview',
     ],
 
     'resources' => [
@@ -318,23 +317,66 @@ return [
         'user' => [
             'label' => 'Users',
             'singular' => 'User',
-            'fields' => [
-                'role' => 'Role',
-                'email_verified_at' => 'Email verified at',
-                'password' => 'Password',
-                'remember_token' => 'Remember me token',
-            ],
-            'helpers' => [
-                'password' => 'Adjust this field only once you want to change the user\'s password.',
-            ],
-            'sections' => [
-                'user' => [
-                    'label' => 'User',
-                    'description' => 'User details.',
+
+            'table' => [
+                'heading' => 'Users',
+                'description' => 'A list of all users within the system.',
+
+                'columns' => [
+                    'cms_access' => [
+                        'label' => 'Has access to the CMS?',
+                    ],
+                    'role_name' => [
+                        'label' => 'Role',
+                    ],
+                    'email_verified_at' => [
+                        'label' => 'Email verified at',
+                    ],
                 ],
-                'management' => [
-                    'label' => 'Management',
-                    'description' => 'Data for managing this user.',
+            ],
+
+            'form' => [
+                'sections' => [
+                    'user' => [
+                        'heading' => 'User',
+                        'description' => 'General data of the user',
+                    ],
+                ],
+
+                'fields' => [
+                    'role' => [
+                        'label' => 'User role',
+                        'helperText' => 'The user gets his rights according to this role.',
+                    ],
+                    'email_verified_at' => [
+                        'label' => 'Email verified at',
+                    ],
+                    'password' => [
+                        'label' => 'Password',
+                        'helperText' => 'Adjust this field only once you want to change the user\'s password.',
+                    ],
+                ],
+            ],
+
+            'infolist' => [
+                'sections' => [
+                    'user' => [
+                        'heading' => 'User',
+                        'description' => 'General data of the user',
+                    ],
+                    'management' => [
+                        'heading' => 'Management',
+                        'description' => 'User management data',
+                    ],
+                ],
+
+                'entries' => [
+                    'email_verified_at' => [
+                        'label' => 'Email verified at',
+                    ],
+                    'role_name' => [
+                        'label' => 'Role',
+                    ],
                 ],
             ],
         ],

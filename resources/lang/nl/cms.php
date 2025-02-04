@@ -320,23 +320,66 @@ return [
         'user' => [
             'label' => 'Gebruikers',
             'singular' => 'Gebruiker',
-            'fields' => [
-                'role' => 'Rol',
-                'email_verified_at' => 'E-mailadres geverifieerd op',
-                'password' => 'Wachtwoord',
-                'remember_token' => 'Herinneringstoken',
-            ],
-            'helpers' => [
-                'password' => 'Vul dit veld alleen in als je het wachtwoord wilt wijzigen.',
-            ],
-            'sections' => [
-                'user' => [
-                    'label' => 'Gebruiker',
-                    'description' => 'Gebruikersgegevens.',
+
+            'table' => [
+                'heading' => 'Gebruikers',
+                'description' => 'Een lijst van alle gebruikers in de applicatie.',
+
+                'columns' => [
+                    'cms_access' => [
+                        'label' => 'Heef toegang tot het CMS?',
+                    ],
+                    'role_name' => [
+                        'label' => 'Rol',
+                    ],
+                    'email_verified_at' => [
+                        'label' => 'E-mailadres geverifieerd op',
+                    ],
                 ],
-                'management' => [
-                    'label' => 'Beheer',
-                    'description' => 'Gegevens voor het beheer van de gebruiker.',
+            ],
+
+            'form' => [
+                'sections' => [
+                    'user' => [
+                        'heading' => 'Gebruiker',
+                        'description' => 'Algemene gegevens van de gebruiker.',
+                    ],
+                ],
+
+                'fields' => [
+                    'role' => [
+                        'label' => 'Gebruikersrol',
+                        'helperText' => 'De gebruiker krijgt zijn rechten aan de hand van deze rol.',
+                    ],
+                    'email_verified_at' => [
+                        'label' => 'E-mailadres geverifieerd op',
+                    ],
+                    'password' => [
+                        'label' => 'Wachtwoord',
+                        'helperText' => 'Vul dit veld alleen in als je het wachtwoord wilt wijzigen.',
+                    ],
+                ],
+            ],
+
+            'infolist' => [
+                'sections' => [
+                    'user' => [
+                        'heading' => 'Gebruiker',
+                        'description' => 'Algemene gegevens van de gebruiker.',
+                    ],
+                    'management' => [
+                        'heading' => 'Beheer',
+                        'description' => 'Gegevens voor het beheer van de gebruiker.',
+                    ],
+                ],
+
+                'entries' => [
+                    'email_verified_at' => [
+                        'label' => 'E-mailadres geverifieerd op',
+                    ],
+                    'role_name' => [
+                        'label' => 'Rol',
+                    ],
                 ],
             ],
         ],

@@ -13,6 +13,11 @@ class ListUsers extends ListRecords
 {
     protected static string $resource = UserResource::class;
 
+    public function getBreadcrumb(): ?string
+    {
+        return __('made-cms::cms.resources.common.overview');
+    }
+
     protected function getHeaderActions(): array
     {
         return [

@@ -44,13 +44,14 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Section::make(__('made-cms::cms.resources.user.sections.user.label'))
-                    ->description(__('made-cms::cms.resources.user.sections.user.description'))
+                Section::make(__('made-cms::cms.resources.user.form.sections.user.heading'))
+                    ->description(__('made-cms::cms.resources.user.form.sections.user.description'))
                     ->aside()
                     ->schema([
 
                         Select::make('role_id')
-                            ->label(__('made-cms::cms.resources.user.fields.role'))
+                            ->label(__('made-cms::cms.resources.user.form.fields.role.label'))
+                            ->helperText(__('made-cms::cms.resources.user.form.fields.role.helperText'))
                             ->relationship('role', 'name')
                             ->preload()
                             ->searchable()
@@ -65,14 +66,14 @@ class UserResource extends Resource
                             ->required(),
 
                         DatePicker::make('email_verified_at')
-                            ->label(__('made-cms::cms.resources.user.fields.email_verified_at')),
+                            ->label(__('made-cms::cms.resources.user.form.fields.email_verified_at.label')),
 
                         TextInput::make('password')
-                            ->label(__('made-cms::cms.resources.user.fields.password'))
+                            ->label(__('made-cms::cms.resources.user.form.fields.password.label'))
                             ->password()
                             ->helperText(
                                 fn (string $context): string => $context === 'edit'
-                                    ? __('made-cms::cms.resources.user.helpers.password')
+                                    ? __('made-cms::cms.resources.user.form.fields.password.helperText')
                                     : ''
                             )
                             ->required(fn (string $context): bool => $context === 'create')
@@ -92,11 +93,11 @@ class UserResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->heading(__('made-cms::cms.resources.user.heading'))
-            ->description(__('made-cms::cms.resources.user.description'))
+            ->heading(__('made-cms::cms.resources.user.table.heading'))
+            ->description(__('made-cms::cms.resources.user.table.description'))
             ->columns([
-                IconColumn::make('custom')
-                    ->label('CMS Access?')
+                IconColumn::make('cms_access')
+                    ->label(__('made-cms::cms.resources.user.table.columns.cms_access.label'))
                     ->boolean()
                     ->getStateUsing(
                         fn (User $record) => $record->canAccessPanel(
@@ -105,7 +106,7 @@ class UserResource extends Resource
                     ),
 
                 TextColumn::make('role.name')
-                    ->label(__('made-cms::cms.resources.user.fields.role'))
+                    ->label(__('made-cms::cms.resources.user.table.columns.role_name.label'))
                     ->searchable()
                     ->sortable(),
 
@@ -120,7 +121,7 @@ class UserResource extends Resource
                     ->sortable(),
 
                 TextColumn::make('email_verified_at')
-                    ->label(__('made-cms::cms.resources.user.fields.email_verified_at'))
+                    ->label(__('made-cms::cms.resources.user.table.columns.email_verified_at.label'))
                     ->date()
                     ->visibleFrom('xl'),
 
@@ -168,9 +169,9 @@ class UserResource extends Resource
         return $infolist
             ->schema([
                 \Filament\Infolists\Components\Section::make(
-                    __('made-cms::cms.resources.user.sections.user.label')
+                    __('made-cms::cms.resources.user.infolist.sections.user.heading')
                 )
-                    ->description(__('made-cms::cms.resources.user.sections.user.description'))
+                    ->description(__('made-cms::cms.resources.user.infolist.sections.user.description'))
                     ->aside()
                     ->columns()
                     ->schema([
@@ -182,14 +183,14 @@ class UserResource extends Resource
                             ->label(__('made-cms::cms.resources.common.email')),
 
                         TextEntry::make('email_verified_at')
-                            ->label(__('made-cms::cms.resources.user.fields.email_verified_at'))
+                            ->label(__('made-cms::cms.resources.user.infolist.entries.email_verified_at.label'))
                             ->date()
                             ->columns(),
 
                     ]),
 
-                \Filament\Infolists\Components\Section::make(__('made-cms::cms.resources.user.sections.management.label'))
-                    ->description(__('made-cms::cms.resources.user.sections.management.description'))
+                \Filament\Infolists\Components\Section::make(__('made-cms::cms.resources.user.infolist.sections.management.heading'))
+                    ->description(__('made-cms::cms.resources.user.infolist.sections.management.description'))
                     ->aside()
                     ->columns()
                     ->schema([
@@ -198,7 +199,7 @@ class UserResource extends Resource
                             ->label('id'),
 
                         TextEntry::make('role.name')
-                            ->label(__('made-cms::cms.resources.user.fields.role')),
+                            ->label(__('made-cms::cms.resources.user.infolist.entries.role_name.label')),
 
                         TextEntry::make('created_at')
                             ->label(__('made-cms::cms.resources.common.created_at'))
