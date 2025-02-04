@@ -288,6 +288,33 @@ return [
                     'label' => 'Gebruikers met deze rol',
                 ],
             ],
+
+            'form' => [
+                'sections' => [
+                    'main' => [
+                        'heading' => 'Rol',
+                        'description' => 'Algemene gegevens van de rol. ',
+                    ],
+                    'permissions' => [
+                        'heading' => 'Rechten',
+                        'description' => 'Hier selecteer je de rechten die de rol heeft.',
+                    ],
+                ],
+
+                'fields' => [
+                    'name' => [
+                        'label' => 'Naam',
+                    ],
+                    'description' => [
+                        'label' => 'Omschrijving',
+                        'helperText' => 'Een korte omschrijving waaruit duidelijk wordt wat voor rol dit is.',
+                    ],
+                    'is_default' => [
+                        'label' => 'Admin role?',
+                        'helperText' => 'Een rol waarbij dit is aangevinkt krijgt automatisch toegang tot alle huidige en nieuwe permissies.',
+                    ],
+                ],
+            ],
         ],
 
         'user' => [

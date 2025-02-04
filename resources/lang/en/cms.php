@@ -286,6 +286,33 @@ return [
                     'label' => 'Users with this role',
                 ],
             ],
+
+            'form' => [
+                'sections' => [
+                    'main' => [
+                        'heading' => 'Role',
+                        'description' => 'General details of the role.',
+                    ],
+                    'permissions' => [
+                        'heading' => 'Permissions',
+                        'description' => 'Here you select the permissions the role has.',
+                    ],
+                ],
+
+                'fields' => [
+                    'name' => [
+                        'label' => 'Name',
+                    ],
+                    'description' => [
+                        'label' => 'Description',
+                        'helperText' => 'A brief description that makes it clear what kind of role this is.',
+                    ],
+                    'is_default' => [
+                        'label' => 'Admin role?',
+                        'helperText' => 'A role with this checked automatically gains access to all current and new permissions.',
+                    ],
+                ],
+            ],
         ],
 
         'user' => [

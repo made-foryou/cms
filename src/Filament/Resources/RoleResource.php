@@ -26,36 +26,41 @@ class RoleResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make(__('made-cms::roles.sections.main.heading'))
-                    ->description(__('made-cms::roles.sections.main.description'))
-                    ->aside()
+                Forms\Components\Section::make(__('made-cms::cms.resources.role.form.sections.main.heading'))
+                    ->description(__('made-cms::cms.resources.role.form.sections.main.description'))
+                    ->icon('heroicon-o-identification')
                     ->schema([
                         Forms\Components\TextInput::make('name')
-                            ->label(__('made-cms::roles.fields.name.label'))
+                            ->label(__('made-cms::cms.resources.role.form.fields.name.label'))
                             ->required(),
 
                         Forms\Components\Textarea::make('description')
-                            ->label(__('made-cms::roles.fields.description.label'))
-                            ->helperText(__('made-cms::roles.fields.description.helperText')),
+                            ->label(__('made-cms::cms.resources.role.form.fields.description.label'))
+                            ->helperText(__('made-cms::cms.resources.role.form.fields.description.helperText')),
 
                         Forms\Components\Checkbox::make('is_default')
-                            ->label(__('made-cms::roles.fields.is_default.label'))
-                            ->helperText(__('made-cms::roles.fields.is_default.helperText')),
+                            ->label(__('made-cms::cms.resources.role.form.fields.is_default.label'))
+                            ->helperText(__('made-cms::cms.resources.role.form.fields.is_default.helperText')),
 
                         Forms\Components\Placeholder::make('created_at')
-                            ->label(__('made-cms::roles.fields.created_at.label'))
+                            ->label(__('made-cms::cms.resources.common.created_at'))
                             ->content(fn (?Role $record): string => $record?->created_at?->diffForHumans() ?? '-'),
-                    ]),
+                    ])
+                    ->columnSpan(1)
+                    ->collapsible(),
 
-                Forms\Components\Section::make(__('made-cms::roles.sections.permissions.label'))
-                    ->description(__('made-cms::roles.sections.permissions.description'))
-                    ->aside()
+                Forms\Components\Section::make(__('made-cms::cms.resources.role.form.sections.permissions.heading'))
+                    ->description(__('made-cms::cms.resources.role.form.sections.permissions.description'))
+                    ->icon('heroicon-o-adjustments-horizontal')
                     ->columns([
                         'default' => 1,
                         'lg' => 2,
                     ])
-                    ->schema(self::getPermissionSections()),
-            ]);
+                    ->schema(self::getPermissionSections())
+                    ->columnSpan(2)
+                    ->collapsible(),
+            ])
+            ->columns(3);
     }
 
     /**
