@@ -143,8 +143,11 @@ class UserResource extends Resource
             ])
             ->actions([
                 ActionGroup::make([
-                    ViewAction::make(),
-                    EditAction::make(),
+                    ActionGroup::make([
+                        ViewAction::make(),
+                        EditAction::make(),
+                    ])->dropdown(false),
+
                     DeleteAction::make(),
                 ])->iconButton(),
             ])

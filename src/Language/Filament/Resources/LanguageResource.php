@@ -148,8 +148,11 @@ class LanguageResource extends Resource
             ])
             ->actions([
                 ActionGroup::make([
-                    MakeDefaultAction::make(),
-                    EditAction::make(),
+                    ActionGroup::make([
+                        MakeDefaultAction::make(),
+                        EditAction::make(),
+                    ])->dropdown(false),
+
                     DeleteAction::make(),
                 ]),
 

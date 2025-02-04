@@ -24,7 +24,7 @@ class MakeDefaultAction extends Action
             __('made-cms::cms.resources.language.actions.default.label')
         );
 
-        $this->color('primary');
+        $this->icon('heroicon-o-star');
 
         $this->successNotificationTitle(
             fn (Language $record) => __(
