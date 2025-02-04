@@ -167,8 +167,8 @@ class MadeCmsSetupCommand extends Command
 
         MakeLanguageDefault::run($language);
 
-        $language->addMedia(__DIR__ . '/../../resources/images/flags/' . $language->abbreviation . '.png')
-            ->preservingOriginal()
+        $language
+            ->addMedia(__DIR__ . '/../../resources/images/flags/' . $language->abbreviation . '.png')
             ->toMediaCollection('flag');
 
         $language->refresh();
