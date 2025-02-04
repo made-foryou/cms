@@ -19,6 +19,30 @@ class MadeCmsSetupCommand extends Command
     public $description = 'Setting up and configuring the Made CMS.';
 
     /**
+     * @var array|array[] Default data for the language models according the selected choice.
+     */
+    protected array $languageData = [
+        'Nederlands' => [
+            'name' => 'Nederlands',
+            'country' => 'Nederland',
+            'locale' => 'nl_NL',
+            'abbreviation' => 'nl',
+        ],
+        'English' => [
+            'name' => 'English',
+            'country' => 'United States of America',
+            'locale' => 'en_US',
+            'abbreviation' => 'en',
+        ],
+        'Deutsch' => [
+            'name' => 'Deutsch',
+            'country' => 'Deutschland',
+            'locale' => 'de_DE',
+            'abbreviation' => 'de',
+        ],
+    ];
+
+    /**
      * Executes the handle command.
      *
      * This method is responsible for handling the command execution logic.
@@ -68,6 +92,8 @@ class MadeCmsSetupCommand extends Command
         if (empty($language)) {
             $this->info('Creating default language...');
             $language = $this->createDefaultLanguage();
+
+            $this->info('Default language ' . $language->name . ' created!');
         }
 
         $result = $this->ask('Do you want to create a default user? (y/n)', 'n');
@@ -123,12 +149,13 @@ class MadeCmsSetupCommand extends Command
 
     protected function createDefaultLanguage(): Language
     {
-        $language = new Language([
-            'name' => 'English',
-            'country' => 'America',
-            'locale' => 'en',
-            'abbreviation' => 'en',
-        ]);
+        $choice = $this->choice(
+            'Which language do you want to use as default?',
+            ['Nederlands', 'English', 'Deutsch'],
+            'Nederlands',
+        );
+
+        $language = new Language($this->languageData[$choice]);
         $language->is_enabled = true;
         $language->save();
 

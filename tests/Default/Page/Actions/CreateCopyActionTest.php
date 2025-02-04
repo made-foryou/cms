@@ -10,8 +10,6 @@ use Made\Cms\Page\Models\Page;
 use Made\Cms\Shared\Enums\PublishingStatus;
 use Made\Cms\Shared\Models\Meta;
 
-use function Pest\Laravel\actingAs;
-
 uses(RefreshDatabase::class);
 
 test('copy page with meta data', function () {
@@ -27,9 +25,9 @@ test('copy page with meta data', function () {
             'describable_id' => $originalPage->id,
         ]);
 
-    actingAs($user = User::factory()->create());
+    $user = User::factory()->create();
 
-    $copyPage = (new CreateCopyAction)->handle($originalPage);
+    $copyPage = (new CreateCopyAction)->handle($originalPage, $user);
 
     expect($copyPage)->name->toBe($originalPage->name)
         ->slug->toBe($originalPage->slug)
@@ -43,9 +41,9 @@ test('copy page without meta data', function () {
     /** @var Page $originalPage */
     $originalPage = Page::factory()->create(['status' => PublishingStatus::Published]);
 
-    actingAs($user = User::factory()->create());
+    $user = User::factory()->create();
 
-    $copyPage = (new CreateCopyAction)->handle($originalPage);
+    $copyPage = (new CreateCopyAction)->handle($originalPage, $user);
 
     expect($copyPage)->status->toBe(PublishingStatus::Draft)
         ->meta->toBeNull();
@@ -60,9 +58,9 @@ test('associates user, language and relationships', function () {
         ['language_id' => $language->id, 'status' => PublishingStatus::Published]
     );
 
-    actingAs($user = User::factory()->create());
+    $user = User::factory()->create();
 
-    $copyPage = (new CreateCopyAction)->handle($originalPage);
+    $copyPage = (new CreateCopyAction)->handle($originalPage, $user);
 
     expect($copyPage->createdBy->id)->toBe($user->id)
         ->and($copyPage->language->id)->toBe($language->id);

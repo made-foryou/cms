@@ -6,21 +6,22 @@ namespace Made\Cms\Page\Actions;
 
 use Illuminate\Database\Eloquent\Model;
 use Lorisleiva\Actions\Concerns\AsAction;
+use Made\Cms\Models\User;
 use Made\Cms\Shared\Contracts\HasMeta;
 use Made\Cms\Shared\Enums\PublishingStatus;
 
 /**
- * @method static Model run(Model $page)
+ * @method static Model run(Model $page, User $user)
  */
 class CreateCopyAction
 {
     use AsAction;
 
-    public function handle(Model $model): Model
+    public function handle(Model $model, User $user): Model
     {
         $copy = $model->replicate()->fill([
             'status' => PublishingStatus::Draft,
-            'created_by' => request()->user()->id,
+            'created_by' => $user->id,
             'language_id' => $model->language_id,
         ]);
 
@@ -35,7 +36,7 @@ class CreateCopyAction
             ]);
         }
 
-        $copy->createdBy()->associate(request()->user());
+        $copy->createdBy()->associate($user);
         $copy->language()->associate($model->language);
 
         if ($model->parent !== null) {

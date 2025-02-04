@@ -143,11 +143,7 @@ class CmsServiceProvider extends PackageServiceProvider
             foreach (app(Filesystem::class)->files(__DIR__ . '/../database/settings/') as $file) {
                 $this->publishes([
                     __DIR__ . "/../database/settings/{$file->getFilename()}" => app_path(
-                        '/../database/settings/' . str_replace(
-                            '.stub',
-                            '',
-                            $file->getFilename()
-                        )
+                        '/../database/settings/' . $this->generateMigrationName($file->getFilename(), now()->addSecond())
                     ),
                 ], 'cms-setting-migrations');
             }

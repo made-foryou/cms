@@ -6,10 +6,11 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Made\Cms\Language\Models\Language;
+use Made\Cms\Models\User;
 use Made\Cms\Page\Models\Page;
 
 /**
- * @method static Model run(Model $model, Language $language)
+ * @method static Model run(Model $model, Language $language, User $user)
  */
 class CreateTranslationAction
 {
@@ -38,15 +39,16 @@ class CreateTranslationAction
     }
 
     /**
-     * Handles the translation process for the given page into the specified language.
+     * Handles the creation of a translation for the specified model in the given language.
      *
-     * @param  Model  $model  The page to be translated.
-     * @param  Language  $language  The target language for the translation.
-     * @return Model The newly created translation page.
+     * @param  Model  $model  The model that needs a translation.
+     * @param  Language  $language  The language for the translation.
+     * @param  User  $user  The user performing the action.
+     * @return Model The newly created translation model.
      *
      * @throws Exception If a translation for the specified language already exists.
      */
-    public function handle(Model $model, Language $language): Model
+    public function handle(Model $model, Language $language, User $user): Model
     {
         $main = $model;
 
@@ -66,7 +68,7 @@ class CreateTranslationAction
             throw new Exception('Er bestaat al een vertaling voor de taal ' . $language->name);
         }
 
-        $translation = CreateCopyAction::run($model);
+        $translation = CreateCopyAction::run($model, $user);
         $translation->translatedFrom()->associate($main);
         $translation->language()->associate($language);
         $translation->save();

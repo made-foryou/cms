@@ -19,9 +19,11 @@ test('it creates a translation from a page', function () {
         'status' => PublishingStatus::Published,
     ]);
 
-    $this->actingAs($original->createdBy);
-
-    $translation = CreateTranslationAction::run($original, $languages->last());
+    $translation = CreateTranslationAction::run(
+        $original,
+        $languages->last(),
+        $original->createdBy
+    );
 
     expect($translation)->name->toBe($original->name)
         ->slug->toBe($original->slug)
@@ -38,9 +40,11 @@ test('it creates a translation from a post', function () {
         'status' => PublishingStatus::Published,
     ]);
 
-    $this->actingAs($original->createdBy);
-
-    $translation = CreateTranslationAction::run($original, $languages->last());
+    $translation = CreateTranslationAction::run(
+        $original,
+        $languages->last(),
+        $original->createdBy
+    );
 
     expect($translation)->name->toBe($original->name)
         ->slug->toBe($original->slug)
