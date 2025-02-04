@@ -212,6 +212,26 @@ class RoleResource extends Resource
     }
 
     /**
+     * Retrieves the plural label for the resource.
+     *
+     * @return string|null The plural label of the resource, or null if not defined.
+     */
+    public static function getPluralLabel(): ?string
+    {
+        return __('made-cms::cms.resources.role.label');
+    }
+
+    /**
+     * Retrieves the label for the role resource.
+     *
+     * @return string|null The localized label for the role resource, or null if not defined.
+     */
+    public static function getLabel(): ?string
+    {
+        return __('made-cms::cms.resources.role.singular');
+    }
+
+    /**
      * Retrieves the breadcrumb label for the role resource.
      *
      * @return string The localized breadcrumb label.
