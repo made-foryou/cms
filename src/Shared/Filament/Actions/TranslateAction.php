@@ -80,7 +80,8 @@ class TranslateAction extends Action
             try {
                 $translation = CreateTranslationAction::run(
                     $record,
-                    Language::findOrFail($data['language'])
+                    Language::findOrFail($data['language']),
+                    request()->user(),
                 );
 
                 $this->success();

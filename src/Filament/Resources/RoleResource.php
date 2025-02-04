@@ -16,10 +16,6 @@ class RoleResource extends Resource
 
     protected static ?string $slug = 'roles';
 
-    protected static ?string $navigationLabel = 'Rollen';
-
-    protected static ?string $breadcrumb = 'Rollen';
-
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form
@@ -151,5 +147,20 @@ class RoleResource extends Resource
     public static function getNavigationGroup(): ?string
     {
         return __('made-cms::cms.navigation_groups.security');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('made-cms::cms.resources.role.label');
+    }
+
+    public static function getBreadcrumb(): string
+    {
+        return __('made-cms::cms.resources.role.label');
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return Role::count();
     }
 }

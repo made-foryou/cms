@@ -1,6 +1,10 @@
 <?php
 
+use Made\Cms\Language\Models\Language;
 use Made\Cms\Models;
+use Made\Cms\News\Models\Post;
+use Made\Cms\Page\Models\Page;
+use Made\Cms\Shared\Models\Meta;
 
 // translations for Made/Cms
 return [
@@ -17,19 +21,19 @@ return [
             'title' => 'Permissions',
             'description' => 'Managing the permissions that apply within the CMS.',
         ],
-        \Made\Cms\Page\Models\Page::class => [
+        Page::class => [
             'title' => 'Pages',
             'description' => 'Managing the pages within the CMS.',
         ],
-        \Made\Cms\Shared\Models\Meta::class => [
+        Meta::class => [
             'title' => 'Meta',
             'description' => 'Managing the meta data for the items within the CMS.',
         ],
-        \Made\Cms\Language\Models\Language::class => [
+        Language::class => [
             'title' => 'Languages',
             'description' => 'Managing the languages within the CMS.',
         ],
-        \Made\Cms\News\Models\Post::class => [
+        Post::class => [
             'title' => 'Posts',
             'description' => 'Managing the news items within the CMS.',
         ],
@@ -242,6 +246,7 @@ return [
 
     'resources' => [
         'common' => [
+            'overview' => 'Overview',
             'name' => 'Name',
             'email' => 'Email',
             'created_at' => 'Created at',
@@ -251,6 +256,11 @@ return [
             'not_default' => 'Not default',
             'enabled' => 'Enabled',
             'not_enabled' => 'Not enabled',
+        ],
+
+        'role' => [
+            'label' => 'Roles',
+            'singular' => 'Role',
         ],
 
         'user' => [

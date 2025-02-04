@@ -42,6 +42,8 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
  * @property-read Carbon|null $deleted_at
+ *
+ * @method static PostQueryBuilder query()
  */
 #[ObservedBy([CreatedByDefiningObserver::class, RouteableObserver::class])]
 class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta, RouteableContract

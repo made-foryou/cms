@@ -16,4 +16,14 @@ class ListRoles extends ListRecords
             CreateAction::make(),
         ];
     }
+
+    public function getBreadcrumb(): ?string
+    {
+        return __('made-cms::cms.resources.common.overview');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('made-cms::cms.resources.common.overview');
+    }
 }

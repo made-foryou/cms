@@ -248,6 +248,7 @@ return [
 
     'resources' => [
         'common' => [
+            'overview' => 'Overzicht',
             'name' => 'Naam',
             'email' => 'E-mailadres',
             'created_at' => 'Aangemaakt op',
@@ -257,6 +258,11 @@ return [
             'not_default' => 'Niet standaard',
             'enabled' => 'Geactiveerd',
             'not_enabled' => 'Niet geactiveerd',
+        ],
+
+        'role' => [
+            'label' => 'Rollen',
+            'singular' => 'Rol',
         ],
 
         'user' => [
