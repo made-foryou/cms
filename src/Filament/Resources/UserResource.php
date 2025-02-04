@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Made\Cms\Filament\Resources;
 
 use Filament\Forms\Components\DatePicker;
@@ -306,8 +308,23 @@ class UserResource extends Resource
         return __('made-cms::cms.resources.user.label');
     }
 
+    /**
+     * Retrieves the navigation group label for the security section.
+     *
+     * @return string|null The navigation group label, or null if unavailable.
+     */
     public static function getNavigationGroup(): ?string
     {
         return __('made-cms::cms.navigation_groups.security');
+    }
+
+    /**
+     * Retrieves the navigation badge displaying the count of users.
+     *
+     * @return string|null The count of users as a string, or null if no users exist.
+     */
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) User::count();
     }
 }

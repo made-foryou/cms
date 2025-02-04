@@ -244,6 +244,14 @@ return [
         'security' => 'Security',
     ],
 
+    'common' => [
+        'yes' => 'Yes',
+        'no' => 'No',
+        'all' => 'All',
+        'other' => 'Other',
+        'overview' => 'Overview',
+    ],
+
     'resources' => [
         'common' => [
             'overview' => 'Overview',
@@ -261,6 +269,23 @@ return [
         'role' => [
             'label' => 'Roles',
             'singular' => 'Role',
+
+            'table' => [
+                'name' => [
+                    'label' => 'Name',
+                ],
+                'description' => [
+                    'label' => 'Description',
+                    'description' => 'A brief description that makes it clear what kind of role this is.',
+                ],
+                'is_default' => [
+                    'label' => 'Admin role?',
+                    'tooltip' => 'A role with this checked automatically gains access to all current and new permissions.',
+                ],
+                'users_count' => [
+                    'label' => 'Users with this role',
+                ],
+            ],
         ],
 
         'user' => [

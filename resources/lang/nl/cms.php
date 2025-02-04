@@ -246,6 +246,14 @@ return [
         'security' => 'Beveiliging',
     ],
 
+    'common' => [
+        'yes' => 'Ja',
+        'no' => 'Nee',
+        'all' => 'Allemaal',
+        'other' => 'Overig',
+        'overview' => 'Overzicht',
+    ],
+
     'resources' => [
         'common' => [
             'overview' => 'Overzicht',
@@ -263,6 +271,23 @@ return [
         'role' => [
             'label' => 'Rollen',
             'singular' => 'Rol',
+
+            'table' => [
+                'name' => [
+                    'label' => 'Naam',
+                ],
+                'description' => [
+                    'label' => 'Omschrijving',
+                    'helperText' => 'Een korte omschrijving waaruit duidelijk wordt wat voor rol dit is.',
+                ],
+                'is_default' => [
+                    'label' => 'Admin rol?',
+                    'tooltip' => 'Een rol waarbij dit is aangevinkt krijgt automatisch toegang tot alle huidige en nieuwe permissies.',
+                ],
+                'users_count' => [
+                    'label' => 'Gebruikers met deze rol',
+                ],
+            ],
         ],
 
         'user' => [
