@@ -24,12 +24,29 @@ use Made\Cms\Language\Models\Language;
 
 class LanguageResource extends Resource
 {
+    /**
+     * Connected model.
+     */
     protected static ?string $model = Language::class;
 
+    /**
+     * Slug name for this resource.
+     */
     protected static ?string $slug = 'languages';
 
+    /**
+     * Sorting order for within the navigation.
+     */
     protected static ?int $navigationSort = 8;
 
+    /**
+     * Configures the form schema for the resource.
+     *
+     * @param  Form  $form  The form instance being configured.
+     * @return Form The configured form instance.
+     *
+     * @throws Exception
+     */
     public static function form(Form $form): Form
     {
         return $form
@@ -86,7 +103,10 @@ class LanguageResource extends Resource
     }
 
     /**
-     * @throws Exception
+     * Configures the table with columns, filters, actions, and bulk actions.
+     *
+     * @param  Table  $table  The table instance to configure.
+     * @return Table Returns the configured table instance.
      */
     public static function table(Table $table): Table
     {
@@ -141,6 +161,12 @@ class LanguageResource extends Resource
             ]);
     }
 
+    /**
+     * Retrieves an array of page routes for the LanguageResource.
+     *
+     * @return array An associative array where the keys represent page identifiers
+     *               and the values are route definitions for the corresponding pages.
+     */
     public static function getPages(): array
     {
         return [
@@ -150,6 +176,11 @@ class LanguageResource extends Resource
         ];
     }
 
+    /**
+     * Retrieves the attributes that are globally searchable.
+     *
+     * @return array Returns an array of attributes that can be searched globally.
+     */
     public static function getGloballySearchableAttributes(): array
     {
         return ['name'];
@@ -183,5 +214,15 @@ class LanguageResource extends Resource
     public static function getPluralModelLabel(): string
     {
         return __('made-cms::cms.resources.language.label');
+    }
+
+    /**
+     * Retrieves the navigation badge value based on the count of enabled languages.
+     *
+     * @return string|null Returns the count of enabled languages as a string, or null if no languages are found.
+     */
+    public static function getNavigationBadge(): ?string
+    {
+        return Language::query()->enabled()->count();
     }
 }
