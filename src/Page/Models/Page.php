@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Made\Cms\Database\HasDatabaseTablePrefix;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Models\User;
+use Made\Cms\Page\QueryBuilders\PageQueryBuilder;
 use Made\Cms\Shared\Contracts\DefinesCreatedByContract;
 use Made\Cms\Shared\Contracts\HasMeta;
 use Made\Cms\Shared\Contracts\RouteableContract;
@@ -45,6 +46,8 @@ use Made\Cms\Shared\Observers\RouteableObserver;
  * @property-read Page|null $translatedFrom
  * @property-read Collection<Page> $translations
  * @property-read Route|null $route
+ *
+ * @method static PageQueryBuilder query()
  */
 #[ObservedBy([CreatedByDefiningObserver::class, RouteableObserver::class])]
 class Page extends Model implements DefinesCreatedByContract, HasMeta, RouteableContract
@@ -224,5 +227,13 @@ class Page extends Model implements DefinesCreatedByContract, HasMeta, Routeable
     public function getTable(): string
     {
         return $this->prefixTableName('pages');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function newEloquentBuilder($query): PageQueryBuilder
+    {
+        return new PageQueryBuilder($query);
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace Made\Cms\Filament\Resources\PageResource\Pages;
+namespace Made\Cms\Page\Filament\Resources\PageResource\Pages;
 
 use Filament\Actions\CreateAction;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
-use Made\Cms\Filament\Resources\PageResource;
+use Made\Cms\Page\Filament\Resources\PageResource;
 use Made\Cms\Page\Models\Page;
 use Made\Cms\Shared\Enums\PublishingStatus;
 

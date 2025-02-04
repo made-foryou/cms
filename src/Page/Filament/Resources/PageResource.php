@@ -1,6 +1,6 @@
 <?php
 
-namespace Made\Cms\Filament\Resources;
+namespace Made\Cms\Page\Filament\Resources;
 
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Group;
@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Made\Cms\Enums\MetaRobot;
-use Made\Cms\Filament\Resources\PageResource\Pages;
+use Made\Cms\Filament\Resources\ContentStrips;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Page\Models\Page;
 use Made\Cms\Shared\Enums\PublishingStatus;
@@ -269,9 +269,9 @@ class PageResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPages::route('/'),
-            'create' => Pages\CreatePage::route('/create'),
-            'edit' => Pages\EditPage::route('/{record}/edit'),
+            'index' => \Made\Cms\Page\Filament\Resources\PageResource\Pages\ListPages::route('/'),
+            'create' => \Made\Cms\Page\Filament\Resources\PageResource\Pages\CreatePage::route('/create'),
+            'edit' => \Made\Cms\Page\Filament\Resources\PageResource\Pages\EditPage::route('/{record}/edit'),
         ];
     }
 
@@ -324,5 +324,15 @@ class PageResource extends Resource
     public static function getPluralModelLabel(): string
     {
         return __('made-cms::cms.resources.page.label');
+    }
+
+    /**
+     * Retrieves the navigation badge for the page.
+     *
+     * @return string|null The navigation badge representing the count of published pages, or null if not applicable.
+     */
+    public static function getNavigationBadge(): ?string
+    {
+        return Page::query()->published()->count();
     }
 }

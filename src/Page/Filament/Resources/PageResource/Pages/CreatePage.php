@@ -1,9 +1,9 @@
 <?php
 
-namespace Made\Cms\Filament\Resources\PageResource\Pages;
+namespace Made\Cms\Page\Filament\Resources\PageResource\Pages;
 
 use Filament\Resources\Pages\CreateRecord;
-use Made\Cms\Filament\Resources\PageResource;
+use Made\Cms\Page\Filament\Resources\PageResource;
 
 class CreatePage extends CreateRecord
 {
