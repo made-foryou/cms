@@ -8,8 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Made\Cms\Database\Factories\LanguageFactory;
 use Made\Cms\Language\Builders\LanguageBuilder;
 use Made\Cms\Page\Models\Page;
+use Spatie\Image\Enums\Fit;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * @property-read int $id
@@ -17,7 +22,6 @@ use Made\Cms\Page\Models\Page;
  * @property string|null $country
  * @property int $language_id
  * @property string $abbreviation
- * @property string|null $image
  * @property bool $is_default
  * @property bool $is_enabled
  * @property-read Carbon $created_at
@@ -27,9 +31,10 @@ use Made\Cms\Page\Models\Page;
  *
  * @method static LanguageBuilder query()
  */
-class Language extends Model
+class Language extends Model implements HasMedia
 {
     use HasFactory;
+    use InteractsWithMedia;
     use SoftDeletes;
 
     protected $fillable = [
@@ -37,7 +42,6 @@ class Language extends Model
         'country',
         'locale',
         'abbreviation',
-        'image',
         'is_default',
         'is_enabled',
     ];
@@ -76,5 +80,28 @@ class Language extends Model
     public function newEloquentBuilder($query): LanguageBuilder
     {
         return new LanguageBuilder($query);
+    }
+
+    /**
+     * Creates and returns a new instance of the LanguageFactory.
+     */
+    protected static function newFactory(): LanguageFactory
+    {
+        return LanguageFactory::new();
+    }
+
+    /**
+     * Registers media collections for the model.
+     */
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('flag');
+    }
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('avatar')
+            ->fit(Fit::Fill, 16, 16)
+            ->nonQueued();
     }
 }

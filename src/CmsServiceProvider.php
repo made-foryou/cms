@@ -14,9 +14,7 @@ use Livewire\Features\SupportTesting\Testable;
 use Made\Cms\Commands\MadeCmsSetupCommand;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Language\Models\Policies\LanguagePolicy;
-use Made\Cms\Models\Meta;
 use Made\Cms\Models\Permission;
-use Made\Cms\Models\Policies\MetaPolicy;
 use Made\Cms\Models\Policies\PermissionPolicy;
 use Made\Cms\Models\Policies\RolePolicy;
 use Made\Cms\Models\Policies\UserPolicy;
@@ -24,6 +22,8 @@ use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
 use Made\Cms\Page\Models\Page;
 use Made\Cms\Page\Models\Policies\PagePolicy;
+use Made\Cms\Shared\Models\Meta;
+use Made\Cms\Shared\Models\Policies\MetaPolicy;
 use Made\Cms\Testing\TestsCms;
 use ReflectionException;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
@@ -143,11 +143,7 @@ class CmsServiceProvider extends PackageServiceProvider
             foreach (app(Filesystem::class)->files(__DIR__ . '/../database/settings/') as $file) {
                 $this->publishes([
                     __DIR__ . "/../database/settings/{$file->getFilename()}" => app_path(
-                        '/../database/settings/' . str_replace(
-                            '.stub',
-                            '',
-                            $file->getFilename()
-                        )
+                        '/../database/settings/' . $this->generateMigrationName($file->getFilename(), now()->addSecond())
                     ),
                 ], 'cms-setting-migrations');
             }

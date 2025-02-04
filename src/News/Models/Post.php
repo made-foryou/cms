@@ -5,22 +5,30 @@ declare(strict_types=1);
 namespace Made\Cms\News\Models;
 
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Made\Cms\Database\Factories\PostFactory;
 use Made\Cms\Database\HasDatabaseTablePrefix;
 use Made\Cms\Language\Models\Language;
-use Made\Cms\Models\Meta;
 use Made\Cms\Models\User;
+use Made\Cms\News\QueryBuilders\PostQueryBuilder;
 use Made\Cms\Shared\Contracts\DefinesCreatedByContract;
+use Made\Cms\Shared\Contracts\HasMeta;
 use Made\Cms\Shared\Contracts\RouteableContract;
 use Made\Cms\Shared\Enums\PublishingStatus;
+use Made\Cms\Shared\Models\Meta;
 use Made\Cms\Shared\Models\Route;
 use Made\Cms\Shared\Observers\CreatedByDefiningObserver;
 use Made\Cms\Shared\Observers\RouteableObserver;
+use Spatie\Image\Enums\Fit;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * @property-read int $id
@@ -30,15 +38,19 @@ use Made\Cms\Shared\Observers\RouteableObserver;
  * @property string $slug
  * @property PublishingStatus $status
  * @property array $content
- * @property int $author_id
+ * @property int $created_by
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
  * @property-read Carbon|null $deleted_at
+ *
+ * @method static PostQueryBuilder query()
  */
 #[ObservedBy([CreatedByDefiningObserver::class, RouteableObserver::class])]
-class Post extends Model implements DefinesCreatedByContract, RouteableContract
+class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta, RouteableContract
 {
     use HasDatabaseTablePrefix;
+    use HasFactory;
+    use InteractsWithMedia;
     use SoftDeletes;
 
     /**
@@ -83,6 +95,16 @@ class Post extends Model implements DefinesCreatedByContract, RouteableContract
     protected $attributes = [
         'content' => '[]',
     ];
+
+    /**
+     * Creates and returns a new instance of the PostFactory.
+     *
+     * @return PostFactory The new factory instance.
+     */
+    protected static function newFactory(): PostFactory
+    {
+        return PostFactory::new();
+    }
 
     /**
      * The related page which this was translated from.
@@ -185,5 +207,34 @@ class Post extends Model implements DefinesCreatedByContract, RouteableContract
     public function getTable(): string
     {
         return $this->prefixTableName('posts');
+    }
+
+    /**
+     * Registers media collections for the model.
+     */
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('featured_image');
+    }
+
+    /**
+     * Registers media conversions for the model, defining transformation settings for the media.
+     *
+     * @param  Media|null  $media  An optional Media instance to which the conversions apply.
+     * @return void No return value.
+     */
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('preview')
+            ->fit(Fit::Fill, 300, 300)
+            ->nonQueued();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function newEloquentBuilder($query): PostQueryBuilder
+    {
+        return new PostQueryBuilder($query);
     }
 }

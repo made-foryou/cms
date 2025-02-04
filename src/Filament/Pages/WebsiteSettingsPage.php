@@ -20,11 +20,6 @@ class WebsiteSettingsPage extends SettingsPage
     protected static string $settings = WebsiteSetting::class;
 
     /**
-     * The icon which is being used within the navigation.
-     */
-    protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
-
-    /**
      * The sort order for showing the navigation items.
      */
     protected static ?int $navigationSort = 10;
@@ -82,7 +77,7 @@ class WebsiteSettingsPage extends SettingsPage
      */
     public static function getNavigationGroup(): string
     {
-        return __('made-cms::cms.groups.website_management');
+        return __('made-cms::cms.navigation_groups.website');
     }
 
     public function getTitle(): string | Htmlable

@@ -23,6 +23,7 @@
     "require": {
         "php": "^8.3",
         "filament/filament": "^3.0",
+        "filament/spatie-laravel-media-library-plugin": "^3.2",
         "filament/spatie-laravel-settings-plugin": "^3.2",
         "filament/widgets": "^3.2",
         "lorisleiva/laravel-actions": "^2.8",

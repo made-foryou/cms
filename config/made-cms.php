@@ -50,6 +50,12 @@ return [
          */
         'default' => true,
 
+        'resources' => [],
+
+        'clusers' => [],
+
+        'pages' => [],
+
     ],
 
     /**

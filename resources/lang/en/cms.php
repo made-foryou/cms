@@ -1,15 +1,13 @@
 <?php
 
+use Made\Cms\Language\Models\Language;
 use Made\Cms\Models;
+use Made\Cms\News\Models\Post;
+use Made\Cms\Page\Models\Page;
+use Made\Cms\Shared\Models\Meta;
 
 // translations for Made/Cms
 return [
-    'groups' => [
-        'user' => 'User Management',
-        'administration' => 'Administration',
-        'website_management' => 'Website management',
-    ],
-
     'class_names' => [
         Models\User::class => [
             'title' => 'Users',
@@ -23,19 +21,19 @@ return [
             'title' => 'Permissions',
             'description' => 'Managing the permissions that apply within the CMS.',
         ],
-        \Made\Cms\Page\Models\Page::class => [
+        Page::class => [
             'title' => 'Pages',
             'description' => 'Managing the pages within the CMS.',
         ],
-        Models\Meta::class => [
+        Meta::class => [
             'title' => 'Meta',
             'description' => 'Managing the meta data for the items within the CMS.',
         ],
-        \Made\Cms\Language\Models\Language::class => [
+        Language::class => [
             'title' => 'Languages',
             'description' => 'Managing the languages within the CMS.',
         ],
-        \Made\Cms\News\Models\Post::class => [
+        Post::class => [
             'title' => 'Posts',
             'description' => 'Managing the news items within the CMS.',
         ],
@@ -239,8 +237,23 @@ return [
         ],
     ],
 
+    'navigation_groups' => [
+        'pages' => 'Pages',
+        'news' => 'News',
+        'website' => 'Website',
+        'security' => 'Security',
+    ],
+
+    'common' => [
+        'yes' => 'Yes',
+        'no' => 'No',
+        'all' => 'All',
+        'other' => 'Other',
+    ],
+
     'resources' => [
         'common' => [
+            'overview' => 'Overview',
             'name' => 'Name',
             'email' => 'Email',
             'created_at' => 'Created at',
@@ -252,26 +265,118 @@ return [
             'not_enabled' => 'Not enabled',
         ],
 
+        'role' => [
+            'label' => 'Roles',
+            'singular' => 'Role',
+
+            'table' => [
+                'name' => [
+                    'label' => 'Name',
+                ],
+                'description' => [
+                    'label' => 'Description',
+                    'description' => 'A brief description that makes it clear what kind of role this is.',
+                ],
+                'is_default' => [
+                    'label' => 'Admin role?',
+                    'tooltip' => 'A role with this checked automatically gains access to all current and new permissions.',
+                ],
+                'users_count' => [
+                    'label' => 'Users with this role',
+                ],
+            ],
+
+            'form' => [
+                'sections' => [
+                    'main' => [
+                        'heading' => 'Role',
+                        'description' => 'General details of the role.',
+                    ],
+                    'permissions' => [
+                        'heading' => 'Permissions',
+                        'description' => 'Here you select the permissions the role has.',
+                    ],
+                ],
+
+                'fields' => [
+                    'name' => [
+                        'label' => 'Name',
+                    ],
+                    'description' => [
+                        'label' => 'Description',
+                        'helperText' => 'A brief description that makes it clear what kind of role this is.',
+                    ],
+                    'is_default' => [
+                        'label' => 'Admin role?',
+                        'helperText' => 'A role with this checked automatically gains access to all current and new permissions.',
+                    ],
+                ],
+            ],
+        ],
+
         'user' => [
             'label' => 'Users',
             'singular' => 'User',
-            'fields' => [
-                'role' => 'Role',
-                'email_verified_at' => 'Email verified at',
-                'password' => 'Password',
-                'remember_token' => 'Remember me token',
-            ],
-            'helpers' => [
-                'password' => 'Adjust this field only once you want to change the user\'s password.',
-            ],
-            'sections' => [
-                'user' => [
-                    'label' => 'User',
-                    'description' => 'User details.',
+
+            'table' => [
+                'heading' => 'Users',
+                'description' => 'A list of all users within the system.',
+
+                'columns' => [
+                    'cms_access' => [
+                        'label' => 'Has access to the CMS?',
+                    ],
+                    'role_name' => [
+                        'label' => 'Role',
+                    ],
+                    'email_verified_at' => [
+                        'label' => 'Email verified at',
+                    ],
                 ],
-                'management' => [
-                    'label' => 'Management',
-                    'description' => 'Data for managing this user.',
+            ],
+
+            'form' => [
+                'sections' => [
+                    'user' => [
+                        'heading' => 'User',
+                        'description' => 'General data of the user',
+                    ],
+                ],
+
+                'fields' => [
+                    'role' => [
+                        'label' => 'User role',
+                        'helperText' => 'The user gets his rights according to this role.',
+                    ],
+                    'email_verified_at' => [
+                        'label' => 'Email verified at',
+                    ],
+                    'password' => [
+                        'label' => 'Password',
+                        'helperText' => 'Adjust this field only once you want to change the user\'s password.',
+                    ],
+                ],
+            ],
+
+            'infolist' => [
+                'sections' => [
+                    'user' => [
+                        'heading' => 'User',
+                        'description' => 'General data of the user',
+                    ],
+                    'management' => [
+                        'heading' => 'Management',
+                        'description' => 'User management data',
+                    ],
+                ],
+
+                'entries' => [
+                    'email_verified_at' => [
+                        'label' => 'Email verified at',
+                    ],
+                    'role_name' => [
+                        'label' => 'Role',
+                    ],
                 ],
             ],
         ],
@@ -429,6 +534,7 @@ return [
                 ],
             ],
         ],
+
         'post' => [
             'label' => 'Posts',
             'singular' => 'Post',
@@ -480,19 +586,6 @@ return [
                         'label' => 'Canonical links',
                         'helperText' => 'By default, the canonical link is automatically generated based on the current URL. If you want to add some extra, you can add multiple canonical links here.',
                     ],
-                ],
-            ],
-        ],
-    ],
-
-    'clusters' => [
-        'news' => [
-            'label' => 'News',
-            'resources' => [
-                'posts' => [
-                    'label' => 'Posts',
-                    'pluralLabel' => 'Posts',
-                    'modelLabel' => 'Post',
                 ],
             ],
         ],

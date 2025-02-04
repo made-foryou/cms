@@ -20,6 +20,7 @@ use Made\Cms\Database\Seeders\CmsCoreSeeder;
 use Made\Cms\Providers\CmsPanelServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
+use Spatie\MediaLibrary\MediaLibraryServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -55,6 +56,7 @@ class TestCase extends Orchestra
             SupportServiceProvider::class,
             TablesServiceProvider::class,
             WidgetsServiceProvider::class,
+            MediaLibraryServiceProvider::class,
             CmsServiceProvider::class,
             CmsPanelServiceProvider::class,
         ];

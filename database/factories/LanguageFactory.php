@@ -25,6 +25,7 @@ class LanguageFactory extends Factory
             'name' => $this->faker->name(),
             'locale' => $this->faker->word(),
             'abbreviation' => $this->faker->word(),
+            'is_enabled' => $this->faker->boolean(0.5),
         ];
     }
 
