@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Made\Cms\Database\HasDatabaseTablePrefix;
-use Made\Cms\Enums\MetaRobot;
+use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
+use Made\Cms\Shared\Enums\MetaRobot;
 
 return new class extends Migration
 {

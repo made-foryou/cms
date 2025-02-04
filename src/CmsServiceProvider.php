@@ -11,7 +11,6 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Features\SupportTesting\Testable;
-use Made\Cms\Commands\MadeCmsSetupCommand;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Language\Models\Policies\LanguagePolicy;
 use Made\Cms\Models\Permission;
@@ -22,6 +21,7 @@ use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
 use Made\Cms\Page\Models\Page;
 use Made\Cms\Page\Models\Policies\PagePolicy;
+use Made\Cms\Shared\Commands\MadeCmsSetupCommand;
 use Made\Cms\Shared\Models\Meta;
 use Made\Cms\Shared\Models\Policies\MetaPolicy;
 use Made\Cms\Testing\TestsCms;
@@ -240,6 +240,7 @@ class CmsServiceProvider extends PackageServiceProvider
             '2024_11_04_174245_create_made_cms_settings_table',
             '2024_12_08_190243_create_made_cms_routes_table',
             '2024_12_30_200702_create_made_cms_posts_table',
+            '2025_02_04_150436_create_visits_table',
         ];
     }
 }

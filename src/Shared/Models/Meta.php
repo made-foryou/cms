@@ -6,8 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Made\Cms\Database\HasDatabaseTablePrefix;
 use Made\Cms\Page\Models\Page;
+use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
 
 /**
  * @property-read int $id

@@ -1,6 +1,6 @@
 <?php
 
-namespace Made\Cms\Commands;
+namespace Made\Cms\Shared\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;

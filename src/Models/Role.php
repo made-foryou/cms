@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
 use Made\Cms\Database\Factories\RoleFactory;
-use Made\Cms\Database\HasDatabaseTablePrefix;
 use Made\Cms\QueryBuilders\RoleQueryBuilder;
+use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
 
 /**
  * ### Role

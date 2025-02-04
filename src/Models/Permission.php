@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Query\Builder;
 use Made\Cms\Database\Factories\PermissionFactory;
-use Made\Cms\Database\HasDatabaseTablePrefix;
 use Made\Cms\QueryBuilders\PermissionQueryBuilder;
+use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
 
 /**
  * ### Permission
