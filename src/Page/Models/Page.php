@@ -13,11 +13,12 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Made\Cms\Database\HasDatabaseTablePrefix;
 use Made\Cms\Language\Models\Language;
-use Made\Cms\Models\Meta;
 use Made\Cms\Models\User;
 use Made\Cms\Shared\Contracts\DefinesCreatedByContract;
+use Made\Cms\Shared\Contracts\HasMeta;
 use Made\Cms\Shared\Contracts\RouteableContract;
 use Made\Cms\Shared\Enums\PublishingStatus;
+use Made\Cms\Shared\Models\Meta;
 use Made\Cms\Shared\Models\Route;
 use Made\Cms\Shared\Observers\CreatedByDefiningObserver;
 use Made\Cms\Shared\Observers\RouteableObserver;
@@ -46,7 +47,7 @@ use Made\Cms\Shared\Observers\RouteableObserver;
  * @property-read Route|null $route
  */
 #[ObservedBy([CreatedByDefiningObserver::class, RouteableObserver::class])]
-class Page extends Model implements DefinesCreatedByContract, RouteableContract
+class Page extends Model implements DefinesCreatedByContract, HasMeta, RouteableContract
 {
     use HasDatabaseTablePrefix;
     use HasFactory;

@@ -15,14 +15,19 @@ use Illuminate\Support\Carbon;
 use Made\Cms\Database\Factories\PostFactory;
 use Made\Cms\Database\HasDatabaseTablePrefix;
 use Made\Cms\Language\Models\Language;
-use Made\Cms\Models\Meta;
 use Made\Cms\Models\User;
 use Made\Cms\Shared\Contracts\DefinesCreatedByContract;
+use Made\Cms\Shared\Contracts\HasMeta;
 use Made\Cms\Shared\Contracts\RouteableContract;
 use Made\Cms\Shared\Enums\PublishingStatus;
+use Made\Cms\Shared\Models\Meta;
 use Made\Cms\Shared\Models\Route;
 use Made\Cms\Shared\Observers\CreatedByDefiningObserver;
 use Made\Cms\Shared\Observers\RouteableObserver;
+use Spatie\Image\Enums\Fit;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * @property-read int $id
@@ -38,10 +43,11 @@ use Made\Cms\Shared\Observers\RouteableObserver;
  * @property-read Carbon|null $deleted_at
  */
 #[ObservedBy([CreatedByDefiningObserver::class, RouteableObserver::class])]
-class Post extends Model implements DefinesCreatedByContract, RouteableContract
+class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta, RouteableContract
 {
     use HasDatabaseTablePrefix;
     use HasFactory;
+    use InteractsWithMedia;
     use SoftDeletes;
 
     /**
@@ -198,5 +204,17 @@ class Post extends Model implements DefinesCreatedByContract, RouteableContract
     protected static function newFactory(): PostFactory
     {
         return PostFactory::new();
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('featured_image');
+    }
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('preview')
+            ->fit(Fit::Fill, 300, 300)
+            ->nonQueued();
     }
 }

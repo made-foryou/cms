@@ -1,9 +1,9 @@
 <?php
 
-namespace Made\Cms\Filament\Resources\LanguageResource\Pages;
+namespace Made\Cms\Language\Filament\Resources\LanguageResource\Pages;
 
 use Filament\Resources\Pages\CreateRecord;
-use Made\Cms\Filament\Resources\LanguageResource;
+use Made\Cms\Language\Filament\Resources\LanguageResource;
 
 class CreateLanguage extends CreateRecord
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Made\Cms\Filament\Resources\PostResource\Pages;
+namespace Made\Cms\News\Filament\Resources\PostResource\Pages;
 
 use Filament\Actions\CreateAction;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
-use Made\Cms\Filament\Resources\PostResource;
+use Made\Cms\News\Filament\Resources\PostResource;
 use Made\Cms\News\Models\Post;
 use Made\Cms\Shared\Enums\PublishingStatus;
 

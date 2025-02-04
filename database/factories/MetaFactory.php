@@ -3,7 +3,7 @@
 namespace Made\Cms\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Made\Cms\Models\Meta;
+use Made\Cms\Shared\Models\Meta;
 
 class MetaFactory extends Factory
 {

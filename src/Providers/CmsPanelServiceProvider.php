@@ -18,11 +18,11 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Made\Cms\Filament\Resources\LanguageResource;
 use Made\Cms\Filament\Resources\PageResource;
-use Made\Cms\Filament\Resources\PostResource;
 use Made\Cms\Filament\Resources\RoleResource;
 use Made\Cms\Filament\Resources\UserResource;
+use Made\Cms\Language\Filament\Resources\LanguageResource;
+use Made\Cms\News\Filament\Resources\PostResource;
 
 class CmsPanelServiceProvider extends PanelProvider
 {

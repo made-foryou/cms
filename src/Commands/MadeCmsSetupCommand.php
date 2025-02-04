@@ -41,7 +41,12 @@ class MadeCmsSetupCommand extends Command
             '--tag' => 'cms-setting-migrations',
         ]);
 
-        $this->info('Migrating the settings...');
+        $this->callSilently('vendor:publish', [
+            '--provider' => 'Spatie\MediaLibrary\MediaLibraryServiceProvider',
+            '--tag' => 'medialibrary-migrations',
+        ]);
+
+        $this->info('Migrating the package migrations...');
 
         $this->callSilently('migrate');
 

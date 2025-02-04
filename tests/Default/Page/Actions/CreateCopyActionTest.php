@@ -4,11 +4,11 @@ namespace Made\Cms\Tests\Page\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Made\Cms\Language\Models\Language;
-use Made\Cms\Models\Meta;
 use Made\Cms\Models\User;
 use Made\Cms\Page\Actions\CreateCopyAction;
 use Made\Cms\Page\Models\Page;
 use Made\Cms\Shared\Enums\PublishingStatus;
+use Made\Cms\Shared\Models\Meta;
 
 use function Pest\Laravel\actingAs;
 

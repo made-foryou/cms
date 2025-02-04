@@ -1,11 +1,12 @@
 <?php
 
-namespace Made\Cms\Models\Policies;
+namespace Made\Cms\Shared\Models\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Str;
-use Made\Cms\Models\Meta;
+use Made\Cms\Models\Policies\CmsPermissions;
 use Made\Cms\Models\User;
+use Made\Cms\Shared\Models\Meta;
 
 class MetaPolicy
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Made\Cms\Filament\Resources\PostResource\Pages;
+namespace Made\Cms\News\Filament\Resources\PostResource\Pages;
 
 use Filament\Resources\Pages\CreateRecord;
-use Made\Cms\Filament\Resources\PostResource;
+use Made\Cms\News\Filament\Resources\PostResource;
 
 class CreatePost extends CreateRecord
 {

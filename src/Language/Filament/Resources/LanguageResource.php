@@ -1,6 +1,6 @@
 <?php
 
-namespace Made\Cms\Filament\Resources;
+namespace Made\Cms\Language\Filament\Resources;
 
 use Exception;
 use Filament\Forms\Components\FileUpload;
@@ -19,7 +19,6 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
-use Made\Cms\Filament\Resources\LanguageResource\Pages;
 use Made\Cms\Language\Filament\Actions\MakeDefaultAction;
 use Made\Cms\Language\Models\Language;
 
@@ -145,9 +144,9 @@ class LanguageResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListLanguages::route('/'),
-            'create' => Pages\CreateLanguage::route('/create'),
-            'edit' => Pages\EditLanguage::route('/{record}/edit'),
+            'index' => \Made\Cms\Language\Filament\Resources\LanguageResource\Pages\ListLanguages::route('/'),
+            'create' => \Made\Cms\Language\Filament\Resources\LanguageResource\Pages\CreateLanguage::route('/create'),
+            'edit' => \Made\Cms\Language\Filament\Resources\LanguageResource\Pages\EditLanguage::route('/{record}/edit'),
         ];
     }
 

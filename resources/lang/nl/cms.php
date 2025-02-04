@@ -27,7 +27,7 @@ return [
             'title' => 'Pagina\'s',
             'description' => 'Beheren van de paginas binnen de website.',
         ],
-        Models\Meta::class => [
+        \Made\Cms\Shared\Models\Meta::class => [
             'title' => 'Meta',
             'description' => 'Beheren van de meta gegevens van de onderdelen in de website.',
         ],

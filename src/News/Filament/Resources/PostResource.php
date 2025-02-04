@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Made\Cms\Filament\Resources;
+namespace Made\Cms\News\Filament\Resources;
 
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\Textarea;
@@ -16,6 +17,7 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
@@ -23,20 +25,21 @@ use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Filament\Tables\Actions\RestoreBulkAction;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Made\Cms\Enums\MetaRobot;
-use Made\Cms\Filament\Resources\PostResource\Pages;
+use Made\Cms\Filament\Resources\ContentStrips;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\News\Models\Post;
-use Made\Cms\Page\Filament\Actions\TranslateAction;
 use Made\Cms\Shared\Enums\PublishingStatus;
+use Made\Cms\Shared\Filament\Actions\TranslateAction;
 
 class PostResource extends Resource
 {
@@ -93,6 +96,11 @@ class PostResource extends Resource
                                                                 Str::slug($get('name'))
                                                             ))
                                                     ),
+
+                                                SpatieMediaLibraryFileUpload::make('featured_image')
+                                                    ->collection('featured_image')
+                                                    ->image()
+                                                    ->imageEditor(),
 
                                             ]),
 
@@ -219,24 +227,32 @@ class PostResource extends Resource
         return $table
             ->columns([
 
+                SpatieMediaLibraryImageColumn::make('featured_image')
+                    ->label('Afbeelding')
+                    ->collection('featured_image')
+                    ->conversion('preview')
+                    ->circular(),
+
                 TextColumn::make('name')
+                    ->weight(FontWeight::Bold)
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('translatedFrom.name')
-                    ->label('Vertaling van')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('language.name')
+                ImageColumn::make('language.image')
                     ->label(__('made-cms::cms.resources.page.table.locale'))
-                    ->icon(fn (Post $record) => ($record->language?->image ? Storage::url($record->language->image) : '')),
+                    ->size(20)
+                    ->circular(),
 
                 TextColumn::make('status')
                     ->label(__('made-cms::cms.resources.page.table.status'))
                     ->badge()
                     ->color(fn (PublishingStatus $state) => $state->color())
                     ->formatStateUsing(fn (PublishingStatus $state) => $state->label()),
+
+                TextColumn::make('translatedFrom.name')
+                    ->label('Vertaling van')
+                    ->searchable()
+                    ->sortable(),
 
                 TextColumn::make('createdBy.name'),
 
@@ -281,9 +297,9 @@ class PostResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPosts::route('/'),
-            'create' => Pages\CreatePost::route('/create'),
-            'edit' => Pages\EditPost::route('/{record}/edit'),
+            'index' => \Made\Cms\News\Filament\Resources\PostResource\Pages\ListPosts::route('/'),
+            'create' => \Made\Cms\News\Filament\Resources\PostResource\Pages\CreatePost::route('/create'),
+            'edit' => \Made\Cms\News\Filament\Resources\PostResource\Pages\EditPost::route('/{record}/edit'),
         ];
     }
 

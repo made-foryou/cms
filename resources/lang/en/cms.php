@@ -21,7 +21,7 @@ return [
             'title' => 'Pages',
             'description' => 'Managing the pages within the CMS.',
         ],
-        Models\Meta::class => [
+        \Made\Cms\Shared\Models\Meta::class => [
             'title' => 'Meta',
             'description' => 'Managing the meta data for the items within the CMS.',
         ],

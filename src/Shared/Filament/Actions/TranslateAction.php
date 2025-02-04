@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Made\Cms\Page\Filament\Actions;
+namespace Made\Cms\Shared\Filament\Actions;
 
+use Exception;
 use Filament\Actions\Concerns\CanCustomizeProcess;
 use Filament\Forms\Components\Select;
 use Filament\Support\Enums\MaxWidth;
 use Filament\Tables\Actions\Action;
+use Illuminate\Database\Eloquent\Model;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Page\Actions\CreateTranslationAction;
-use Made\Cms\Page\Models\Page;
 
 class TranslateAction extends Action
 {
@@ -45,14 +46,14 @@ class TranslateAction extends Action
         $this->modalIconColor('primary');
 
         $this->failureNotificationTitle(
-            fn (Page $record) => __(
+            fn (Model $record) => __(
                 'made-cms::cms.resources.page.actions.translate.failure.title',
                 ['name' => $record->name]
             )
         );
 
         $this->successNotificationTitle(
-            fn (Page $record) => __(
+            fn (Model $record) => __(
                 'made-cms::cms.resources.page.actions.translate.success.title',
                 ['name' => $record->name]
             )
@@ -75,15 +76,15 @@ class TranslateAction extends Action
                 ->required(),
         ]);
 
-        $this->action(function (Page $page, array $data) {
+        $this->action(function (Model $record, array $data) {
             try {
                 $translation = CreateTranslationAction::run(
-                    $page,
-                    Language::query()->findOrFail($data['language'])
+                    $record,
+                    Language::findOrFail($data['language'])
                 );
 
                 $this->success();
-            } catch (\Exception $exception) {
+            } catch (Exception $exception) {
                 $this->failure();
             }
         });

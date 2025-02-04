@@ -28,9 +28,9 @@ use Illuminate\Support\Str;
 use Made\Cms\Enums\MetaRobot;
 use Made\Cms\Filament\Resources\PageResource\Pages;
 use Made\Cms\Language\Models\Language;
-use Made\Cms\Page\Filament\Actions\TranslateAction;
 use Made\Cms\Page\Models\Page;
 use Made\Cms\Shared\Enums\PublishingStatus;
+use Made\Cms\Shared\Filament\Actions\TranslateAction;
 
 class PageResource extends Resource
 {

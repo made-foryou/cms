@@ -1,6 +1,6 @@
 <?php
 
-namespace Made\Cms\Models;
+namespace Made\Cms\Shared\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

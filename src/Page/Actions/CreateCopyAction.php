@@ -4,43 +4,46 @@ declare(strict_types=1);
 
 namespace Made\Cms\Page\Actions;
 
+use Illuminate\Database\Eloquent\Model;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Made\Cms\Page\Models\Page;
+use Made\Cms\Shared\Contracts\HasMeta;
 use Made\Cms\Shared\Enums\PublishingStatus;
 
+/**
+ * @method static Model run(Model $page)
+ */
 class CreateCopyAction
 {
     use AsAction;
 
-    public function handle(Page $page): Page
+    public function handle(Model $model): Model
     {
-        $copy = new Page;
-
-        $copy->name = $page->name;
-        $copy->slug = $page->slug;
-        $copy->status = PublishingStatus::Draft;
-        $copy->content = $page->content;
+        $copy = $model->replicate()->fill([
+            'status' => PublishingStatus::Draft,
+            'created_by' => request()->user()->id,
+            'language_id' => $model->language_id,
+        ]);
 
         $copy->save();
 
-        if ($page->meta !== null) {
+        if ($model instanceof HasMeta && $model->meta !== null) {
             $copy->meta()->create([
-                'title' => $page->meta->title,
-                'description' => $page->meta->description,
-                'robot' => $page->meta->robot,
-                'canonicals' => $page->meta->canonicals,
+                'title' => $model->meta->title,
+                'description' => $model->meta->description,
+                'robot' => $model->meta->robot,
+                'canonicals' => $model->meta->canonicals,
             ]);
         }
 
         $copy->createdBy()->associate(request()->user());
-        $copy->language()->associate($page->language);
+        $copy->language()->associate($model->language);
 
-        if ($page->parent !== null) {
-            $copy->parent()->associate($page->parent);
+        if ($model->parent !== null) {
+            $copy->parent()->associate($model->parent);
         }
 
-        if ($page->translatedFrom !== null) {
-            $copy->translatedFrom()->associate($page->translatedFrom);
+        if ($model->translatedFrom !== null) {
+            $copy->translatedFrom()->associate($model->translatedFrom);
         }
 
         $copy->save();
