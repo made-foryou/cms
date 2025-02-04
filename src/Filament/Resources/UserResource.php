@@ -12,6 +12,7 @@ use Filament\Forms\Form;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -141,14 +142,11 @@ class UserResource extends Resource
                     ),
             ])
             ->actions([
-                ViewAction::make()
-                    ->iconButton(),
-
-                EditAction::make()
-                    ->iconButton(),
-
-                DeleteAction::make()
-                    ->iconButton(),
+                ActionGroup::make([
+                    ViewAction::make(),
+                    EditAction::make(),
+                    DeleteAction::make(),
+                ])->iconButton(),
             ])
             ->bulkActions([
                 BulkActionGroup::make([
