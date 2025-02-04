@@ -30,8 +30,8 @@ class MadeCmsSetupCommand extends Command
         ],
         'English' => [
             'name' => 'English',
-            'country' => 'United States of America',
-            'locale' => 'en_US',
+            'country' => 'United kingdom',
+            'locale' => 'en_UK',
             'abbreviation' => 'en',
         ],
         'Deutsch' => [
@@ -39,6 +39,12 @@ class MadeCmsSetupCommand extends Command
             'country' => 'Deutschland',
             'locale' => 'de_DE',
             'abbreviation' => 'de',
+        ],
+        'Français' => [
+            'name' => 'Français',
+            'country' => 'France',
+            'locale' => 'fr_FR',
+            'abbreviation' => 'fr',
         ],
     ];
 
@@ -151,7 +157,7 @@ class MadeCmsSetupCommand extends Command
     {
         $choice = $this->choice(
             'Which language do you want to use as default?',
-            ['Nederlands', 'English', 'Deutsch'],
+            array_keys($this->languageData),
             'Nederlands',
         );
 
@@ -160,6 +166,10 @@ class MadeCmsSetupCommand extends Command
         $language->save();
 
         MakeLanguageDefault::run($language);
+
+        $language->addMedia(__DIR__ . '/../../resources/images/flags/' . $language->abbreviation . '.png')
+            ->preservingOriginal()
+            ->toMediaCollection('flag');
 
         $language->refresh();
 

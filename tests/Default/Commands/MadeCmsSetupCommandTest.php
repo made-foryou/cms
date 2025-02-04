@@ -14,7 +14,7 @@ it('provides the basic setup for the cms.', function () {
     $email = fake()->email;
 
     $this->artisan('made-cms:setup')
-        ->expectsChoice('Which language do you want to use as default?', 'Nederlands', ['Nederlands', 'English', 'Deutsch'])
+        ->expectsChoice('Which language do you want to use as default?', 'Nederlands', ['Nederlands', 'English', 'Deutsch', 'Français'])
         ->expectsQuestion('Do you want to create a default user? (y/n)', 'y')
         ->expectsQuestion('What is the persons name?', $name)
         ->expectsQuestion('What is the persons mail address?', $email)

@@ -3,9 +3,9 @@
 namespace Made\Cms\Language\Filament\Resources;
 
 use Exception;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
@@ -15,7 +15,7 @@ use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
@@ -73,9 +73,10 @@ class LanguageResource extends Resource
                                     ->helperText(__('made-cms::cms.resources.language.fields.abbreviation.description'))
                                     ->required(),
 
-                                FileUpload::make('image')
+                                SpatieMediaLibraryFileUpload::make('flag')
                                     ->label(__('made-cms::cms.resources.language.fields.image.label'))
                                     ->helperText(__('made-cms::cms.resources.language.fields.image.description'))
+                                    ->collection('flag')
                                     ->image()
                                     ->avatar()
                                     ->imageEditor(),
@@ -126,8 +127,10 @@ class LanguageResource extends Resource
                 TextColumn::make('abbreviation')
                     ->label(__('made-cms::cms.resources.language.fields.abbreviation.label')),
 
-                ImageColumn::make('image')
+                SpatieMediaLibraryImageColumn::make('flag')
                     ->label(__('made-cms::cms.resources.language.fields.image.label'))
+                    ->collection('flag')
+                    ->conversion('flag')
                     ->circular(),
 
                 TextColumn::make('is_default')
