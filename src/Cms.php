@@ -4,15 +4,20 @@ namespace Made\Cms;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route as RouteFacade;
+use Illuminate\Support\Facades\Schema;
 use Made\Cms\Filament\Builder\ContentStrip;
 use Made\Cms\Http\Controllers\Controller;
 use Made\Cms\Models\Settings\WebsiteSetting;
 use Made\Cms\Page\Models\Page;
+use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
 use Made\Cms\Shared\Models\Route;
 
 class Cms
 {
+    use HasDatabaseTablePrefix;
+
     public const string ALL_ROUTES = 'all';
 
     public const string PAGE_ROUTES = 'page';
@@ -88,6 +93,20 @@ class Cms
     }
 
     /**
+     * Checks if the routes table exists in the database.
+     *
+     * This method verifies the existence of the "routes" table by querying the database.
+     * It uses the given table prefix, if any, to locate the correct table name.
+     *
+     * @return bool Returns true if the routes table exists, otherwise false.
+     */
+    protected function databaseWasConfigured(): bool
+    {
+        return Schema::hasTable($this->prefixTableName('settings'))
+            && DB::table($this->prefixTableName('settings'))->where('group', 'web')->first() !== null;
+    }
+
+    /**
      * Configures the routes for the application based on the provided selection.
      *
      * Depending on the `selection` parameter, the method determines which
@@ -101,6 +120,10 @@ class Cms
      */
     public function routes(string $selection = self::ALL_ROUTES): void
     {
+        if (app()->runningInConsole() && ! $this->databaseWasConfigured()) {
+            return;
+        }
+
         if (in_array($selection, [self::ALL_ROUTES, self::LANDING_PAGE_ROUTE], true)) {
             $this->generateLandingPageRoute();
         }

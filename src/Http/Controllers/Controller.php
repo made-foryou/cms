@@ -116,6 +116,9 @@ class Controller extends BaseController
 
         $visit->route()->associate($route);
 
+        $visit->save();
+        $visit->refresh();
+
         return $response;
     }
 }

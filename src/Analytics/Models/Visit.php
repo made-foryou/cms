@@ -41,6 +41,7 @@ class Visit extends Model
 
     protected $casts = [
         'id' => 'integer',
+        'session' => 'hashed',
         'user_id' => 'integer',
         'is_desktop' => 'boolean',
         'route_id' => 'integer',

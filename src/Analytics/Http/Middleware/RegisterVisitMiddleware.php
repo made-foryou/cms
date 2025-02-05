@@ -5,7 +5,6 @@ namespace Made\Cms\Analytics\Http\Middleware;
 use Closure;
 use foroco\BrowserDetection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
 use Made\Cms\Analytics\Models\Visit;
 
@@ -16,7 +15,7 @@ class RegisterVisitMiddleware
         $userAgentData = (new BrowserDetection)->getAll($request->userAgent());
 
         $visit = Visit::create([
-            'session' => Crypt::encrypt(Session::id()),
+            'session' => Session::id(),
             'user_agent' => $request->userAgent(),
             'browser' => $userAgentData['browser_name'] ?? null,
             'browser_version' => $userAgentData['browser_version'] ?? null,
@@ -30,11 +29,15 @@ class RegisterVisitMiddleware
             $visit->user()->associate($request->user());
         }
 
+        dump($request->user(), $request->user('made'));
+
         if (! empty($request->user('made'))) {
+            dump('there is a user');
             $visit->user()->associate($request->user('made'));
         }
 
         $visit->save();
+        $visit->refresh();
 
         $request->merge(['visit' => $visit]);
 
