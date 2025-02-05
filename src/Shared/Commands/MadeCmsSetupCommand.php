@@ -1,6 +1,6 @@
 <?php
 
-namespace Made\Cms\Commands;
+namespace Made\Cms\Shared\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
@@ -168,7 +168,7 @@ class MadeCmsSetupCommand extends Command
         MakeLanguageDefault::run($language);
 
         $language
-            ->addMedia(__DIR__ . '/../../resources/images/flags/' . $language->abbreviation . '.png')
+            ->addMedia(__DIR__ . '/../../../resources/images/flags/' . $language->abbreviation . '.png')
             ->preservingOriginal()
             ->toMediaCollection('flag');
 

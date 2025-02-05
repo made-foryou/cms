@@ -26,6 +26,7 @@
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "filament/spatie-laravel-settings-plugin": "^3.2",
         "filament/widgets": "^3.2",
+        "foroco/php-browser-detection": "^2.8",
         "lorisleiva/laravel-actions": "^2.8",
         "spatie/laravel-package-tools": "^1.15.0"
     },

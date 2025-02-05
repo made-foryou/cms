@@ -3,13 +3,13 @@
 namespace Made\Cms\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Made\Cms\Exceptions\MissingDefaultRoleException;
 use Made\Cms\Helpers\Permissions;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Models\Permission;
 use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
 use Made\Cms\Page\Models\Page;
+use Made\Cms\Shared\Exceptions\MissingDefaultRoleException;
 use Made\Cms\Shared\Models\Meta;
 
 class CmsCoreSeeder extends Seeder

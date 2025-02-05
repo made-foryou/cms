@@ -52,8 +52,6 @@ return [
 
         'resources' => [],
 
-        'clusers' => [],
-
         'pages' => [],
 
     ],

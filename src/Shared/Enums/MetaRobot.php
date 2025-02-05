@@ -1,6 +1,6 @@
 <?php
 
-namespace Made\Cms\Enums;
+namespace Made\Cms\Shared\Enums;
 
 enum MetaRobot: string
 {

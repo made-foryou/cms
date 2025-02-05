@@ -3,9 +3,9 @@
 namespace Made\Cms\Helpers;
 
 use Illuminate\Database\Eloquent\Builder;
-use Made\Cms\Exceptions\MissingDefaultRoleException;
 use Made\Cms\Models\Permission;
 use Made\Cms\Models\Role;
+use Made\Cms\Shared\Exceptions\MissingDefaultRoleException;
 
 /**
  * @mixin Builder

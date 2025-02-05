@@ -2,9 +2,9 @@
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Made\Cms\Database\Seeders\CmsCoreSeeder;
-use Made\Cms\Exceptions\MissingDefaultRoleException;
 use Made\Cms\Helpers\Permissions;
 use Made\Cms\Models\Permission;
+use Made\Cms\Shared\Exceptions\MissingDefaultRoleException;
 
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\seed;

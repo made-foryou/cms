@@ -1,6 +1,6 @@
 <?php
 
-namespace Made\Cms\Exceptions;
+namespace Made\Cms\Shared\Exceptions;
 
 use Illuminate\Http\Client\HttpClientException;
 use Throwable;

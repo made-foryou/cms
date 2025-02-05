@@ -34,10 +34,10 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
-use Made\Cms\Enums\MetaRobot;
 use Made\Cms\Filament\Resources\ContentStrips;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\News\Models\Post;
+use Made\Cms\Shared\Enums\MetaRobot;
 use Made\Cms\Shared\Enums\PublishingStatus;
 use Made\Cms\Shared\Filament\Actions\TranslateAction;
 

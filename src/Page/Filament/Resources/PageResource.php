@@ -25,10 +25,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Made\Cms\Enums\MetaRobot;
 use Made\Cms\Filament\Resources\ContentStrips;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Page\Models\Page;
+use Made\Cms\Shared\Enums\MetaRobot;
 use Made\Cms\Shared\Enums\PublishingStatus;
 use Made\Cms\Shared\Filament\Actions\TranslateAction;
 

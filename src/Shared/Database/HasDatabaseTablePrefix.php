@@ -1,6 +1,6 @@
 <?php
 
-namespace Made\Cms\Database;
+namespace Made\Cms\Shared\Database;
 
 trait HasDatabaseTablePrefix
 {

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Made\Cms\Database\Factories\UserFactory;
-use Made\Cms\Database\HasDatabaseTablePrefix;
+use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
 
 /**
  * ### User
