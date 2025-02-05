@@ -12,6 +12,10 @@ class RegisterVisitMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
+        if (config('app.env') === 'local') {
+            return $next($request);
+        }
+
         $userAgentData = (new BrowserDetection)->getAll($request->userAgent());
 
         $visit = Visit::create([
