@@ -23,6 +23,7 @@ class RegisterVisitMiddleware
             'platform' => $userAgentData['os_name'] ?? null,
             'is_desktop' => $userAgentData['os_type'] === 'desktop',
             'referer' => $request->headers->get('referer'),
+            'request' => $request->getRequestUri(),
         ]);
 
         if (! empty($request->user())) {

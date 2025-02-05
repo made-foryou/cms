@@ -43,6 +43,7 @@ class Visit extends Model
         'id' => 'integer',
         'user_id' => 'integer',
         'is_desktop' => 'boolean',
+        'route_id' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -55,6 +56,7 @@ class Visit extends Model
         'platform',
         'is_desktop',
         'referer',
+        'request',
         'response_code',
     ];
 
