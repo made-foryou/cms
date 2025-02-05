@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Made\Cms\Http\Controllers;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Made\Cms\Analytics\Models\Visit;
 use Made\Cms\Models\Settings\WebsiteSetting;
 use Made\Cms\Shared\Actions\GetControllerFromRouteable;
 use Made\Cms\Shared\Models\Route;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Controller extends BaseController
@@ -93,6 +96,21 @@ class Controller extends BaseController
 
         $controller = app()->make($class);
 
-        return $controller($request, $route->routeable);
+        $response = $controller($request, $route->routeable);
+
+        /** @var Visit $visit */
+        $visit = $request->get('visit');
+
+        if ($response instanceof View) {
+            $visit->update([
+                'response_code' => 200,
+            ]);
+        } elseif ($response instanceof Response) {
+            $visit->update([
+                'response_code' => $response->getStatusCode(),
+            ]);
+        }
+
+        return $response;
     }
 }

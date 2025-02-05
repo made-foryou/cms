@@ -34,10 +34,28 @@ return new class extends Migration
                 $table->string('browser')
                     ->nullable();
 
+                $table->string('browser_version')
+                    ->nullable();
+
                 $table->string('platform')
                     ->nullable();
 
+                $table->boolean('is_desktop')
+                    ->default(true);
+
                 $table->string('referer')
+                    ->nullable();
+
+                $table->string('request')
+                    ->nullable();
+
+                $table->foreignId('route_id')
+                    ->nullable()
+                    ->references('id')
+                    ->on($this->prefixTableName('routes'))
+                    ->nullOnDelete();
+
+                $table->string('response_code')
                     ->nullable();
 
                 $table->timestamps();

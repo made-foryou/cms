@@ -7,11 +7,13 @@ use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
+use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Livewire\Features\SupportTesting\Testable;
+use Made\Cms\Analytics\Http\Middleware\RegisterVisitMiddleware;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Language\Models\Policies\LanguagePolicy;
 use Made\Cms\Models\Permission;
@@ -152,6 +154,10 @@ class CmsServiceProvider extends PackageServiceProvider
 
         // Testing
         Testable::mixin(new TestsCms);
+
+        // Pushing middleware
+        $kernel = $this->app->make(Kernel::class);
+        $kernel->appendMiddlewareToGroup('web', RegisterVisitMiddleware::class);
     }
 
     /**

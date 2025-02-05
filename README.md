@@ -17,6 +17,9 @@ composer require made-foryou/cms
 
 Next we have to install the plugin and publish its files to the project.
 
+> This command asks if you want to run the migrations afterward. If you want to change te prefix you need to update 
+> the `made-cms.php` config file first before running the migrations.
+
 ```bash
 php artisan made-cms:install
 ```
@@ -53,6 +56,16 @@ with the admin role and basic permissions.
 
 ```bash
 php artisan made-cms:setup
+```
+
+### Generate browser files
+
+The CMS automically generated browser data according the User-Agent value from the requests. To make this fully 
+functional we have to download the `browserscap.ini` file. This can be done with the following commands:
+
+```bash
+vendor/bin/browscap-php browscap:fetch
+vendor/bin/browscap-php browscap:convert
 ```
 
 ## Config
