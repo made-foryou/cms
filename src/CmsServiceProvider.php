@@ -10,6 +10,7 @@ use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 use Livewire\Features\SupportTesting\Testable;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Language\Models\Policies\LanguagePolicy;
@@ -142,8 +143,8 @@ class CmsServiceProvider extends PackageServiceProvider
 
             foreach (app(Filesystem::class)->files(__DIR__ . '/../database/settings/') as $file) {
                 $this->publishes([
-                    __DIR__ . "/../database/settings/{$file->getFilename()}" => app_path(
-                        '/../database/settings/' . $this->generateMigrationName($file->getFilename(), now()->addSecond())
+                    __DIR__ . "/../database/settings/{$file->getFilename()}" => database_path(
+                        '/settings/' . $this->getMigrationName($file->getFilename())
                     ),
                 ], 'cms-setting-migrations');
             }
@@ -151,6 +152,19 @@ class CmsServiceProvider extends PackageServiceProvider
 
         // Testing
         Testable::mixin(new TestsCms);
+    }
+
+    /**
+     * Generates a migration file name by appending the current timestamp to the given original file name.
+     *
+     * @param  string  $original  The original name of the migration file.
+     * @return string The generated migration file name with a timestamp prefix.
+     */
+    protected function getMigrationName(string $original): string
+    {
+        $filename = Str::replace('.php.stub', '.php', $original);
+
+        return now()->format('Y_m_d_His') . '_' . $filename;
     }
 
     /**

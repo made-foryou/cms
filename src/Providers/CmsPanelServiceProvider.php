@@ -18,6 +18,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Made\Cms\Filament\Pages\WebsiteSettingsPage;
 use Made\Cms\Filament\Resources\RoleResource;
 use Made\Cms\Filament\Resources\UserResource;
 use Made\Cms\Language\Filament\Resources\LanguageResource;
@@ -49,6 +50,9 @@ class CmsPanelServiceProvider extends PanelProvider
             ])
             ->resources(
                 $this->getResources(),
+            )
+            ->pages(
+                $this->getPages(),
             )
             ->middleware([
                 EncryptCookies::class,
@@ -91,6 +95,14 @@ class CmsPanelServiceProvider extends PanelProvider
             RoleResource::class,
             UserResource::class,
             ...config('made-cms.panel.resources', []),
+        ];
+    }
+
+    protected function getPages(): array
+    {
+        return [
+            WebsiteSettingsPage::class,
+            ...config('made-cms.panel.pages', []),
         ];
     }
 }
