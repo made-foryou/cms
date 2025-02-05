@@ -29,10 +29,7 @@ class RegisterVisitMiddleware
             $visit->user()->associate($request->user());
         }
 
-        dump($request->user(), $request->user('made'));
-
         if (! empty($request->user('made'))) {
-            dump('there is a user');
             $visit->user()->associate($request->user('made'));
         }
 
