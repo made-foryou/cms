@@ -242,6 +242,7 @@ return [
         'news' => 'News',
         'website' => 'Website',
         'security' => 'Security',
+        'analytics' => 'Analytics',
     ],
 
     'common' => [

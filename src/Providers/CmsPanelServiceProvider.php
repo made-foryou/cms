@@ -18,6 +18,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Made\Cms\Analytics\Filament\Resources\VisitResource;
 use Made\Cms\Filament\Pages\WebsiteSettingsPage;
 use Made\Cms\Filament\Resources\RoleResource;
 use Made\Cms\Filament\Resources\UserResource;
@@ -81,6 +82,10 @@ class CmsPanelServiceProvider extends PanelProvider
                     ->icon('heroicon-o-newspaper'),
 
                 NavigationGroup::make()
+                    ->label(fn (): string => __('made-cms::cms.navigation_groups.analytics'))
+                    ->icon('heroicon-o-chart-bar-square'),
+
+                NavigationGroup::make()
                     ->label(fn (): string => __('made-cms::cms.navigation_groups.security'))
                     ->icon('heroicon-o-shield-check'),
             ]);
@@ -94,6 +99,7 @@ class CmsPanelServiceProvider extends PanelProvider
             PostResource::class,
             RoleResource::class,
             UserResource::class,
+            VisitResource::class,
             ...config('made-cms.panel.resources', []),
         ];
     }

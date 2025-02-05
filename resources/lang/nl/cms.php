@@ -244,6 +244,7 @@ return [
         'news' => 'Nieuws',
         'website' => 'Website',
         'security' => 'Beveiliging',
+        'analytics' => 'Analytics',
     ],
 
     'common' => [
