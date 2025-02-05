@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Made\Cms\Http\Controllers;
+namespace Made\Cms\App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
