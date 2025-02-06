@@ -2,11 +2,14 @@
 
 namespace Made\Cms\Analytics\Models\Settings;
 
+use Made\Cms\Analytics\Enums\VisitSavingStrategy;
 use Spatie\LaravelSettings\Settings;
 
 class AnalyticsSettings extends Settings
 {
     public array $ip_blacklist = [];
+
+    public ?string $saving_strategy = VisitSavingStrategy::SaveAll->value;
 
     /**
      * Retrieves the group name.
