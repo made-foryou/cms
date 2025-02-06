@@ -516,6 +516,10 @@ return [
                         'helperText' => 'A list of IP addresses which should not be tracked. One IP address per line.',
                         'placeholder' => 'Enter the ip address',
                     ],
+                    'saving_strategy' => [
+                        'label' => 'Saving visiting logs',
+                        'helperText' => 'For how long do you want to save the visiting logs? The logs will be deleted and backed up after the selected period and sent by mail.',
+                    ],
                 ],
             ],
         ],
@@ -605,6 +609,26 @@ return [
                         'helperText' => 'By default, the canonical link is automatically generated based on the current URL. If you want to add some extra, you can add multiple canonical links here.',
                     ],
                 ],
+            ],
+        ],
+    ],
+
+    'enums' => [
+        'visit_saving' => [
+            'save_all' => [
+                'label' => 'Keep everything',
+            ],
+            'save_half_year' => [
+                'label' => 'Keep the visits for one half year.',
+            ],
+            'save_year' => [
+                'label' => 'Keep the visits for one year.',
+            ],
+            'save_2_years' => [
+                'label' => 'Keep the visits for two years.',
+            ],
+            'save_3_years' => [
+                'label' => 'Keep the visits for three years.',
             ],
         ],
     ],

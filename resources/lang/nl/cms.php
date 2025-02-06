@@ -520,6 +520,10 @@ return [
                         'helperText' => 'Een lijst met IP-adressen die niet gevolgd mogen worden. Eén IP-adres per regel.',
                         'placeholder' => 'Vul het ip-adres in',
                     ],
+                    'saving_strategy' => [
+                        'label' => 'Logboeken van bezoeken opslaan',
+                        'helperText' => 'Hoe lang wil je de bezoeklogs bewaren? De logs worden na de geselecteerde periode verwijderd en geback-upt en per e-mail verzonden.',
+                    ],
                 ],
             ],
         ],
@@ -604,6 +608,26 @@ return [
                         'helperText' => 'Standaard wordt de canonieke link automatisch gegenereerd op basis van de huidige URL. Als je iets extra\'s wilt toevoegen, kun je hier meerdere canonieke links toevoegen.',
                     ],
                 ],
+            ],
+        ],
+    ],
+
+    'enums' => [
+        'visit_saving' => [
+            'save_all' => [
+                'label' => 'Bewaar alles',
+            ],
+            'save_half_year' => [
+                'label' => 'Bewaar de bezoeken voor een half jaar.',
+            ],
+            'save_year' => [
+                'label' => 'Bewaar de bezoeken voor een jaar.',
+            ],
+            'save_2_years' => [
+                'label' => 'Bewaar de bezoeken voor twee jaar.',
+            ],
+            'save_3_years' => [
+                'label' => 'Bewaar de bezoeken voor drie jaar.',
             ],
         ],
     ],

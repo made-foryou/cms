@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Livewire\Features\SupportTesting\Testable;
+use Made\Cms\Analytics\Commands\ClearVisitLogsCommand;
 use Made\Cms\Analytics\Http\Middleware\RegisterVisitMiddleware;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Language\Models\Policies\LanguagePolicy;
@@ -211,6 +212,7 @@ class CmsServiceProvider extends PackageServiceProvider
     {
         return [
             MadeCmsSetupCommand::class,
+            ClearVisitLogsCommand::class,
         ];
     }
 

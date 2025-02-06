@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Made\Cms\Analytics\Filament\Pages;
 
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Form;
 use Filament\Pages\SettingsPage;
 use Illuminate\Contracts\Support\Htmlable;
+use Made\Cms\Analytics\Enums\VisitSavingStrategy;
 use Made\Cms\Analytics\Models\Settings\AnalyticsSettings;
 
 class AnalyticsSettingsPage extends SettingsPage
@@ -41,6 +43,11 @@ class AnalyticsSettingsPage extends SettingsPage
                             ->label(__('made-cms::cms.resources.settings.analytics.fields.ip_blacklist.label'))
                             ->helperText(__('made-cms::cms.resources.settings.analytics.fields.ip_blacklist.helperText'))
                             ->placeholder(__('made-cms::cms.resources.settings.analytics.fields.ip_blacklist.placeholder')),
+
+                        Select::make('saving_strategy')
+                            ->label(__('made-cms::cms.resources.settings.analytics.fields.saving_strategy.label'))
+                            ->helperText(__('made-cms::cms.resources.settings.analytics.fields.saving_strategy.helperText'))
+                            ->options(VisitSavingStrategy::options()),
                     ])
                     ->columnSpan([
                         'xl' => 4,

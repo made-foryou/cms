@@ -8,6 +8,7 @@ use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Made\Cms\Database\Factories\UserFactory;
 use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
 
@@ -33,6 +34,7 @@ class User extends Authenticatable implements FilamentUser
 {
     use HasDatabaseTablePrefix;
     use HasFactory;
+    use Notifiable;
 
     /**
      * The attributes that should be cast.

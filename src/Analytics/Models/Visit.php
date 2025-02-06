@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Made\Cms\Analytics\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Made\Cms\Analytics\QueryBuilders\VisitQueryBuilder;
 use Made\Cms\Models\User;
 use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
 use Made\Cms\Shared\Models\Route;
@@ -30,7 +30,7 @@ use Made\Cms\Shared\Models\Route;
  * @property-read User|null $user
  * @property-read Route|null $route
  *
- * @method static Builder query()
+ * @method static VisitQueryBuilder query()
  * @method static Visit create(array $attributes = [])
  */
 class Visit extends Model
@@ -87,5 +87,13 @@ class Visit extends Model
     public function getTable(): string
     {
         return $this->prefixTableName(self::TABLE);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function newEloquentBuilder($query): VisitQueryBuilder
+    {
+        return new VisitQueryBuilder($query);
     }
 }
