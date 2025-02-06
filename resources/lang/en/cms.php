@@ -242,6 +242,7 @@ return [
         'news' => 'News',
         'website' => 'Website',
         'security' => 'Security',
+        'analytics' => 'Analytics',
     ],
 
     'common' => [
@@ -497,6 +498,23 @@ return [
                     'languages' => [
                         'title' => 'Languages',
                         'description' => 'The languages in which the website will provide content. The languages here can still be activated and/or deactivated so they can be filled in before being made active.',
+                    ],
+                ],
+            ],
+            'analytics' => [
+                'label' => 'Analytics settings',
+
+                'sections' => [
+                    'visits' => [
+                        'heading' => 'Visit analytics settings',
+                        'description' => 'Settings for tracking user visits to sections in the website.',
+                    ],
+                ],
+                'fields' => [
+                    'ip_blacklist' => [
+                        'label' => 'IP Blacklist',
+                        'helperText' => 'A list of IP addresses which should not be tracked. One IP address per line.',
+                        'placeholder' => 'Enter the ip address',
                     ],
                 ],
             ],

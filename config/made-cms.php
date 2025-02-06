@@ -84,7 +84,7 @@ return [
          *
          * For creating the controllers take a closer look at the documentation about
          *
-         * @var array<class-string<\Illuminate\Database\Eloquent\Model>, class-string<\Made\Cms\Http\Controllers\CmsRoutingContract>>,
+         * @var array<class-string<\Illuminate\Database\Eloquent\Model>, class-string<\Made\Cms\App\Http\Controllers\CmsRoutingContract>>,
          */
         'controllers' => [],
     ],

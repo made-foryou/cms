@@ -244,6 +244,7 @@ return [
         'news' => 'Nieuws',
         'website' => 'Website',
         'security' => 'Beveiliging',
+        'analytics' => 'Analytics',
     ],
 
     'common' => [
@@ -500,6 +501,24 @@ return [
                     'languages' => [
                         'title' => 'Talen',
                         'description' => 'De talen waarin de website inhoud zal verzorgen. De talen hier kunnen nog geactiveerd en/of gedeactiveerd worden zodat deze eerst nog ingevuld kunnen worden voordat ze actief worden gemaakt.',
+                    ],
+                ],
+            ],
+
+            'analytics' => [
+                'label' => 'Analytische instellingen',
+
+                'sections' => [
+                    'visits' => [
+                        'heading' => 'Analytische instellingen voor bezoeken',
+                        'description' => 'Instellingen voor het bijhouden van gebruikersbezoeken aan secties op de website.',
+                    ],
+                ],
+                'fields' => [
+                    'ip_blacklist' => [
+                        'label' => 'Zwarte IP-lijst',
+                        'helperText' => 'Een lijst met IP-adressen die niet gevolgd mogen worden. Eén IP-adres per regel.',
+                        'placeholder' => 'Vul het ip-adres in',
                     ],
                 ],
             ],
