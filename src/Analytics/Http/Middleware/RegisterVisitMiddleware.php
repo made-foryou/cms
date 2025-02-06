@@ -5,7 +5,6 @@ namespace Made\Cms\Analytics\Http\Middleware;
 use Closure;
 use foroco\BrowserDetection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Session;
 use Made\Cms\Analytics\Models\Settings\AnalyticsSettings;
 use Made\Cms\Analytics\Models\Visit;
@@ -76,6 +75,6 @@ readonly class RegisterVisitMiddleware
      */
     public function isIpBlacklisted(Request $request): bool
     {
-        return Arr::has($this->settings->ip_blacklist, $request->ip());
+        return in_array($request->ip(), $this->settings->ip_blacklist);
     }
 }
