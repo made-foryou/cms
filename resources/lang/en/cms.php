@@ -501,6 +501,23 @@ return [
                     ],
                 ],
             ],
+            'analytics' => [
+                'label' => 'Analytics settings',
+
+                'sections' => [
+                    'visits' => [
+                        'heading' => 'Visit analytics settings',
+                        'description' => 'Settings for tracking user visits to sections in the website.',
+                    ],
+                ],
+                'fields' => [
+                    'ip_blacklist' => [
+                        'label' => 'IP Blacklist',
+                        'helperText' => 'A list of IP addresses which should not be tracked. One IP address per line.',
+                        'placeholder' => 'Enter the ip address',
+                    ],
+                ],
+            ],
         ],
 
         'meta' => [

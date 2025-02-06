@@ -18,6 +18,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Made\Cms\Analytics\Filament\Pages\AnalyticsSettingsPage;
 use Made\Cms\Analytics\Filament\Resources\VisitResource;
 use Made\Cms\Filament\Pages\WebsiteSettingsPage;
 use Made\Cms\Filament\Resources\RoleResource;
@@ -108,6 +109,7 @@ class CmsPanelServiceProvider extends PanelProvider
     {
         return [
             WebsiteSettingsPage::class,
+            AnalyticsSettingsPage::class,
             ...config('made-cms.panel.pages', []),
         ];
     }

@@ -504,6 +504,24 @@ return [
                     ],
                 ],
             ],
+
+            'analytics' => [
+                'label' => 'Analytische instellingen',
+
+                'sections' => [
+                    'visits' => [
+                        'heading' => 'Analytische instellingen voor bezoeken',
+                        'description' => 'Instellingen voor het bijhouden van gebruikersbezoeken aan secties op de website.',
+                    ],
+                ],
+                'fields' => [
+                    'ip_blacklist' => [
+                        'label' => 'Zwarte IP-lijst',
+                        'helperText' => 'Een lijst met IP-adressen die niet gevolgd mogen worden. Eén IP-adres per regel.',
+                        'placeholder' => 'Vul het ip-adres in',
+                    ],
+                ],
+            ],
         ],
 
         'meta' => [
