@@ -2,6 +2,20 @@
 
 All notable changes to `cms` will be documented in this file.
 
+## 0.8.0 News & Analytics - 2025-02-06
+
+### What's Changed
+
+* MADE-95 Formulier van de nieuwsberichten by @mennotempelaar in https://github.com/made-foryou/cms/pull/21
+* ⬆️ Bump dependabot/fetch-metadata from 2.2.0 to 2.3.0 by @dependabot in https://github.com/made-foryou/cms/pull/22
+* ⬆️ Bump aglipanci/laravel-pint-action from 2.4 to 2.5 by @dependabot in https://github.com/made-foryou/cms/pull/23
+* Feature/made 106 news overview by @mennotempelaar in https://github.com/made-foryou/cms/pull/24
+* Add visit tracking, hashed sessions, and custom page support by @mennotempelaar in https://github.com/made-foryou/cms/pull/25
+* Add analytics feature with visit tracking and IP blacklist by @mennotempelaar in https://github.com/made-foryou/cms/pull/26
+* Add visit log retention settings with auto-cleanup and backup by @mennotempelaar in https://github.com/made-foryou/cms/pull/27
+
+**Full Changelog**: https://github.com/made-foryou/cms/compare/0.7.1...0.8.0
+
 ## 0.7.1 Routing - 2024-12-30
 
 ### Fixes:
