@@ -7,6 +7,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\NavigationGroup;
+use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -108,6 +109,7 @@ class CmsPanelServiceProvider extends PanelProvider
     protected function getPages(): array
     {
         return [
+            Dashboard::class,
             WebsiteSettingsPage::class,
             AnalyticsSettingsPage::class,
             ...config('made-cms.panel.pages', []),
