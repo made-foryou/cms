@@ -18,6 +18,8 @@ class Cms
 {
     use HasDatabaseTablePrefix;
 
+    public const string VERSION = '0.8.0';
+
     public const string ALL_ROUTES = 'all';
 
     public const string PAGE_ROUTES = 'page';
