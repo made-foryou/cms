@@ -29,6 +29,7 @@ use Made\Cms\Filament\Widgets\MadeInfoWidget;
 use Made\Cms\Language\Filament\Resources\LanguageResource;
 use Made\Cms\News\Filament\Resources\PostResource;
 use Made\Cms\Page\Filament\Resources\PageResource;
+use Made\Cms\Page\Filament\Widgets\PageStatsOverviewWidget;
 
 class CmsPanelServiceProvider extends PanelProvider
 {
@@ -126,6 +127,7 @@ class CmsPanelServiceProvider extends PanelProvider
         return [
             AccountWidget::class,
             MadeInfoWidget::class,
+            PageStatsOverviewWidget::class,
             ...config('made-cms.panel.widgets', []),
         ];
     }
