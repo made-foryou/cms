@@ -1,5 +1,5 @@
 <x-filament-widgets::widget class="fi-filament-info-widget">
-    <x-filament::section>
+    <x-filament::section class="p-2">
         <div class="flex items-center gap-x-3">
             <div class="flex-1 flex justify-between items-center">
                 <span class="inline-block font-bold text-gray-950 leading-5 text-xl dark:text-white">
