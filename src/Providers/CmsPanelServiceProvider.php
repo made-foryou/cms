@@ -7,10 +7,12 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\NavigationGroup;
+use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\MaxWidth;
+use Filament\Widgets\AccountWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -23,9 +25,11 @@ use Made\Cms\Analytics\Filament\Resources\VisitResource;
 use Made\Cms\Filament\Pages\WebsiteSettingsPage;
 use Made\Cms\Filament\Resources\RoleResource;
 use Made\Cms\Filament\Resources\UserResource;
+use Made\Cms\Filament\Widgets\MadeInfoWidget;
 use Made\Cms\Language\Filament\Resources\LanguageResource;
 use Made\Cms\News\Filament\Resources\PostResource;
 use Made\Cms\Page\Filament\Resources\PageResource;
+use Made\Cms\Page\Filament\Widgets\PageStatsOverviewWidget;
 
 class CmsPanelServiceProvider extends PanelProvider
 {
@@ -55,6 +59,9 @@ class CmsPanelServiceProvider extends PanelProvider
             )
             ->pages(
                 $this->getPages(),
+            )
+            ->widgets(
+                $this->getWidgets(),
             )
             ->middleware([
                 EncryptCookies::class,
@@ -108,9 +115,20 @@ class CmsPanelServiceProvider extends PanelProvider
     protected function getPages(): array
     {
         return [
+            Dashboard::class,
             WebsiteSettingsPage::class,
             AnalyticsSettingsPage::class,
             ...config('made-cms.panel.pages', []),
+        ];
+    }
+
+    protected function getWidgets(): array
+    {
+        return [
+            AccountWidget::class,
+            MadeInfoWidget::class,
+            PageStatsOverviewWidget::class,
+            ...config('made-cms.panel.widgets', []),
         ];
     }
 }
