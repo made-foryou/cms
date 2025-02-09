@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Livewire\Features\SupportTesting\Testable;
-use Made\Cms\Analytics\Commands\ClearVisitLogsCommand;
 use Made\Cms\Analytics\Http\Middleware\RegisterVisitMiddleware;
+use Made\Cms\Commands\InstallCommand;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Language\Models\Policies\LanguagePolicy;
 use Made\Cms\Models\Permission;
@@ -25,12 +25,10 @@ use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
 use Made\Cms\Page\Models\Page;
 use Made\Cms\Page\Models\Policies\PagePolicy;
-use Made\Cms\Shared\Commands\MadeCmsSetupCommand;
 use Made\Cms\Shared\Models\Meta;
 use Made\Cms\Shared\Models\Policies\MetaPolicy;
 use Made\Cms\Testing\TestsCms;
 use ReflectionException;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -56,14 +54,7 @@ class CmsServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package->name(static::$name)
-            ->hasCommands($this->getCommands())
-            ->hasInstallCommand(function (InstallCommand $command) {
-                $command
-                    ->publishConfigFile()
-                    ->publishMigrations()
-                    ->askToRunMigrations()
-                    ->askToStarRepoOnGitHub('made-foryou/cms');
-            });
+            ->hasCommands($this->getCommands());
 
         $configFileName = $package->shortName();
 
@@ -144,10 +135,18 @@ class CmsServiceProvider extends PackageServiceProvider
                 ], 'cms-stubs');
             }
 
+            foreach (app(Filesystem::class)->files(__DIR__ . '/../database/migrations/') as $file) {
+                $this->publishes([
+                    __DIR__ . "/../database/migrations/{$file->getFilename()}" => database_path(
+                        '/migrations/' . $this->getMigrationName($file->getFilename(), 'migrations')
+                    ),
+                ], 'migrations');
+            }
+
             foreach (app(Filesystem::class)->files(__DIR__ . '/../database/settings/') as $file) {
                 $this->publishes([
                     __DIR__ . "/../database/settings/{$file->getFilename()}" => database_path(
-                        '/settings/' . $this->getMigrationName($file->getFilename())
+                        '/settings/' . $this->getMigrationName($file->getFilename(), 'settings')
                     ),
                 ], 'cms-setting-migrations');
             }
@@ -167,11 +166,22 @@ class CmsServiceProvider extends PackageServiceProvider
      * @param  string  $original  The original name of the migration file.
      * @return string The generated migration file name with a timestamp prefix.
      */
-    protected function getMigrationName(string $original): string
+    protected function getMigrationName(string $original, string $path): string
     {
         $filename = Str::replace('.php.stub', '.php', $original);
+        $stampedName = now()->format('Y_m_d_His') . '_' . $filename;
 
-        return now()->format('Y_m_d_His') . '_' . $filename;
+        $filesystem = app(Filesystem::class);
+
+        $existingFile = $filesystem->glob(database_path($path . '/*_' . $filename));
+
+        if (! empty($existingFile)) {
+            $parts = explode('/', current($existingFile));
+
+            return array_pop($parts);
+        }
+
+        return $stampedName;
     }
 
     /**
@@ -211,8 +221,7 @@ class CmsServiceProvider extends PackageServiceProvider
     protected function getCommands(): array
     {
         return [
-            MadeCmsSetupCommand::class,
-            ClearVisitLogsCommand::class,
+            InstallCommand::class,
         ];
     }
 
@@ -254,15 +263,15 @@ class CmsServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            '2024_09_25_175617_create_made_cms_users_table',
-            '2024_09_25_175647_create_made_cms_roles_tables',
-            '2024_10_14_144810_create_made_cms_languages_table',
-            '2024_10_14_144913_create_made_cms_pages_table',
-            '2024_10_29_193733_create_made_cms_meta_table',
-            '2024_11_04_174245_create_made_cms_settings_table',
-            '2024_12_08_190243_create_made_cms_routes_table',
-            '2024_12_30_200702_create_made_cms_posts_table',
-            '2025_02_04_150436_create_visits_table',
+            '0001_create_made_cms_users_table',
+            '0002_create_made_cms_roles_tables',
+            '0003_create_made_cms_languages_table',
+            '0004_create_made_cms_pages_table',
+            '0005_create_made_cms_meta_table',
+            '0006_create_made_cms_settings_table',
+            '0007_create_made_cms_routes_table',
+            '0008_create_made_cms_posts_table',
+            '0009_create_visits_table',
         ];
     }
 }
