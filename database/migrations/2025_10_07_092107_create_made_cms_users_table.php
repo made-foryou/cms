@@ -3,15 +3,20 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
 
 return new class extends Migration
 {
+    use HasDatabaseTablePrefix;
+
     public function up(): void
     {
-        $prefix = config('made-cms.database.table_prefix');
+        if (Schema::hasTable($this->prefixTableName('users'))) {
+            return;
+        }
 
         Schema::create(
-            $prefix . 'users',
+            $this->prefixTableName('users'),
             function (Blueprint $table) {
                 $table->id();
                 $table->string('name');
@@ -21,15 +26,6 @@ return new class extends Migration
                 $table->rememberToken();
                 $table->timestamps();
             }
-        );
-    }
-
-    public function down(): void
-    {
-        $prefix = config('made-cms.database.table_prefix');
-
-        Schema::dropIfExists(
-            $prefix . 'users',
         );
     }
 };

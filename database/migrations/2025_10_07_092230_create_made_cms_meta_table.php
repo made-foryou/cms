@@ -12,6 +12,10 @@ return new class extends Migration
 
     public function up(): void
     {
+        if (Schema::hasTable($this->prefixTableName('meta'))) {
+            return;
+        }
+
         Schema::create($this->prefixTableName('meta'), function (Blueprint $table) {
             $table->id();
 
@@ -31,10 +35,5 @@ return new class extends Migration
 
             $table->timestamps();
         });
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists($this->prefixTableName('meta'));
     }
 };

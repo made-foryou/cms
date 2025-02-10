@@ -6,6 +6,10 @@ return new class extends SettingsMigration
 {
     public function up(): void
     {
+        if ($this->migrator->exists('web.online')) {
+            return;
+        }
+
         $this->migrator->add('web.online', true);
         $this->migrator->add('web.landing_page');
     }

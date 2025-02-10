@@ -9,6 +9,10 @@ return new class extends SettingsMigration
 {
     public function up(): void
     {
+        if ($this->migrator->exists('analytics.ip_blacklist')) {
+            return;
+        }
+
         $this->migrator->add('analytics.ip_blacklist', []);
 
         $this->migrator->add(

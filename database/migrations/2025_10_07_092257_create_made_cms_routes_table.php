@@ -11,6 +11,10 @@ return new class extends Migration
 
     public function up(): void
     {
+        if (Schema::hasTable($this->prefixTableName('routes'))) {
+            return;
+        }
+
         Schema::create($this->prefixTableName('routes'), function (Blueprint $table) {
             $table->id();
 
@@ -20,10 +24,5 @@ return new class extends Migration
 
             $table->timestamps();
         });
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists($this->prefixTableName('routes'));
     }
 };

@@ -14,6 +14,10 @@ return new class extends Migration
 
     public function up(): void
     {
+        if (Schema::hasTable($this->prefixTableName('posts'))) {
+            return;
+        }
+
         Schema::create($this->prefixTableName('posts'), function (Blueprint $table) {
             $table->id();
 
@@ -57,10 +61,5 @@ return new class extends Migration
                     ->nullOnDelete();
             }
         );
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists($this->prefixTableName('posts'));
     }
 };
