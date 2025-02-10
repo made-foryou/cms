@@ -14,8 +14,12 @@ return new class extends Migration
 
     public function up(): void
     {
+        if (Schema::hasTable($this->prefixTableName('pages'))) {
+            return;
+        }
+
         Schema::create(
-            table: config('made-cms.database.table_prefix') . 'pages',
+            table: $this->prefixTableName('pages'),
             callback: function (Blueprint $table) {
                 $table->id();
 
@@ -25,7 +29,7 @@ return new class extends Migration
                 $table->foreignId('language_id')
                     ->nullable()
                     ->references('id')
-                    ->on(config('made-cms.database.table_prefix') . 'languages')
+                    ->on($this->prefixTableName('languages'))
                     ->nullOnDelete();
 
                 $table->string('status')
@@ -53,27 +57,22 @@ return new class extends Migration
         );
 
         Schema::table(
-            table: config('made-cms.database.table_prefix') . 'pages',
+            table: $this->prefixTableName('pages'),
             callback: function (Blueprint $table) {
                 $table->foreignId('parent_id')
                     ->nullable()
                     ->after('id')
                     ->references('id')
-                    ->on(config('made-cms.database.table_prefix') . 'pages')
+                    ->on($this->prefixTableName('pages'))
                     ->nullOnDelete();
 
                 $table->foreignId('translated_from_id')
                     ->nullable()
                     ->after('parent_id')
                     ->references('id')
-                    ->on(config('made-cms.database.table_prefix') . 'pages')
+                    ->on($this->prefixTableName('pages'))
                     ->nullOnDelete();
             }
         );
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists(config('made-cms.database.table_prefix') . 'pages');
     }
 };

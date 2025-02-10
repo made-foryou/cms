@@ -12,27 +12,26 @@ use Filament\Notifications\NotificationsServiceProvider;
 use Filament\Support\SupportServiceProvider;
 use Filament\Tables\TablesServiceProvider;
 use Filament\Widgets\WidgetsServiceProvider;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\LivewireServiceProvider;
 use Made\Cms\CmsServiceProvider;
-use Made\Cms\Database\Seeders\CmsCoreSeeder;
 use Made\Cms\Providers\CmsPanelServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
+use Spatie\LaravelSettings\LaravelSettingsServiceProvider;
 use Spatie\MediaLibrary\MediaLibraryServiceProvider;
 
 class TestCase extends Orchestra
 {
+    use RefreshDatabase;
+
+    protected $loadEnvironmentVariables = false;
+
     protected function setUp(): void
     {
         parent::setUp();
-
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Made\\Cms\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
-        );
-
-        $this->seed(CmsCoreSeeder::class);
     }
 
     /**
@@ -56,10 +55,32 @@ class TestCase extends Orchestra
             SupportServiceProvider::class,
             TablesServiceProvider::class,
             WidgetsServiceProvider::class,
+            LaravelSettingsServiceProvider::class,
             MediaLibraryServiceProvider::class,
             CmsServiceProvider::class,
             CmsPanelServiceProvider::class,
         ];
+    }
+
+    protected function defineEnvironment($app): void
+    {
+        tap($app['config'], function (Repository $config) {
+            $config->set('database.default', 'testing');
+            $config->set('database.connections.testing', [
+                'driver' => 'sqlite',
+                'database' => ':memory:',
+            ]);
+
+            $config->set(
+                'settings.repositories.database.table',
+                $config->get('made-cms.database.table_prefix') . 'settings'
+            );
+        });
+    }
+
+    protected function getApplicationTimezone($app)
+    {
+        return 'Europe/Amsterdam';
     }
 
     /**
@@ -67,17 +88,5 @@ class TestCase extends Orchestra
      *
      * @param  Application  $app  The application instance.
      */
-    public function getEnvironmentSetUp($app): void
-    {
-        $directory = __DIR__ . '/../database/migrations/';
-        $files = scandir($directory);
-
-        foreach ($files as $file) {
-            if (str_ends_with($file, '.php.stub')) {
-                $migration = include $directory . $file;
-
-                $migration->up();
-            }
-        }
-    }
+    public function getEnvironmentSetUp($app): void {}
 }

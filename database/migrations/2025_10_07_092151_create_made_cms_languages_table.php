@@ -3,12 +3,19 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
 
 return new class extends Migration
 {
+    use HasDatabaseTablePrefix;
+
     public function up(): void
     {
-        Schema::create('made_cms_languages', function (Blueprint $table) {
+        if (Schema::hasTable($this->prefixTableName('languages'))) {
+            return;
+        }
+
+        Schema::create($this->prefixTableName('languages'), function (Blueprint $table) {
             $table->id();
 
             $table->string('name');
@@ -22,10 +29,5 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('made_cms_languages');
     }
 };

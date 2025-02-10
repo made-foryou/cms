@@ -11,6 +11,10 @@ return new class extends Migration
 
     public function up(): void
     {
+        if (Schema::hasTable($this->prefixTableName('settings'))) {
+            return;
+        }
+
         Schema::create(
             $this->prefixTableName('settings'),
             function (Blueprint $table): void {
@@ -26,10 +30,5 @@ return new class extends Migration
                 $table->unique(['group', 'name']);
             }
         );
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists($this->prefixTableName('settings'));
     }
 };

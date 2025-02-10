@@ -1,22 +1,21 @@
 <?php
 
-namespace Made\Cms\Shared\Commands;
+namespace Made\Cms\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
+use Made\Cms\CmsServiceProvider;
 use Made\Cms\Database\Seeders\CmsCoreSeeder;
-use Made\Cms\Helpers\Permissions;
 use Made\Cms\Language\Actions\MakeLanguageDefault;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
 
-class MadeCmsSetupCommand extends Command
+class InstallCommand extends Command
 {
-    public $signature = 'made-cms:setup';
+    protected $signature = 'made-cms:install';
 
-    public $description = 'Setting up and configuring the Made CMS.';
+    protected $description = 'Installs the package and publishes all necessary files and ';
 
     /**
      * @var array|array[] Default data for the language models according the selected choice.
@@ -48,47 +47,40 @@ class MadeCmsSetupCommand extends Command
         ],
     ];
 
-    /**
-     * Executes the handle command.
-     *
-     * This method is responsible for handling the command execution logic.
-     * It configures the Made CMS, creates a default role if it doesn't already exist,
-     * prompts the user to enter the person's name, email and password,
-     * creates a new User with the provided details,
-     * associates the created User with the default Role,
-     * saves the User to the database,
-     * creates core permissions for the default Role,
-     * and returns a success code.
-     *
-     * @return int The success code indicating the command execution status.
-     */
-    public function handle(): int
+    public function handle(): void
     {
-        $this->info('Publishing some last custom files');
+        $this->info('Thank you for using Made CMS.');
+        $this->info('We\'re going to install the package and publish all necessary files.');
+
+        $this->info('First we have to make sure that Filament is installed.');
+
+        $this->call('filament:install');
+
+        $this->info('Installed Filament.');
 
         $this->callSilently('vendor:publish', [
-            '--provider' => 'Made\Cms\CmsServiceProvider',
-            '--tag' => 'cms-setting-migrations',
+            '--provider' => CmsServiceProvider::class,
+            '--tag' => 'config',
         ]);
 
-        $this->callSilently('vendor:publish', [
-            '--provider' => 'Spatie\MediaLibrary\MediaLibraryServiceProvider',
-            '--tag' => 'medialibrary-migrations',
-        ]);
+        $this->info('Published config file.');
 
-        $this->info('Migrating the package migrations...');
+        $this->call('migrate');
 
-        $this->callSilently('migrate');
+        $this->info('The database is fully migrated.');
 
-        $this->info('Configuring Made CMS...');
+        $this->info('Let\'s create the default data.');
 
         $role = $this->defaultRole();
-
         if (empty($role)) {
-            Artisan::call('db:seed', [
+            $this->info('Creating a default admin role.');
+
+            $this->call('db:seed', [
                 '--class' => CmsCoreSeeder::class,
                 '--force' => true,
             ]);
+
+            $this->info('Default role and every permission have been added to the database.');
 
             $role = $this->defaultRole();
         }
@@ -102,10 +94,12 @@ class MadeCmsSetupCommand extends Command
             $this->info('Default language ' . $language->name . ' created!');
         }
 
-        $result = $this->ask('Do you want to create a default user? (y/n)', 'n');
+        $createUser = $this->confirm('Do you want to create an admin user?', true);
 
-        if ($result === 'n') {
-            return self::SUCCESS;
+        if (! $createUser) {
+            $this->end();
+
+            return;
         }
 
         $name = $this->ask('What is the persons name?');
@@ -128,7 +122,13 @@ class MadeCmsSetupCommand extends Command
 
         $this->info('The user has been created!');
 
-        return self::SUCCESS;
+        $this->end();
+    }
+
+    protected function end(): void
+    {
+        $this->info('Made CMS is installed, Thank you for installing Made CMS!');
+        $this->info('Greetings from Made');
     }
 
     /**
@@ -146,13 +146,23 @@ class MadeCmsSetupCommand extends Command
             ->first();
     }
 
+    /**
+     * Retrieves the default language from the database.
+     *
+     * @return Language|null The default language instance or null if not found.
+     */
     protected function defaultLanguage(): ?Language
     {
         return Language::query()
-            ->where('is_default', true)
+            ->default()
             ->first();
     }
 
+    /**
+     * Creates and sets a default language based on user selection.
+     *
+     * @return Language The newly created default Language instance.
+     */
     protected function createDefaultLanguage(): Language
     {
         $choice = $this->choice(
@@ -167,10 +177,14 @@ class MadeCmsSetupCommand extends Command
 
         MakeLanguageDefault::run($language);
 
-        $language
-            ->addMedia(__DIR__ . '/../../../resources/images/flags/' . $language->abbreviation . '.png')
-            ->preservingOriginal()
-            ->toMediaCollection('flag');
+        try {
+            $language
+                ->addMedia(__DIR__ . '/../../../resources/images/flags/' . $language->abbreviation . '.png')
+                ->preservingOriginal()
+                ->toMediaCollection('flag');
+        } catch (\Exception $e) {
+
+        }
 
         $language->refresh();
 

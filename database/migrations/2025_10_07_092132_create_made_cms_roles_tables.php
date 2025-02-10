@@ -3,15 +3,20 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
 
 return new class extends Migration
 {
+    use HasDatabaseTablePrefix;
+
     public function up(): void
     {
-        $prefix = config('made-cms.database.table_prefix');
+        if (Schema::hasTable($this->prefixTableName('roles'))) {
+            return;
+        }
 
         Schema::create(
-            $prefix . 'roles',
+            $this->prefixTableName('roles'),
             function (Blueprint $table) {
                 $table->id();
 
@@ -25,7 +30,7 @@ return new class extends Migration
         );
 
         Schema::create(
-            $prefix . 'permissions',
+            $this->prefixTableName('permissions'),
             function (Blueprint $table) {
                 $table->id();
 
@@ -41,56 +46,34 @@ return new class extends Migration
         );
 
         Schema::create(
-            $prefix . 'permission_role',
-            function (Blueprint $table) use ($prefix) {
+            $this->prefixTableName('permission_role'),
+            function (Blueprint $table) {
                 $table->foreignId('role_id')
                     ->references('id')
-                    ->on($prefix . 'roles')
+                    ->on($this->prefixTableName('roles'))
                     ->cascadeOnDelete();
 
                 $table->foreignId('permission_id')
                     ->references('id')
-                    ->on($prefix . 'permissions')
+                    ->on($this->prefixTableName('permissions'))
                     ->cascadeOnDelete();
             }
         );
 
         Schema::table(
-            $prefix . 'users',
-            function (Blueprint $table) use ($prefix) {
+            $this->prefixTableName('users'),
+            function (Blueprint $table) {
                 $table->unsignedBigInteger('role_id')
                     ->after('id');
 
                 $table->foreign('role_id', 'fk_u_role_id')
                     ->references('id')
-                    ->on($prefix . 'roles')
+                    ->on($this->prefixTableName('roles'))
                     ->restrictOnDelete();
 
                 $table->softDeletes()
                     ->after('updated_at');
             }
         );
-    }
-
-    public function down(): void
-    {
-        $prefix = config('made-cms.database.table_prefix');
-
-        Schema::dropIfExists(
-            $prefix . 'roles',
-        );
-
-        Schema::dropIfExists(
-            $prefix . 'permissions',
-        );
-
-        Schema::dropIfExists(
-            $prefix . 'role_permission',
-        );
-
-        Schema::table($prefix . 'users', function (Blueprint $table) {
-            $table->dropForeign('fk_u_role_id');
-            $table->dropColumn(['role_id', 'deleted_at']);
-        });
     }
 };
