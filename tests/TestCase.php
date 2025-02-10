@@ -20,6 +20,7 @@ use Made\Cms\Database\Seeders\CmsCoreSeeder;
 use Made\Cms\Providers\CmsPanelServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
+use Spatie\LaravelSettings\LaravelSettingsServiceProvider;
 use Spatie\MediaLibrary\MediaLibraryServiceProvider;
 
 class TestCase extends Orchestra
@@ -56,6 +57,7 @@ class TestCase extends Orchestra
             SupportServiceProvider::class,
             TablesServiceProvider::class,
             WidgetsServiceProvider::class,
+            LaravelSettingsServiceProvider::class,
             MediaLibraryServiceProvider::class,
             CmsServiceProvider::class,
             CmsPanelServiceProvider::class,
@@ -73,7 +75,18 @@ class TestCase extends Orchestra
         $files = scandir($directory);
 
         foreach ($files as $file) {
-            if (str_ends_with($file, '.php.stub')) {
+            if (str_ends_with($file, '.php')) {
+                $migration = include $directory . $file;
+
+                $migration->up();
+            }
+        }
+
+        $directory = __DIR__ . '/../database/settings/';
+        $files = scandir($directory);
+
+        foreach ($files as $file) {
+            if (str_ends_with($file, '.php')) {
                 $migration = include $directory . $file;
 
                 $migration->up();

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
@@ -7,6 +8,8 @@ use Illuminate\Support\Facades\Session;
 use Made\Cms\Analytics\Http\Middleware\RegisterVisitMiddleware;
 use Made\Cms\Analytics\Models\Settings\AnalyticsSettings;
 use Made\Cms\Analytics\Models\Visit;
+
+uses(RefreshDatabase::class);
 
 test('does not log visit when environment is local', function () {
     config()->set('app.env', 'local');

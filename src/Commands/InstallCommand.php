@@ -52,36 +52,20 @@ class InstallCommand extends Command
         $this->info('Thank you for using Made CMS.');
         $this->info('We\'re going to install the package and publish all necessary files.');
 
+        $this->info('First we have to make sure that Filament is installed.');
+
         $this->call('filament:install');
 
         $this->info('Installed Filament.');
 
-        $this->call('vendor:publish', [
+        $this->callSilently('vendor:publish', [
             '--provider' => CmsServiceProvider::class,
             '--tag' => 'config',
         ]);
 
         $this->info('Published config file.');
 
-        $this->call('vendor:publish', [
-            '--provider' => CmsServiceProvider::class,
-            '--tag' => 'migrations',
-        ]);
-
-        $this->info('Published migrations.');
-
-        $this->call('vendor:publish', [
-            '--provider' => CmsServiceProvider::class,
-            '--tag' => 'cms-setting-migrations',
-        ]);
-
-        $this->info('Published settings migrations.');
-
-        $runMigrations = $this->confirm('Do you want to run the migrations now?', true);
-
-        if ($runMigrations) {
-            $this->call('migrate');
-        }
+        $this->call('migrate');
 
         $this->info('The database is fully migrated.');
 

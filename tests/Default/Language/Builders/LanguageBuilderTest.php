@@ -2,8 +2,11 @@
 
 namespace Made\Cms\Tests\Language\Builders;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Made\Cms\Language\Builders\LanguageBuilder;
 use Made\Cms\Language\Models\Language;
+
+uses(RefreshDatabase::class);
 
 test('language model uses the language builder', function () {
     $query = Language::query();
