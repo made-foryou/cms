@@ -65,7 +65,8 @@ class CmsServiceProvider extends PackageServiceProvider
         }
 
         if (file_exists($package->basePath('/../database/migrations'))) {
-            $package->hasMigrations($this->getMigrations());
+            $package->hasMigrations($this->getMigrations())
+                ->runsMigrations();
         }
 
         if (file_exists($package->basePath('/../resources/lang'))) {
@@ -94,6 +95,7 @@ class CmsServiceProvider extends PackageServiceProvider
      */
     public function packageBooted(): void
     {
+
         // Installing the made_cms guard for the panel authentication.
         Config::set('auth.guards.made', [
             'driver' => 'session',
@@ -135,21 +137,13 @@ class CmsServiceProvider extends PackageServiceProvider
                 ], 'cms-stubs');
             }
 
-            foreach (app(Filesystem::class)->files(__DIR__ . '/../database/migrations/') as $file) {
-                $this->publishes([
-                    __DIR__ . "/../database/migrations/{$file->getFilename()}" => database_path(
-                        '/migrations/' . $this->getMigrationName($file->getFilename(), 'migrations')
-                    ),
-                ], 'migrations');
-            }
-
-            foreach (app(Filesystem::class)->files(__DIR__ . '/../database/settings/') as $file) {
-                $this->publishes([
-                    __DIR__ . "/../database/settings/{$file->getFilename()}" => database_path(
-                        '/settings/' . $this->getMigrationName($file->getFilename(), 'settings')
-                    ),
-                ], 'cms-setting-migrations');
-            }
+            //            foreach (app(Filesystem::class)->files(__DIR__ . '/../database/settings/') as $file) {
+            //                $this->publishes([
+            //                    __DIR__ . "/../database/settings/{$file->getFilename()}" => database_path(
+            //                        '/settings/' . $this->getMigrationName($file->getFilename(), 'settings')
+            //                    ),
+            //                ], 'cms-setting-migrations');
+            //            }
         }
 
         // Testing
