@@ -50,12 +50,12 @@ return new class extends Migration
             function (Blueprint $table) {
                 $table->foreignId('role_id')
                     ->references('id')
-                    ->on($prefix . 'roles')
+                    ->on($this->prefixTableName('roles'))
                     ->cascadeOnDelete();
 
                 $table->foreignId('permission_id')
                     ->references('id')
-                    ->on($prefix . 'permissions')
+                    ->on($this->prefixTableName('permissions'))
                     ->cascadeOnDelete();
             }
         );
@@ -68,7 +68,7 @@ return new class extends Migration
 
                 $table->foreign('role_id', 'fk_u_role_id')
                     ->references('id')
-                    ->on($prefix . 'roles')
+                    ->on($this->prefixTableName('roles'))
                     ->restrictOnDelete();
 
                 $table->softDeletes()
