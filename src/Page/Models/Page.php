@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Made\Cms\Database\Factories\PageFactory;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Models\User;
 use Made\Cms\Page\QueryBuilders\PageQueryBuilder;
@@ -235,5 +236,13 @@ class Page extends Model implements DefinesCreatedByContract, HasMeta, Routeable
     public function newEloquentBuilder($query): PageQueryBuilder
     {
         return new PageQueryBuilder($query);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected static function newFactory(): PageFactory
+    {
+        return PageFactory::new();
     }
 }
