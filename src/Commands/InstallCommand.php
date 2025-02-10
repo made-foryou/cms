@@ -49,43 +49,62 @@ class InstallCommand extends Command
 
     public function handle(): void
     {
-        $this->info('Thank you for using Made CMS.');
-        $this->info('We\'re going to install the package and publish all necessary files.');
+        if (! $this->option('no-interaction')) {
+            $this->info('Thank you for using Made CMS.');
+            $this->info('We\'re going to install the package and publish all necessary files.');
 
-        $this->info('First we have to make sure that Filament is installed.');
+            $this->info('First we have to make sure that Filament is installed.');
+        }
 
-        $this->call('filament:install');
+        $this->call('filament:install', [
+            '--no-interaction' => $this->option('no-interaction'),
+        ]);
 
-        $this->info('Installed Filament.');
+        if (! $this->option('no-interaction')) {
+            $this->info('Installed Filament.');
+        }
 
         $this->callSilently('vendor:publish', [
             '--provider' => 'Spatie\MediaLibrary\MediaLibraryServiceProvider',
             '--tag' => 'medialibrary-migrations',
+            '--no-interaction' => $this->option('no-interaction'),
         ]);
 
         $this->callSilently('vendor:publish', [
             '--provider' => CmsServiceProvider::class,
             '--tag' => 'config',
+            '--no-interaction' => $this->option('no-interaction'),
         ]);
 
-        $this->info('Published config file.');
+        if (! $this->option('no-interaction')) {
+            $this->info('Published config file.');
+        }
 
-        $this->call('migrate');
+        $this->call('migrate', [
+            '--no-interaction' => $this->option('no-interaction'),
+        ]);
 
-        $this->info('The database is fully migrated.');
+        if (! $this->option('no-interaction')) {
+            $this->info('The database is fully migrated.');
 
-        $this->info('Let\'s create the default data.');
+            $this->info('Let\'s create the default data.');
+        }
 
         $role = $this->defaultRole();
         if (empty($role)) {
-            $this->info('Creating a default admin role.');
+            if (! $this->option('no-interaction')) {
+                $this->info('Creating a default admin role.');
+            }
 
             $this->call('db:seed', [
                 '--class' => CmsCoreSeeder::class,
                 '--force' => true,
+                '--no-interaction' => $this->option('no-interaction'),
             ]);
 
-            $this->info('Default role and every permission have been added to the database.');
+            if (! $this->option('no-interaction')) {
+                $this->info('Default role and every permission have been added to the database.');
+            }
 
             $role = $this->defaultRole();
         }
@@ -93,17 +112,26 @@ class InstallCommand extends Command
         $language = $this->defaultLanguage();
 
         if (empty($language)) {
-            $this->info('Creating default language...');
+            if (! $this->option('no-interaction')) {
+                $this->info('Creating default language...');
+            }
+
             $language = $this->createDefaultLanguage();
 
-            $this->info('Default language ' . $language->name . ' created!');
+            if (! $this->option('no-interaction')) {
+                $this->info('Default language ' . $language->name . ' created!');
+            }
         }
 
-        $createUser = $this->confirm('Do you want to create an admin user?', true);
+        if (! $this->option('no-interaction')) {
+            $createUser = $this->confirm('Do you want to create an admin user?', true);
 
-        if (! $createUser) {
-            $this->end();
+            if (! $createUser) {
+                $this->end();
 
+                return;
+            }
+        } else {
             return;
         }
 
@@ -170,11 +198,15 @@ class InstallCommand extends Command
      */
     protected function createDefaultLanguage(): Language
     {
-        $choice = $this->choice(
-            'Which language do you want to use as default?',
-            array_keys($this->languageData),
-            'Nederlands',
-        );
+        if (! $this->option('no-interaction')) {
+            $choice = $this->choice(
+                'Which language do you want to use as default?',
+                array_keys($this->languageData),
+                'Nederlands',
+            );
+        } else {
+            $choice = 'Nederlands';
+        }
 
         $language = new Language($this->languageData[$choice]);
         $language->is_enabled = true;
