@@ -122,7 +122,11 @@ class Cms
      */
     public function routes(string $selection = self::ALL_ROUTES): void
     {
-        if (app()->runningInConsole() && ! $this->databaseWasConfigured()) {
+        if (app()->runningInConsole()) {
+            return;
+        }
+
+        if (! $this->databaseWasConfigured()) {
             return;
         }
 
