@@ -59,6 +59,11 @@ class InstallCommand extends Command
         $this->info('Installed Filament.');
 
         $this->callSilently('vendor:publish', [
+            '--provider' => 'Spatie\MediaLibrary\MediaLibraryServiceProvider',
+            '--tag' => 'medialibrary-migrations',
+        ]);
+
+        $this->callSilently('vendor:publish', [
             '--provider' => CmsServiceProvider::class,
             '--tag' => 'config',
         ]);
