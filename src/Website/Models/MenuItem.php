@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Made\Cms\Website\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Carbon;
 
 /**
  * @property-read int $id
@@ -43,8 +43,6 @@ class MenuItem extends Model
      *
      * This method defines a polymorphic relationship, allowing the MenuItem
      * model to be associated with multiple other models.
-     *
-     * @return MorphTo
      */
     public function linkable(): MorphTo
     {
@@ -55,8 +53,6 @@ class MenuItem extends Model
      * Get the parent menu item.
      *
      * This function defines a relationship where a menu item belongs to a parent menu item.
-     *
-     * @return BelongsTo
      */
     public function parent(): BelongsTo
     {
@@ -68,8 +64,6 @@ class MenuItem extends Model
      *
      * This method defines a one-to-many relationship between the current menu item
      * and its child menu items. It returns a HasMany relationship instance.
-     *
-     * @return HasMany
      */
     public function children(): HasMany
     {
