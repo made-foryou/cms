@@ -60,29 +60,29 @@ class WebsiteSettingsPage extends SettingsPage
                     ])
                     ->columnSpan(4),
 
-                Section::make('Menu')
-                    ->description('Beheer de instellingen van de navigatie menu\'s binnen de website')
+                Section::make(__('made-cms::cms.resources.settings.website.sections.menulocations.title'))
+                    ->description(__('made-cms::cms.resources.settings.website.sections.menulocations.description'))
                     ->aside()
                     ->schema([
                         Repeater::make('menu_locations')
-                            ->label('Menu locaties')
+                            ->hiddenLabel()
                             ->schema([
                                 TextInput::make('key')
-                                    ->label('ID')
-                                    ->helperText('Aan de hand van deze waarde kan de inhoud van het menu opgehaald worden.')
+                                    ->label(__('made-cms::cms.resources.settings.website.fields.menu_locations.fields.key.label'))
+                                    ->helperText(__('made-cms::cms.resources.settings.website.fields.menu_locations.fields.key.helperText'))
                                     ->required(),
 
                                 TextInput::make('name')
-                                    ->label('Naam')
-                                    ->helperText('De naam van de locatie.')
+                                    ->label(__('made-cms::cms.resources.settings.website.fields.menu_locations.fields.name.label'))
+                                    ->helperText(__('made-cms::cms.resources.settings.website.fields.menu_locations.fields.name.helperText'))
                                     ->required(),
 
                                 Textarea::make('description')
-                                    ->label('Omschrijving')
-                                    ->helperText('Een korte omschrijving van de menu locatie en waar deze gebruikt wordt.')
+                                    ->label(__('made-cms::cms.resources.settings.website.fields.menu_locations.fields.description.label'))
+                                    ->helperText(__('made-cms::cms.resources.settings.website.fields.menu_locations.fields.description.helperText'))
                                     ->nullable(),
                             ])
-                            ->addActionLabel('Menu locatie toevoegen')
+                            ->addActionLabel(__('made-cms::cms.resources.settings.website.fields.menu_locations.add_action_label'))
                             ->collapsible()
                             ->collapsed()
                             ->reorderable(false)

@@ -493,6 +493,27 @@ return [
                     'label' => 'Website bereikbaar?',
                     'description' => 'De website is alleen bereikbaar zodra deze instelling is aangezet.',
                 ],
+
+                'fields' => [
+                    'menu_locations' => [
+                        'add_action_label' => 'Menu locatie toevoegen',
+                        'fields' => [
+                            'key' => [
+                                'label' => 'ID',
+                                'helperText' => 'Aan de hand van deze waarde kan de inhoud van het menu opgehaald worden.',
+                            ],
+                            'name' => [
+                                'label' => 'Naam',
+                                'helperText' => 'De naam van de locatie.',
+                            ],
+                            'description' => [
+                                'label' => 'Omschrijving',
+                                'helperText' => 'Een korte omschrijving van de menu locatie en waar deze gebruikt wordt.',
+                            ],
+                        ]
+                    ]
+                ],
+
                 'sections' => [
                     'general' => [
                         'title' => 'Website',
@@ -501,6 +522,10 @@ return [
                     'languages' => [
                         'title' => 'Talen',
                         'description' => 'De talen waarin de website inhoud zal verzorgen. De talen hier kunnen nog geactiveerd en/of gedeactiveerd worden zodat deze eerst nog ingevuld kunnen worden voordat ze actief worden gemaakt.',
+                    ],
+                    'menulocations' => [
+                        'title' => 'Menu locaties',
+                        'description' => 'Beheer hier de menu locaties welke worden gebruikt om navigatie menu\'s te vullen en op bepaalde plekken in de website te tonen.',
                     ],
                 ],
             ],
