@@ -18,6 +18,11 @@ class WebsiteSetting extends Settings
     public ?int $landing_page = null;
 
     /**
+     * The menu locations that are available.
+     */
+    public array $menu_locations = ['default'];
+
+    /**
      * Checks if the website is currently online.
      *
      * @return bool True if the website is online, false otherwise.

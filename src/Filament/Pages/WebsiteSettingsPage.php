@@ -2,8 +2,11 @@
 
 namespace Made\Cms\Filament\Pages;
 
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Pages\SettingsPage;
@@ -54,6 +57,37 @@ class WebsiteSettingsPage extends SettingsPage
                                     ->toArray()
                             ),
 
+                    ])
+                    ->columnSpan(4),
+
+                Section::make(__('made-cms::cms.resources.settings.website.sections.menulocations.title'))
+                    ->description(__('made-cms::cms.resources.settings.website.sections.menulocations.description'))
+                    ->aside()
+                    ->schema([
+                        Repeater::make('menu_locations')
+                            ->hiddenLabel()
+                            ->schema([
+                                TextInput::make('key')
+                                    ->label(__('made-cms::cms.resources.settings.website.fields.menu_locations.fields.key.label'))
+                                    ->helperText(__('made-cms::cms.resources.settings.website.fields.menu_locations.fields.key.helperText'))
+                                    ->required(),
+
+                                TextInput::make('name')
+                                    ->label(__('made-cms::cms.resources.settings.website.fields.menu_locations.fields.name.label'))
+                                    ->helperText(__('made-cms::cms.resources.settings.website.fields.menu_locations.fields.name.helperText'))
+                                    ->required(),
+
+                                Textarea::make('description')
+                                    ->label(__('made-cms::cms.resources.settings.website.fields.menu_locations.fields.description.label'))
+                                    ->helperText(__('made-cms::cms.resources.settings.website.fields.menu_locations.fields.description.helperText'))
+                                    ->nullable(),
+                            ])
+                            ->addActionLabel(__('made-cms::cms.resources.settings.website.fields.menu_locations.add_action_label'))
+                            ->collapsible()
+                            ->collapsed()
+                            ->reorderable(false)
+                            ->cloneable()
+                            ->itemlabel(fn ($state) => $state['name']),
                     ])
                     ->columnSpan(4),
             ])

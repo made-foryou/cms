@@ -39,6 +39,15 @@ return [
         ],
     ],
 
+    'default_data' => [
+        'menu_locations' => [
+            'main' => [
+                'name' => 'Main menu',
+                'description' => 'Basic main menu which is used at the top of the page.',
+            ],
+        ],
+    ],
+
     'permissions' => [
         'fields' => [
             'subject' => [
@@ -490,6 +499,27 @@ return [
                     'label' => 'Website accessible?',
                     'description' => 'The website is accessible only when this is on.',
                 ],
+
+                'fields' => [
+                    'menu_locations' => [
+                        'add_action_label' => 'Add menu location',
+                        'fields' => [
+                            'key' => [
+                                'label' => 'ID',
+                                'helperText' => 'Using this value, the contents of the menu can be retrieved.',
+                            ],
+                            'name' => [
+                                'label' => 'Name',
+                                'helperText' => 'Location name.',
+                            ],
+                            'description' => [
+                                'label' => 'Description',
+                                'helperText' => 'A brief description of the menu location and where it is used.',
+                            ],
+                        ],
+                    ],
+                ],
+
                 'sections' => [
                     'general' => [
                         'title' => 'Website',
@@ -498,6 +528,10 @@ return [
                     'languages' => [
                         'title' => 'Languages',
                         'description' => 'The languages in which the website will provide content. The languages here can still be activated and/or deactivated so they can be filled in before being made active.',
+                    ],
+                    'menulocations' => [
+                        'title' => 'Menu locations',
+                        'description' => 'Manage menu locations here which are used to populate navigation menus and display them in certain places in the website.',
                     ],
                 ],
             ],
