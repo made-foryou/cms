@@ -15,7 +15,7 @@ return new class extends SettingsMigration
                 'key' => 'main',
                 'name' => 'Hoofdmenu',
                 'description' => 'Basis hoofdmenu welke bovenaan de pagina wordt gebruikt.',
-            ]
+            ],
         ]);
     }
 };
