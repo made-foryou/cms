@@ -10,6 +10,12 @@ return new class extends SettingsMigration
             return;
         }
 
-        $this->migrator->add('web.menu_locations', ['default']);
+        $this->migrator->add('web.menu_locations', [
+            [
+                'key' => 'main',
+                'name' => 'Hoofdmenu',
+                'description' => 'Basis hoofdmenu welke bovenaan de pagina wordt gebruikt.',
+            ]
+        ]);
     }
 };

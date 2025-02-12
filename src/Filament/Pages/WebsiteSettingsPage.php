@@ -2,8 +2,11 @@
 
 namespace Made\Cms\Filament\Pages;
 
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Pages\SettingsPage;
@@ -54,6 +57,37 @@ class WebsiteSettingsPage extends SettingsPage
                                     ->toArray()
                             ),
 
+                    ])
+                    ->columnSpan(4),
+
+                Section::make('Menu')
+                    ->description('Beheer de instellingen van de navigatie menu\'s binnen de website')
+                    ->aside()
+                    ->schema([
+                        Repeater::make('menu_locations')
+                            ->label('Menu locaties')
+                            ->schema([
+                                TextInput::make('key')
+                                    ->label('ID')
+                                    ->helperText('Aan de hand van deze waarde kan de inhoud van het menu opgehaald worden.')
+                                    ->required(),
+
+                                TextInput::make('name')
+                                    ->label('Naam')
+                                    ->helperText('De naam van de locatie.')
+                                    ->required(),
+
+                                Textarea::make('description')
+                                    ->label('Omschrijving')
+                                    ->helperText('Een korte omschrijving van de menu locatie en waar deze gebruikt wordt.')
+                                    ->nullable(),
+                            ])
+                            ->addActionLabel('Menu locatie toevoegen')
+                            ->collapsible()
+                            ->collapsed()
+                            ->reorderable(false)
+                            ->cloneable()
+                            ->itemlabel(fn ($state) => $state['name']),
                     ])
                     ->columnSpan(4),
             ])
