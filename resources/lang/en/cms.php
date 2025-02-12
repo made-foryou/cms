@@ -39,6 +39,15 @@ return [
         ],
     ],
 
+    'default_data' => [
+        'menu_locations' => [
+            'main' => [
+                'name' => 'Main menu',
+                'description' => 'Basic main menu which is used at the top of the page.',
+            ],
+        ],
+    ],
+
     'permissions' => [
         'fields' => [
             'subject' => [

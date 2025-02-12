@@ -4,12 +4,6 @@ use Made\Cms\Models;
 
 // translations for Made/Cms
 return [
-    'groups' => [
-        'user' => 'Gebruikersbeheer',
-        'administration' => 'Administratie',
-        'website_management' => 'Website beheer',
-    ],
-
     'class_names' => [
         Models\User::class => [
             'title' => 'Gebruikers',
@@ -38,6 +32,15 @@ return [
         \Made\Cms\News\Models\Post::class => [
             'title' => 'Nieuwsberichten',
             'description' => 'Beheren van het nieuws in de website.',
+        ],
+    ],
+
+    'default_data' => [
+        'menu_locations' => [
+            'main' => [
+                'name' => 'Hoofdmenu',
+                'description' => 'Basis hoofdmenu welke bovenaan de pagina wordt gebruikt.',
+            ],
         ],
     ],
 

@@ -13,8 +13,8 @@ return new class extends SettingsMigration
         $this->migrator->add('web.menu_locations', [
             [
                 'key' => 'main',
-                'name' => 'Hoofdmenu',
-                'description' => 'Basis hoofdmenu welke bovenaan de pagina wordt gebruikt.',
+                'name' => __('made-cms::cms.menu_locations.main.name'),
+                'description' => __('made-cms::cms.menu_locations.main.description'),
             ],
         ]);
     }
