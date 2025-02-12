@@ -262,15 +262,15 @@ class CmsServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            '2025_10_07_092107_create_made_cms_users_table',
-            '2025_10_07_092132_create_made_cms_roles_tables',
-            '2025_10_07_092151_create_made_cms_languages_table',
-            '2025_10_07_092216_create_made_cms_pages_table',
-            '2025_10_07_092230_create_made_cms_meta_table',
-            '2025_10_07_092246_create_made_cms_settings_table',
-            '2025_10_07_092257_create_made_cms_routes_table',
-            '2025_10_07_092310_create_made_cms_posts_table',
-            '2025_10_07_092321_create_visits_table',
+            '2025_02_10_092107_create_made_cms_users_table',
+            '2025_02_10_092132_create_made_cms_roles_tables',
+            '2025_02_10_092151_create_made_cms_languages_table',
+            '2025_02_10_092216_create_made_cms_pages_table',
+            '2025_02_10_092230_create_made_cms_meta_table',
+            '2025_02_10_092246_create_made_cms_settings_table',
+            '2025_02_10_092257_create_made_cms_routes_table',
+            '2025_02_10_092310_create_made_cms_posts_table',
+            '2025_02_10_092321_create_visits_table',
         ];
     }
 }
