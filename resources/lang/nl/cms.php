@@ -510,8 +510,8 @@ return [
                                 'label' => 'Omschrijving',
                                 'helperText' => 'Een korte omschrijving van de menu locatie en waar deze gebruikt wordt.',
                             ],
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
 
                 'sections' => [

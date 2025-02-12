@@ -507,8 +507,8 @@ return [
                                 'label' => 'Description',
                                 'helperText' => 'A brief description of the menu location and where it is used.',
                             ],
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
 
                 'sections' => [
