@@ -648,7 +648,7 @@ return [
         'menuitem' => [
             'label' => 'Menu',
             'singular' => 'Menu-item',
-        ]
+        ],
     ],
 
     'enums' => [

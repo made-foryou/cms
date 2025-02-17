@@ -26,7 +26,7 @@ class ManageMenuItemsPage extends ManageRecords
     {
         $tabs = [];
 
-        $locations = (new WebsiteSetting())->menu_locations ?? [];
+        $locations = (new WebsiteSetting)->menu_locations ?? [];
 
         collect($locations)->each(
             function (array $location) use (&$tabs) {

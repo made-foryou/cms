@@ -31,7 +31,7 @@ class MenuItemResource extends Resource
                 Section::make()
                     ->schema([
                         Select::make('location')
-                            ->options(fn () => collect((new WebsiteSetting())->menu_locations)->mapWithKeys(
+                            ->options(fn () => collect((new WebsiteSetting)->menu_locations)->mapWithKeys(
                                 fn (array $location) => [$location['key'] => $location['name']]
                             )->toArray())
                             ->required(),
@@ -50,7 +50,7 @@ class MenuItemResource extends Resource
 
                 Section::make()
                     ->schema([
-                
+
                         TextInput::make('link')
                             ->nullable(),
 

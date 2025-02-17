@@ -110,7 +110,7 @@ class CmsPanelServiceProvider extends PanelProvider
             UserResource::class,
             VisitResource::class,
             MenuItemResource::class,
-            
+
             ...config('made-cms.panel.resources', []),
         ];
     }
