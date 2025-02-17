@@ -26,7 +26,7 @@ return new class extends Migration
                 ->default('default');
 
             // Relation with the cms item.
-            $table->morphs('linkable', 'menu_item_linkable');
+            $table->nullableMorphs('linkable', 'menu_item_linkable');
 
             $table->string('link')
                 ->nullable();
@@ -34,7 +34,10 @@ return new class extends Migration
             $table->string('title')
                 ->nullable();
 
-            $table->string('rel')
+            $table->text('rel')
+                ->nullable();
+
+            $table->string('target')
                 ->nullable();
 
             // Sorting

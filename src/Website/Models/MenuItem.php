@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Made\Cms\Website\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,7 +20,8 @@ use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
  * @property int $linkable_id
  * @property null|string $link
  * @property null|string $title
- * @property null|string $rel
+ * @property array $rel
+ * @property string|null $target
  * @property int $index
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
@@ -30,6 +32,16 @@ class MenuItem extends Model
 
     public const string TABLE_NAME = 'menu_items';
 
+    protected $casts = [
+        'id' => 'integer',
+        'parent_id' => 'integer',
+        'linkable_id' => 'integer',
+        'rel' => 'array',
+        'index' => 'integer',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
     protected $fillable = [
         'parent_id',
         'location',
@@ -38,6 +50,7 @@ class MenuItem extends Model
         'link',
         'title',
         'rel',
+        'target',
         'index',
     ];
 
@@ -65,13 +78,17 @@ class MenuItem extends Model
     /**
      * Gets the current link name according to the selected data.
      */
-    public function getLinkName(): string
+    public function linkName(): Attribute
     {
-        if ($this->linkable !== null) {
-            return $this->linkable->name;
-        }
-
-        return $this->title ?? '';
+        return Attribute::make(
+            get: function () {
+                if ($this->linkable !== null) {
+                    return $this->linkable->name;
+                }
+        
+                return $this->title ?? '';
+            }
+        );
     }
 
     /**

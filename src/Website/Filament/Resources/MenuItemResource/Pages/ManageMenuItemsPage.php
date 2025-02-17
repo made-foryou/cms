@@ -7,6 +7,7 @@ namespace Made\Cms\Website\Filament\Resources\MenuItemResource\Pages;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ManageRecords;
+use Filament\Support\Enums\MaxWidth;
 use Made\Cms\Models\Settings\WebsiteSetting;
 use Made\Cms\Website\Filament\Resources\MenuItemResource;
 use Made\Cms\Website\Models\MenuItem;
@@ -19,7 +20,8 @@ class ManageMenuItemsPage extends ManageRecords
     {
         return [
             CreateAction::make()
-                ->label('Onderdeel toevoegen'),
+                ->label('Onderdeel toevoegen')
+                ->modalWidth(MaxWidth::SixExtraLarge),
         ];
     }
 

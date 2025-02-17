@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Made\Cms\Website\Filament\Resources;
 
+use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\MorphToSelect;
 use Filament\Forms\Components\MorphToSelect\Type;
 use Filament\Forms\Components\Section;
@@ -12,16 +13,21 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Made\Cms\Models\Settings\WebsiteSetting;
 use Made\Cms\News\Filament\Resources\PostResource;
 use Made\Cms\News\Models\Post;
 use Made\Cms\Page\Filament\Resources\PageResource;
 use Made\Cms\Page\Models\Page;
+use Made\Cms\Website\Enums\AhrefRel;
+use Made\Cms\Website\Enums\Target;
 use Made\Cms\Website\Filament\Resources\MenuItemResource\Pages\ManageMenuItemsPage;
 use Made\Cms\Website\Models\MenuItem;
 
@@ -63,7 +69,7 @@ class MenuItemResource extends Resource
                                 return MenuItem::query()
                                     ->where('location', $get('location'))
                                     ->get()
-                                    ->mapWithKeys(fn (MenuItem $menuItem) => [$menuItem->id => $menuItem->getLinkName()])
+                                    ->mapWithKeys(fn (MenuItem $menuItem) => [$menuItem->id => $menuItem->linkName])
                                     ->toArray();
                             }),
                     ])
@@ -78,11 +84,33 @@ class MenuItemResource extends Resource
                         TextInput::make('title')
                             ->nullable(),
 
-                        TextInput::make('rel')
-                            ->nullable(),
-
                     ])
                     ->columnSpan(1),
+
+                Section::make([
+                    CheckboxList::make('rel')
+                            ->options(fn (): array => collect(AhrefRel::cases())
+                                ->filter(fn (AhrefRel $case) => $case->isSelectableForMenuItems())
+                                ->mapWithKeys(fn (AhrefRel $case) => [$case->value => $case->getLabel()])
+                                ->toArray()
+                            )
+                            ->descriptions(fn (): array => collect(AhrefRel::cases())
+                                ->filter(fn (AhrefRel $case) => $case->isSelectableForMenuItems())
+                                ->mapWithKeys(fn (AhrefRel $case) => [$case->value => $case->getDescription()])
+                                ->toArray()
+                            )
+                            ->columns(2)
+                            ->nullable(),
+
+                        Select::make('target')
+                            ->options(
+                                fn (): array => collect(Target::cases())
+                                    ->mapWithKeys(fn (Target $target) => [$target->value => $target->getLabel() . ' - ' . $target->getDescription()])
+                                    ->toArray()
+                            )
+                            ->nullable(),
+                ])
+                    ->columnSpanFull()
             ])
             ->columns(2);
     }
@@ -91,49 +119,84 @@ class MenuItemResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('location')
-                    ->label('Locatie')
-                    ->formatStateUsing(fn (string $state) => collect((new WebsiteSetting)->menu_locations)->where('key', $state)->first()['name'])
-                    ->description(fn (string $state) => collect((new WebsiteSetting)->menu_locations)->where('key', $state)->first()['description']),
-
-                TextColumn::make('parent.linkable.name')
-                    ->label('Parent'),
-
                 TextColumn::make('linkable.name')
                     ->description(fn (MenuItem $record) => $record->linkable->meta?->description ?? null)
-                    ->label('Link')
-                    ->url(fn (MenuItem $record) => match (get_class($record->linkable)) {
-                        Post::class => PostResource::getUrl('edit', ['record' => $record->linkable]),
-                        default => PageResource::getUrl('edit', ['record' => $record->linkable]),
+                    ->label('Gekoppeld')
+                    ->url(function (MenuItem $record): ?string { 
+                        if (empty($record->linkable)) {
+                            return null;
+                        }
+
+                        return match (get_class($record->linkable)) {
+                            Post::class => PostResource::getUrl('edit', ['record' => $record->linkable]),
+                            default => PageResource::getUrl('edit', ['record' => $record->linkable]),
+                        };
                     }),
 
-                TextColumn::make('children_count')
-                    ->counts('children'),
-
-                TextColumn::make('link')
-                    ->label('Custom link'),
-
                 TextColumn::make('title')
-                    ->label('Custom title'),
+                    ->label('Handmatige link')
+                    ->description(fn ($record) => $record->link),                
+
+                TextColumn::make('parent.linkable.name')
+                    ->label('Hoofdpagina'),
+
+                TextColumn::make('children_count')
+                    ->label('Onderliggende Pagina\'s')
+                    ->counts('children')
+                    ->url(fn (MenuItem $record, $livewire) => 
+                        static::getUrl('index', ['tableFilters' => [
+                            'parent_id' => [
+                                'value' => $record->id,
+                            ]
+                        ]])
+                    )
+                    ->suffix(fn (int $state) => trans_choice(' onderliggende pagina| onderliggende pagina\'s', $state)),
+
+                
 
                 TextColumn::make('rel')
-                    ->label('Link rel'),
+                    ->label('Rel link attribuut'),
+
+                IconColumn::make('target')
+                    ->label('Link target')
+                    ->icon(fn (?string $state): string => Target::tryFrom($state)?->getIcon() ?? 'heroicon-o-link'),
+
+                TextColumn::make('location')
+                    ->label('Menu')
+                    ->formatStateUsing(fn (string $state) => collect((new WebsiteSetting)->menu_locations)->where('key', $state)->first()['name']),
 
                 TextColumn::make('created_at')
                     ->since(),
             ])
-            ->defaultSort('index')
+            ->defaultSort(function ($query) {
+                return $query
+                    ->orderBy('parent_id', 'asc')
+                    ->orderBy('index', 'asc');
+            })
             ->reorderable('index')
             ->actions([
                 ActionGroup::make([
                     ActionGroup::make([
-                        EditAction::make(),
+                        EditAction::make()
+                            ->modalWidth(MaxWidth::SixExtraLarge),
                     ])
                         ->dropdown(false),
 
                     DeleteAction::make(),
                 ])
-            ]);
+            ])
+            ->filters([
+                SelectFilter::make('parent_id')
+                    ->label('Hoofdpagina')
+                    ->options(fn ($livewire): array => MenuItem::query()
+                        ->where('location', $livewire->activeTab)
+                        ->get()
+                        ->mapWithKeys(fn (MenuItem $menuItem) => [$menuItem->id => $menuItem->linkName])
+                        ->toArray()
+                    )
+            ])
+            ->defaultPaginationPageOption(50)
+            ->paginated([50, 75, 100, 150, 'all']);
     }
 
     public static function getPages(): array
