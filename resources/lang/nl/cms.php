@@ -1,6 +1,7 @@
 <?php
 
 use Made\Cms\Models;
+use Made\Cms\Website\Models\MenuItem;
 
 // translations for Made/Cms
 return [
@@ -32,6 +33,10 @@ return [
         \Made\Cms\News\Models\Post::class => [
             'title' => 'Nieuwsberichten',
             'description' => 'Beheren van het nieuws in de website.',
+        ],
+        MenuItem::class => [
+            'title' => 'Menu onderdelen',
+            'description' => 'Beheren van de inhoud van de menu locaties.',
         ],
     ],
 
@@ -584,6 +589,7 @@ return [
                 ],
             ],
         ],
+
         'post' => [
             'label' => 'Nieuwsberichten',
             'singular' => 'Nieuwsbericht',
@@ -638,6 +644,11 @@ return [
                 ],
             ],
         ],
+
+        'menuitem' => [
+            'label' => 'Menu',
+            'singular' => 'Menu-item',
+        ]
     ],
 
     'enums' => [

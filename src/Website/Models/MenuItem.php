@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Carbon;
+use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
 
 /**
  * @property-read int $id
@@ -25,7 +26,9 @@ use Illuminate\Support\Carbon;
  */
 class MenuItem extends Model
 {
-    protected $table = 'menu_items';
+    use HasDatabaseTablePrefix;
+
+    public const string TABLE_NAME = 'menu_items';
 
     protected $fillable = [
         'parent_id',
@@ -68,5 +71,17 @@ class MenuItem extends Model
     public function children(): HasMany
     {
         return $this->hasMany(MenuItem::class, 'parent_id');
+    }
+
+    /**
+     * Retrieves the prefixed table name.
+     *
+     * This method returns the prefixed table name by calling the `prefixTableName` method with the current table name as the argument.
+     *
+     * @return string The prefixed table name.
+     */
+    public function getTable(): string
+    {
+        return $this->prefixTableName(self::TABLE_NAME);
     }
 }
