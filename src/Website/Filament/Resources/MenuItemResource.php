@@ -88,7 +88,7 @@ class MenuItemResource extends Resource
                         Post::class => PostResource::getUrl('edit', ['record' => $record->linkable]),
                         default => PageResource::getUrl('edit', ['record' => $record->linkable]),
                     }),
-                    
+
                 TextColumn::make('children_count')
                     ->counts('children'),
 
@@ -102,7 +102,7 @@ class MenuItemResource extends Resource
                     ->label('Link rel'),
 
                 TextColumn::make('created_at')
-                    ->since(),                
+                    ->since(),
             ])
             ->defaultSort('index')
             ->reorderable('index');
