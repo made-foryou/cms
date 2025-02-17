@@ -11,9 +11,12 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Made\Cms\Models\Settings\WebsiteSetting;
+use Made\Cms\News\Filament\Resources\PostResource;
 use Made\Cms\News\Models\Post;
+use Made\Cms\Page\Filament\Resources\PageResource;
 use Made\Cms\Page\Models\Page;
 use Made\Cms\Website\Filament\Resources\MenuItemResource\Pages\ManageMenuItemsPage;
 use Made\Cms\Website\Models\MenuItem;
@@ -68,7 +71,41 @@ class MenuItemResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table;
+        return $table
+            ->columns([
+                TextColumn::make('location')
+                    ->label('Locatie')
+                    ->formatStateUsing(fn (string $state) => collect((new WebsiteSetting)->menu_locations)->where('key', $state)->first()['name'])
+                    ->description(fn (string $state) => collect((new WebsiteSetting)->menu_locations)->where('key', $state)->first()['description']),
+
+                TextColumn::make('parent.linkable.name')
+                    ->label('Parent'),
+
+                TextColumn::make('linkable.name')
+                    ->description(fn (MenuItem $record) => $record->linkable->meta?->description ?? null)
+                    ->label('Link')
+                    ->url(fn (MenuItem $record) => match (get_class($record->linkable)) {
+                        Post::class => PostResource::getUrl('edit', ['record' => $record->linkable]),
+                        default => PageResource::getUrl('edit', ['record' => $record->linkable]),
+                    }),
+                    
+                TextColumn::make('children_count')
+                    ->counts('children'),
+
+                TextColumn::make('link')
+                    ->label('Custom link'),
+
+                TextColumn::make('title')
+                    ->label('Custom title'),
+
+                TextColumn::make('rel')
+                    ->label('Link rel'),
+
+                TextColumn::make('created_at')
+                    ->since(),                
+            ])
+            ->defaultSort('index')
+            ->reorderable('index');
     }
 
     public static function getPages(): array
