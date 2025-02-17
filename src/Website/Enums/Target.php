@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Made\Cms\Website\Enums;
 
-enum Target: string 
+enum Target: string
 {
     case Self = '_self';
     case Blank = '_blank';
@@ -32,4 +32,4 @@ enum Target: string
             self::Blank => 'heroicon-o-arrow-top-right-on-square',
         };
     }
- }
+}

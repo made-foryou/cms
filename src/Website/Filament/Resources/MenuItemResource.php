@@ -89,28 +89,30 @@ class MenuItemResource extends Resource
 
                 Section::make([
                     CheckboxList::make('rel')
-                            ->options(fn (): array => collect(AhrefRel::cases())
+                        ->options(
+                            fn (): array => collect(AhrefRel::cases())
                                 ->filter(fn (AhrefRel $case) => $case->isSelectableForMenuItems())
                                 ->mapWithKeys(fn (AhrefRel $case) => [$case->value => $case->getLabel()])
                                 ->toArray()
-                            )
-                            ->descriptions(fn (): array => collect(AhrefRel::cases())
+                        )
+                        ->descriptions(
+                            fn (): array => collect(AhrefRel::cases())
                                 ->filter(fn (AhrefRel $case) => $case->isSelectableForMenuItems())
                                 ->mapWithKeys(fn (AhrefRel $case) => [$case->value => $case->getDescription()])
                                 ->toArray()
-                            )
-                            ->columns(2)
-                            ->nullable(),
+                        )
+                        ->columns(2)
+                        ->nullable(),
 
-                        Select::make('target')
-                            ->options(
-                                fn (): array => collect(Target::cases())
-                                    ->mapWithKeys(fn (Target $target) => [$target->value => $target->getLabel() . ' - ' . $target->getDescription()])
-                                    ->toArray()
-                            )
-                            ->nullable(),
+                    Select::make('target')
+                        ->options(
+                            fn (): array => collect(Target::cases())
+                                ->mapWithKeys(fn (Target $target) => [$target->value => $target->getLabel() . ' - ' . $target->getDescription()])
+                                ->toArray()
+                        )
+                        ->nullable(),
                 ])
-                    ->columnSpanFull()
+                    ->columnSpanFull(),
             ])
             ->columns(2);
     }
@@ -122,7 +124,7 @@ class MenuItemResource extends Resource
                 TextColumn::make('linkable.name')
                     ->description(fn (MenuItem $record) => $record->linkable->meta?->description ?? null)
                     ->label('Gekoppeld')
-                    ->url(function (MenuItem $record): ?string { 
+                    ->url(function (MenuItem $record): ?string {
                         if (empty($record->linkable)) {
                             return null;
                         }
@@ -135,7 +137,7 @@ class MenuItemResource extends Resource
 
                 TextColumn::make('title')
                     ->label('Handmatige link')
-                    ->description(fn ($record) => $record->link),                
+                    ->description(fn ($record) => $record->link),
 
                 TextColumn::make('parent.linkable.name')
                     ->label('Hoofdpagina'),
@@ -143,16 +145,14 @@ class MenuItemResource extends Resource
                 TextColumn::make('children_count')
                     ->label('Onderliggende Pagina\'s')
                     ->counts('children')
-                    ->url(fn (MenuItem $record, $livewire) => 
-                        static::getUrl('index', ['tableFilters' => [
+                    ->url(
+                        fn (MenuItem $record, $livewire) => static::getUrl('index', ['tableFilters' => [
                             'parent_id' => [
                                 'value' => $record->id,
-                            ]
+                            ],
                         ]])
                     )
                     ->suffix(fn (int $state) => trans_choice(' onderliggende pagina| onderliggende pagina\'s', $state)),
-
-                
 
                 TextColumn::make('rel')
                     ->label('Rel link attribuut'),
@@ -183,17 +183,18 @@ class MenuItemResource extends Resource
                         ->dropdown(false),
 
                     DeleteAction::make(),
-                ])
+                ]),
             ])
             ->filters([
                 SelectFilter::make('parent_id')
                     ->label('Hoofdpagina')
-                    ->options(fn ($livewire): array => MenuItem::query()
-                        ->where('location', $livewire->activeTab)
-                        ->get()
-                        ->mapWithKeys(fn (MenuItem $menuItem) => [$menuItem->id => $menuItem->linkName])
-                        ->toArray()
-                    )
+                    ->options(
+                        fn ($livewire): array => MenuItem::query()
+                            ->where('location', $livewire->activeTab)
+                            ->get()
+                            ->mapWithKeys(fn (MenuItem $menuItem) => [$menuItem->id => $menuItem->linkName])
+                            ->toArray()
+                    ),
             ])
             ->defaultPaginationPageOption(50)
             ->paginated([50, 75, 100, 150, 'all']);

@@ -85,7 +85,7 @@ class MenuItem extends Model
                 if ($this->linkable !== null) {
                     return $this->linkable->name;
                 }
-        
+
                 return $this->title ?? '';
             }
         );
