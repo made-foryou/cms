@@ -5,6 +5,7 @@ use Made\Cms\Models;
 use Made\Cms\News\Models\Post;
 use Made\Cms\Page\Models\Page;
 use Made\Cms\Shared\Models\Meta;
+use Made\Cms\Website\Models\MenuItem;
 
 // translations for Made/Cms
 return [
@@ -36,6 +37,10 @@ return [
         Post::class => [
             'title' => 'Posts',
             'description' => 'Managing the news items within the CMS.',
+        ],
+        MenuItem::class => [
+            'title' => 'Menu items',
+            'description' => 'Managing the menu locations and its items.',
         ],
     ],
 
@@ -644,6 +649,11 @@ return [
                     ],
                 ],
             ],
+        ],
+
+        'menuitem' => [
+            'label' => 'Menu items',
+            'singular' => 'Menu item',
         ],
     ],
 

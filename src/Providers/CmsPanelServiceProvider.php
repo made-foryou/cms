@@ -30,6 +30,7 @@ use Made\Cms\Language\Filament\Resources\LanguageResource;
 use Made\Cms\News\Filament\Resources\PostResource;
 use Made\Cms\Page\Filament\Resources\PageResource;
 use Made\Cms\Page\Filament\Widgets\PageStatsOverviewWidget;
+use Made\Cms\Website\Filament\Resources\MenuItemResource;
 
 class CmsPanelServiceProvider extends PanelProvider
 {
@@ -108,6 +109,8 @@ class CmsPanelServiceProvider extends PanelProvider
             RoleResource::class,
             UserResource::class,
             VisitResource::class,
+            MenuItemResource::class,
+
             ...config('made-cms.panel.resources', []),
         ];
     }
