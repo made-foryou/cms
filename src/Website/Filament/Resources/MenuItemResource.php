@@ -132,7 +132,7 @@ class MenuItemResource extends Resource
                         ->dropdown(false),
 
                     DeleteAction::make(),
-                ])
+                ]),
             ]);
     }
 
