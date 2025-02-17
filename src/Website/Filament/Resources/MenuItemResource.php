@@ -10,7 +10,11 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Made\Cms\Models\Settings\WebsiteSetting;
@@ -34,9 +38,11 @@ class MenuItemResource extends Resource
                 Section::make()
                     ->schema([
                         Select::make('location')
+                            ->label('Menu locatie')
                             ->options(fn () => collect((new WebsiteSetting)->menu_locations)->mapWithKeys(
                                 fn (array $location) => [$location['key'] => $location['name']]
                             )->toArray())
+                            ->live()
                             ->required(),
 
                         MorphToSelect::make('linkable')
@@ -48,6 +54,18 @@ class MenuItemResource extends Resource
                                     ->label('Nieuwsbericht')
                                     ->titleAttribute('name'),
                             ]),
+
+                        Select::make('parent_id')
+                            ->live()
+                            ->nullable()
+                            ->hidden(fn (Get $get) => $get('location') === null)
+                            ->options(function (Get $get): array {
+                                return MenuItem::query()
+                                    ->where('location', $get('location'))
+                                    ->get()
+                                    ->mapWithKeys(fn (MenuItem $menuItem) => [$menuItem->id => $menuItem->getLinkName()])
+                                    ->toArray();
+                            }),
                     ])
                     ->columnSpan(1),
 
@@ -105,7 +123,17 @@ class MenuItemResource extends Resource
                     ->since(),                
             ])
             ->defaultSort('index')
-            ->reorderable('index');
+            ->reorderable('index')
+            ->actions([
+                ActionGroup::make([
+                    ActionGroup::make([
+                        EditAction::make(),
+                    ])
+                        ->dropdown(false),
+
+                    DeleteAction::make(),
+                ])
+            ]);
     }
 
     public static function getPages(): array

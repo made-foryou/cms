@@ -63,6 +63,18 @@ class MenuItem extends Model
     }
 
     /**
+     * Gets the current link name according to the selected data.
+     */
+    public function getLinkName(): string
+    {
+        if ($this->linkable !== null) {
+            return $this->linkable->name;
+        }
+
+        return $this->title ?? '';
+    }
+
+    /**
      * Get the children menu items for the current menu item.
      *
      * This method defines a one-to-many relationship between the current menu item
