@@ -657,13 +657,27 @@ return [
             'label' => 'Menu',
             'singular' => 'Menu-item',
 
+            'sections' => [
+                'data' => [
+                    'heading' => 'Presentatie',
+                    'description' => 'Met behulp van deze gegevens kun je het menu-item vormgeven en ervoor zorgen dat het ergens naartoe linkt. <strong>Let op!</strong> Zodra je een Website onderdeel selecteerd worden standaard alle informatie van het Website onderdeel gebruikt tenzij je het overschrijft met de andere velden.',
+                ],
+                'placement' => [
+                    'heading' => 'Plaatsing',
+                    'description' => 'Met behulp van deze instellingen kun je het menu-item verplaatsen naar een ander menu en/of hem onder een ander menu-item plaatsen.',
+                ],
+                'extra' => [
+                    'heading' => 'Extra gegevens',
+                    'description' => 'Hier vind je de wat seo / code technische instellingen van de links.',
+                ],
+            ],
+
             'fields' => [
                 'location' => [
                     'label' => 'Menu locatie',
                 ],
                 'linkable' => [
                     'label' => 'Website onderdeel',
-                    'helperText' => 'Selecteer hier het onderdeel van de website waar je naartoe wilt linken.',
                 ],
                 'parent_id' => [
                     'label' => 'Bovenliggende pagina',
@@ -671,11 +685,15 @@ return [
                 ],
                 'link' => [
                     'label' => 'Handmatige link',
-                    'helperText' => 'Vul hier een url in wanneer je wilt linken naar een externe of aangepaste url.',
+                    'helperText' => '<strong>Let op!</strong> Hiermee overschrijf je gegevens van het geselecteerde website onderdeel. <br />Vul hier een url in wanneer je wilt linken naar een externe of aangepaste url.',
                 ],
+                'label' => [
+                    'label' => 'Menu item naam',
+                    'helperText' => '<strong>Let op!</strong> Hiermee overschrijf je gegevens van het geselecteerde website onderdeel. <br />Hiermee kun je of de naam van het menu-item overschrijven en/of het menu-item een naam geven als het een handmatige url is.',
+                ],  
                 'title' => [
                     'label' => 'Titel',
-                    'helperText' => 'Vul hier een titel in welke wordt gebruikt voor de `title` attribuut van de link.',
+                    'helperText' => '<strong>Let op!</strong> Hiermee overschrijf je gegevens van het geselecteerde website onderdeel. <br />Vul hier een titel in welke wordt gebruikt voor de `title` attribuut van de link.',
                 ],
                 'rel' => [
                     'label' => 'Selecteer de rel waardes van de link',

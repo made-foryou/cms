@@ -21,10 +21,13 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\HtmlString;
 use Made\Cms\News\Filament\Resources\PostResource;
 use Made\Cms\News\Models\Post;
+use Made\Cms\News\QueryBuilders\PostQueryBuilder;
 use Made\Cms\Page\Filament\Resources\PageResource;
 use Made\Cms\Page\Models\Page;
+use Made\Cms\Page\QueryBuilders\PageQueryBuilder;
 use Made\Cms\Website\Enums\AhrefRel;
 use Made\Cms\Website\Enums\Target;
 use Made\Cms\Website\Filament\Resources\MenuItemResource\Pages\ManageMenuItemsPage;
@@ -41,27 +44,59 @@ class MenuItemResource extends Resource
     {
         return $form
             ->schema([
-                Section::make()
+                Section::make(__('made-cms::cms.resources.menuitem.sections.data.heading'))
+                    ->description(new HtmlString(__('made-cms::cms.resources.menuitem.sections.data.description')))
                     ->schema([
-                        Select::make('location')
-                            ->label(__('made-cms::cms.resources.menuitem.fields.location.label'))
-                            ->options(fn () => collect((new WebsiteSetting)->menu_locations)->mapWithKeys(
-                                fn (array $location) => [$location['key'] => $location['name']]
-                            )->toArray())
-                            ->live()
-                            ->required(),
 
                         MorphToSelect::make('linkable')
                             ->label(__('made-cms::cms.resources.menuitem.fields.linkable.label'))
-                            ->helperText(__('made-cms::cms.resources.menuitem.fields.linkable.helperText'))
                             ->types([
+
                                 Type::make(Page::class)
                                     ->label('Pagina')
-                                    ->titleAttribute('name'),
+                                    ->titleAttribute('name')
+                                    ->modifyOptionsQueryUsing(fn (PageQueryBuilder $query) => $query->published()),
+
                                 Type::make(Post::class)
                                     ->label('Nieuwsbericht')
-                                    ->titleAttribute('name'),
+                                    ->titleAttribute('name')
+                                    ->modifyOptionsQueryUsing(fn (PostQueryBuilder $query) => $query->published()),
+
                             ]),
+
+
+                        TextInput::make('link')
+                            ->label(__('made-cms::cms.resources.menuitem.fields.link.label'))
+                            ->helperText(new HtmlString(__('made-cms::cms.resources.menuitem.fields.link.helperText')))
+                            ->nullable(),
+
+                        TextInput::make('label')
+                            ->label(__('made-cms::cms.resources.menuitem.fields.label.label'))
+                            ->helperText(new HtmlString(__('made-cms::cms.resources.menuitem.fields.label.helperText')))
+                            ->nullable(),
+
+                        TextInput::make('title')
+                            ->label(__('made-cms::cms.resources.menuitem.fields.title.label'))
+                            ->helperText(new HtmlString(__('made-cms::cms.resources.menuitem.fields.title.helperText')))
+                            ->nullable(),
+
+                    ])
+                    ->columnSpan(1),
+
+                Section::make(__('made-cms::cms.resources.menuitem.sections.placement.heading'))
+                    ->description(__('made-cms::cms.resources.menuitem.sections.placement.description'))
+                    ->schema([
+                        Select::make('location')
+                            ->label(__('made-cms::cms.resources.menuitem.fields.location.label'))
+                            ->options(
+                                fn () => collect((new WebsiteSetting)->menu_locations)->mapWithKeys(
+                                    fn (array $location) => [$location['key'] => $location['name']]
+                                )
+                                    ->toArray()
+                            )
+                            ->default(fn ($livewire) => $livewire->activeTab)
+                            ->live()
+                            ->required(),
 
                         Select::make('parent_id')
                             ->label(__('made-cms::cms.resources.menuitem.fields.parent_id.label'))
@@ -79,52 +114,40 @@ class MenuItemResource extends Resource
                     ])
                     ->columnSpan(1),
 
-                Section::make()
+                Section::make(__('made-cms::cms.resources.menuitem.sections.extra.heading'))
+                    ->description(__('made-cms::cms.resources.menuitem.sections.extra.description'))
                     ->schema([
-
-                        TextInput::make('link')
-                            ->label(__('made-cms::cms.resources.menuitem.fields.link.label'))
-                            ->helperText(__('made-cms::cms.resources.menuitem.fields.link.helperText'))
+                        CheckboxList::make('rel')
+                            ->label(__('made-cms::cms.resources.menuitem.fields.rel.label'))
+                            ->options(
+                                fn (): array => collect(AhrefRel::cases())
+                                    ->filter(fn (AhrefRel $case) => $case->isSelectableForMenuItems())
+                                    ->mapWithKeys(fn (AhrefRel $case) => [$case->value => $case->getLabel()])
+                                    ->toArray()
+                            )
+                            ->descriptions(
+                                fn (): array => collect(AhrefRel::cases())
+                                    ->filter(fn (AhrefRel $case) => $case->isSelectableForMenuItems())
+                                    ->mapWithKeys(fn (AhrefRel $case) => [$case->value => $case->getDescription()])
+                                    ->toArray()
+                            )
+                            ->columns(2)
                             ->nullable(),
 
-                        TextInput::make('title')
-                            ->label(__('made-cms::cms.resources.menuitem.fields.title.label'))
-                            ->helperText(__('made-cms::cms.resources.menuitem.fields.title.helperText'))
+                        Select::make('target')
+                            ->label(__('made-cms::cms.resources.menuitem.fields.target.label'))
+                            ->options(
+                                fn (): array => collect(Target::cases())
+                                    ->mapWithKeys(fn (Target $target) => [$target->value => $target->getLabel() . ' - ' . $target->getDescription()])
+                                    ->toArray()
+                            )
                             ->nullable(),
-
                     ])
-                    ->columnSpan(1),
-
-                Section::make([
-                    CheckboxList::make('rel')
-                        ->label(__('made-cms::cms.resources.menuitem.fields.rel.label'))
-                        ->options(
-                            fn (): array => collect(AhrefRel::cases())
-                                ->filter(fn (AhrefRel $case) => $case->isSelectableForMenuItems())
-                                ->mapWithKeys(fn (AhrefRel $case) => [$case->value => $case->getLabel()])
-                                ->toArray()
-                        )
-                        ->descriptions(
-                            fn (): array => collect(AhrefRel::cases())
-                                ->filter(fn (AhrefRel $case) => $case->isSelectableForMenuItems())
-                                ->mapWithKeys(fn (AhrefRel $case) => [$case->value => $case->getDescription()])
-                                ->toArray()
-                        )
-                        ->columns(2)
-                        ->nullable(),
-
-                    Select::make('target')
-                        ->label(__('made-cms::cms.resources.menuitem.fields.target.label'))
-                        ->options(
-                            fn (): array => collect(Target::cases())
-                                ->mapWithKeys(fn (Target $target) => [$target->value => $target->getLabel() . ' - ' . $target->getDescription()])
-                                ->toArray()
-                        )
-                        ->nullable(),
-                ])
+                    ->collapsible()
+                    ->collapsed()
                     ->columnSpanFull(),
             ])
-            ->columns(2);
+                ->columns(2);
     }
 
     public static function table(Table $table): Table
@@ -188,7 +211,7 @@ class MenuItemResource extends Resource
                 ActionGroup::make([
                     ActionGroup::make([
                         EditAction::make()
-                            ->modalWidth(MaxWidth::SixExtraLarge),
+                            ->modalWidth(MaxWidth::SevenExtraLarge),
                     ])
                         ->dropdown(false),
 
