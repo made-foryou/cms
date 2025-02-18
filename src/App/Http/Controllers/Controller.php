@@ -8,7 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Made\Cms\Analytics\Models\Visit;
-use Made\Cms\Models\Settings\WebsiteSetting;
+use Made\Cms\Website\Models\Settings\WebsiteSetting;
 use Made\Cms\Shared\Actions\GetControllerFromRouteable;
 use Made\Cms\Shared\Models\Route;
 use Symfony\Component\HttpFoundation\Response;

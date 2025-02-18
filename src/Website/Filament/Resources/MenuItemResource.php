@@ -21,7 +21,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Made\Cms\Models\Settings\WebsiteSetting;
+use Made\Cms\Website\Models\Settings\WebsiteSetting;
 use Made\Cms\News\Filament\Resources\PostResource;
 use Made\Cms\News\Models\Post;
 use Made\Cms\Page\Filament\Resources\PageResource;

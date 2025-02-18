@@ -1,6 +1,6 @@
 <?php
 
-namespace Made\Cms\Models\Settings;
+namespace Made\Cms\Website\Models\Settings;
 
 use Made\Cms\Page\Models\Page;
 use Spatie\LaravelSettings\Settings;

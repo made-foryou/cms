@@ -11,8 +11,8 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Pages\SettingsPage;
 use Illuminate\Contracts\Support\Htmlable;
-use Made\Cms\Models\Settings\WebsiteSetting;
 use Made\Cms\Page\Models\Page;
+use Made\Cms\Website\Models\Settings\WebsiteSetting;
 
 class WebsiteSettingsPage extends SettingsPage
 {
