@@ -778,5 +778,16 @@ return [
                 'description' => 'Link naar de overeenkomst of servicevoorwaarden tussen de aanbieder van het document en gebruikers die het document willen gebruiken.',
             ],
         ],
+
+        'target' => [
+            '_self' => [
+                'label' => 'Huidig venster',
+                'description' => 'De link wordt geopend in hetzelfde tabblad.',
+            ],
+            '_blank' => [
+                'label' => 'Nieuw venster',
+                'description' => 'De link wordt geopend in een nieuw tabblad.',
+            ],
+        ],
     ],
 ];

@@ -785,5 +785,16 @@ return [
                 'description' => 'Link to the agreement, or terms of service, between the document\'s provider and users who wish to use the document.',
             ],
         ],
+
+        'target' => [
+            '_self' => [
+                'label' => 'Current window',
+                'description' => 'The link opens in the same tab.',
+            ],
+            '_blank' => [
+                'label' => 'New window',
+                'description' => 'The link will open in a new tab.',
+            ],
+        ],
     ],
 ];
