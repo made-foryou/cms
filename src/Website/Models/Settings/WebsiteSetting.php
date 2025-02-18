@@ -1,6 +1,6 @@
 <?php
 
-namespace Made\Cms\Models\Settings;
+namespace Made\Cms\Website\Models\Settings;
 
 use Made\Cms\Page\Models\Page;
 use Spatie\LaravelSettings\Settings;
@@ -23,7 +23,12 @@ class WebsiteSetting extends Settings
     public array $menu_locations = ['default'];
 
     /**
-     * Checks if the website is currently online.
+     * The selected page ID which respresents the 404 Not Found page.
+     */
+    public ?int $not_found_page = null;
+
+    /**
+     * Check if the website is online.
      *
      * @return bool True if the website is online, false otherwise.
      */
@@ -33,9 +38,9 @@ class WebsiteSetting extends Settings
     }
 
     /**
-     * Retrieves the landing page.
+     * Get the landing page.
      *
-     * @return Page|null The landing page if it exists, null otherwise.
+     * @return Page|null The landing page or null if not set.
      */
     public function getLandingPage(): ?Page
     {
@@ -44,6 +49,20 @@ class WebsiteSetting extends Settings
         }
 
         return Page::findOrFail($this->landing_page);
+    }
+
+    /**
+     * Retrieves the page to be displayed when a requested page is not found.
+     *
+     * @return Page|null The not found page, or null if not set.
+     */
+    public function getNotFoundPage(): ?Page
+    {
+        if ($this->not_found_page === null) {
+            return null;
+        }
+
+        return Page::findOrFail($this->not_found_page);
     }
 
     /**

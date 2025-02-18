@@ -500,10 +500,6 @@ return [
             'website' => [
                 'title' => 'Website settings',
                 'label' => 'Settings',
-                'online' => [
-                    'label' => 'Website accessible?',
-                    'description' => 'The website is accessible only when this is on.',
-                ],
 
                 'fields' => [
                     'menu_locations' => [
@@ -522,6 +518,18 @@ return [
                                 'helperText' => 'A brief description of the menu location and where it is used.',
                             ],
                         ],
+                    ],
+                    'online' => [
+                        'label' => 'Is the website accessible?',
+                        'helperText' => 'If you want to turn off the website (temporarily) you can disable this setting. Visitors will no longer be able to access the website.',
+                    ],
+                    'landing_page' => [
+                        'label' => 'Select a landing page',
+                        'helperText' => 'Select a page to be loaded as a landing page. This is the first page visitors will see when they come to your website.',
+                    ],
+                    'not_found_page' => [
+                        'label' => 'Select a not found page',
+                        'helperText' => 'Select a page to be displayed as soon as nothing can be found to display.',
                     ],
                 ],
 
@@ -654,6 +662,34 @@ return [
         'menuitem' => [
             'label' => 'Menu items',
             'singular' => 'Menu item',
+
+            'fields' => [
+                'location' => [
+                    'label' => 'Menu location',
+                ],
+                'linkable' => [
+                    'label' => 'Website item',
+                    'helperText' => 'Select the section of the website you want to link to here.',
+                ],
+                'parent_id' => [
+                    'label' => 'Parent page',
+                    'helperText' => 'Select a menu item here under which this menu item should fall',
+                ],
+                'link' => [
+                    'label' => 'Manual link',
+                    'helperText' => 'Enter a url here if you want to link to an external or custom url.',
+                ],
+                'title' => [
+                    'label' => 'Title',
+                    'helperText' => 'Enter a title here which will be used for the `title` attribute of the link.',
+                ],
+                'rel' => [
+                    'label' => 'Select the rel values of the link',
+                ],
+                'target' => [
+                    'label' => 'Select the target value of the link',
+                ],
+            ],
         ],
     ],
 

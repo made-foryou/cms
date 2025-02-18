@@ -22,7 +22,6 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Made\Cms\Analytics\Filament\Pages\AnalyticsSettingsPage;
 use Made\Cms\Analytics\Filament\Resources\VisitResource;
-use Made\Cms\Filament\Pages\WebsiteSettingsPage;
 use Made\Cms\Filament\Resources\RoleResource;
 use Made\Cms\Filament\Resources\UserResource;
 use Made\Cms\Filament\Widgets\MadeInfoWidget;
@@ -30,6 +29,7 @@ use Made\Cms\Language\Filament\Resources\LanguageResource;
 use Made\Cms\News\Filament\Resources\PostResource;
 use Made\Cms\Page\Filament\Resources\PageResource;
 use Made\Cms\Page\Filament\Widgets\PageStatsOverviewWidget;
+use Made\Cms\Website\Filament\Pages\WebsiteSettingsPage;
 use Made\Cms\Website\Filament\Resources\MenuItemResource;
 
 class CmsPanelServiceProvider extends PanelProvider

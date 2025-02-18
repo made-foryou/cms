@@ -7,7 +7,7 @@ return [
      * put them (manually) here.
      */
     'settings' => [
-        \Made\Cms\Models\Settings\WebsiteSetting::class,
+        \Made\Cms\Website\Models\Settings\WebsiteSetting::class,
     ],
 
     /*

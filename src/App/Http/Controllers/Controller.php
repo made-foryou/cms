@@ -8,9 +8,9 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Made\Cms\Analytics\Models\Visit;
-use Made\Cms\Models\Settings\WebsiteSetting;
 use Made\Cms\Shared\Actions\GetControllerFromRouteable;
 use Made\Cms\Shared\Models\Route;
+use Made\Cms\Website\Models\Settings\WebsiteSetting;
 use Symfony\Component\HttpFoundation\Response;
 
 class Controller extends BaseController
@@ -82,6 +82,10 @@ class Controller extends BaseController
         Request $request,
         ?Route $route = null
     ): View | Response {
+        if ($route === null) {
+            abort(404);
+        }
+
         /** @var null|class-string<CmsRoutingContract> $class */
         $class = GetControllerFromRouteable::run($route);
 

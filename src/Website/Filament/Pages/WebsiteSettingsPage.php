@@ -1,6 +1,6 @@
 <?php
 
-namespace Made\Cms\Filament\Pages;
+namespace Made\Cms\Website\Filament\Pages;
 
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
@@ -11,8 +11,8 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Pages\SettingsPage;
 use Illuminate\Contracts\Support\Htmlable;
-use Made\Cms\Models\Settings\WebsiteSetting;
 use Made\Cms\Page\Models\Page;
+use Made\Cms\Website\Models\Settings\WebsiteSetting;
 
 class WebsiteSettingsPage extends SettingsPage
 {
@@ -43,14 +43,27 @@ class WebsiteSettingsPage extends SettingsPage
                     ->schema([
 
                         Toggle::make('online')
-                            ->label(__('made-cms::cms.resources.settings.website.online.label'))
-                            ->helperText(__('made-cms::cms.resources.settings.website.online.description')),
+                            ->label(__('made-cms::cms.resources.settings.website.fields.online.label'))
+                            ->helperText(__('made-cms::cms.resources.settings.website.fields.online.helperText')),
 
                         Select::make('landing_page')
-                            ->label('Landing page')
-                            ->helperText('Select the page which will be used for the landing page for this website.')
+                            ->label(__('made-cms::cms.resources.settings.website.fields.landing_page.label'))
+                            ->helperText(__('made-cms::cms.resources.settings.website.fields.landing_page.helperText'))
                             ->options(
                                 fn () => Page::query()
+                                    ->published()
+                                    ->select(['id', 'name'])
+                                    ->get()
+                                    ->mapWithKeys(fn (Page $page) => [$page->id => $page->name])
+                                    ->toArray()
+                            ),
+
+                        Select::make('not_found_page')
+                            ->label(__('made-cms::cms.resources.settings.website.fields.not_found_page.label'))
+                            ->helperText(__('made-cms::cms.resources.settings.website.fields.not_found_page.helperText'))
+                            ->options(
+                                fn () => Page::query()
+                                    ->published()
                                     ->select(['id', 'name'])
                                     ->get()
                                     ->mapWithKeys(fn (Page $page) => [$page->id => $page->name])
