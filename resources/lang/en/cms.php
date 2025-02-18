@@ -663,13 +663,27 @@ return [
             'label' => 'Menu items',
             'singular' => 'Menu item',
 
+            'sections' => [
+                'data' => [
+                    'heading' => 'Presentation',
+                    'description' => 'Using this data, you can design the menu item and make sure it links to something. <strong>Note!</strong> Once you select a Website item, by default all information from the Website item is used unless you override it with the other fields.',
+                ],
+                'placement' => [
+                    'heading' => 'Placement',
+                    'description' => 'Using these settings, you can move the menu item to another menu and/or place it under another menu item.',
+                ],
+                'extra' => [
+                    'heading' => 'Extra information',
+                    'description' => 'Here you will find the some seo / code technical settings of the links.',
+                ],
+            ],
+
             'fields' => [
                 'location' => [
                     'label' => 'Menu location',
                 ],
                 'linkable' => [
                     'label' => 'Website item',
-                    'helperText' => 'Select the section of the website you want to link to here.',
                 ],
                 'parent_id' => [
                     'label' => 'Parent page',
@@ -677,17 +691,45 @@ return [
                 ],
                 'link' => [
                     'label' => 'Manual link',
-                    'helperText' => 'Enter a url here if you want to link to an external or custom url.',
+                    'helperText' => '<strong>Note!</strong> This overwrites data from the selected website component. <br />Enter a url here if you want to link to an external or custom url.',
                 ],
+                'label' => [
+                    'label' => 'Menu item name',
+                    'helperText' => '<strong>Note!</strong> This overwrites data from the selected website component. <br />Allows you to either override the menu item name and/or name the menu item if it is a manual url.',
+                ],  
                 'title' => [
                     'label' => 'Title',
-                    'helperText' => 'Enter a title here which will be used for the `title` attribute of the link.',
+                    'helperText' => '<strong>Note!</strong> This overwrites data from the selected website component. <br />Enter a title here which will be used for the `title` attribute of the link.',
                 ],
                 'rel' => [
                     'label' => 'Select the rel values of the link',
                 ],
                 'target' => [
                     'label' => 'Select the target value of the link',
+                ],
+            ],
+
+            'columns' => [
+                'linkable' => [
+                    'label' => 'Website item',
+                    'placeholder' => 'No website item selected.',
+                ],
+                'label' => [
+                    'label' => 'Custom link', 
+                    'placeholder' => 'No custom link entered.',
+                ],
+                'parent' => [
+                    'label' => 'Part of',
+                    'placeholder' => 'Main menu item',
+                ],
+                'children' => [
+                    'label' => 'Underlying menu item|Underlying menu items',
+                ],
+                'target' => [
+                    'label' => 'Link target',
+                ],
+                'location' => [
+                    'label' => 'Menu location',
                 ],
             ],
         ],

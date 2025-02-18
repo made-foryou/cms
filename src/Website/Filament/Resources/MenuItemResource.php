@@ -155,8 +155,9 @@ class MenuItemResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('linkable.name')
-                    ->description(fn (MenuItem $record) => $record->linkable->meta?->description ?? null)
-                    ->label('Gekoppeld')
+                    ->description(fn (MenuItem $record) => $record->linkable?->route?->route ?? null)
+                    ->tooltip(fn (MenuItem $record) => $record->linkable?->meta?->title ?? null)
+                    ->label(__('made-cms::cms.resources.menuitem.columns.linkable.label'))
                     ->url(function (MenuItem $record): ?string {
                         if (empty($record->linkable)) {
                             return null;
@@ -166,17 +167,21 @@ class MenuItemResource extends Resource
                             Post::class => PostResource::getUrl('edit', ['record' => $record->linkable]),
                             default => PageResource::getUrl('edit', ['record' => $record->linkable]),
                         };
-                    }),
+                    })
+                    ->placeholder(__('made-cms::cms.resources.menuitem.columns.linkable.placeholder')),
 
-                TextColumn::make('title')
-                    ->label('Handmatige link')
-                    ->description(fn ($record) => $record->link),
+                TextColumn::make('label')
+                    ->label(__('made-cms::cms.resources.menuitem.columns.label.label'))
+                    ->description(fn (MenuItem $record) => $record->link ?? null)
+                    ->tooltip(fn (MenuItem $record) => $record->title ?? null)
+                    ->placeholder(__('made-cms::cms.resources.menuitem.columns.label.placeholder')),
 
-                TextColumn::make('parent.linkable.name')
-                    ->label('Hoofdpagina'),
+                TextColumn::make('parent.linkName')
+                    ->label(__('made-cms::cms.resources.menuitem.columns.parent.label'))
+                    ->placeholder(__('made-cms::cms.resources.menuitem.columns.parent.placeholder')),
 
                 TextColumn::make('children_count')
-                    ->label('Onderliggende Pagina\'s')
+                    ->label(trans_choice('made-cms::cms.resources.menuitem.columns.children.label', 1))
                     ->counts('children')
                     ->url(
                         fn (MenuItem $record, $livewire) => static::getUrl('index', ['tableFilters' => [
@@ -185,20 +190,21 @@ class MenuItemResource extends Resource
                             ],
                         ]])
                     )
-                    ->suffix(fn (int $state) => trans_choice(' onderliggende pagina| onderliggende pagina\'s', $state)),
-
-                TextColumn::make('rel')
-                    ->label('Rel link attribuut'),
+                    ->suffix(
+                        fn (int $state) => ' ' 
+                            . trans_choice('made-cms::cms.resources.menuitem.columns.children.label', $state)
+                    ),
 
                 IconColumn::make('target')
-                    ->label('Link target')
+                    ->label(__('made-cms::cms.resources.menuitem.columns.target.label'))
                     ->icon(fn (?string $state): string => Target::tryFrom($state)?->getIcon() ?? 'heroicon-o-link'),
 
                 TextColumn::make('location')
-                    ->label('Menu')
+                    ->label(__('made-cms::cms.resources.menuitem.columns.location.label'))
                     ->formatStateUsing(fn (string $state) => collect((new WebsiteSetting)->menu_locations)->where('key', $state)->first()['name']),
 
                 TextColumn::make('created_at')
+                    ->label(__('made-cms::cms.resources.common.created_at'))
                     ->since(),
             ])
             ->defaultSort(function ($query) {

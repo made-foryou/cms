@@ -702,6 +702,30 @@ return [
                     'label' => 'Selecteer de target waarde van de link',
                 ],
             ],
+
+            'columns' => [
+                'linkable' => [
+                    'label' => 'Website onderdeel',
+                    'placeholder' => 'Geen website onderdeel geselecteerd.',
+                ],
+                'label' => [
+                    'label' => 'Aangepaste link', 
+                    'placeholder' => 'Geen aangepaste link ingevuld.',
+                ],
+                'parent' => [
+                    'label' => 'Onderdeel van',
+                    'placeholder' => 'Hoofd menu-item',
+                ],
+                'children' => [
+                    'label' => 'Onderliggende menu-item|Onderliggende menu-items',
+                ],
+                'target' => [
+                    'label' => 'Link target',
+                ],
+                'location' => [
+                    'label' => 'Menu locatie',
+                ],
+            ],
         ],
     ],
 
