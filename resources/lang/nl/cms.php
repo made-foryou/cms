@@ -747,7 +747,7 @@ return [
                 'label' => 'Bewaar de bezoeken voor drie jaar.',
             ],
         ],
-        
+
         'ahrefrel' => [
             'external' => [
                 'label' => 'external - Externe link',
