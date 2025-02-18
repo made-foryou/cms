@@ -142,6 +142,9 @@ class Cms
         return url($route->route, $parameters, $secure);
     }
 
+    /**
+     * Gather the menu items from a menu location.
+     */
     public function navigationItems(string $location): Collection
     {
         $menuItems = MenuItem::query()
