@@ -656,6 +656,34 @@ return [
         'menuitem' => [
             'label' => 'Menu',
             'singular' => 'Menu-item',
+
+            'fields' => [
+                'location' => [
+                    'label' => 'Menu locatie',
+                ],
+                'linkable' => [
+                    'label' => 'Website onderdeel',
+                    'helperText' => 'Selecteer hier het onderdeel van de website waar je naartoe wilt linken.',
+                ],
+                'parent_id' => [
+                    'label' => 'Bovenliggende pagina',
+                    'helperText' => 'Selecteer hier een menu-item waaronder dit menu-item moet vallen',
+                ],
+                'link' => [
+                    'label' => 'Handmatige link',
+                    'helperText' => 'Vul hier een url in wanneer je wilt linken naar een externe of aangepaste url.',
+                ],
+                'title' => [
+                    'label' => 'Titel',
+                    'helperText' => 'Vul hier een titel in welke wordt gebruikt voor de `title` attribuut van de link.',
+                ],
+                'rel' => [
+                    'label' => 'Selecteer de rel waardes van de link',
+                ],
+                'target' => [
+                    'label' => 'Selecteer de target waarde van de link',
+                ],
+            ],
         ],
     ],
 

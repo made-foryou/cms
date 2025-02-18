@@ -662,6 +662,34 @@ return [
         'menuitem' => [
             'label' => 'Menu items',
             'singular' => 'Menu item',
+
+            'fields' => [
+                'location' => [
+                    'label' => 'Menu location',
+                ],
+                'linkable' => [
+                    'label' => 'Website item',
+                    'helperText' => 'Select the section of the website you want to link to here.',
+                ],
+                'parent_id' => [
+                    'label' => 'Parent page',
+                    'helperText' => 'Select a menu item here under which this menu item should fall',
+                ],
+                'link' => [
+                    'label' => 'Manual link',
+                    'helperText' => 'Enter a url here if you want to link to an external or custom url.',
+                ],
+                'title' => [
+                    'label' => 'Title',
+                    'helperText' => 'Enter a title here which will be used for the `title` attribute of the link.',
+                ],
+                'rel' => [
+                    'label' => 'Select the rel values of the link',
+                ],
+                'target' => [
+                    'label' => 'Select the target value of the link',
+                ],
+            ],
         ],
     ],
 

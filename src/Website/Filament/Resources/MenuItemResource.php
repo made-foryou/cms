@@ -44,7 +44,7 @@ class MenuItemResource extends Resource
                 Section::make()
                     ->schema([
                         Select::make('location')
-                            ->label('Menu locatie')
+                            ->label(__('made-cms::cms.resources.menuitem.fields.location.label'))
                             ->options(fn () => collect((new WebsiteSetting)->menu_locations)->mapWithKeys(
                                 fn (array $location) => [$location['key'] => $location['name']]
                             )->toArray())
@@ -52,6 +52,8 @@ class MenuItemResource extends Resource
                             ->required(),
 
                         MorphToSelect::make('linkable')
+                            ->label(__('made-cms::cms.resources.menuitem.fields.linkable.label'))
+                            ->helperText(__('made-cms::cms.resources.menuitem.fields.linkable.helperText'))
                             ->types([
                                 Type::make(Page::class)
                                     ->label('Pagina')
@@ -62,6 +64,8 @@ class MenuItemResource extends Resource
                             ]),
 
                         Select::make('parent_id')
+                            ->label(__('made-cms::cms.resources.menuitem.fields.parent_id.label'))
+                            ->helperText(__('made-cms::cms.resources.menuitem.fields.parent_id.helperText'))
                             ->live()
                             ->nullable()
                             ->hidden(fn (Get $get) => $get('location') === null)
@@ -79,9 +83,13 @@ class MenuItemResource extends Resource
                     ->schema([
 
                         TextInput::make('link')
+                            ->label(__('made-cms::cms.resources.menuitem.fields.link.label'))
+                            ->helperText(__('made-cms::cms.resources.menuitem.fields.link.helperText'))
                             ->nullable(),
 
                         TextInput::make('title')
+                            ->label(__('made-cms::cms.resources.menuitem.fields.title.label'))
+                            ->helperText(__('made-cms::cms.resources.menuitem.fields.title.helperText'))
                             ->nullable(),
 
                     ])
@@ -89,6 +97,7 @@ class MenuItemResource extends Resource
 
                 Section::make([
                     CheckboxList::make('rel')
+                        ->label(__('made-cms::cms.resources.menuitem.fields.rel.label'))
                         ->options(
                             fn (): array => collect(AhrefRel::cases())
                                 ->filter(fn (AhrefRel $case) => $case->isSelectableForMenuItems())
@@ -105,6 +114,7 @@ class MenuItemResource extends Resource
                         ->nullable(),
 
                     Select::make('target')
+                        ->label(__('made-cms::cms.resources.menuitem.fields.target.label'))
                         ->options(
                             fn (): array => collect(Target::cases())
                                 ->mapWithKeys(fn (Target $target) => [$target->value => $target->getLabel() . ' - ' . $target->getDescription()])
