@@ -1,6 +1,6 @@
 <?php
 
-namespace Made\Cms\Filament\Pages;
+namespace Made\Cms\Website\Filament\Pages;
 
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;

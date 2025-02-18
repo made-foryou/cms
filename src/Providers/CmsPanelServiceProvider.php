@@ -22,7 +22,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Made\Cms\Analytics\Filament\Pages\AnalyticsSettingsPage;
 use Made\Cms\Analytics\Filament\Resources\VisitResource;
-use Made\Cms\Filament\Pages\WebsiteSettingsPage;
+use Made\Cms\Website\Filament\Pages\WebsiteSettingsPage;
 use Made\Cms\Filament\Resources\RoleResource;
 use Made\Cms\Filament\Resources\UserResource;
 use Made\Cms\Filament\Widgets\MadeInfoWidget;
