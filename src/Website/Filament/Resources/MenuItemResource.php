@@ -64,7 +64,6 @@ class MenuItemResource extends Resource
 
                             ]),
 
-
                         TextInput::make('link')
                             ->label(__('made-cms::cms.resources.menuitem.fields.link.label'))
                             ->helperText(new HtmlString(__('made-cms::cms.resources.menuitem.fields.link.helperText')))
@@ -147,7 +146,7 @@ class MenuItemResource extends Resource
                     ->collapsed()
                     ->columnSpanFull(),
             ])
-                ->columns(2);
+            ->columns(2);
     }
 
     public static function table(Table $table): Table
