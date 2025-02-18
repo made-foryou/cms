@@ -137,17 +137,17 @@ enum AhrefRel: string
     case External = 'external';
 
     /**
-     * Mark links that are advertisements or paid placements (commonly called paid links) with 
+     * Mark links that are advertisements or paid placements (commonly called paid links) with
      * the sponsored value. Read more about Google's stance on paid links.
-     * 
+     *
      * @group Link
      */
     case Sponsored = 'sponsored';
 
     /**
-     * We recommend marking user-generated content (UGC) links, such as comments and forum 
+     * We recommend marking user-generated content (UGC) links, such as comments and forum
      * posts, with the ugc value.
-     * 
+     *
      * @group Link
      */
     case Ugc = 'ugc';

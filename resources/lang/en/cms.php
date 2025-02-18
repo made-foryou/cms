@@ -754,7 +754,6 @@ return [
             ],
         ],
 
-
         'ahrefrel' => [
             'external' => [
                 'label' => 'external - External link',
