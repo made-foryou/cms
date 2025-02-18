@@ -58,17 +58,17 @@ class WebsiteSettingsPage extends SettingsPage
                                     ->toArray()
                             ),
 
-                            Select::make('not_found_page')
-                                ->label(__('made-cms::cms.resources.settings.website.fields.not_found_page.label'))
-                                ->helperText(__('made-cms::cms.resources.settings.website.fields.not_found_page.helperText'))
-                                ->options(
-                                    fn () => Page::query()
-                                        ->published()
-                                        ->select(['id', 'name'])
-                                        ->get()
-                                        ->mapWithKeys(fn (Page $page) => [$page->id => $page->name])
-                                        ->toArray()
-                                ),
+                        Select::make('not_found_page')
+                            ->label(__('made-cms::cms.resources.settings.website.fields.not_found_page.label'))
+                            ->helperText(__('made-cms::cms.resources.settings.website.fields.not_found_page.helperText'))
+                            ->options(
+                                fn () => Page::query()
+                                    ->published()
+                                    ->select(['id', 'name'])
+                                    ->get()
+                                    ->mapWithKeys(fn (Page $page) => [$page->id => $page->name])
+                                    ->toArray()
+                            ),
 
                     ])
                     ->columnSpan(4),

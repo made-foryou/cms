@@ -526,7 +526,7 @@ return [
                     ],
                     'not_found_page' => [
                         'label' => 'Selecteer een niet gevonden pagina',
-                        'helperText' => 'Selecteer een pagina welke wordt getoond zodra er niks kan worden gevonden om te tonen.'
+                        'helperText' => 'Selecteer een pagina welke wordt getoond zodra er niks kan worden gevonden om te tonen.',
                     ],
                 ],
 
