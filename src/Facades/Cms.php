@@ -2,8 +2,8 @@
 
 namespace Made\Cms\Facades;
 
-use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static string renderContentStrips(array $content) Renders the content strips into an HTML string.
