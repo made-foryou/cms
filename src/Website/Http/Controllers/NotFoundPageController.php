@@ -16,7 +16,7 @@ class NotFoundPageController extends Controller
         protected readonly WebsiteSetting $websiteSetting,
     ) {}
 
-    public function __invoke(Request $request): View | Response 
+    public function __invoke(Request $request): View | Response
     {
         if ($this->websiteSetting->not_found_page === null) {
             abort(404);
