@@ -696,7 +696,7 @@ return [
                 'label' => [
                     'label' => 'Menu item name',
                     'helperText' => '<strong>Note!</strong> This overwrites data from the selected website component. <br />Allows you to either override the menu item name and/or name the menu item if it is a manual url.',
-                ],  
+                ],
                 'title' => [
                     'label' => 'Title',
                     'helperText' => '<strong>Note!</strong> This overwrites data from the selected website component. <br />Enter a title here which will be used for the `title` attribute of the link.',
@@ -715,7 +715,7 @@ return [
                     'placeholder' => 'No website item selected.',
                 ],
                 'label' => [
-                    'label' => 'Custom link', 
+                    'label' => 'Custom link',
                     'placeholder' => 'No custom link entered.',
                 ],
                 'parent' => [
