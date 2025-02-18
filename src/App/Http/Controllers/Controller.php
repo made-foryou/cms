@@ -8,9 +8,9 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Made\Cms\Analytics\Models\Visit;
-use Made\Cms\Website\Models\Settings\WebsiteSetting;
 use Made\Cms\Shared\Actions\GetControllerFromRouteable;
 use Made\Cms\Shared\Models\Route;
+use Made\Cms\Website\Models\Settings\WebsiteSetting;
 use Symfony\Component\HttpFoundation\Response;
 
 class Controller extends BaseController

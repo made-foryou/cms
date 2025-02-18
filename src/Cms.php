@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Route as RouteFacade;
 use Illuminate\Support\Facades\Schema;
 use Made\Cms\App\Http\Controllers\Controller;
 use Made\Cms\Filament\Builder\ContentStrip;
-use Made\Cms\Website\Models\Settings\WebsiteSetting;
 use Made\Cms\Page\Models\Page;
 use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
 use Made\Cms\Shared\Models\Route;
+use Made\Cms\Website\Models\Settings\WebsiteSetting;
 
 class Cms
 {

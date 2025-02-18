@@ -8,9 +8,9 @@ use Filament\Actions\CreateAction;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Support\Enums\MaxWidth;
-use Made\Cms\Website\Models\Settings\WebsiteSetting;
 use Made\Cms\Website\Filament\Resources\MenuItemResource;
 use Made\Cms\Website\Models\MenuItem;
+use Made\Cms\Website\Models\Settings\WebsiteSetting;
 
 class ManageMenuItemsPage extends ManageRecords
 {
