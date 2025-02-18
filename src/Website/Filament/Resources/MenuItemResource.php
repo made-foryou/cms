@@ -190,7 +190,7 @@ class MenuItemResource extends Resource
                         ]])
                     )
                     ->suffix(
-                        fn (int $state) => ' ' 
+                        fn (int $state) => ' '
                             . trans_choice('made-cms::cms.resources.menuitem.columns.children.label', $state)
                     ),
 

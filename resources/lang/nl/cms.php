@@ -709,7 +709,7 @@ return [
                     'placeholder' => 'Geen website onderdeel geselecteerd.',
                 ],
                 'label' => [
-                    'label' => 'Aangepaste link', 
+                    'label' => 'Aangepaste link',
                     'placeholder' => 'Geen aangepaste link ingevuld.',
                 ],
                 'parent' => [
