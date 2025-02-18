@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Carbon;
 use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
+use Made\Cms\Website\Builders\MenuItemBuilder;
 
 /**
  * @property-read int $id
@@ -26,6 +27,8 @@ use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
  * @property int $index
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
+ * 
+ * @method static MenuItemBuilder query()
  */
 class MenuItem extends Model
 {
@@ -114,5 +117,13 @@ class MenuItem extends Model
     public function getTable(): string
     {
         return $this->prefixTableName(self::TABLE_NAME);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function newEloquentBuilder($query): MenuItemBuilder
+    {
+        return new MenuItemBuilder($query);
     }
 }

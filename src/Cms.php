@@ -14,6 +14,7 @@ use Made\Cms\Shared\Contracts\RouteableContract;
 use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
 use Made\Cms\Shared\Models\Route;
 use Made\Cms\Website\Http\Controllers\NotFoundPageController;
+use Made\Cms\Website\Models\MenuItem;
 use Made\Cms\Website\Models\Settings\WebsiteSetting;
 
 class Cms
@@ -139,6 +140,17 @@ class Cms
         }
 
         return url($route->route, $parameters, $secure);
+    }
+
+    public function navigationItems(string $location): Collection
+    {
+        $menuItems = MenuItem::query()
+            ->fromLocation($location)
+            ->onlyMainItems()
+            ->orderBy('index', 'ASC')
+            ->get();
+
+        return $menuItems;
     }
 
     /**
