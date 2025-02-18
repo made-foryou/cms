@@ -747,5 +747,36 @@ return [
                 'label' => 'Bewaar de bezoeken voor drie jaar.',
             ],
         ],
+        
+        'ahrefrel' => [
+            'external' => [
+                'label' => 'external - Externe link',
+                'description' => 'Het document waarnaar wordt verwezen maakt geen deel uit van dezelfde site als het huidige document.',
+            ],
+            'nofollow' => [
+                'label' => 'nofollow - Niet volgbare link',
+                'description' => 'Geeft aan dat de oorspronkelijke auteur of uitgever van het huidige document het document waarnaar wordt verwezen niet onderschrijft.',
+            ],
+            'noopener' => [
+                'label' => 'noopener - Geen opener link',
+                'description' => 'Creëert een bladercontext op het hoogste niveau die geen hulpbladercontext is als de hyperlink om te beginnen een van die contexten zou creëren (d.w.z. een geschikte doelattribuutwaarde heeft).',
+            ],
+            'noreferrer' => [
+                'label' => 'noreferrer - Geen referrer link',
+                'description' => 'De website die wordt geladen in een nieuw tabblad zal geen toegang krijgen tot informatie van de originele website waar een bezoeker vandaan komt.',
+            ],
+            'opener' => [
+                'label' => 'opener - Opener link',
+                'description' => 'Creëert een extra bladercontext als de hyperlink anders een bladercontext op het hoogste niveau zou creëren die geen extra bladercontext is (d.w.z. “_blank” als doelattribuutwaarde heeft).',
+            ],
+            'privacy-policy' => [
+                'label' => 'privacy-policy - Privacybeleid',
+                'description' => 'Geeft een link naar informatie over het verzamelen en gebruiken van gegevens die van toepassing zijn op het huidige document.',
+            ],
+            'terms-of-service' => [
+                'label' => 'terms-of-service - Gebruiksvoorwaarden',
+                'description' => 'Link naar de overeenkomst of servicevoorwaarden tussen de aanbieder van het document en gebruikers die het document willen gebruiken.',
+            ],
+        ],
     ],
 ];

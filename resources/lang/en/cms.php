@@ -753,5 +753,37 @@ return [
                 'label' => 'Keep the visits for three years.',
             ],
         ],
+
+
+        'ahrefrel' => [
+            'external' => [
+                'label' => 'external - External link',
+                'description' => 'The referenced document is not part of the same site as the current document.',
+            ],
+            'nofollow' => [
+                'label' => 'nofollow - Non-followable link',
+                'description' => 'Indicates that the current document\'s original author or publisher does not endorse the referenced document.',
+            ],
+            'noopener' => [
+                'label' => 'noopener - No opener link',
+                'description' => 'Creates a top-level browsing context that is not an auxiliary browsing context if the hyperlink would create either of those, to begin with (i.e., has an appropriate target attribute value).',
+            ],
+            'noreferrer' => [
+                'label' => 'noreferrer - No referrer link',
+                'description' => 'No Referer header will be included. Additionally, has the same effect as noopener.',
+            ],
+            'opener' => [
+                'label' => 'opener - Opener link',
+                'description' => 'Creates an auxiliary browsing context if the hyperlink would otherwise create a top-level browsing context that is not an auxiliary browsing context (i.e., has "_blank" as target attribute value).',
+            ],
+            'privacy-policy' => [
+                'label' => 'privacy-policy - Privacy Policy',
+                'description' => 'Gives a link to a information about the data collection and usage practices that apply to the current document.',
+            ],
+            'terms-of-service' => [
+                'label' => 'terms-of-service - Terms of Use',
+                'description' => 'Link to the agreement, or terms of service, between the document\'s provider and users who wish to use the document.',
+            ],
+        ],
     ],
 ];

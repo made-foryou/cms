@@ -137,6 +137,22 @@ enum AhrefRel: string
     case External = 'external';
 
     /**
+     * Mark links that are advertisements or paid placements (commonly called paid links) with 
+     * the sponsored value. Read more about Google's stance on paid links.
+     * 
+     * @group Link
+     */
+    case Sponsored = 'sponsored';
+
+    /**
+     * We recommend marking user-generated content (UGC) links, such as comments and forum 
+     * posts, with the ugc value.
+     * 
+     * @group Link
+     */
+    case Ugc = 'ugc';
+
+    /**
      * Returns whether the option is selectable as a rel for the Menu item links.
      */
     public function isSelectableForMenuItems(): bool
@@ -151,26 +167,26 @@ enum AhrefRel: string
     public function getLabel(): string
     {
         return match ($this) {
-            self::External => 'external - Externe link',
-            self::NoFollow => 'nofollow - Niet volgbare link',
-            self::NoOpener => 'noopener - Geen opener link',
-            self::NoReferrer => 'noreferrer - Geen referrer link',
-            self::Opener => 'opener - Opener link',
-            self::PrivacyPolicy => 'privacy-policy - Privacybeleid',
-            self::TermsOfService => 'terms-of-service - Gebruiksvoorwaarden',
+            self::External => __('made-cms::cms.enums.ahrefrel.external.label'),
+            self::NoFollow => __('made-cms::cms.enums.ahrefrel.nofollow.label'),
+            self::NoOpener => __('made-cms::cms.enums.ahrefrel.noopener.label'),
+            self::NoReferrer => __('made-cms::cms.enums.ahrefrel.noreferrer.label'),
+            self::Opener => __('made-cms::cms.enums.ahrefrel.opener.label'),
+            self::PrivacyPolicy => __('made-cms::cms.enums.ahrefrel.privacy-policy.label'),
+            self::TermsOfService => __('made-cms::cms.enums.ahrefrel.terms-of-service.label'),
         };
     }
 
     public function getDescription(): string
     {
         return match ($this) {
-            self::External => 'Het document waarnaar wordt verwezen maakt geen deel uit van dezelfde site als het huidige document.',
-            self::NoFollow => 'Geeft aan dat de oorspronkelijke auteur of uitgever van het huidige document het document waarnaar wordt verwezen niet onderschrijft.',
-            self::NoOpener => 'Creëert een bladercontext op het hoogste niveau die geen hulpbladercontext is als de hyperlink om te beginnen een van die contexten zou creëren (d.w.z. een geschikte doelattribuutwaarde heeft).',
-            self::NoReferrer => 'De website die wordt geladen in een nieuw tabblad zal geen toegang krijgen tot informatie van de originele website waar een bezoeker vandaan komt.',
-            self::Opener => 'Creëert een extra bladercontext als de hyperlink anders een bladercontext op het hoogste niveau zou creëren die geen extra bladercontext is (d.w.z. “_blank” als doelattribuutwaarde heeft).',
-            self::PrivacyPolicy => 'Geeft een link naar informatie over het verzamelen en gebruiken van gegevens die van toepassing zijn op het huidige document.',
-            self::TermsOfService => 'Link naar de overeenkomst of servicevoorwaarden tussen de aanbieder van het document en gebruikers die het document willen gebruiken.',
+            self::External => __('made-cms::cms.enums.ahrefrel.external.description'),
+            self::NoFollow => __('made-cms::cms.enums.ahrefrel.nofollow.description'),
+            self::NoOpener => __('made-cms::cms.enums.ahrefrel.noopener.description'),
+            self::NoReferrer => __('made-cms::cms.enums.ahrefrel.noreferrer.description'),
+            self::Opener => __('made-cms::cms.enums.ahrefrel.opener.description'),
+            self::PrivacyPolicy => __('made-cms::cms.enums.ahrefrel.privacy-policy.description'),
+            self::TermsOfService => __('made-cms::cms.enums.ahrefrel.terms-of-service.description'),
         };
     }
 }
