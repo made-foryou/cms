@@ -690,7 +690,7 @@ return [
                 'label' => [
                     'label' => 'Menu item naam',
                     'helperText' => '<strong>Let op!</strong> Hiermee overschrijf je gegevens van het geselecteerde website onderdeel. <br />Hiermee kun je of de naam van het menu-item overschrijven en/of het menu-item een naam geven als het een handmatige url is.',
-                ],  
+                ],
                 'title' => [
                     'label' => 'Titel',
                     'helperText' => '<strong>Let op!</strong> Hiermee overschrijf je gegevens van het geselecteerde website onderdeel. <br />Vul hier een titel in welke wordt gebruikt voor de `title` attribuut van de link.',
