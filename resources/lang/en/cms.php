@@ -663,13 +663,27 @@ return [
             'label' => 'Menu items',
             'singular' => 'Menu item',
 
+            'sections' => [
+                'data' => [
+                    'heading' => 'Presentation',
+                    'description' => 'Using this data, you can design the menu item and make sure it links to something. <strong>Note!</strong> Once you select a Website item, by default all information from the Website item is used unless you override it with the other fields.',
+                ],
+                'placement' => [
+                    'heading' => 'Placement',
+                    'description' => 'Using these settings, you can move the menu item to another menu and/or place it under another menu item.',
+                ],
+                'extra' => [
+                    'heading' => 'Extra information',
+                    'description' => 'Here you will find the some seo / code technical settings of the links.',
+                ],
+            ],
+
             'fields' => [
                 'location' => [
                     'label' => 'Menu location',
                 ],
                 'linkable' => [
                     'label' => 'Website item',
-                    'helperText' => 'Select the section of the website you want to link to here.',
                 ],
                 'parent_id' => [
                     'label' => 'Parent page',
@@ -677,17 +691,45 @@ return [
                 ],
                 'link' => [
                     'label' => 'Manual link',
-                    'helperText' => 'Enter a url here if you want to link to an external or custom url.',
+                    'helperText' => '<strong>Note!</strong> This overwrites data from the selected website component. <br />Enter a url here if you want to link to an external or custom url.',
+                ],
+                'label' => [
+                    'label' => 'Menu item name',
+                    'helperText' => '<strong>Note!</strong> This overwrites data from the selected website component. <br />Allows you to either override the menu item name and/or name the menu item if it is a manual url.',
                 ],
                 'title' => [
                     'label' => 'Title',
-                    'helperText' => 'Enter a title here which will be used for the `title` attribute of the link.',
+                    'helperText' => '<strong>Note!</strong> This overwrites data from the selected website component. <br />Enter a title here which will be used for the `title` attribute of the link.',
                 ],
                 'rel' => [
                     'label' => 'Select the rel values of the link',
                 ],
                 'target' => [
                     'label' => 'Select the target value of the link',
+                ],
+            ],
+
+            'columns' => [
+                'linkable' => [
+                    'label' => 'Website item',
+                    'placeholder' => 'No website item selected.',
+                ],
+                'label' => [
+                    'label' => 'Custom link',
+                    'placeholder' => 'No custom link entered.',
+                ],
+                'parent' => [
+                    'label' => 'Part of',
+                    'placeholder' => 'Main menu item',
+                ],
+                'children' => [
+                    'label' => 'Underlying menu item|Underlying menu items',
+                ],
+                'target' => [
+                    'label' => 'Link target',
+                ],
+                'location' => [
+                    'label' => 'Menu location',
                 ],
             ],
         ],
@@ -709,6 +751,48 @@ return [
             ],
             'save_3_years' => [
                 'label' => 'Keep the visits for three years.',
+            ],
+        ],
+
+        'ahrefrel' => [
+            'external' => [
+                'label' => 'external - External link',
+                'description' => 'The referenced document is not part of the same site as the current document.',
+            ],
+            'nofollow' => [
+                'label' => 'nofollow - Non-followable link',
+                'description' => 'Indicates that the current document\'s original author or publisher does not endorse the referenced document.',
+            ],
+            'noopener' => [
+                'label' => 'noopener - No opener link',
+                'description' => 'Creates a top-level browsing context that is not an auxiliary browsing context if the hyperlink would create either of those, to begin with (i.e., has an appropriate target attribute value).',
+            ],
+            'noreferrer' => [
+                'label' => 'noreferrer - No referrer link',
+                'description' => 'No Referer header will be included. Additionally, has the same effect as noopener.',
+            ],
+            'opener' => [
+                'label' => 'opener - Opener link',
+                'description' => 'Creates an auxiliary browsing context if the hyperlink would otherwise create a top-level browsing context that is not an auxiliary browsing context (i.e., has "_blank" as target attribute value).',
+            ],
+            'privacy-policy' => [
+                'label' => 'privacy-policy - Privacy Policy',
+                'description' => 'Gives a link to a information about the data collection and usage practices that apply to the current document.',
+            ],
+            'terms-of-service' => [
+                'label' => 'terms-of-service - Terms of Use',
+                'description' => 'Link to the agreement, or terms of service, between the document\'s provider and users who wish to use the document.',
+            ],
+        ],
+
+        'target' => [
+            '_self' => [
+                'label' => 'Current window',
+                'description' => 'The link opens in the same tab.',
+            ],
+            '_blank' => [
+                'label' => 'New window',
+                'description' => 'The link will open in a new tab.',
             ],
         ],
     ],

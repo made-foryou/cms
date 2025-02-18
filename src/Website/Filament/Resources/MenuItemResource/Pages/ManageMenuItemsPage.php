@@ -21,7 +21,7 @@ class ManageMenuItemsPage extends ManageRecords
         return [
             CreateAction::make()
                 ->label('Onderdeel toevoegen')
-                ->modalWidth(MaxWidth::SixExtraLarge),
+                ->modalWidth(MaxWidth::SevenExtraLarge),
         ];
     }
 

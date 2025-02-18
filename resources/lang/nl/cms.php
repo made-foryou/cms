@@ -657,13 +657,27 @@ return [
             'label' => 'Menu',
             'singular' => 'Menu-item',
 
+            'sections' => [
+                'data' => [
+                    'heading' => 'Presentatie',
+                    'description' => 'Met behulp van deze gegevens kun je het menu-item vormgeven en ervoor zorgen dat het ergens naartoe linkt. <strong>Let op!</strong> Zodra je een Website onderdeel selecteerd worden standaard alle informatie van het Website onderdeel gebruikt tenzij je het overschrijft met de andere velden.',
+                ],
+                'placement' => [
+                    'heading' => 'Plaatsing',
+                    'description' => 'Met behulp van deze instellingen kun je het menu-item verplaatsen naar een ander menu en/of hem onder een ander menu-item plaatsen.',
+                ],
+                'extra' => [
+                    'heading' => 'Extra gegevens',
+                    'description' => 'Hier vind je de wat seo / code technische instellingen van de links.',
+                ],
+            ],
+
             'fields' => [
                 'location' => [
                     'label' => 'Menu locatie',
                 ],
                 'linkable' => [
                     'label' => 'Website onderdeel',
-                    'helperText' => 'Selecteer hier het onderdeel van de website waar je naartoe wilt linken.',
                 ],
                 'parent_id' => [
                     'label' => 'Bovenliggende pagina',
@@ -671,17 +685,45 @@ return [
                 ],
                 'link' => [
                     'label' => 'Handmatige link',
-                    'helperText' => 'Vul hier een url in wanneer je wilt linken naar een externe of aangepaste url.',
+                    'helperText' => '<strong>Let op!</strong> Hiermee overschrijf je gegevens van het geselecteerde website onderdeel. <br />Vul hier een url in wanneer je wilt linken naar een externe of aangepaste url.',
+                ],
+                'label' => [
+                    'label' => 'Menu item naam',
+                    'helperText' => '<strong>Let op!</strong> Hiermee overschrijf je gegevens van het geselecteerde website onderdeel. <br />Hiermee kun je of de naam van het menu-item overschrijven en/of het menu-item een naam geven als het een handmatige url is.',
                 ],
                 'title' => [
                     'label' => 'Titel',
-                    'helperText' => 'Vul hier een titel in welke wordt gebruikt voor de `title` attribuut van de link.',
+                    'helperText' => '<strong>Let op!</strong> Hiermee overschrijf je gegevens van het geselecteerde website onderdeel. <br />Vul hier een titel in welke wordt gebruikt voor de `title` attribuut van de link.',
                 ],
                 'rel' => [
                     'label' => 'Selecteer de rel waardes van de link',
                 ],
                 'target' => [
                     'label' => 'Selecteer de target waarde van de link',
+                ],
+            ],
+
+            'columns' => [
+                'linkable' => [
+                    'label' => 'Website onderdeel',
+                    'placeholder' => 'Geen website onderdeel geselecteerd.',
+                ],
+                'label' => [
+                    'label' => 'Aangepaste link',
+                    'placeholder' => 'Geen aangepaste link ingevuld.',
+                ],
+                'parent' => [
+                    'label' => 'Onderdeel van',
+                    'placeholder' => 'Hoofd menu-item',
+                ],
+                'children' => [
+                    'label' => 'Onderliggende menu-item|Onderliggende menu-items',
+                ],
+                'target' => [
+                    'label' => 'Link target',
+                ],
+                'location' => [
+                    'label' => 'Menu locatie',
                 ],
             ],
         ],
@@ -703,6 +745,48 @@ return [
             ],
             'save_3_years' => [
                 'label' => 'Bewaar de bezoeken voor drie jaar.',
+            ],
+        ],
+
+        'ahrefrel' => [
+            'external' => [
+                'label' => 'external - Externe link',
+                'description' => 'Het document waarnaar wordt verwezen maakt geen deel uit van dezelfde site als het huidige document.',
+            ],
+            'nofollow' => [
+                'label' => 'nofollow - Niet volgbare link',
+                'description' => 'Geeft aan dat de oorspronkelijke auteur of uitgever van het huidige document het document waarnaar wordt verwezen niet onderschrijft.',
+            ],
+            'noopener' => [
+                'label' => 'noopener - Geen opener link',
+                'description' => 'Creëert een bladercontext op het hoogste niveau die geen hulpbladercontext is als de hyperlink om te beginnen een van die contexten zou creëren (d.w.z. een geschikte doelattribuutwaarde heeft).',
+            ],
+            'noreferrer' => [
+                'label' => 'noreferrer - Geen referrer link',
+                'description' => 'De website die wordt geladen in een nieuw tabblad zal geen toegang krijgen tot informatie van de originele website waar een bezoeker vandaan komt.',
+            ],
+            'opener' => [
+                'label' => 'opener - Opener link',
+                'description' => 'Creëert een extra bladercontext als de hyperlink anders een bladercontext op het hoogste niveau zou creëren die geen extra bladercontext is (d.w.z. “_blank” als doelattribuutwaarde heeft).',
+            ],
+            'privacy-policy' => [
+                'label' => 'privacy-policy - Privacybeleid',
+                'description' => 'Geeft een link naar informatie over het verzamelen en gebruiken van gegevens die van toepassing zijn op het huidige document.',
+            ],
+            'terms-of-service' => [
+                'label' => 'terms-of-service - Gebruiksvoorwaarden',
+                'description' => 'Link naar de overeenkomst of servicevoorwaarden tussen de aanbieder van het document en gebruikers die het document willen gebruiken.',
+            ],
+        ],
+
+        'target' => [
+            '_self' => [
+                'label' => 'Huidig venster',
+                'description' => 'De link wordt geopend in hetzelfde tabblad.',
+            ],
+            '_blank' => [
+                'label' => 'Nieuw venster',
+                'description' => 'De link wordt geopend in een nieuw tabblad.',
             ],
         ],
     ],

@@ -31,6 +31,9 @@ return new class extends Migration
             $table->string('link')
                 ->nullable();
 
+            $table->string('label')
+                ->nullable();
+
             $table->string('title')
                 ->nullable();
 

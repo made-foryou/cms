@@ -12,16 +12,16 @@ enum Target: string
     public function getLabel(): string
     {
         return match ($this) {
-            self::Self => 'Huidig venster',
-            self::Blank => 'Nieuw venster',
+            self::Self => __('made-cms::cms.enums.target._self.label'),
+            self::Blank => __('made-cms::cms.enums.target._blank.label'),
         };
     }
 
     public function getDescription(): string
     {
         return match ($this) {
-            self::Self => 'De link wordt geopend in hetzelfde tabblad.',
-            self::Blank => 'De link wordt geopend in een nieuw tabblad.',
+            self::Self => __('made-cms::cms.enums.target._self.description'),
+            self::Blank => __('made-cms::cms.enums.target._blank.description'),
         };
     }
 

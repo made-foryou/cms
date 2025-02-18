@@ -19,6 +19,7 @@ use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
  * @property string $linkable_type
  * @property int $linkable_id
  * @property null|string $link
+ * @property null|string $label
  * @property null|string $title
  * @property array $rel
  * @property string|null $target
@@ -48,6 +49,7 @@ class MenuItem extends Model
         'linkable_type',
         'linkable_id',
         'link',
+        'label',
         'title',
         'rel',
         'target',
@@ -86,7 +88,7 @@ class MenuItem extends Model
                     return $this->linkable->name;
                 }
 
-                return $this->title ?? '';
+                return $this->label ?? '';
             }
         );
     }
