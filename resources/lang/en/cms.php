@@ -529,7 +529,7 @@ return [
                     ],
                     'not_found_page' => [
                         'label' => 'Select a not found page',
-                        'helperText' => 'Select a page to be displayed as soon as nothing can be found to display.'
+                        'helperText' => 'Select a page to be displayed as soon as nothing can be found to display.',
                     ],
                 ],
 
