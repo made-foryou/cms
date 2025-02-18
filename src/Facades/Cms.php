@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string renderContentStrips(array $content) Renders the content strips into an HTML string.
  * @method static void routes(string $selection = 'all') Configures the routes for the application based on the provided selection.
  * @method static string url(RouteableContract|Route $route, array $parameters = [], ?bool $secure = null) Generates a URL based on the given parameters.
- * 
+ *
  * @mixin \Made\Cms\Cms
  */
 class Cms extends Facade
