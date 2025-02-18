@@ -71,7 +71,7 @@ class Cms
                     if ($block::id() === $strip['type']) {
                         $html .= $block::render($strip['data'] ?? []);
                     }
-                }   
+                }
             }
 
         }
