@@ -27,7 +27,7 @@ use Made\Cms\Website\Builders\MenuItemBuilder;
  * @property int $index
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
- * 
+ *
  * @method static MenuItemBuilder query()
  */
 class MenuItem extends Model
