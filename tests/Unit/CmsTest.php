@@ -20,7 +20,7 @@ class CmsTest extends TestCase
     {
         $page = Page::factory()->create();
         $page->refresh();
-        
+
         $this->assertSame(url($page->route->route), Cms::url($page->route));
     }
 
@@ -29,7 +29,7 @@ class CmsTest extends TestCase
     {
         $page = Page::factory()->create();
         $page->refresh();
-        
+
         $this->assertSame(url($page->route->route), Cms::url($page));
     }
 
@@ -39,11 +39,11 @@ class CmsTest extends TestCase
         $page = Page::factory()->create();
         $page->refresh();
 
-        $websiteSetting = new WebsiteSetting();
+        $websiteSetting = new WebsiteSetting;
 
         $websiteSetting->landing_page = $page->id;
         $websiteSetting->save();
-        
+
         $this->assertSame(url('/'), Cms::url($page));
     }
 }

@@ -22,7 +22,7 @@ use Made\Cms\Shared\Observers\RouteObserver;
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
  * @property-read Page $routeable
- * 
+ *
  * @method static RouteFactory factory()
  */
 #[ObservedBy(RouteObserver::class)]

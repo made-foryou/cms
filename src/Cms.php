@@ -118,14 +118,14 @@ class Cms
     /**
      * Generates a URL based on the given parameters.
      *
-     * @param RouteableContract|Route $route The RouteableContract model or the route itself to 
-     *                                       generate the url from.
-     * @param array $params Optional. An associative array of query parameters to append to the URL.
-     * @param bool $secure Optional. Whether to generate a secure (HTTPS) URL. Default is false.
+     * @param  RouteableContract|Route  $route  The RouteableContract model or the route itself to
+     *                                          generate the url from.
+     * @param  array  $params  Optional. An associative array of query parameters to append to the URL.
+     * @param  bool  $secure  Optional. Whether to generate a secure (HTTPS) URL. Default is false.
      * @return string The generated URL.
      */
     public function url(
-        RouteableContract|Route $route,
+        RouteableContract | Route $route,
         array $parameters = [],
         ?bool $secure = null
     ): string {
@@ -135,7 +135,7 @@ class Cms
 
         $landingPage = $this->websiteSetting->getLandingPage();
 
-        if (!is_null($landingPage) && $landingPage->route->id === $route->id) {
+        if (! is_null($landingPage) && $landingPage->route->id === $route->id) {
             return url('/', $parameters, $secure);
         }
 
@@ -170,7 +170,7 @@ class Cms
     protected function generatePageRoutes(): void
     {
         $pageRoutes = $this->getRoutes()
-            ->filter(fn(Route $route) => $route->routeable instanceof Page);
+            ->filter(fn (Route $route) => $route->routeable instanceof Page);
 
         $pageRoutes->each(function (Route $route) {
             RouteFacade::get($route->route, Controller::class);
