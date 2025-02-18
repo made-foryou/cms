@@ -497,10 +497,6 @@ return [
             'website' => [
                 'title' => 'Website instellingen',
                 'label' => 'Website instellingen',
-                'online' => [
-                    'label' => 'Website bereikbaar?',
-                    'description' => 'De website is alleen bereikbaar zodra deze instelling is aangezet.',
-                ],
 
                 'fields' => [
                     'menu_locations' => [
@@ -519,6 +515,18 @@ return [
                                 'helperText' => 'Een korte omschrijving van de menu locatie en waar deze gebruikt wordt.',
                             ],
                         ],
+                    ],
+                    'online' => [
+                        'label' => 'Is de website bereikbaar?',
+                        'helperText' => 'Als je de website (tijdelijk) uit wilt zetten kun je deze instelling uitzetten. Bezoekers kunnen de website dan niet meer bereiken.',
+                    ],
+                    'landing_page' => [
+                        'label' => 'Selecteer een landingspagina',
+                        'helperText' => 'Selecteer een pagina welke als landingspagina moet worden geladen. Dit is de eerste pagina die bezoekers te zien krijgen als ze naar je website komen.',
+                    ],
+                    'not_found_page' => [
+                        'label' => 'Selecteer een niet gevonden pagina',
+                        'helperText' => 'Selecteer een pagina welke wordt getoond zodra er niks kan worden gevonden om te tonen.'
                     ],
                 ],
 
