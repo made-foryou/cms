@@ -56,19 +56,24 @@ class Cms
         $html = '';
 
         foreach ($content as $strip) {
-            foreach ($configured as $block) {
-                if (! class_exists($block)) {
-                    continue;
-                }
 
-                if (! class_implements($block, ContentStrip::class)) {
-                    continue;
-                }
+            // Search for the right ContentStrip.
+            foreach ($configured as $type) {
+                foreach ($type as $block) {
+                    if (! class_exists($block)) {
+                        continue;
+                    }
 
-                if ($block::id() === $strip['type']) {
-                    $html .= $block::render($strip['data'] ?? []);
-                }
+                    if (! class_implements($block, ContentStrip::class)) {
+                        continue;
+                    }
+
+                    if ($block::id() === $strip['type']) {
+                        $html .= $block::render($strip['data'] ?? []);
+                    }
+                }   
             }
+
         }
 
         return $html;
