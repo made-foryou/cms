@@ -82,6 +82,10 @@ class Controller extends BaseController
         Request $request,
         ?Route $route = null
     ): View | Response {
+        if ($route === null) {
+            abort(404);
+        }
+
         /** @var null|class-string<CmsRoutingContract> $class */
         $class = GetControllerFromRouteable::run($route);
 
