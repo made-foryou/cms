@@ -24,8 +24,6 @@ class NotFoundPageController extends Controller
 
         $page = $this->websiteSetting->getNotFoundPage();
 
-        dd('test', $page);
-
         return $this->invokeController($request, $page->route);
     }
 }
