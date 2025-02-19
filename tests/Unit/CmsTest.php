@@ -57,7 +57,7 @@ class CmsTest extends TestCase
             MenuItem::factory()
                 ->for(Page::factory(), 'linkable')
                 ->create([
-                    'location' => 'main'
+                    'location' => 'main',
                 ]);
         }
 

@@ -148,8 +148,7 @@ class Cms
      * Gather the menu items from a menu location.
      *
      * @param  string  $location  The menu location from which you want to get the menu items.
-     *
-     * @return  Collection  Collection of the menu items.
+     * @return Collection Collection of the menu items.
      */
     public function navigationItems(string $location): Collection
     {
