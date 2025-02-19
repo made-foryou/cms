@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Made\Cms;
 
 use Illuminate\Support\Collection;
@@ -10,16 +12,18 @@ use Illuminate\Support\Facades\Schema;
 use Made\Cms\App\Http\Controllers\Controller;
 use Made\Cms\Filament\Builder\ContentStrip;
 use Made\Cms\Page\Models\Page;
+use Made\Cms\Shared\Contracts\RouteableContract;
 use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
 use Made\Cms\Shared\Models\Route;
 use Made\Cms\Website\Http\Controllers\NotFoundPageController;
+use Made\Cms\Website\Models\MenuItem;
 use Made\Cms\Website\Models\Settings\WebsiteSetting;
 
 class Cms
 {
     use HasDatabaseTablePrefix;
 
-    public const string VERSION = '0.8.0';
+    public const string VERSION = '0.11.3';
 
     public const string ALL_ROUTES = 'all';
 
@@ -73,45 +77,9 @@ class Cms
                     }
                 }
             }
-
         }
 
         return $html;
-    }
-
-    /**
-     * Retrieves a collection of routes, cached indefinitely for reuse.
-     *
-     * This method fetches the routes from the database or retrieves them from
-     * the cache if already stored. It uses the `CACHE_ROUTES` constant as the
-     * cache key to store and retrieve the data. If the cache does not exist,
-     * the routes are queried from the `Route` model and cached for future access.
-     *
-     * @return Collection The collection of routes fetched from the database or cache.
-     */
-    protected function getRoutes(): Collection
-    {
-        if (app()->runningInConsole() === true) {
-            return Cache::get(self::CACHE_ROUTES, collect([]));
-        }
-
-        return Cache::rememberForever(self::CACHE_ROUTES, function (): Collection {
-            return Route::query()->get();
-        });
-    }
-
-    /**
-     * Checks if the routes table exists in the database.
-     *
-     * This method verifies the existence of the "routes" table by querying the database.
-     * It uses the given table prefix, if any, to locate the correct table name.
-     *
-     * @return bool Returns true if the routes table exists, otherwise false.
-     */
-    protected function databaseWasConfigured(): bool
-    {
-        return Schema::hasTable($this->prefixTableName('settings'))
-            && DB::table($this->prefixTableName('settings'))->where('group', 'web')->first() !== null;
     }
 
     /**
@@ -147,6 +115,51 @@ class Cms
         if ($this->websiteSetting->not_found_page !== null) {
             RouteFacade::fallback(NotFoundPageController::class);
         }
+    }
+
+    /**
+     * Generates a URL based on the given parameters.
+     *
+     * @param  RouteableContract|Route  $route  The RouteableContract model or the route itself to
+     *                                          generate the url from.
+     * @param  array  $params  Optional. An associative array of query parameters to append to the URL.
+     * @param  bool  $secure  Optional. Whether to generate a secure (HTTPS) URL. Default is false.
+     * @return string The generated URL.
+     */
+    public function url(
+        RouteableContract | Route $route,
+        array $parameters = [],
+        ?bool $secure = null
+    ): string {
+        if ($route instanceof RouteableContract) {
+            $route = $route->route;
+        }
+
+        $landingPage = $this->websiteSetting->getLandingPage();
+
+        if (! is_null($landingPage) && $landingPage->route->id === $route->id) {
+            return url('/', $parameters, $secure);
+        }
+
+        return url($route->route, $parameters, $secure);
+    }
+
+    /**
+     * Gather the menu items from a menu location.
+     *
+     * @param  string  $location  The menu location from which you want to get the menu items.
+     * @return Collection Collection of the menu items.
+     */
+    public function navigationItems(string $location): Collection
+    {
+        $menuItems = MenuItem::query()
+            ->fromLocation($location)
+            ->onlyMainItems()
+            ->with(['children', 'linkable'])
+            ->orderBy('index', 'ASC')
+            ->get();
+
+        return $menuItems;
     }
 
     /**
@@ -194,5 +207,40 @@ class Cms
         }
 
         RouteFacade::get('/', Controller::class);
+    }
+
+    /**
+     * Retrieves a collection of routes, cached indefinitely for reuse.
+     *
+     * This method fetches the routes from the database or retrieves them from
+     * the cache if already stored. It uses the `CACHE_ROUTES` constant as the
+     * cache key to store and retrieve the data. If the cache does not exist,
+     * the routes are queried from the `Route` model and cached for future access.
+     *
+     * @return Collection The collection of routes fetched from the database or cache.
+     */
+    protected function getRoutes(): Collection
+    {
+        if (app()->runningInConsole() === true) {
+            return Cache::get(self::CACHE_ROUTES, collect([]));
+        }
+
+        return Cache::rememberForever(self::CACHE_ROUTES, function (): Collection {
+            return Route::query()->get();
+        });
+    }
+
+    /**
+     * Checks if the routes table exists in the database.
+     *
+     * This method verifies the existence of the "routes" table by querying the database.
+     * It uses the given table prefix, if any, to locate the correct table name.
+     *
+     * @return bool Returns true if the routes table exists, otherwise false.
+     */
+    protected function databaseWasConfigured(): bool
+    {
+        return Schema::hasTable($this->prefixTableName('settings'))
+            && DB::table($this->prefixTableName('settings'))->where('group', 'web')->first() !== null;
     }
 }
