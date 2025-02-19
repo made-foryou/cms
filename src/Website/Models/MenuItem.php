@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Made\Cms\Website\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Carbon;
+use Made\Cms\Database\Factories\MenuItemFactory;
 use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
 use Made\Cms\Website\Builders\MenuItemBuilder;
 
@@ -33,6 +35,7 @@ use Made\Cms\Website\Builders\MenuItemBuilder;
 class MenuItem extends Model
 {
     use HasDatabaseTablePrefix;
+    use HasFactory;
 
     public const string TABLE_NAME = 'menu_items';
 
@@ -125,5 +128,10 @@ class MenuItem extends Model
     public function newEloquentBuilder($query): MenuItemBuilder
     {
         return new MenuItemBuilder($query);
+    }
+
+    protected static function newFactory(): MenuItemFactory
+    {
+        return MenuItemFactory::new();
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Made\Cms;
 
 use Illuminate\Support\Collection;
@@ -21,7 +23,7 @@ class Cms
 {
     use HasDatabaseTablePrefix;
 
-    public const string VERSION = '0.8.0';
+    public const string VERSION = '0.11.3';
 
     public const string ALL_ROUTES = 'all';
 
@@ -144,12 +146,17 @@ class Cms
 
     /**
      * Gather the menu items from a menu location.
+     *
+     * @param  string  $location  The menu location from which you want to get the menu items.
+     *
+     * @return  Collection  Collection of the menu items.
      */
     public function navigationItems(string $location): Collection
     {
         $menuItems = MenuItem::query()
             ->fromLocation($location)
             ->onlyMainItems()
+            ->with(['children', 'linkable'])
             ->orderBy('index', 'ASC')
             ->get();
 
