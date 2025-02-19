@@ -68,7 +68,9 @@ class Cms
                         continue;
                     }
 
-                    if (! class_implements($block, ContentStrip::class)) {
+                    $interfaces = class_implements($block);
+
+                    if (empty($interfaces) || ! in_array(ContentStrip::class, $interfaces)) {
                         continue;
                     }
 
