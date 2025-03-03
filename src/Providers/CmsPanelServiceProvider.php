@@ -31,6 +31,7 @@ use Made\Cms\Page\Filament\Resources\PageResource;
 use Made\Cms\Page\Filament\Widgets\PageStatsOverviewWidget;
 use Made\Cms\Website\Filament\Pages\WebsiteSettingsPage;
 use Made\Cms\Website\Filament\Resources\MenuItemResource;
+use Pboivin\FilamentPeek\FilamentPeekPlugin;
 
 class CmsPanelServiceProvider extends PanelProvider
 {
@@ -83,21 +84,22 @@ class CmsPanelServiceProvider extends PanelProvider
             ->maxContentWidth(MaxWidth::Full)
             ->navigationGroups([
                 NavigationGroup::make()
-                    ->label(fn (): string => __('made-cms::cms.navigation_groups.website'))
+                    ->label(fn(): string => __('made-cms::cms.navigation_groups.website'))
                     ->icon('heroicon-o-globe-alt'),
 
                 NavigationGroup::make()
-                    ->label(fn (): string => __('made-cms::cms.navigation_groups.news'))
+                    ->label(fn(): string => __('made-cms::cms.navigation_groups.news'))
                     ->icon('heroicon-o-newspaper'),
 
                 NavigationGroup::make()
-                    ->label(fn (): string => __('made-cms::cms.navigation_groups.analytics'))
+                    ->label(fn(): string => __('made-cms::cms.navigation_groups.analytics'))
                     ->icon('heroicon-o-chart-bar-square'),
 
                 NavigationGroup::make()
-                    ->label(fn (): string => __('made-cms::cms.navigation_groups.security'))
+                    ->label(fn(): string => __('made-cms::cms.navigation_groups.security'))
                     ->icon('heroicon-o-shield-check'),
-            ]);
+            ])
+            ->plugins($this->getPlugins());
     }
 
     protected function getResources(): array
@@ -132,6 +134,13 @@ class CmsPanelServiceProvider extends PanelProvider
             MadeInfoWidget::class,
             PageStatsOverviewWidget::class,
             ...config('made-cms.panel.widgets', []),
+        ];
+    }
+
+    protected function getPlugins(): array
+    {
+        return [
+            FilamentPeekPlugin::make(),
         ];
     }
 }

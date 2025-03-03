@@ -29,6 +29,7 @@
         "foroco/php-browser-detection": "^2.8",
         "lorisleiva/laravel-actions": "^2.8",
         "maatwebsite/excel": "^3.1",
+        "pboivin/filament-peek": "^2.3",
         "spatie/laravel-package-tools": "^1.15.0"
     },
     "require-dev": {

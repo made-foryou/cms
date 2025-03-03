@@ -60,7 +60,9 @@ class CmsServiceProvider extends PackageServiceProvider
 
         if (file_exists($package->basePath("/../config/$configFileName.php"))) {
             $package->hasConfigFile([
-                'made-cms', 'settings',
+                'made-cms',
+                'settings',
+                'filament-peek',
             ]);
         }
 
@@ -141,14 +143,6 @@ class CmsServiceProvider extends PackageServiceProvider
                     $file->getRealPath() => base_path("stubs/cms/{$file->getFilename()}"),
                 ], 'cms-stubs');
             }
-
-            //            foreach (app(Filesystem::class)->files(__DIR__ . '/../database/settings/') as $file) {
-            //                $this->publishes([
-            //                    __DIR__ . "/../database/settings/{$file->getFilename()}" => database_path(
-            //                        '/settings/' . $this->getMigrationName($file->getFilename(), 'settings')
-            //                    ),
-            //                ], 'cms-setting-migrations');
-            //            }
         }
 
         // Testing

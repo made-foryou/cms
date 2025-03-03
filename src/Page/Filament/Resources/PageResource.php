@@ -2,7 +2,9 @@
 
 namespace Made\Cms\Page\Filament\Resources;
 
+use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Builder as ComponentsBuilder;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -31,6 +33,7 @@ use Made\Cms\Page\Models\Page;
 use Made\Cms\Shared\Enums\MetaRobot;
 use Made\Cms\Shared\Enums\PublishingStatus;
 use Made\Cms\Shared\Filament\Actions\TranslateAction;
+use Pboivin\FilamentPeek\Forms\Actions\InlinePreviewAction;
 
 class PageResource extends Resource
 {
@@ -85,7 +88,7 @@ class PageResource extends Resource
                                                         Action::make('generate-slug')
                                                             ->label('Maak automatisch een slug aan de hand van de pagina naam.')
                                                             ->icon('heroicon-s-arrow-path')
-                                                            ->action(fn (Get $get, Set $set, ?string $state) => $set(
+                                                            ->action(fn(Get $get, Set $set, ?string $state) => $set(
                                                                 'slug',
                                                                 Str::slug($get('name'))
                                                             ))
@@ -122,7 +125,7 @@ class PageResource extends Resource
                                                     ->disabled()
                                                     ->relationship('translatedFrom', 'name')
                                                     ->helperText('Deze pagina is een vertaling van de hierboven geselecteerde pagina. Dit is niet te wijzigen.')
-                                                    ->visible(fn (Get $get) => $get('translated_from_id') !== null),
+                                                    ->visible(fn(Get $get) => $get('translated_from_id') !== null),
                                             ]),
                                     ]),
                             ])
@@ -135,13 +138,15 @@ class PageResource extends Resource
                                     ->description(__('made-cms::pages.fields.content.description'))
                                     ->icon('heroicon-s-rectangle-group')
                                     ->schema([
-                                        \Filament\Forms\Components\Builder::make('content')
-                                            ->label('')
-                                            ->addActionLabel(__('made-cms::pages.fields.content.add_button'))
-                                            ->collapsible()
-                                            ->collapsed()
-                                            ->blockPreviews()
-                                            ->blocks(self::contentStrips(Page::class)),
+                                        Actions::make([
+                                            InlinePreviewAction::make()
+                                                ->label('Preview Content Blocks')
+                                                ->builderName('content'),
+                                        ])
+                                            ->columnSpanFull()
+                                            ->alignEnd(),
+
+                                        self::contentBuilderField(),
                                     ]),
                             ]),
 
@@ -182,7 +187,7 @@ class PageResource extends Resource
                                             ->options(
                                                 Page::select(['id', 'name'])
                                                     ->get()
-                                                    ->mapWithKeys(fn ($page) => [$page->id => $page->name])
+                                                    ->mapWithKeys(fn($page) => [$page->id => $page->name])
                                             ),
 
                                     ])
@@ -194,6 +199,16 @@ class PageResource extends Resource
                     ->contained(false)
                     ->columnSpanFull(),
             ]);
+    }
+
+    public static function contentBuilderField(string $context = 'form'): ComponentsBuilder
+    {
+        return \Filament\Forms\Components\Builder::make('content')
+            ->label('')
+            ->addActionLabel(__('made-cms::pages.fields.content.add_button'))
+            ->collapsible()
+            ->collapsed()
+            ->blocks(self::contentStrips(Page::class, $context));
     }
 
     public static function table(Table $table): Table
@@ -212,13 +227,13 @@ class PageResource extends Resource
 
                 TextColumn::make('language.name')
                     ->label(__('made-cms::cms.resources.page.table.locale'))
-                    ->icon(fn (Page $record) => ($record->language?->image ? Storage::url($record->language->image) : '')),
+                    ->icon(fn(Page $record) => ($record->language?->image ? Storage::url($record->language->image) : '')),
 
                 TextColumn::make('status')
                     ->label(__('made-cms::cms.resources.page.table.status'))
                     ->badge()
-                    ->color(fn (PublishingStatus $state) => $state->color())
-                    ->formatStateUsing(fn (PublishingStatus $state) => $state->label()),
+                    ->color(fn(PublishingStatus $state) => $state->color())
+                    ->formatStateUsing(fn(PublishingStatus $state) => $state->label()),
 
                 TextColumn::make('slug')
                     ->label(__('made-cms::cms.resources.page.table.slug'))
@@ -238,7 +253,7 @@ class PageResource extends Resource
                     ->label(__('made-cms::cms.resources.page.filters.locale.label')),
 
                 SelectFilter::make('parent_id')
-                    ->options(Page::query()->get()->mapWithKeys(fn ($page) => [$page->id => $page->name]))
+                    ->options(Page::query()->get()->mapWithKeys(fn($page) => [$page->id => $page->name]))
                     ->label('Bovenliggende pagina'),
             ])
             ->actions([

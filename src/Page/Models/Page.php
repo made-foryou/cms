@@ -51,7 +51,10 @@ use Made\Cms\Shared\Observers\RouteableObserver;
  * @method static PageQueryBuilder query()
  */
 #[ObservedBy([CreatedByDefiningObserver::class, RouteableObserver::class])]
-class Page extends Model implements DefinesCreatedByContract, HasMeta, RouteableContract
+class Page extends Model implements
+    DefinesCreatedByContract,
+    HasMeta,
+    RouteableContract
 {
     use HasDatabaseTablePrefix;
     use HasFactory;

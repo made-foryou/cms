@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Made\Cms\News\Filament\Resources;
 
+use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Builder as ComponentsBuilder;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -40,6 +42,7 @@ use Made\Cms\News\Models\Post;
 use Made\Cms\Shared\Enums\MetaRobot;
 use Made\Cms\Shared\Enums\PublishingStatus;
 use Made\Cms\Shared\Filament\Actions\TranslateAction;
+use Pboivin\FilamentPeek\Forms\Actions\InlinePreviewAction;
 
 class PostResource extends Resource
 {
@@ -97,7 +100,7 @@ class PostResource extends Resource
                                                         Action::make('generate-slug')
                                                             ->label('Maak automatisch een slug aan de hand van de pagina naam.')
                                                             ->icon('heroicon-s-arrow-path')
-                                                            ->action(fn (Get $get, Set $set, ?string $state) => $set(
+                                                            ->action(fn(Get $get, Set $set, ?string $state) => $set(
                                                                 'slug',
                                                                 Str::slug($get('name'))
                                                             ))
@@ -142,7 +145,7 @@ class PostResource extends Resource
                                                     ->disabled()
                                                     ->relationship('translatedFrom', 'name')
                                                     ->helperText(__('made-cms::cms.resources.post.fields.translated_from.helperText'))
-                                                    ->visible(fn (Get $get) => $get('translated_from_id') !== null),
+                                                    ->visible(fn(Get $get) => $get('translated_from_id') !== null),
 
                                             ]),
 
@@ -160,13 +163,15 @@ class PostResource extends Resource
                                     ->icon('heroicon-s-rectangle-group')
                                     ->schema([
 
-                                        \Filament\Forms\Components\Builder::make('content')
-                                            ->label('')
-                                            ->addActionLabel(__('made-cms::cms.resources.post.fields.content.add_button'))
-                                            ->collapsible()
-                                            ->collapsed()
-                                            ->blockPreviews()
-                                            ->blocks(self::contentStrips(Post::class)),
+                                        Actions::make([
+                                            InlinePreviewAction::make()
+                                                ->label('Preview content blocks')
+                                                ->builderName('content'),
+                                        ])
+                                            ->columnSpanFull()
+                                            ->alignEnd(),
+
+                                        self::contentBuilderField(),
 
                                     ]),
 
@@ -213,7 +218,7 @@ class PostResource extends Resource
                                             ->options(
                                                 Post::select(['id', 'name'])
                                                     ->get()
-                                                    ->mapWithKeys(fn ($page) => [$page->id => $page->name])
+                                                    ->mapWithKeys(fn($page) => [$page->id => $page->name])
                                             ),
 
                                     ])
@@ -226,6 +231,16 @@ class PostResource extends Resource
                     ->contained(false)
                     ->columnSpanFull(),
             ]);
+    }
+
+    public static function contentBuilderField(string $context = 'form'): ComponentsBuilder
+    {
+        return ComponentsBuilder::make('content')
+            ->label('')
+            ->addActionLabel(__('made-cms::cms.resources.post.fields.content.add_button'))
+            ->collapsible()
+            ->collapsed()
+            ->blocks(self::contentStrips(Post::class));
     }
 
     /**
@@ -258,8 +273,8 @@ class PostResource extends Resource
                 TextColumn::make('status')
                     ->label(__('made-cms::cms.resources.page.table.status'))
                     ->badge()
-                    ->color(fn (PublishingStatus $state) => $state->color())
-                    ->formatStateUsing(fn (PublishingStatus $state) => $state->label()),
+                    ->color(fn(PublishingStatus $state) => $state->color())
+                    ->formatStateUsing(fn(PublishingStatus $state) => $state->label()),
 
                 TextColumn::make('translatedFrom.name')
                     ->label('Vertaling van')
@@ -280,7 +295,7 @@ class PostResource extends Resource
                     ->label(__('made-cms::cms.resources.page.filters.locale.label')),
 
                 SelectFilter::make('translated_from_id')
-                    ->options(Post::query()->get()->mapWithKeys(fn ($post) => [$post->id => $post->name]))
+                    ->options(Post::query()->get()->mapWithKeys(fn($post) => [$post->id => $post->name]))
                     ->label('Vertaling van'),
 
                 TrashedFilter::make(),

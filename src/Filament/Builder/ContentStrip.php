@@ -28,7 +28,7 @@ interface ContentStrip
      *
      * @return Block A new Block instance.
      */
-    public static function block(): Block;
+    public static function block(string $context = 'form'): Block;
 
     /**
      * Generates the html implementation of the content strip which can be
