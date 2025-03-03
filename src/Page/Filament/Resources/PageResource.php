@@ -88,7 +88,7 @@ class PageResource extends Resource
                                                         Action::make('generate-slug')
                                                             ->label('Maak automatisch een slug aan de hand van de pagina naam.')
                                                             ->icon('heroicon-s-arrow-path')
-                                                            ->action(fn(Get $get, Set $set, ?string $state) => $set(
+                                                            ->action(fn (Get $get, Set $set, ?string $state) => $set(
                                                                 'slug',
                                                                 Str::slug($get('name'))
                                                             ))
@@ -125,7 +125,7 @@ class PageResource extends Resource
                                                     ->disabled()
                                                     ->relationship('translatedFrom', 'name')
                                                     ->helperText('Deze pagina is een vertaling van de hierboven geselecteerde pagina. Dit is niet te wijzigen.')
-                                                    ->visible(fn(Get $get) => $get('translated_from_id') !== null),
+                                                    ->visible(fn (Get $get) => $get('translated_from_id') !== null),
                                             ]),
                                     ]),
                             ])
@@ -187,7 +187,7 @@ class PageResource extends Resource
                                             ->options(
                                                 Page::select(['id', 'name'])
                                                     ->get()
-                                                    ->mapWithKeys(fn($page) => [$page->id => $page->name])
+                                                    ->mapWithKeys(fn ($page) => [$page->id => $page->name])
                                             ),
 
                                     ])
@@ -227,13 +227,13 @@ class PageResource extends Resource
 
                 TextColumn::make('language.name')
                     ->label(__('made-cms::cms.resources.page.table.locale'))
-                    ->icon(fn(Page $record) => ($record->language?->image ? Storage::url($record->language->image) : '')),
+                    ->icon(fn (Page $record) => ($record->language?->image ? Storage::url($record->language->image) : '')),
 
                 TextColumn::make('status')
                     ->label(__('made-cms::cms.resources.page.table.status'))
                     ->badge()
-                    ->color(fn(PublishingStatus $state) => $state->color())
-                    ->formatStateUsing(fn(PublishingStatus $state) => $state->label()),
+                    ->color(fn (PublishingStatus $state) => $state->color())
+                    ->formatStateUsing(fn (PublishingStatus $state) => $state->label()),
 
                 TextColumn::make('slug')
                     ->label(__('made-cms::cms.resources.page.table.slug'))
@@ -253,7 +253,7 @@ class PageResource extends Resource
                     ->label(__('made-cms::cms.resources.page.filters.locale.label')),
 
                 SelectFilter::make('parent_id')
-                    ->options(Page::query()->get()->mapWithKeys(fn($page) => [$page->id => $page->name]))
+                    ->options(Page::query()->get()->mapWithKeys(fn ($page) => [$page->id => $page->name]))
                     ->label('Bovenliggende pagina'),
             ])
             ->actions([

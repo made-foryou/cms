@@ -16,8 +16,8 @@ use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
 
 class EditPost extends EditRecord
 {
-    use HasPreviewModal;
     use HasBuilderPreview;
+    use HasPreviewModal;
 
     protected static string $resource = PostResource::class;
 
@@ -42,7 +42,7 @@ class EditPost extends EditRecord
         return 'cms::preview.post-content';
     }
 
-    public static function getBuilderEditorSchema(string $builderName): Component|array
+    public static function getBuilderEditorSchema(string $builderName): Component | array
     {
         return PostResource::contentBuilderField(context: 'preview');
     }

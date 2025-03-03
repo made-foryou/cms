@@ -11,8 +11,8 @@ use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
 
 class CreatePage extends CreateRecord
 {
-    use HasPreviewModal;
     use HasBuilderPreview;
+    use HasPreviewModal;
 
     protected static string $resource = PageResource::class;
 
@@ -33,7 +33,7 @@ class CreatePage extends CreateRecord
         return 'cms::preview.page-content';
     }
 
-    public static function getBuilderEditorSchema(string $builderName): Component|array
+    public static function getBuilderEditorSchema(string $builderName): Component | array
     {
         return PageResource::contentBuilderField(context: 'preview');
     }
