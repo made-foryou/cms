@@ -23,7 +23,7 @@ class Cms
 {
     use HasDatabaseTablePrefix;
 
-    public const string VERSION = '0.12.1';
+    public const string VERSION = '0.13.0';
 
     public const string ALL_ROUTES = 'all';
 
@@ -181,7 +181,7 @@ class Cms
     protected function generatePageRoutes(): void
     {
         $pageRoutes = $this->getRoutes()
-            ->filter(fn (Route $route) => $route->routeable instanceof Page);
+            ->filter(fn(Route $route) => $route->routeable instanceof Page);
 
         $pageRoutes->each(function (Route $route) {
             RouteFacade::get($route->route, Controller::class);
