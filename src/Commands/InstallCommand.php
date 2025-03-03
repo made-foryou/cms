@@ -72,12 +72,18 @@ class InstallCommand extends Command
 
         $this->callSilently('vendor:publish', [
             '--provider' => CmsServiceProvider::class,
-            '--tag' => 'config',
+            '--tag' => 'made-cms-config',
+            '--no-interaction' => $this->option('no-interaction'),
+        ]);
+
+        $this->callSilently('vendor:publish', [
+            '--provider' => CmsServiceProvider::class,
+            '--tag' => 'cms-views',
             '--no-interaction' => $this->option('no-interaction'),
         ]);
 
         if (! $this->option('no-interaction')) {
-            $this->info('Published config file.');
+            $this->info('Published CMS config, resources and migrations.');
         }
 
         $this->call('migrate', [
@@ -220,7 +226,6 @@ class InstallCommand extends Command
                 ->preservingOriginal()
                 ->toMediaCollection('flag');
         } catch (\Exception $e) {
-
         }
 
         $language->refresh();

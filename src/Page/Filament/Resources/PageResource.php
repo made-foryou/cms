@@ -2,7 +2,9 @@
 
 namespace Made\Cms\Page\Filament\Resources;
 
+use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Builder as ComponentsBuilder;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -31,6 +33,7 @@ use Made\Cms\Page\Models\Page;
 use Made\Cms\Shared\Enums\MetaRobot;
 use Made\Cms\Shared\Enums\PublishingStatus;
 use Made\Cms\Shared\Filament\Actions\TranslateAction;
+use Pboivin\FilamentPeek\Forms\Actions\InlinePreviewAction;
 
 class PageResource extends Resource
 {
@@ -135,13 +138,15 @@ class PageResource extends Resource
                                     ->description(__('made-cms::pages.fields.content.description'))
                                     ->icon('heroicon-s-rectangle-group')
                                     ->schema([
-                                        \Filament\Forms\Components\Builder::make('content')
-                                            ->label('')
-                                            ->addActionLabel(__('made-cms::pages.fields.content.add_button'))
-                                            ->collapsible()
-                                            ->collapsed()
-                                            ->blockPreviews()
-                                            ->blocks(self::contentStrips(Page::class)),
+                                        Actions::make([
+                                            InlinePreviewAction::make()
+                                                ->label('Preview Content Blocks')
+                                                ->builderName('content'),
+                                        ])
+                                            ->columnSpanFull()
+                                            ->alignEnd(),
+
+                                        self::contentBuilderField(),
                                     ]),
                             ]),
 
@@ -194,6 +199,16 @@ class PageResource extends Resource
                     ->contained(false)
                     ->columnSpanFull(),
             ]);
+    }
+
+    public static function contentBuilderField(string $context = 'form'): ComponentsBuilder
+    {
+        return \Filament\Forms\Components\Builder::make('content')
+            ->label('')
+            ->addActionLabel(__('made-cms::pages.fields.content.add_button'))
+            ->collapsible()
+            ->collapsed()
+            ->blocks(self::contentStrips(Page::class, $context));
     }
 
     public static function table(Table $table): Table

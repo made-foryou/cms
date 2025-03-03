@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Made\Cms\News\Filament\Resources;
 
+use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Builder as ComponentsBuilder;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -40,6 +42,7 @@ use Made\Cms\News\Models\Post;
 use Made\Cms\Shared\Enums\MetaRobot;
 use Made\Cms\Shared\Enums\PublishingStatus;
 use Made\Cms\Shared\Filament\Actions\TranslateAction;
+use Pboivin\FilamentPeek\Forms\Actions\InlinePreviewAction;
 
 class PostResource extends Resource
 {
@@ -160,13 +163,15 @@ class PostResource extends Resource
                                     ->icon('heroicon-s-rectangle-group')
                                     ->schema([
 
-                                        \Filament\Forms\Components\Builder::make('content')
-                                            ->label('')
-                                            ->addActionLabel(__('made-cms::cms.resources.post.fields.content.add_button'))
-                                            ->collapsible()
-                                            ->collapsed()
-                                            ->blockPreviews()
-                                            ->blocks(self::contentStrips(Post::class)),
+                                        Actions::make([
+                                            InlinePreviewAction::make()
+                                                ->label('Preview content blocks')
+                                                ->builderName('content'),
+                                        ])
+                                            ->columnSpanFull()
+                                            ->alignEnd(),
+
+                                        self::contentBuilderField(),
 
                                     ]),
 
@@ -226,6 +231,16 @@ class PostResource extends Resource
                     ->contained(false)
                     ->columnSpanFull(),
             ]);
+    }
+
+    public static function contentBuilderField(string $context = 'form'): ComponentsBuilder
+    {
+        return ComponentsBuilder::make('content')
+            ->label('')
+            ->addActionLabel(__('made-cms::cms.resources.post.fields.content.add_button'))
+            ->collapsible()
+            ->collapsed()
+            ->blocks(self::contentStrips(Post::class));
     }
 
     /**

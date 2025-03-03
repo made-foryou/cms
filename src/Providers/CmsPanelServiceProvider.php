@@ -31,6 +31,7 @@ use Made\Cms\Page\Filament\Resources\PageResource;
 use Made\Cms\Page\Filament\Widgets\PageStatsOverviewWidget;
 use Made\Cms\Website\Filament\Pages\WebsiteSettingsPage;
 use Made\Cms\Website\Filament\Resources\MenuItemResource;
+use Pboivin\FilamentPeek\FilamentPeekPlugin;
 
 class CmsPanelServiceProvider extends PanelProvider
 {
@@ -97,7 +98,8 @@ class CmsPanelServiceProvider extends PanelProvider
                 NavigationGroup::make()
                     ->label(fn (): string => __('made-cms::cms.navigation_groups.security'))
                     ->icon('heroicon-o-shield-check'),
-            ]);
+            ])
+            ->plugins($this->getPlugins());
     }
 
     protected function getResources(): array
@@ -132,6 +134,13 @@ class CmsPanelServiceProvider extends PanelProvider
             MadeInfoWidget::class,
             PageStatsOverviewWidget::class,
             ...config('made-cms.panel.widgets', []),
+        ];
+    }
+
+    protected function getPlugins(): array
+    {
+        return [
+            FilamentPeekPlugin::make(),
         ];
     }
 }

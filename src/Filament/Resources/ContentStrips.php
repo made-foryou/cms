@@ -6,7 +6,7 @@ use Made\Cms\Filament\Builder\ContentStrip;
 
 trait ContentStrips
 {
-    public static function contentStrips(?string $model = null): array
+    public static function contentStrips(?string $model = null, string $context = 'form'): array
     {
         $strips = collect();
 
@@ -23,8 +23,7 @@ trait ContentStrips
                     continue;
                 }
 
-                $strips->push($strip::block());
-
+                $strips->push($strip::block($context));
             }
         }
 
@@ -40,8 +39,7 @@ trait ContentStrips
                 continue;
             }
 
-            $strips->push($strip::block());
-
+            $strips->push($strip::block($context));
         }
 
         return $strips->all();
