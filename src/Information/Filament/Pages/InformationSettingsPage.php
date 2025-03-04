@@ -60,7 +60,7 @@ class InformationSettingsPage extends SettingsPage
                             ->addActionLabel('Nieuw adres toevoegen')
                             ->minItems(1)
                             ->itemLabel(fn (array $state): ?string => $state['key'] ?? null)
-                            ->collapsed(), 
+                            ->collapsed(),
                     ]),
 
                 Section::make('Contactgegevens')

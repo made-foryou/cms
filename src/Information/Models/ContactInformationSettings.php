@@ -10,10 +10,10 @@ use Made\Cms\Information\Data\Address;
 use Made\Cms\Information\Data\Contact;
 use Spatie\LaravelSettings\Settings;
 
-class ContactInformationSettings extends Settings 
+class ContactInformationSettings extends Settings
 {
     /**
-     * @var string|null $company The name of the company. This can be null if no company is specified.
+     * @var string|null The name of the company. This can be null if no company is specified.
      */
     public ?string $company;
 
@@ -36,7 +36,7 @@ class ContactInformationSettings extends Settings
     /**
      * Retrieves the account information.
      *
-     * @param string|null $key Optional key to specify which account information to retrieve.
+     * @param  string|null  $key  Optional key to specify which account information to retrieve.
      * @return Account The account information.
      */
     public function getAccount(string $key): Account
@@ -53,12 +53,12 @@ class ContactInformationSettings extends Settings
     /**
      * Retrieves the address information.
      *
-     * @param string|null $key Optional key to specify a particular address.
+     * @param  string|null  $key  Optional key to specify a particular address.
      * @return Address The address information.
      */
     public function getAddress(?string $key = null): Address
     {
-        if (!empty($key)) {
+        if (! empty($key)) {
             foreach ($this->addresses as $address) {
                 if ($address['key'] === $key) {
                     return Address::fromArray($address);
@@ -74,12 +74,12 @@ class ContactInformationSettings extends Settings
     /**
      * Retrieves contact information.
      *
-     * @param string|null $key Optional key to specify which contact information to retrieve.
+     * @param  string|null  $key  Optional key to specify which contact information to retrieve.
      * @return Contact The contact information.
      */
     public function getContact(?string $key = null): Contact
     {
-        if (!empty($key)) {
+        if (! empty($key)) {
             foreach ($this->contacts as $contact) {
                 if ($contact['key'] === $key) {
                     return Contact::fromArray($contact);
