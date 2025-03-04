@@ -82,23 +82,7 @@ class CmsPanelServiceProvider extends PanelProvider
             ->login()
             ->default(config('made-cms.panel.default') ?? true)
             ->maxContentWidth(MaxWidth::Full)
-            ->navigationGroups([
-                NavigationGroup::make()
-                    ->label(fn (): string => __('made-cms::cms.navigation_groups.website'))
-                    ->icon('heroicon-o-globe-alt'),
-
-                NavigationGroup::make()
-                    ->label(fn (): string => __('made-cms::cms.navigation_groups.news'))
-                    ->icon('heroicon-o-newspaper'),
-
-                NavigationGroup::make()
-                    ->label(fn (): string => __('made-cms::cms.navigation_groups.analytics'))
-                    ->icon('heroicon-o-chart-bar-square'),
-
-                NavigationGroup::make()
-                    ->label(fn (): string => __('made-cms::cms.navigation_groups.security'))
-                    ->icon('heroicon-o-shield-check'),
-            ])
+            ->navigationGroups($this->getNavigation())
             ->plugins($this->getPlugins());
     }
 
@@ -121,8 +105,10 @@ class CmsPanelServiceProvider extends PanelProvider
     {
         return [
             Dashboard::class,
+
             WebsiteSettingsPage::class,
             AnalyticsSettingsPage::class,
+            
             ...config('made-cms.panel.pages', []),
         ];
     }
@@ -141,6 +127,31 @@ class CmsPanelServiceProvider extends PanelProvider
     {
         return [
             FilamentPeekPlugin::make(),
+        ];
+    }
+
+    protected function getNavigation(): array
+    {
+        return [
+            NavigationGroup::make()
+                ->label(fn (): string => __('made-cms::cms.navigation_groups.website'))
+                ->icon('heroicon-o-globe-alt'),
+
+            NavigationGroup::make()
+                ->label(fn (): string => __('made-cms::cms.navigation_groups.news'))
+                ->icon('heroicon-o-newspaper'),
+
+            NavigationGroup::make()
+                ->label(fn (): string => __('made-cms::cms.navigation_groups.analytics'))
+                ->icon('heroicon-o-chart-bar-square'),
+
+            NavigationGroup::make()
+                ->label(fn (): string => __('made-cms::cms.navigation_groups.security'))
+                ->icon('heroicon-o-shield-check'),
+
+            NavigationGroup::make()
+                ->label(fn (): string => __('made-cms::cms.navigation_groups.company'))
+                ->icon('heroicon-o-information-circle'),
         ];
     }
 }

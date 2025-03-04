@@ -257,6 +257,7 @@ return [
         'website' => 'Website',
         'security' => 'Security',
         'analytics' => 'Analytics',
+        'information' => 'Information',
     ],
 
     'common' => [
@@ -447,6 +448,9 @@ return [
                     'success' => [
                         'title' => 'The translation has been created from page :name and is ready for further translation.',
                     ],
+                ],
+                'preview_builder' => [
+                    'label' => 'Preview content blocks',
                 ],
             ],
         ],
@@ -655,6 +659,11 @@ return [
                         'label' => 'Canonical links',
                         'helperText' => 'By default, the canonical link is automatically generated based on the current URL. If you want to add some extra, you can add multiple canonical links here.',
                     ],
+                ],
+            ],
+            'actions' => [
+                'preview_builder' => [
+                    'label' => 'Preview content blocks',
                 ],
             ],
         ],

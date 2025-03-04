@@ -253,6 +253,7 @@ return [
         'website' => 'Website',
         'security' => 'Beveiliging',
         'analytics' => 'Analytics',
+        'information' => "Gegevens",
     ],
 
     'common' => [
@@ -444,6 +445,9 @@ return [
                     'success' => [
                         'title' => 'De vertaling is aangemaakt van pagina :name en staat klaar om verder vertaald te worden.',
                     ],
+                ],
+                'preview_builder' => [
+                    'label' => 'Bekijk voorbeeld van inhoudsblokken',
                 ],
             ],
         ],
@@ -649,6 +653,11 @@ return [
                         'label' => 'Canonical links',
                         'helperText' => 'Standaard wordt de canonieke link automatisch gegenereerd op basis van de huidige URL. Als je iets extra\'s wilt toevoegen, kun je hier meerdere canonieke links toevoegen.',
                     ],
+                ],
+            ],
+            'actions' => [
+                'preview_builder' => [
+                    'label' => 'Bekijk voorbeeld van inhoudsblokken',
                 ],
             ],
         ],
