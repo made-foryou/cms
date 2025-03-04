@@ -253,7 +253,7 @@ return [
         'website' => 'Website',
         'security' => 'Beveiliging',
         'analytics' => 'Analytics',
-        'information' => "Gegevens",
+        'information' => 'Gegevens',
     ],
 
     'common' => [

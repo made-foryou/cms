@@ -181,7 +181,7 @@ class Cms
     protected function generatePageRoutes(): void
     {
         $pageRoutes = $this->getRoutes()
-            ->filter(fn(Route $route) => $route->routeable instanceof Page);
+            ->filter(fn (Route $route) => $route->routeable instanceof Page);
 
         $pageRoutes->each(function (Route $route) {
             RouteFacade::get($route->route, Controller::class);
