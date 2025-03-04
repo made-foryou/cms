@@ -573,6 +573,11 @@ return [
                     ],
                 ],
             ],
+
+            'information' => [
+                'label' => 'Company data',
+                'title' => 'General data',
+            ],
         ],
 
         'meta' => [

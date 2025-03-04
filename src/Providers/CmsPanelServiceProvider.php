@@ -25,6 +25,7 @@ use Made\Cms\Analytics\Filament\Resources\VisitResource;
 use Made\Cms\Filament\Resources\RoleResource;
 use Made\Cms\Filament\Resources\UserResource;
 use Made\Cms\Filament\Widgets\MadeInfoWidget;
+use Made\Cms\Information\Filament\Pages\InformationSettingsPage;
 use Made\Cms\Language\Filament\Resources\LanguageResource;
 use Made\Cms\News\Filament\Resources\PostResource;
 use Made\Cms\Page\Filament\Resources\PageResource;
@@ -108,6 +109,7 @@ class CmsPanelServiceProvider extends PanelProvider
 
             WebsiteSettingsPage::class,
             AnalyticsSettingsPage::class,
+            InformationSettingsPage::class,
             
             ...config('made-cms.panel.pages', []),
         ];

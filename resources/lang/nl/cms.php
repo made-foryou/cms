@@ -571,6 +571,11 @@ return [
                     ],
                 ],
             ],
+
+            'information' => [
+                'label' => 'Bedrijfsgegevens',
+                'title' => 'Algemene gegevens',
+            ],
         ],
 
         'meta' => [
