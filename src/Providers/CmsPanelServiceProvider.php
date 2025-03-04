@@ -111,6 +111,7 @@ class CmsPanelServiceProvider extends PanelProvider
             AnalyticsSettingsPage::class,
             InformationSettingsPage::class,
             
+
             ...config('made-cms.panel.pages', []),
         ];
     }
