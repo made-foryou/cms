@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Made\Cms\Information\Data;
 
-readonly class Contact 
+readonly class Contact
 {
     /**
      * Constructor for the Contact class.
@@ -18,15 +18,14 @@ readonly class Contact
         public ?string $phone,
         public ?string $contactPerson,
         public ?string $label,
-    )
-    {
+    ) {
         //
     }
 
     /**
      * Creates a Contact instance from an array of data.
      *
-     * @param array $data The array of data to create the Contact instance from.
+     * @param  array  $data  The array of data to create the Contact instance from.
      * @return Contact The created Contact instance.
      */
     public static function fromArray(array $data): Contact

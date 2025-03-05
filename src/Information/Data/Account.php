@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Made\Cms\Information\Data;
 
-readonly class Account 
+readonly class Account
 {
     /**
      * Constructor for the Account class.
@@ -21,7 +21,7 @@ readonly class Account
     /**
      * Creates an Account instance from an array of data.
      *
-     * @param array $data The array containing account data.
+     * @param  array  $data  The array containing account data.
      * @return Account The created Account instance.
      */
     public static function fromArray(array $data): Account
@@ -32,5 +32,5 @@ readonly class Account
             $data['account'],
             $data['url'] ?? null,
         );
-    }   
+    }
 }

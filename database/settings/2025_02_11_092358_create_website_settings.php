@@ -14,7 +14,7 @@ return new class extends SettingsMigration
         $this->migrator->add('web.landing_page');
     }
 
-    public function down(): void 
+    public function down(): void
     {
         $this->migrator->delete('web.online');
         $this->migrator->delete('web.landing_page');

@@ -60,7 +60,7 @@ class InformationSettingsPage extends SettingsPage
                             ->addActionLabel(__('made-cms::cms.resources.settings.information.fields.addresses.actionLabel'))
                             ->minItems(1)
                             ->itemLabel(fn (array $state): ?string => $state['key'] ?? null)
-                            ->collapsed(), 
+                            ->collapsed(),
                     ]),
 
                 Section::make(__('made-cms::cms.resources.settings.information.sections.contact.title'))
