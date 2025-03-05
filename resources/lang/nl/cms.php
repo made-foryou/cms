@@ -575,6 +575,76 @@ return [
             'information' => [
                 'label' => 'Bedrijfsgegevens',
                 'title' => 'Algemene gegevens',
+
+                'sections' => [
+                    'company' => [
+                        'title' => 'Bedrijf / organisatie',
+                        'description' => 'Gegevens van het bedrijf / de organisatie achter de website.',
+                    ],
+                    'address' => [
+                        'title' => 'Adressen',
+                        'description' => 'Adresgegevens van de organisatie / het bedrijf van de website.',
+                    ],
+                    'contact' => [
+                        'title' => 'Contactgegevens',
+                        'description' => 'Contactgegevens van de organisatie / het bedrijf van de website.',
+                    ],
+                    'account' => [
+                        'title' => 'Accounts',
+                        'description' => 'Algemene gegevens zoals bankrekening nummers, social media accounts enz. welke je op de website wilt tonen.',
+                    ],
+                ],
+
+                'fields' => [
+                    'company' => [
+                        'label' => 'Bedrijf / organisatie naam',
+                    ],
+                    'addresses' => [
+                        'actionLabel' => 'Nieuw adres toevoegen',
+                    ],
+                    'contacts' => [
+                        'actionLabel' => 'Nieuw contact toevoegen',
+                    ],
+                    'accounts' => [
+                        'actionLabel' => 'Nieuw account toevoegen',
+                    ],
+                    'key' => [
+                        'label' => 'ID',
+                    ],
+                    'address' => [
+                        'label' => 'Adres',
+                    ],
+                    'zipcode' => [
+                        'label' => 'Postcode',
+                    ],
+                    'city' => [
+                        'label' => 'Stad',
+                    ],
+                    'country' => [
+                        'label' => 'Land',
+                    ],
+                    'email' => [
+                        'label' => 'E-mailadres',
+                    ],
+                    'phoneNumber' => [
+                        'label' => 'Telefoonnummer',
+                    ],
+                    'phone' => [
+                        'label' => 'Telefoonnummer leesbaar',
+                    ],
+                    'contactPerson' => [
+                        'label' => 'Contactpersoon',
+                    ],
+                    'label' => [
+                        'label' => 'Naam / omschrijving',
+                    ],
+                    'account' => [
+                        'label' => 'Nummer / account naam',
+                    ],
+                    'url' => [
+                        'label' => 'Link naar het account',
+                    ],
+                ],
             ],
         ],
 

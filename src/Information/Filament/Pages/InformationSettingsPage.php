@@ -22,108 +22,108 @@ class InformationSettingsPage extends SettingsPage
     {
         return $form
             ->schema([
-                Section::make('Bedrijf / organisatie')
-                    ->description('Gegevens van het bedrijf / de organisatie achter de website.')
+                Section::make(__('made-cms::cms.resources.settings.information.sections.company.title'))
+                    ->description(__('made-cms::cms.resources.settings.information.sections.company.description'))
                     ->aside()
                     ->schema([
                         TextInput::make('company')
-                            ->label('Bedrijf / organisatie naam'),
+                            ->label(__('made-cms::cms.resources.settings.information.fields.company.label')),
                     ]),
 
-                Section::make('Adressen')
-                    ->description('Adresgegevens van de organisatie / het bedrijf van de website.')
+                Section::make(__('made-cms::cms.resources.settings.information.sections.address.title'))
+                    ->description(__('made-cms::cms.resources.settings.information.sections.address.description'))
                     ->aside()
                     ->schema([
                         Repeater::make('addresses')
                             ->label('')
                             ->schema([
                                 TextInput::make('key')
-                                    ->label('ID')
+                                    ->label(__('made-cms::cms.resources.settings.information.fields.key.label'))
                                     ->live(onBlur: true)
                                     ->required(),
 
                                 TextInput::make('address')
-                                    ->label('Adres')
+                                    ->label(__('made-cms::cms.resources.settings.information.fields.address.label'))
                                     ->required(),
 
                                 TextInput::make('zipcode')
-                                    ->label('Postcode')
+                                    ->label(__('made-cms::cms.resources.settings.information.fields.zipcode.label'))
                                     ->required(),
 
                                 TextInput::make('city')
-                                    ->label('Stad')
+                                    ->label(__('made-cms::cms.resources.settings.information.fields.city.label'))
                                     ->required(),
 
                                 TextInput::make('country')
-                                    ->label('Land'),
+                                    ->label(__('made-cms::cms.resources.settings.information.fields.country.label')),
                             ])
-                            ->addActionLabel('Nieuw adres toevoegen')
+                            ->addActionLabel(__('made-cms::cms.resources.settings.information.fields.addresses.actionLabel'))
                             ->minItems(1)
                             ->itemLabel(fn (array $state): ?string => $state['key'] ?? null)
                             ->collapsed(), 
                     ]),
 
-                Section::make('Contactgegevens')
-                    ->description('Contactgegevens van de organisatie / het bedrijf van de website.')
+                Section::make(__('made-cms::cms.resources.settings.information.sections.contact.title'))
+                    ->description(__('made-cms::cms.resources.settings.information.sections.contact.description'))
                     ->aside()
                     ->schema([
                         Repeater::make('contacts')
                             ->label('')
                             ->schema([
                                 TextInput::make('key')
-                                    ->label('ID')
+                                    ->label(__('made-cms::cms.resources.settings.information.fields.key.label'))
                                     ->live(onBlur: true)
                                     ->required(),
 
                                 TextInput::make('email')
-                                    ->label('E-mailadres')
+                                    ->label(__('made-cms::cms.resources.settings.information.fields.email.label'))
                                     ->required(),
 
                                 TextInput::make('phoneNumber')
-                                    ->label('Telefoonnummer')
+                                    ->label(__('made-cms::cms.resources.settings.information.fields.phoneNumber.label'))
                                     ->required(),
 
                                 TextInput::make('phone')
-                                    ->label('Telefoonnummer presentatie'),
+                                    ->label(__('made-cms::cms.resources.settings.information.fields.phone.label')),
 
                                 TextInput::make('contactPerson')
-                                    ->label('Contactpersoon'),
+                                    ->label(__('made-cms::cms.resources.settings.information.fields.contactPerson.label')),
 
                                 TextInput::make('label')
-                                    ->label('Naam / omschrijving'),
+                                    ->label(__('made-cms::cms.resources.settings.information.fields.label.label')),
                             ])
-                            ->addActionLabel('Nieuw contact toevoegen')
+                            ->addActionLabel(__('made-cms::cms.resources.settings.information.fields.contacts.actionLabel'))
                             ->minItems(1)
                             ->itemLabel(fn (array $state): ?string => $state['key'] ?? null)
                             ->collapsed(),
 
                     ]),
 
-                Section::make('Accounts')
-                    ->description('Algemene gegevens zoals bankrekening nummers, social media accounts enz. welke je op de website wilt tonen.')
+                Section::make(__('made-cms::cms.resources.settings.information.sections.account.title'))
+                    ->description(__('made-cms::cms.resources.settings.information.sections.account.description'))
                     ->aside()
                     ->schema([
                         Repeater::make('accounts')
                             ->label('')
                             ->schema([
                                 TextInput::make('key')
-                                    ->label('ID')
+                                    ->label(__('made-cms::cms.resources.settings.information.fields.key.label'))
                                     ->live(onBlur: true)
                                     ->required(),
 
                                 TextInput::make('label')
-                                    ->label('Naam')
+                                    ->label(__('made-cms::cms.resources.settings.information.fields.label.label'))
                                     ->live(onBlur: true)
                                     ->required(),
 
                                 TextInput::make('account')
-                                    ->label('Nummer / account naam')
+                                    ->label(__('made-cms::cms.resources.settings.information.fields.account.label'))
                                     ->required(),
 
                                 TextInput::make('url')
-                                    ->label('(evt). Link naar het account'),
+                                    ->label(__('made-cms::cms.resources.settings.information.fields.url.label')),
                             ])
-                            ->addActionLabel('Nieuw account toevoegen')
+                            ->addActionLabel(__('made-cms::cms.resources.settings.information.fields.accounts.actionLabel'))
                             ->itemLabel(fn (array $state): ?string => $state['label'] ?? null)
                             ->collapsed(),
                     ]),
