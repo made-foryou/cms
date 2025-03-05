@@ -140,7 +140,7 @@ class PageResource extends Resource
                                     ->schema([
                                         Actions::make([
                                             InlinePreviewAction::make()
-                                                ->label('Preview Content Blocks')
+                                                ->label(__('made-cms::cms.resources.page.actions.preview_builder.label'))
                                                 ->builderName('content'),
                                         ])
                                             ->columnSpanFull()

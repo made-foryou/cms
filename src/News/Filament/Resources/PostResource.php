@@ -165,7 +165,7 @@ class PostResource extends Resource
 
                                         Actions::make([
                                             InlinePreviewAction::make()
-                                                ->label('Preview content blocks')
+                                                ->label(__('made-cms::cms.resources.post.actions.preview_builder.label'))
                                                 ->builderName('content'),
                                         ])
                                             ->columnSpanFull()

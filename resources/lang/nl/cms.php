@@ -253,6 +253,7 @@ return [
         'website' => 'Website',
         'security' => 'Beveiliging',
         'analytics' => 'Analytics',
+        'information' => 'Gegevens',
     ],
 
     'common' => [
@@ -445,6 +446,9 @@ return [
                         'title' => 'De vertaling is aangemaakt van pagina :name en staat klaar om verder vertaald te worden.',
                     ],
                 ],
+                'preview_builder' => [
+                    'label' => 'Bekijk voorbeeld van inhoudsblokken',
+                ],
             ],
         ],
 
@@ -567,6 +571,81 @@ return [
                     ],
                 ],
             ],
+
+            'information' => [
+                'label' => 'Bedrijfsgegevens',
+                'title' => 'Algemene gegevens',
+
+                'sections' => [
+                    'company' => [
+                        'title' => 'Bedrijf / organisatie',
+                        'description' => 'Gegevens van het bedrijf / de organisatie achter de website.',
+                    ],
+                    'address' => [
+                        'title' => 'Adressen',
+                        'description' => 'Adresgegevens van de organisatie / het bedrijf van de website.',
+                    ],
+                    'contact' => [
+                        'title' => 'Contactgegevens',
+                        'description' => 'Contactgegevens van de organisatie / het bedrijf van de website.',
+                    ],
+                    'account' => [
+                        'title' => 'Accounts',
+                        'description' => 'Algemene gegevens zoals bankrekening nummers, social media accounts enz. welke je op de website wilt tonen.',
+                    ],
+                ],
+
+                'fields' => [
+                    'company' => [
+                        'label' => 'Bedrijf / organisatie naam',
+                    ],
+                    'addresses' => [
+                        'actionLabel' => 'Nieuw adres toevoegen',
+                    ],
+                    'contacts' => [
+                        'actionLabel' => 'Nieuw contact toevoegen',
+                    ],
+                    'accounts' => [
+                        'actionLabel' => 'Nieuw account toevoegen',
+                    ],
+                    'key' => [
+                        'label' => 'ID',
+                    ],
+                    'address' => [
+                        'label' => 'Adres',
+                    ],
+                    'zipcode' => [
+                        'label' => 'Postcode',
+                    ],
+                    'city' => [
+                        'label' => 'Stad',
+                    ],
+                    'country' => [
+                        'label' => 'Land',
+                    ],
+                    'email' => [
+                        'label' => 'E-mailadres',
+                    ],
+                    'phoneNumber' => [
+                        'label' => 'Telefoonnummer',
+                    ],
+                    'phone' => [
+                        'label' => 'Telefoonnummer leesbaar',
+                    ],
+                    'contactPerson' => [
+                        'label' => 'Contactpersoon',
+                    ],
+                    'label' => [
+                        'label' => 'Naam / omschrijving',
+                    ],
+                    'account' => [
+                        'label' => 'Nummer / account naam',
+                    ],
+                    'url' => [
+                        'label' => 'Link naar het account',
+                    ],
+                ],
+            ],
         ],
 
         'meta' => [
@@ -649,6 +728,11 @@ return [
                         'label' => 'Canonical links',
                         'helperText' => 'Standaard wordt de canonieke link automatisch gegenereerd op basis van de huidige URL. Als je iets extra\'s wilt toevoegen, kun je hier meerdere canonieke links toevoegen.',
                     ],
+                ],
+            ],
+            'actions' => [
+                'preview_builder' => [
+                    'label' => 'Bekijk voorbeeld van inhoudsblokken',
                 ],
             ],
         ],

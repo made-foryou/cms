@@ -257,6 +257,7 @@ return [
         'website' => 'Website',
         'security' => 'Security',
         'analytics' => 'Analytics',
+        'information' => 'Information',
     ],
 
     'common' => [
@@ -448,6 +449,9 @@ return [
                         'title' => 'The translation has been created from page :name and is ready for further translation.',
                     ],
                 ],
+                'preview_builder' => [
+                    'label' => 'Preview content blocks',
+                ],
             ],
         ],
 
@@ -569,6 +573,81 @@ return [
                     ],
                 ],
             ],
+
+            'information' => [
+                'label' => 'Company data',
+                'title' => 'General data',
+
+                'sections' => [
+                    'company' => [
+                        'title' => 'Company / organisation',
+                        'description' => 'Details of the company/organization behind the website.',
+                    ],
+                    'address' => [
+                        'title' => 'Addresses',
+                        'description' => 'Address details of the website\'s organization/company.',
+                    ],
+                    'contact' => [
+                        'title' => 'Contact detail',
+                        'description' => 'Contact details of the website\'s organization/company.',
+                    ],
+                    'account' => [
+                        'title' => 'Accounts',
+                        'description' => 'General information such as bank account numbers, social media accounts, etc. that you want to display on the website.',
+                    ],
+                ],
+
+                'fields' => [
+                    'company' => [
+                        'label' => 'Company/organization name',
+                    ],
+                    'addresses' => [
+                        'actionLabel' => 'Add new address',
+                    ],
+                    'contacts' => [
+                        'actionLabel' => 'Add new contact',
+                    ],
+                    'accounts' => [
+                        'actionLabel' => 'Add new account',
+                    ],
+                    'key' => [
+                        'label' => 'ID',
+                    ],
+                    'address' => [
+                        'label' => 'Address',
+                    ],
+                    'zipcode' => [
+                        'label' => 'Zipcode',
+                    ],
+                    'city' => [
+                        'label' => 'City',
+                    ],
+                    'country' => [
+                        'label' => 'Country',
+                    ],
+                    'email' => [
+                        'label' => 'Email',
+                    ],
+                    'phoneNumber' => [
+                        'label' => 'Phone number',
+                    ],
+                    'phone' => [
+                        'label' => 'Phone number readable',
+                    ],
+                    'contactPerson' => [
+                        'label' => 'Contact',
+                    ],
+                    'label' => [
+                        'label' => 'Name / Description',
+                    ],
+                    'account' => [
+                        'label' => 'Number / Account',
+                    ],
+                    'url' => [
+                        'label' => 'Link to the account',
+                    ],
+                ],
+            ],
         ],
 
         'meta' => [
@@ -655,6 +734,11 @@ return [
                         'label' => 'Canonical links',
                         'helperText' => 'By default, the canonical link is automatically generated based on the current URL. If you want to add some extra, you can add multiple canonical links here.',
                     ],
+                ],
+            ],
+            'actions' => [
+                'preview_builder' => [
+                    'label' => 'Preview content blocks',
                 ],
             ],
         ],
