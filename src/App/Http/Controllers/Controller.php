@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Made\Cms\App\Http\Controllers;
 
+use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
@@ -96,6 +97,10 @@ class Controller extends BaseController
         $controller = app()->make($class);
 
         $response = $controller($request, $route->routeable);
+
+        if ($response instanceof Responsable) {
+            $response = $response->toResponse($request);
+        }
 
         $this->saveResponseWithVisit($request, $route, $response);
 
