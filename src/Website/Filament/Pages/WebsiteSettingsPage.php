@@ -35,8 +35,10 @@ class WebsiteSettingsPage extends SettingsPage
      */
     public function form(Form $form): Form
     {
+        $settings = $this->getConfigSettings();
+
         return $form
-            ->schema([
+            ->schema(array_merge([
                 Section::make(__('made-cms::cms.resources.settings.website.sections.general.title'))
                     ->description(__('made-cms::cms.resources.settings.website.sections.general.description'))
                     ->aside()
@@ -103,7 +105,8 @@ class WebsiteSettingsPage extends SettingsPage
                             ->itemlabel(fn ($state) => $state['name']),
                     ])
                     ->columnSpan(4),
-            ])
+
+        ], ...$settings))
             ->columns(5);
     }
 
@@ -130,5 +133,26 @@ class WebsiteSettingsPage extends SettingsPage
     public function getTitle(): string | Htmlable
     {
         return __('made-cms::cms.resources.settings.website.title');
+    }
+
+    protected function getConfigSettings(): array
+    {
+        $objects = config('made-cms.settings.website');
+
+        if (empty($objects)) {
+            return [];
+        }
+
+        $blocks = [];
+
+        foreach ($objects as $object) {
+            if (is_string($object)) {
+                $blocks[] = (new $object)();
+            } elseif (is_array($object)) {
+                $blocks = array_merge($blocks, $object);
+            }
+        }
+
+        return $blocks;
     }
 }
