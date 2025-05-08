@@ -133,18 +133,18 @@ return [
     ],
 
     'settings' => [
-        
+
         /**
          * ### Website Settings
          * ____
-         * Custom settings for the website. These settings will be added to the Website settings 
-         * page in the CMS panel. Every item can be an invokable class which returns an array of 
+         * Custom settings for the website. These settings will be added to the Website settings
+         * page in the CMS panel. Every item can be an invokable class which returns an array of
          * fields or an array of fields.
          *
          * @var array<int, class-string|array<int, Field>>
          */
         'website' => [],
 
-    ]
+    ],
 
 ];

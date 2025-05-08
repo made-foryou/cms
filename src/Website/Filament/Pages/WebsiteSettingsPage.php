@@ -106,7 +106,7 @@ class WebsiteSettingsPage extends SettingsPage
                     ])
                     ->columnSpan(4),
 
-        ], ...$settings))
+            ], ...$settings))
             ->columns(5);
     }
 
