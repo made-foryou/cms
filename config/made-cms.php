@@ -134,6 +134,8 @@ return [
 
     'settings' => [
 
+        'website_model' => \Made\Cms\Website\Models\Settings\WebsiteSetting::class,
+
         /**
          * ### Website Settings
          * ____

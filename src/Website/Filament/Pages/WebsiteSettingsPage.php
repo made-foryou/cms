@@ -17,12 +17,6 @@ use Made\Cms\Website\Models\Settings\WebsiteSetting;
 class WebsiteSettingsPage extends SettingsPage
 {
     /**
-     * The settings model for saving and retrieving the data from
-     * the database.
-     */
-    protected static string $settings = WebsiteSetting::class;
-
-    /**
      * The sort order for showing the navigation items.
      */
     protected static ?int $navigationSort = 10;
@@ -128,6 +122,11 @@ class WebsiteSettingsPage extends SettingsPage
     public static function getNavigationGroup(): string
     {
         return __('made-cms::cms.navigation_groups.website');
+    }
+
+    public static function getSettings(): string
+    {
+        return config('made-cms.settings.website_model') ?? WebsiteSetting::class;
     }
 
     public function getTitle(): string | Htmlable
