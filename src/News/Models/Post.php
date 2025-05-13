@@ -199,7 +199,7 @@ class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta,
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function linkName(): string
     {
@@ -207,7 +207,7 @@ class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta,
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function linkKey(): string
     {
@@ -215,17 +215,17 @@ class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta,
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function linkGroupName(): string
     {
         return __('made-cms::cms.resources.post.label');
     }
 
-    /** 
-     * @inheritDoc
+    /**
+     * {@inheritDoc}
      */
-    public function scopeForLinkSelection(PostQueryBuilder|Builder $query): PostQueryBuilder
+    public function scopeForLinkSelection(PostQueryBuilder | Builder $query): PostQueryBuilder
     {
         return $query->published();
     }

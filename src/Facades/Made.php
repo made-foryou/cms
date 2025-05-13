@@ -14,6 +14,7 @@ use Made\Cms\Made as CmsMade;
 class Made extends Facade
 {
     public const LINK_TYPE_PAGES = CmsMade::LINK_TYPE_PAGES;
+    
     public const LINK_TYPE_POSTS = CmsMade::LINK_TYPE_POSTS;
 
     protected static function getFacadeAccessor(): string

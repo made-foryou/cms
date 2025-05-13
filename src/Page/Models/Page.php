@@ -232,7 +232,7 @@ class Page extends Model implements DefinesCreatedByContract, HasMeta, Routeable
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function linkName(): string
     {
@@ -240,7 +240,7 @@ class Page extends Model implements DefinesCreatedByContract, HasMeta, Routeable
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function linkKey(): string
     {
@@ -248,7 +248,7 @@ class Page extends Model implements DefinesCreatedByContract, HasMeta, Routeable
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function linkGroupName(): string
     {
@@ -256,9 +256,9 @@ class Page extends Model implements DefinesCreatedByContract, HasMeta, Routeable
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function scopeForLinkSelection(PageQueryBuilder|Builder $query): PageQueryBuilder
+    public function scopeForLinkSelection(PageQueryBuilder | Builder $query): PageQueryBuilder
     {
         return $query
             ->select(['id', 'name'])

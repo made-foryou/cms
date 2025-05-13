@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
  * @extends Model
- * 
+ *
  * @method static Builder query()
  * @method mixed getKey()
  */
@@ -35,10 +35,10 @@ interface RouteableContract
      * Returns the link name which can be presented within the link selection,
      */
     public function linkName(): string;
-    
+
     /**
      * Returns a key which will be added in front of the link selection option.
-     * 
+     *
      * Example: page => page:1, post => post:1 etc.
      */
     public function linkKey(): string;
