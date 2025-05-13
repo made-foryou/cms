@@ -41,7 +41,7 @@ class CmsTest extends TestCase
         $page->refresh();
 
         $websiteSetting = new WebsiteSetting;
-        $websiteSetting->landing_page = 'page:'.$page->id;
+        $websiteSetting->landing_page = 'page:' . $page->id;
         $websiteSetting->save();
 
         $this->assertSame(url('/'), Cms::url($page));
