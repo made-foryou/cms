@@ -2,7 +2,6 @@
 
 namespace Made\Cms\Website\Models\Settings;
 
-use Made\Cms\Facades\Made;
 use Made\Cms\Page\Models\Page;
 use Made\Cms\Shared\Models\UsesMadeLinkSelection;
 use Spatie\LaravelSettings\Settings;

@@ -151,8 +151,8 @@ return [
          * ____
          * This is the model which will be used for the website settings. This model will be used
          * to store the settings for the website part of the CMS.
-         * 
-         * When creating a custom model for adding custom settings, make sure to extend the 
+         *
+         * When creating a custom model for adding custom settings, make sure to extend the
          * WebsiteSetting model from the Made CMS package.
          *
          * @var class-string<\Illuminate\Database\Eloquent\Model>
@@ -175,8 +175,8 @@ return [
          * ____
          * This is the model which will be used for the news settings. This model will be used
          * to store the settings for the news part of the CMS.
-         * 
-         * When creating a custom model for adding custom settings, make sure to extend the 
+         *
+         * When creating a custom model for adding custom settings, make sure to extend the
          * NewsSettings model from the Made CMS package.
          *
          * @var class-string<\Illuminate\Database\Eloquent\Model>

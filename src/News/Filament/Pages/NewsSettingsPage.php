@@ -24,7 +24,7 @@ class NewsSettingsPage extends SettingsPage
     {
         return $form
             ->schema(array_merge([
-                
+
                 Components\Section::make(
                     __('made-cms::cms.resources.settings.news.sections.general.title')
                 )
@@ -39,13 +39,12 @@ class NewsSettingsPage extends SettingsPage
                             ->label(__('made-cms::cms.resources.settings.news.fields.news_page.label'))
                             ->helperText(__('made-cms::cms.resources.settings.news.fields.news_page.helperText'))
                             ->options(Made::madeLinkOptions([Made::LINK_TYPE_PAGES])),
-                                
+
                     ]),
 
             ], ...$this->configFields()))
             ->columns(5);
     }
-
 
     /**
      * Retrieves the navigation label for the website settings.
@@ -72,7 +71,7 @@ class NewsSettingsPage extends SettingsPage
         return config('made-cms.settings.news_model') ?? NewsSettings::class;
     }
 
-    public function getTitle(): string|Htmlable
+    public function getTitle(): string | Htmlable
     {
         return __('made-cms::cms.resources.settings.news.title');
     }
