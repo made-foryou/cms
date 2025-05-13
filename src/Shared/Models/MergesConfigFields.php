@@ -20,7 +20,7 @@ trait MergesConfigFields
         $fields = [];
 
         foreach ($config as $object) {
-             if (is_string($object)) {
+            if (is_string($object)) {
                 $fields[] = (new $object)();
             } elseif (is_array($object)) {
                 $fields = array_merge($fields, $object);
