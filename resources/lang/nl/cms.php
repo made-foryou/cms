@@ -658,6 +658,25 @@ return [
                     ],
                 ],
             ],
+
+            'news' => [
+                'title' => 'Nieuws instellingen',
+                'label' => 'Nieuws instellingen',
+
+                'sections' => [
+                    'general' => [
+                        'title' => 'Nieuws',
+                        'description' => 'Instellingen met betrekking tot het nieuws gedeelte op de website.',
+                    ],
+                ],
+
+                'fields' => [
+                    'news_page' => [
+                        'label' => 'De nieuws pagina',
+                        'helperText' => 'Selecteer hier de pagina welke het nieuws overzicht van de website bevat.',
+                    ],
+                ],
+            ],
         ],
 
         'meta' => [

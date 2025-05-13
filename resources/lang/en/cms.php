@@ -660,6 +660,25 @@ return [
                     ],
                 ],
             ],
+
+            'news' => [
+                'title' => 'News settings',
+                'label' => 'News settings',
+
+                'sections' => [
+                    'news' => [
+                        'title' => 'News',
+                        'description' => 'Settings related to the news section on the website.',
+                    ],
+                ],
+
+                'fields' => [
+                    'news_page' => [
+                        'label' => 'The news page',
+                        'helperText' => 'Select here the page that contains the news overview of the website.',
+                    ],
+                ],
+            ],
         ],
 
         'meta' => [

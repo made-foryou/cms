@@ -4,10 +4,13 @@ namespace Made\Cms\Website\Models\Settings;
 
 use Made\Cms\Facades\Made;
 use Made\Cms\Page\Models\Page;
+use Made\Cms\Shared\Models\UsesMadeLinkSelection;
 use Spatie\LaravelSettings\Settings;
 
 class WebsiteSetting extends Settings
 {
+    use UsesMadeLinkSelection;
+
     /**
      * Whether the website is accessible or not.
      */
@@ -66,24 +69,6 @@ class WebsiteSetting extends Settings
     public function getNotFoundPage(): ?Page
     {
         return $this->getPage('not_found_page');
-    }
-
-    /**
-     * Retrieves the selected Page from the given key.
-     */
-    public function getPage(string $key): ?Page
-    {
-        if (! isset($this->{$key})) {
-            return null;
-        }
-
-        $value = $this->{$key};
-
-        if (empty($value)) {
-            return null;
-        }
-
-        return Made::modelFromSelection($value);
     }
 
     /**
