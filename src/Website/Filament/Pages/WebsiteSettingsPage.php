@@ -91,6 +91,28 @@ class WebsiteSettingsPage extends SettingsPage
                     ])
                     ->columnSpan(4),
 
+
+
+                Section::make(__('made-cms::cms.resources.settings.website.sections.statements.title'))
+                    ->description(__('made-cms::cms.resources.settings.website.sections.statements.description'))
+                    ->aside()
+                    ->schema([
+                        Select::make('privacy_policy_page')
+                            ->label(__('made-cms::cms.resources.settings.website.fields.privacy_policy_page.label'))
+                            ->helperText(__('made-cms::cms.resources.settings.website.fields.privacy_policy_page.helperText'))
+                            ->options(
+                                Made::madeLinkOptions([Made::LINK_TYPE_PAGES])
+                            ),
+
+                        Select::make('cookie_statement_page')
+                            ->label(__('made-cms::cms.resources.settings.website.fields.cookie_statement_page.label'))
+                            ->helperText(__('made-cms::cms.resources.settings.website.fields.cookie_statement_page.helperText'))
+                            ->options(
+                                Made::madeLinkOptions([Made::LINK_TYPE_PAGES])
+                            ),
+                    ])
+                    ->columnSpan(4),
+
             ], ...$settings))
             ->columns(5);
     }

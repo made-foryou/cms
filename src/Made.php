@@ -12,8 +12,8 @@ class Made
 {
     public const string VERSION = '0.14.3';
 
-    public const LINK_TYPE_PAGES = 'pages';
-    public const LINK_TYPE_POSTS = 'posts';
+    public const LINK_TYPE_PAGES = 'page';
+    public const LINK_TYPE_POSTS = 'post';
 
     public function madeLinkOptions(?array $selected = null): array
     {
@@ -44,6 +44,31 @@ class Made
 
         return $options;
     }
+    
+    /**
+     * Get the model from the selection string.
+     *
+     * @param string $selection The selection string in the format "type:id".
+     * @return RouteableContract|null The model instance or null if not found.
+     */
+    public function modelFromSelection(string $selection): ?RouteableContract
+    {
+        $parts = explode(':', $selection);
+
+        if (count($parts) !== 2) {
+            return null;
+        }
+
+        [$type, $id] = $parts;
+
+        $types = $this->getLinkTypes();
+
+        if (!array_key_exists($type, $types)) {
+            return null;
+        }
+
+        return $types[$type]::findOrFail($id);
+    }
 
     /**
      * @return array<string, class-string<RouteableContract>>
@@ -53,8 +78,8 @@ class Made
         $customTypes = config('made-cms.panel.custom_link_types', []);
 
         return [
-            'pages' => Page::class,
-            'posts' => Post::class,
+            self::LINK_TYPE_PAGES => Page::class,
+            self::LINK_TYPE_POSTS => Post::class,
 
             ...$customTypes,
         ];

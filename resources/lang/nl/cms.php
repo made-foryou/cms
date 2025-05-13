@@ -532,6 +532,14 @@ return [
                         'label' => 'Selecteer een niet gevonden pagina',
                         'helperText' => 'Selecteer een pagina welke wordt getoond zodra er niks kan worden gevonden om te tonen.',
                     ],
+                    'privacy_policy_page' => [
+                        'label' => 'Selecteer een privacy verklarings pagina',
+                        'helperText' => 'Selecteer hier de pagina welke de privacy verklaring van de website bevat.',
+                    ],
+                    'cookie_statement_page' => [
+                        'label' => 'Selecteer een cookieverklaring pagina',
+                        'helperText' => 'Selecteer hier de pagina welke de cookie verklaringen van de website bevat.',
+                    ],
                 ],
 
                 'sections' => [
@@ -546,6 +554,10 @@ return [
                     'menulocations' => [
                         'title' => 'Menu locaties',
                         'description' => 'Beheer hier de menu locaties welke worden gebruikt om navigatie menu\'s te vullen en op bepaalde plekken in de website te tonen.',
+                    ],
+                    'statements' => [
+                        'title' => 'Verklaringen',
+                        'description' => "Hier kun je alle instellingen vinden wat betreft de verklaringen van gegevens en veiligheid rondom de website.",
                     ],
                 ],
             ],
