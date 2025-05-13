@@ -139,7 +139,7 @@ class Cms
 
         $landingPage = $this->websiteSetting->getLandingPage();
 
-        if (! is_null($landingPage) && $landingPage->route->id === $route->id) {
+        if (! empty($landingPage) && $landingPage->route->id === $route->id) {
             return url('/', $parameters, $secure);
         }
 

@@ -12,10 +12,13 @@ use Filament\Forms\Form;
 use Filament\Pages\SettingsPage;
 use Illuminate\Contracts\Support\Htmlable;
 use Made\Cms\Facades\Made;
+use Made\Cms\Shared\Models\MergesConfigFields;
 use Made\Cms\Website\Models\Settings\WebsiteSetting;
 
 class WebsiteSettingsPage extends SettingsPage
 {
+    use MergesConfigFields;
+
     /**
      * The sort order for showing the navigation items.
      */
@@ -29,8 +32,6 @@ class WebsiteSettingsPage extends SettingsPage
      */
     public function form(Form $form): Form
     {
-        $settings = $this->getConfigSettings();
-
         return $form
             ->schema(array_merge([
                 Section::make(__('made-cms::cms.resources.settings.website.sections.general.title'))
@@ -110,7 +111,7 @@ class WebsiteSettingsPage extends SettingsPage
                     ])
                     ->columnSpan(4),
 
-            ], ...$settings))
+            ], ...$this->configFields()))
             ->columns(5);
     }
 
@@ -142,26 +143,5 @@ class WebsiteSettingsPage extends SettingsPage
     public function getTitle(): string | Htmlable
     {
         return __('made-cms::cms.resources.settings.website.title');
-    }
-
-    protected function getConfigSettings(): array
-    {
-        $objects = config('made-cms.settings.website');
-
-        if (empty($objects)) {
-            return [];
-        }
-
-        $blocks = [];
-
-        foreach ($objects as $object) {
-            if (is_string($object)) {
-                $blocks[] = (new $object)();
-            } elseif (is_array($object)) {
-                $blocks = array_merge($blocks, $object);
-            }
-        }
-
-        return $blocks;
     }
 }

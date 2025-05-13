@@ -146,6 +146,17 @@ return [
 
     'settings' => [
 
+        /**
+         * ### Website Model
+         * ____
+         * This is the model which will be used for the website settings. This model will be used
+         * to store the settings for the website part of the CMS.
+         *
+         * When creating a custom model for adding custom settings, make sure to extend the
+         * WebsiteSetting model from the Made CMS package.
+         *
+         * @var class-string<\Illuminate\Database\Eloquent\Model>
+         */
         'website_model' => \Made\Cms\Website\Models\Settings\WebsiteSetting::class,
 
         /**
@@ -157,7 +168,31 @@ return [
          *
          * @var array<int, class-string|array<int, Field>>
          */
-        'website' => [],
+        'web' => [],
+
+        /**
+         * ### News Model
+         * ____
+         * This is the model which will be used for the news settings. This model will be used
+         * to store the settings for the news part of the CMS.
+         *
+         * When creating a custom model for adding custom settings, make sure to extend the
+         * NewsSettings model from the Made CMS package.
+         *
+         * @var class-string<\Illuminate\Database\Eloquent\Model>
+         */
+        'news_model' => \Made\Cms\News\Models\Settings\NewsSettings::class,
+
+        /**
+         * ### News Settings
+         * ____
+         * Custom settings for the news part. These settings will be added to the News settings
+         * page in the CMS panel. Every item can be an invokable class which returns an array of
+         * fields or an array of fields.
+         *
+         * @var array<int, class-string|array<int, Field>>
+         */
+        'news' => [],
 
     ],
 
