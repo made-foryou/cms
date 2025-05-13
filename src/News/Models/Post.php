@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Made\Cms\News\Models;
 
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -195,6 +196,38 @@ class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta,
         $parts[] = $this->slug;
 
         return $parts;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function linkName(): string
+    {
+        return $this->getAttribute('name');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function linkKey(): string
+    {
+        return 'post';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function linkGroupName(): string
+    {
+        return __('made-cms::cms.resources.post.label');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function scopeForLinkSelection(PostQueryBuilder | Builder $query): PostQueryBuilder
+    {
+        return $query->published();
     }
 
     /**

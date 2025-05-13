@@ -55,6 +55,18 @@ return [
 
         'pages' => [],
 
+        /**
+         * ### Custom link types
+         * _____
+         *
+         * These custom link types make it possible to add link types to the url selection within
+         * the CMS. So when you add custom resources and models you can add them to the link
+         * selection this way.
+         *
+         * @var array<string, class-string<RouteableContract>>
+         */
+        'custom_link_types' => [],
+
     ],
 
     /**

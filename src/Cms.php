@@ -23,7 +23,7 @@ class Cms
 {
     use HasDatabaseTablePrefix;
 
-    public const string VERSION = '0.14.0';
+    public const string VERSION = '0.14.3';
 
     public const string ALL_ROUTES = 'all';
 

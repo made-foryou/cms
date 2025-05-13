@@ -2,6 +2,7 @@
 
 namespace Made\Cms\Website\Models\Settings;
 
+use Made\Cms\Facades\Made;
 use Made\Cms\Page\Models\Page;
 use Spatie\LaravelSettings\Settings;
 
@@ -15,7 +16,17 @@ class WebsiteSetting extends Settings
     /**
      * Selected page id which will be used as the landing page.
      */
-    public ?int $landing_page = null;
+    public ?string $landing_page = null;
+
+    /**
+     * Selected page id which shows the privacy policy content.
+     */
+    public ?string $privacy_policy_page = null;
+
+    /**
+     * Selected page id which shows the cookie policy page.
+     */
+    public ?string $cookie_statement_page = null;
 
     /**
      * The menu locations that are available.
@@ -25,7 +36,7 @@ class WebsiteSetting extends Settings
     /**
      * The selected page ID which respresents the 404 Not Found page.
      */
-    public ?int $not_found_page = null;
+    public ?string $not_found_page = null;
 
     /**
      * Check if the website is online.
@@ -63,6 +74,24 @@ class WebsiteSetting extends Settings
         }
 
         return Page::findOrFail($this->not_found_page);
+    }
+
+    /**
+     * Retrieves the selected Page from the given key.
+     */
+    public function getPage(string $key): ?Page
+    {
+        if (! isset($this->{$key})) {
+            return null;
+        }
+
+        $value = $this->{$key};
+
+        if (empty($value)) {
+            return null;
+        }
+
+        return Made::modelFromSelection($value);
     }
 
     /**

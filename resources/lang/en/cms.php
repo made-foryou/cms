@@ -535,6 +535,14 @@ return [
                         'label' => 'Select a not found page',
                         'helperText' => 'Select a page to be displayed as soon as nothing can be found to display.',
                     ],
+                    'privacy_policy_page' => [
+                        'label' => 'Select a privacy statement page',
+                        'helperText' => 'Select here the page containing the website\'s privacy statement.',
+                    ],
+                    'cookie_statement_page' => [
+                        'label' => 'Select a cookie statement page',
+                        'helperText' => 'Select here the page containing the cookie statements of the website.',
+                    ],
                 ],
 
                 'sections' => [
@@ -549,6 +557,10 @@ return [
                     'menulocations' => [
                         'title' => 'Menu locations',
                         'description' => 'Manage menu locations here which are used to populate navigation menus and display them in certain places in the website.',
+                    ],
+                    'statements' => [
+                        'title' => 'Statements',
+                        'description' => 'Here you can find all settings regarding data and security statements surrounding the website.',
                     ],
                 ],
             ],
