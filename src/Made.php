@@ -10,7 +10,7 @@ use Made\Cms\Shared\Contracts\RouteableContract;
 
 class Made
 {
-    public const string VERSION = '0.14.3';
+    public const string VERSION = '0.14.4';
 
     public const LINK_TYPE_PAGES = 'page';
 
