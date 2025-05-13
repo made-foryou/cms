@@ -11,6 +11,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Pages\SettingsPage;
 use Illuminate\Contracts\Support\Htmlable;
+use Made\Cms\Facades\Made;
 use Made\Cms\Page\Models\Page;
 use Made\Cms\Website\Models\Settings\WebsiteSetting;
 
@@ -46,24 +47,14 @@ class WebsiteSettingsPage extends SettingsPage
                             ->label(__('made-cms::cms.resources.settings.website.fields.landing_page.label'))
                             ->helperText(__('made-cms::cms.resources.settings.website.fields.landing_page.helperText'))
                             ->options(
-                                fn () => Page::query()
-                                    ->published()
-                                    ->select(['id', 'name'])
-                                    ->get()
-                                    ->mapWithKeys(fn (Page $page) => [$page->id => $page->name])
-                                    ->toArray()
+                                Made::madeLinkOptions([Made::LINK_TYPE_PAGES])
                             ),
 
                         Select::make('not_found_page')
                             ->label(__('made-cms::cms.resources.settings.website.fields.not_found_page.label'))
                             ->helperText(__('made-cms::cms.resources.settings.website.fields.not_found_page.helperText'))
                             ->options(
-                                fn () => Page::query()
-                                    ->published()
-                                    ->select(['id', 'name'])
-                                    ->get()
-                                    ->mapWithKeys(fn (Page $page) => [$page->id => $page->name])
-                                    ->toArray()
+                                Made::madeLinkOptions([Made::LINK_TYPE_PAGES])
                             ),
 
                     ])

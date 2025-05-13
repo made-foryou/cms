@@ -75,7 +75,8 @@
                 "Made\\Cms\\Providers\\CmsPanelServiceProvider"
             ],
             "aliases": {
-                "Cms": "Made\\Cms\\Facades\\Cms"
+                "Cms": "Made\\Cms\\Facades\\Cms",
+                "Made": "Made\\Cms\\Facades\\Made"
             }
         }
     },

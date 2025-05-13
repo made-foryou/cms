@@ -18,6 +18,11 @@ class WebsiteSetting extends Settings
     public ?int $landing_page = null;
 
     /**
+     * Selected page id which shows the privacy policy content.
+     */
+    public ?int $privacy_policy_page = null;
+
+    /**
      * The menu locations that are available.
      */
     public array $menu_locations = ['default'];
