@@ -560,7 +560,7 @@ return [
                     ],
                     'statements' => [
                         'title' => 'Statements',
-                        'description' => "Here you can find all settings regarding data and security statements surrounding the website.",
+                        'description' => 'Here you can find all settings regarding data and security statements surrounding the website.',
                     ],
                 ],
             ],

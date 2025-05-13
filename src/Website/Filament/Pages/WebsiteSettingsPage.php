@@ -90,8 +90,6 @@ class WebsiteSettingsPage extends SettingsPage
                     ])
                     ->columnSpan(4),
 
-
-
                 Section::make(__('made-cms::cms.resources.settings.website.sections.statements.title'))
                     ->description(__('made-cms::cms.resources.settings.website.sections.statements.description'))
                     ->aside()

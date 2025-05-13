@@ -557,7 +557,7 @@ return [
                     ],
                     'statements' => [
                         'title' => 'Verklaringen',
-                        'description' => "Hier kun je alle instellingen vinden wat betreft de verklaringen van gegevens en veiligheid rondom de website.",
+                        'description' => 'Hier kun je alle instellingen vinden wat betreft de verklaringen van gegevens en veiligheid rondom de website.',
                     ],
                 ],
             ],

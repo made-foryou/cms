@@ -45,11 +45,11 @@ class Made
 
         return $options;
     }
-    
+
     /**
      * Get the model from the selection string.
      *
-     * @param string $selection The selection string in the format "type:id".
+     * @param  string  $selection  The selection string in the format "type:id".
      * @return RouteableContract|null The model instance or null if not found.
      */
     public function modelFromSelection(string $selection): ?RouteableContract
@@ -64,7 +64,7 @@ class Made
 
         $types = $this->getLinkTypes();
 
-        if (!array_key_exists($type, $types)) {
+        if (! array_key_exists($type, $types)) {
             return null;
         }
 

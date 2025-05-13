@@ -78,12 +78,10 @@ class WebsiteSetting extends Settings
 
     /**
      * Retrieves the selected Page from the given key.
-     *
-     * @return Page|null 
      */
     public function getPage(string $key): ?Page
     {
-        if (!isset($this->{$key})) {
+        if (! isset($this->{$key})) {
             return null;
         }
 
