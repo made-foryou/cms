@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Facade;
 class Made extends Facade
 {
     public const LINK_TYPE_PAGES = 'pages';
+
     public const LINK_TYPE_POSTS = 'posts';
 
     protected static function getFacadeAccessor(): string

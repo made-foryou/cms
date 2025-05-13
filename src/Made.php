@@ -13,6 +13,7 @@ class Made
     public const string VERSION = '0.14.3';
 
     public const LINK_TYPE_PAGES = 'pages';
+
     public const LINK_TYPE_POSTS = 'posts';
 
     public function madeLinkOptions(?array $selected = null): array
@@ -20,7 +21,7 @@ class Made
         $types = $this->getLinkTypes();
         $options = [];
 
-        if (!empty($selected)) {
+        if (! empty($selected)) {
             $types = array_filter(
                 $types,
                 fn ($key) => in_array($key, $selected, true),
@@ -36,8 +37,8 @@ class Made
 
                 $options[$entries->first()->linkGroupName()] = $entries->mapWithKeys(
                     fn (RouteableContract $route) => [
-                        $route->linkKey().':'.$route->getKey() => $route->linkName()
-                    ], 
+                        $route->linkKey() . ':' . $route->getKey() => $route->linkName(),
+                    ],
                 )->toArray();
             }
         }
