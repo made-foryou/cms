@@ -55,11 +55,7 @@ class WebsiteSetting extends Settings
      */
     public function getLandingPage(): ?Page
     {
-        if ($this->landing_page === null) {
-            return null;
-        }
-
-        return Page::findOrFail($this->landing_page);
+        return $this->getPage('landing_page');
     }
 
     /**
@@ -69,11 +65,7 @@ class WebsiteSetting extends Settings
      */
     public function getNotFoundPage(): ?Page
     {
-        if ($this->not_found_page === null) {
-            return null;
-        }
-
-        return Page::findOrFail($this->not_found_page);
+        return $this->getPage('not_found_page');
     }
 
     /**
