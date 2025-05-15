@@ -24,7 +24,7 @@ class ReRouteTest extends TestCase
         $selected = $pages->random(2);
 
         NewsSettings::fake([
-            'news_page' => Made::LINK_TYPE_PAGES.":{$selected->first()->id}"
+            'news_page' => Made::LINK_TYPE_PAGES . ":{$selected->first()->id}",
         ], false);
 
         $posts = Post::factory()
@@ -41,7 +41,7 @@ class ReRouteTest extends TestCase
         });
 
         $settings = app()->make(NewsSettings::class);
-        $settings->news_page = Made::LINK_TYPE_PAGES.":{$selected->skip(1)->first()->id}";
+        $settings->news_page = Made::LINK_TYPE_PAGES . ":{$selected->skip(1)->first()->id}";
         $settings->save();
 
         $posts->each(function (Post $post) use ($selected) {
@@ -52,6 +52,6 @@ class ReRouteTest extends TestCase
                 '/' . implode('/', $post->urlSchema())
             );
         });
-        
+
     }
 }

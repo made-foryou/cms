@@ -8,7 +8,7 @@ use Made\Cms\News\Actions\ReRouteNewsPostsAction;
 use Made\Cms\News\Models\Settings\NewsSettings;
 use Spatie\LaravelSettings\Events\SettingsSaved;
 
-class ReRouteNewsPostsListener 
+class ReRouteNewsPostsListener
 {
     public function handle(SettingsSaved $event): void
     {
@@ -17,11 +17,10 @@ class ReRouteNewsPostsListener
         }
 
         /**
-         * @todo: Make a pull request for the spatie-settings package, in which you add the 
-         *        possibility to test the old value against the newly changed value after 
+         * @todo: Make a pull request for the spatie-settings package, in which you add the
+         *        possibility to test the old value against the newly changed value after
          *        saving.
          */
-
-        ReRouteNewsPostsAction::run();        
+        ReRouteNewsPostsAction::run();
     }
 }

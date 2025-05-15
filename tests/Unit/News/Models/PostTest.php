@@ -16,12 +16,12 @@ class PostTest extends TestCase
 
     #[Test]
     public function it_adds_the_news_page_to_the_route(): void
-    {   
+    {
         $page = Page::factory()
             ->create();
 
         NewsSettings::fake([
-            'news_page' => Made::LINK_TYPE_PAGES.":{$page->id}",
+            'news_page' => Made::LINK_TYPE_PAGES . ":{$page->id}",
         ]);
 
         $post = Post::factory()
