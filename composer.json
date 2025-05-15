@@ -76,7 +76,8 @@
             ],
             "aliases": {
                 "Cms": "Made\\Cms\\Facades\\Cms",
-                "Made": "Made\\Cms\\Facades\\Made"
+                "Made": "Made\\Cms\\Facades\\Made",
+                "MadeNews": "Made\\Cms\\News\\Facades\\MadeNews"
             }
         }
     },
