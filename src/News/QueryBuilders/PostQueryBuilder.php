@@ -10,4 +10,9 @@ use Made\Cms\Shared\QueryBuilders\HasPublishingStatusColumn;
 class PostQueryBuilder extends Builder
 {
     use HasPublishingStatusColumn;
+
+    public function overview(): self
+    {
+        return $this->orderBy('date', 'desc');
+    }
 }

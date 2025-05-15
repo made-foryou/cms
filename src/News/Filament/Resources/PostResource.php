@@ -7,6 +7,7 @@ namespace Made\Cms\News\Filament\Resources;
 use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Builder as ComponentsBuilder;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -27,7 +28,6 @@ use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Filament\Tables\Actions\RestoreBulkAction;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -105,6 +105,12 @@ class PostResource extends Resource
                                                                 Str::slug($get('name'))
                                                             ))
                                                     ),
+
+                                                DatePicker::make('date')
+                                                    ->label(__('made-cms::cms.resources.post.fields.date.label'))
+                                                    ->helperText(__('made-cms::cms.resources.post.fields.date.helperText'))
+                                                    ->required()
+                                                    ->default(now()),
 
                                                 SpatieMediaLibraryFileUpload::make('featured_image')
                                                     ->collection('featured_image')
@@ -260,12 +266,18 @@ class PostResource extends Resource
                     ->conversion('preview')
                     ->circular(),
 
+                TextColumn::make('date')
+                    ->label(__('made-cms::cms.resources.post.table.date'))
+                    ->sortable()
+                    ->date(),
+
                 TextColumn::make('name')
                     ->weight(FontWeight::Bold)
                     ->searchable()
                     ->sortable(),
 
-                ImageColumn::make('language.image')
+                SpatieMediaLibraryImageColumn::make('language.flag')
+                    ->collection('flag')
                     ->label(__('made-cms::cms.resources.page.table.locale'))
                     ->size(20)
                     ->circular(),
@@ -318,7 +330,8 @@ class PostResource extends Resource
                     ForceDeleteBulkAction::make(),
                 ]),
             ])
-            ->defaultPaginationPageOption(50);
+            ->defaultPaginationPageOption(50)
+            ->defaultSort('date', 'desc');
     }
 
     /**

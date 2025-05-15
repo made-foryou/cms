@@ -711,6 +711,9 @@ return [
         'post' => [
             'label' => 'Nieuwsberichten',
             'singular' => 'Nieuwsbericht',
+            'table' => [
+                'date' => 'Datum',
+            ],
             'tabs' => [
                 'post' => 'Nieuwsbericht',
                 'content' => 'Inhoud',
@@ -724,6 +727,10 @@ return [
                 'slug' => [
                     'label' => 'Slug',
                     'helperText' => 'Titel van het nieuwsbericht die kan worden gebruikt in de url. Deze waarde moet voldoen aan de url-standaarden en dit zijn kleine letters en geen spaties of speciale tekens.',
+                ],
+                'date' => [
+                    'label' => 'Datum van het bericht',
+                    'helperText' => 'Deze datum kan bij het bericht getoond worden als datum van het nieuwsbericht. De volgorde van het nieuws wordt ook aan de hand van deze datum bepaald.',
                 ],
                 'status' => [
                     'label' => 'Status',

@@ -16,6 +16,7 @@ use Illuminate\Support\Carbon;
 use Made\Cms\Database\Factories\PostFactory;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Models\User;
+use Made\Cms\News\Facades\MadeNews;
 use Made\Cms\News\QueryBuilders\PostQueryBuilder;
 use Made\Cms\Shared\Contracts\DefinesCreatedByContract;
 use Made\Cms\Shared\Contracts\HasMeta;
@@ -26,7 +27,6 @@ use Made\Cms\Shared\Models\Meta;
 use Made\Cms\Shared\Models\Route;
 use Made\Cms\Shared\Observers\CreatedByDefiningObserver;
 use Made\Cms\Shared\Observers\RouteableObserver;
-use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -37,6 +37,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property int|null $translated_from_id
  * @property string $name
  * @property string $slug
+ * @property Carbon $date
  * @property PublishingStatus $status
  * @property array $content
  * @property int $created_by
@@ -65,6 +66,7 @@ class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta,
         'translated_from_id' => 'integer',
         'name' => 'string',
         'slug' => 'string',
+        'date' => 'datetime',
         'status' => PublishingStatus::class,
         'content' => 'array',
         'created_by' => 'integer',
@@ -83,6 +85,7 @@ class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta,
         'translated_from_id',
         'name',
         'slug',
+        'date',
         'status',
         'content',
         'created_by',
@@ -189,6 +192,12 @@ class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta,
      */
     public function urlSchema(array &$parts = []): array
     {
+        $page = MadeNews::overviewPage();
+
+        if (! empty($page)) {
+            $parts = $page->urlSchema($parts);
+        }
+
         if ($this->parent !== null) {
             $parts = $this->parent->urlSchema($parts);
         }
@@ -259,8 +268,9 @@ class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta,
     public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('preview')
-            ->fit(Fit::Fill, 300, 300)
-            ->nonQueued();
+            ->width(300)
+            ->height(300)
+            ->sharpen(10);
     }
 
     /**

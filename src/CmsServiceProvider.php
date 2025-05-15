@@ -10,6 +10,7 @@ use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Livewire\Features\SupportTesting\Testable;
@@ -23,6 +24,7 @@ use Made\Cms\Models\Policies\RolePolicy;
 use Made\Cms\Models\Policies\UserPolicy;
 use Made\Cms\Models\Role;
 use Made\Cms\Models\User;
+use Made\Cms\News\Listeners\ReRouteNewsPostsListener;
 use Made\Cms\Page\Models\Page;
 use Made\Cms\Page\Models\Policies\PagePolicy;
 use Made\Cms\Shared\Models\Meta;
@@ -31,6 +33,7 @@ use Made\Cms\Testing\TestsCms;
 use ReflectionException;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Spatie\LaravelSettings\Events\SettingsSaved;
 
 class CmsServiceProvider extends PackageServiceProvider
 {
@@ -121,6 +124,12 @@ class CmsServiceProvider extends PackageServiceProvider
         Gate::policy(Page::class, PagePolicy::class);
         Gate::policy(Meta::class, MetaPolicy::class);
         Gate::policy(Language::class, LanguagePolicy::class);
+
+        // Listening to events
+        Event::listen(
+            SettingsSaved::class,
+            ReRouteNewsPostsListener::class,
+        );
 
         // Asset Registration
         FilamentAsset::register(

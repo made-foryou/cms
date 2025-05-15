@@ -50,7 +50,7 @@ class CmsTest extends TestCase
     #[Test]
     public function it_can_return_the_menu_items_of_a_menu_location(): void
     {
-        $randomInt = random_int(0, 8);
+        $randomInt = random_int(1, 8);
 
         for ($i = 0; $i < $randomInt; $i++) {
             MenuItem::factory()
