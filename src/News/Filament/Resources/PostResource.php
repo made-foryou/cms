@@ -164,7 +164,7 @@ class PostResource extends Resource
                         Tabs\Tab::make(__('made-cms::cms.resources.post.tabs.content'))
                             ->icon('heroicon-s-rectangle-group')
                             ->schema([
- 
+
                                 Section::make(__('made-cms::cms.resources.post.fields.content.label'))
                                     ->description(__('made-cms::cms.resources.post.fields.content.helperText'))
                                     ->icon('heroicon-s-rectangle-group')
