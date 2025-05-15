@@ -717,6 +717,9 @@ return [
         'post' => [
             'label' => 'Posts',
             'singular' => 'Post',
+            'table' => [
+                'date' => 'Date',
+            ],
             'tabs' => [
                 'post' => 'Post',
                 'content' => 'Content',

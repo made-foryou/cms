@@ -267,12 +267,18 @@ class PostResource extends Resource
                     ->conversion('preview')
                     ->circular(),
 
+                TextColumn::make('date')
+                    ->label(__('made-cms::cms.resources.post.table.date'))
+                    ->sortable()
+                    ->date(),
+
                 TextColumn::make('name')
                     ->weight(FontWeight::Bold)
                     ->searchable()
                     ->sortable(),
 
-                ImageColumn::make('language.image')
+                SpatieMediaLibraryImageColumn::make('language.flag')
+                    ->collection('flag')
                     ->label(__('made-cms::cms.resources.page.table.locale'))
                     ->size(20)
                     ->circular(),
@@ -325,7 +331,8 @@ class PostResource extends Resource
                     ForceDeleteBulkAction::make(),
                 ]),
             ])
-            ->defaultPaginationPageOption(50);
+            ->defaultPaginationPageOption(50)
+            ->defaultSort('date', 'desc');
     }
 
     /**

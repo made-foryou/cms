@@ -711,6 +711,9 @@ return [
         'post' => [
             'label' => 'Nieuwsberichten',
             'singular' => 'Nieuwsbericht',
+            'table' => [
+                'date' => 'Datum',
+            ],
             'tabs' => [
                 'post' => 'Nieuwsbericht',
                 'content' => 'Inhoud',
