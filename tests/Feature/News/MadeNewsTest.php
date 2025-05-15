@@ -1,6 +1,6 @@
 <?php
 
-namespace Made\Cms\Tests\Feature;
+namespace Made\Cms\Tests\Feature\News;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Made\Cms\News\Facades\MadeNews;

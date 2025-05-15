@@ -6,25 +6,25 @@ use Made\Cms\Shared\Contracts\RouteableContract;
 
 class RouteableObserver
 {
-    public function saved(RouteableContract $item): void
+    public function saved(RouteableContract $routeable): void
     {
-        if ($item->route === null && $item->isDirty(['parent_id', 'slug'])) {
-            $item->route()->create([
-                'route' => '/' . implode('/', $item->urlSchema()),
+        if ($routeable->route === null && $routeable->isDirty(['parent_id', 'slug'])) {
+            $routeable->route()->create([
+                'route' => '/' . implode('/', $routeable->urlSchema()),
             ]);
         }
 
-        if ($item->route !== null) {
-            $item->route->update([
-                'route' => '/' . implode('/', $item->urlSchema()),
+        if ($routeable->route !== null) {
+            $routeable->route->update([
+                'route' => '/' . implode('/', $routeable->urlSchema()),
             ]);
         }
     }
 
-    public function deleting(RouteableContract $page): void
+    public function deleting(RouteableContract $routeable): void
     {
-        if ($page->route !== null) {
-            $page->route->delete();
+        if ($routeable->route !== null) {
+            $routeable->route->delete();
         }
     }
 }
