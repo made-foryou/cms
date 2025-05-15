@@ -13,7 +13,7 @@ class MadeNews
 {
     public function __construct(
         protected readonly NewsSettings $settings
-    ) { }
+    ) {}
 
     public function news(): Collection
     {

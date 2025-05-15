@@ -27,7 +27,6 @@ use Made\Cms\Shared\Models\Meta;
 use Made\Cms\Shared\Models\Route;
 use Made\Cms\Shared\Observers\CreatedByDefiningObserver;
 use Made\Cms\Shared\Observers\RouteableObserver;
-use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -195,7 +194,7 @@ class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta,
     {
         $page = MadeNews::overviewPage();
 
-        if (!empty($page)) {
+        if (! empty($page)) {
             $parts = $page->urlSchema($parts);
         }
 
