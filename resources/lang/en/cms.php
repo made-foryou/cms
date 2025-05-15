@@ -731,6 +731,10 @@ return [
                     'label' => 'Slug',
                     'helperText' => 'Title of the post which can be used in the url. This value must conform to the url standards and these are lowercase and no spaces or special characters.',
                 ],
+                'date' => [
+                    'label' => 'Date of the news item',
+                    'helperText' => 'This date can be shown with the message as the date of the news item. The order of the news is also determined by this date.',
+                ],
                 'status' => [
                     'label' => 'Status',
                     'helperText' => 'This status of the post indicates what the post can be used for. Once the status is set to published, any visitor can view the post.',

@@ -37,6 +37,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property int|null $translated_from_id
  * @property string $name
  * @property string $slug
+ * @property Carbon $date
  * @property PublishingStatus $status
  * @property array $content
  * @property int $created_by
@@ -65,6 +66,7 @@ class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta,
         'translated_from_id' => 'integer',
         'name' => 'string',
         'slug' => 'string',
+        'date' => 'datetime',
         'status' => PublishingStatus::class,
         'content' => 'array',
         'created_by' => 'integer',
@@ -83,6 +85,7 @@ class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta,
         'translated_from_id',
         'name',
         'slug',
+        'date',
         'status',
         'content',
         'created_by',

@@ -725,6 +725,10 @@ return [
                     'label' => 'Slug',
                     'helperText' => 'Titel van het nieuwsbericht die kan worden gebruikt in de url. Deze waarde moet voldoen aan de url-standaarden en dit zijn kleine letters en geen spaties of speciale tekens.',
                 ],
+                'date' => [
+                    'label' => 'Datum van het bericht',
+                    'helperText' => 'Deze datum kan bij het bericht getoond worden als datum van het nieuwsbericht. De volgorde van het nieuws wordt ook aan de hand van deze datum bepaald.',
+                ],
                 'status' => [
                     'label' => 'Status',
                     'helperText' => 'Deze status van het nieuwsbericht geeft aan waarvoor het nieuwsbericht gebruikt kan worden. Zodra de status is ingesteld op gepubliceerd, kan elke bezoeker het nieuwsbericht bekijken.',

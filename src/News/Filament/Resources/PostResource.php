@@ -7,6 +7,7 @@ namespace Made\Cms\News\Filament\Resources;
 use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Builder as ComponentsBuilder;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -106,6 +107,12 @@ class PostResource extends Resource
                                                             ))
                                                     ),
 
+                                                DatePicker::make('date')
+                                                    ->label(__('made-cms::cms.resources.post.fields.date.label'))
+                                                    ->helperText(__('made-cms::cms.resources.post.fields.date.helperText'))
+                                                    ->required()
+                                                    ->default(now()),
+
                                                 SpatieMediaLibraryFileUpload::make('featured_image')
                                                     ->collection('featured_image')
                                                     ->image()
@@ -157,7 +164,7 @@ class PostResource extends Resource
                         Tabs\Tab::make(__('made-cms::cms.resources.post.tabs.content'))
                             ->icon('heroicon-s-rectangle-group')
                             ->schema([
-
+ 
                                 Section::make(__('made-cms::cms.resources.post.fields.content.label'))
                                     ->description(__('made-cms::cms.resources.post.fields.content.helperText'))
                                     ->icon('heroicon-s-rectangle-group')
