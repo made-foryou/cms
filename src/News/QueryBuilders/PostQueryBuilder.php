@@ -13,6 +13,6 @@ class PostQueryBuilder extends Builder
 
     public function overview(): self
     {
-        return $this->orderBy('published_at', 'desc');
+        return $this->orderBy('date', 'desc');
     }
 }

@@ -8,7 +8,7 @@ use Made\Cms\News\Models\Post;
 use Made\Cms\Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-class MadeCmsTest extends TestCase
+class MadeNewsTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -22,21 +22,36 @@ class MadeCmsTest extends TestCase
 
         $this->assertCount(0, MadeNews::news());
 
-        $posts = Post::factory()
-            ->count(5)
+        $count = random_int(1, 8);
+
+        Post::factory()
+            ->count($count)
             ->published()
             ->create();
 
+        $results = MadeNews::news();
+
         $this->assertInstanceOf(
             \Illuminate\Database\Eloquent\Collection::class,
-            MadeNews::news()
+            $results
         );
 
-        $this->assertCount(5, MadeNews::news());
+        $this->assertCount($count, $results);
 
         $this->assertInstanceOf(
             Post::class,
-            MadeNews::news()->first()
+            $results->first()
         );
+
+        $sortedByDate = $results->sortByDesc('date');
+
+        $same = true;
+        for ($i = 0; $i < $sortedByDate->count(); $i++) {
+            if ($results->pluck('id')->get($i) !== $sortedByDate->pluck('id')->get($i)) {
+                $same = false;
+            }
+        }
+
+        $this->assertTrue($same);
     }
 }
