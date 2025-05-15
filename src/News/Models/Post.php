@@ -16,6 +16,7 @@ use Illuminate\Support\Carbon;
 use Made\Cms\Database\Factories\PostFactory;
 use Made\Cms\Language\Models\Language;
 use Made\Cms\Models\User;
+use Made\Cms\News\Facades\MadeNews;
 use Made\Cms\News\QueryBuilders\PostQueryBuilder;
 use Made\Cms\Shared\Contracts\DefinesCreatedByContract;
 use Made\Cms\Shared\Contracts\HasMeta;
@@ -192,6 +193,12 @@ class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta,
      */
     public function urlSchema(array &$parts = []): array
     {
+        $page = MadeNews::overviewPage();
+
+        if (!empty($page)) {
+            $parts = $page->urlSchema($parts);
+        }
+
         if ($this->parent !== null) {
             $parts = $this->parent->urlSchema($parts);
         }
@@ -262,8 +269,9 @@ class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta,
     public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('preview')
-            ->fit(Fit::Fill, 300, 300)
-            ->nonQueued();
+            ->width(300)
+            ->height(300)
+            ->sharpen(10);
     }
 
     /**
