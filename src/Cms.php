@@ -29,6 +29,7 @@ class Cms
     public const string ALL_ROUTES = 'all';
 
     public const string PAGE_ROUTES = 'page';
+
     public const string NEWS_ROUTES = 'news';
 
     public const string LANDING_PAGE_ROUTE = 'landing_page';
