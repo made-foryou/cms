@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route as RouteFacade;
 use Illuminate\Support\Facades\Schema;
 use Made\Cms\App\Http\Controllers\Controller;
 use Made\Cms\Filament\Builder\ContentStrip;
+use Made\Cms\News\Models\Post;
 use Made\Cms\Page\Models\Page;
 use Made\Cms\Shared\Contracts\RouteableContract;
 use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
@@ -28,6 +29,8 @@ class Cms
     public const string ALL_ROUTES = 'all';
 
     public const string PAGE_ROUTES = 'page';
+
+    public const string NEWS_ROUTES = 'news';
 
     public const string LANDING_PAGE_ROUTE = 'landing_page';
 
@@ -114,6 +117,10 @@ class Cms
             $this->generatePageRoutes();
         }
 
+        if (in_array($selection, [self::ALL_ROUTES, self::NEWS_ROUTES], true)) {
+            $this->generateNewsRoutes();
+        }
+
         if ($this->websiteSetting->not_found_page !== null) {
             RouteFacade::fallback(NotFoundPageController::class);
         }
@@ -184,6 +191,30 @@ class Cms
             ->filter(fn (Route $route) => $route->routeable instanceof Page);
 
         $pageRoutes->each(function (Route $route) {
+            RouteFacade::get($route->route, Controller::class);
+        });
+    }
+
+    /**
+     * Generates routes for news posts by filtering the collection of all routes.
+     *
+     * This method retrieves all routes from the cache, filters them to only
+     * include routes that are associated with `Post` instances, and registers
+     * those routes with the application's route facade. Each route is defined
+     * as handling GET requests and outputs the current request URI for debugging
+     * purposes.
+     *
+     * This method uses the following process:
+     * - Fetch all cached routes using the `getRoutes` method.
+     * - Filter routes whose `routeable` attribute is an instance of `Post`.
+     * - Register each filtered route using `RouteFacade::get`.
+     */
+    protected function generateNewsRoutes(): void
+    {
+        $newsRoutes = $this->getRoutes()
+            ->filter(fn (Route $route) => $route->routeable instanceof Post);
+
+        $newsRoutes->each(function (Route $route) {
             RouteFacade::get($route->route, Controller::class);
         });
     }
