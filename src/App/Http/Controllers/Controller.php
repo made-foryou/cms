@@ -49,6 +49,12 @@ class Controller extends BaseController
                 abort(404);
             }
 
+            if ($this->websiteSetting->isOnline() === false) {
+                $this->saveResponseWithVisit($request, $page->route, 503);
+
+                abort(503);
+            }
+
             return $this->invokeController($request, $page->route);
         }
 
