@@ -732,6 +732,10 @@ return [
                     'label' => 'Datum van het bericht',
                     'helperText' => 'Deze datum kan bij het bericht getoond worden als datum van het nieuwsbericht. De volgorde van het nieuws wordt ook aan de hand van deze datum bepaald.',
                 ],
+                'introduction' => [
+                    'label' => 'Korte inleiding',
+                    'helperText' => 'Deze korte inleidingstekst wordt gebruikt in het overzicht bij het nieuwsbericht.',
+                ],
                 'status' => [
                     'label' => 'Status',
                     'helperText' => 'Deze status van het nieuwsbericht geeft aan waarvoor het nieuwsbericht gebruikt kan worden. Zodra de status is ingesteld op gepubliceerd, kan elke bezoeker het nieuwsbericht bekijken.',

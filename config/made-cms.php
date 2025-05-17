@@ -142,6 +142,10 @@ return [
                 //
             ],
         ],
+
+        'post' => [
+            'introduction_max_length' => env('MADE_CONTENT_POST_INTRODUCTION_MAX_LENGTH', 250),
+        ],
     ],
 
     'settings' => [

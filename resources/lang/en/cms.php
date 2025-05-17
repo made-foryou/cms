@@ -738,6 +738,10 @@ return [
                     'label' => 'Date of the news item',
                     'helperText' => 'This date can be shown with the message as the date of the news item. The order of the news is also determined by this date.',
                 ],
+                'introduction' => [
+                    'label' => 'Short introduction',
+                    'helperText' => 'This short introductory text is used in the overview of the news item.',
+                ],
                 'status' => [
                     'label' => 'Status',
                     'helperText' => 'This status of the post indicates what the post can be used for. Once the status is set to published, any visitor can view the post.',
