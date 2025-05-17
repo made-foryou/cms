@@ -117,6 +117,13 @@ class PostResource extends Resource
                                                     ->image()
                                                     ->imageEditor(),
 
+                                                Textarea::make('introduction')
+                                                    ->label(__('made-cms::cms.resources.post.fields.introduction.label'))
+                                                    ->helperText(__('made-cms::cms.resources.post.fields.introduction.helperText'))
+                                                    ->nullable()
+                                                    ->minLength(10)
+                                                    ->maxLength(config('made-cms.content.post.introduction_max_length')),
+
                                             ]),
 
                                     ])

@@ -38,6 +38,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property string $name
  * @property string $slug
  * @property Carbon $date
+ * @property string|null $introduction
  * @property PublishingStatus $status
  * @property array $content
  * @property int $created_by
@@ -86,6 +87,7 @@ class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta,
         'name',
         'slug',
         'date',
+        'introduction',
         'status',
         'content',
         'created_by',
