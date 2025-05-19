@@ -208,7 +208,8 @@ class PageResource extends Resource
             ->addActionLabel(__('made-cms::pages.fields.content.add_button'))
             ->collapsible()
             ->collapsed()
-            ->blocks(self::contentStrips(Page::class, $context));
+            ->blocks(self::contentStrips(Page::class, $context))
+            ->blockPickerColumns(config('made-cms.content.builder_selector_columns'));
     }
 
     public static function table(Table $table): Table
