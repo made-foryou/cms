@@ -106,6 +106,14 @@ return [
      * ### Content
      */
     'content' => [
+        /**
+         * The width for the content builder selector.
+         */
+        'builder_selector_width' => '2xl',
+
+        /**
+         * The amount of columns for the builder selector.
+         */
         'builder_selector_columns' => 1,
 
         'blocks' => [
