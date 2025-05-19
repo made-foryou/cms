@@ -2,6 +2,8 @@
 
 // config for Made/Cms
 
+use Filament\Navigation\NavigationGroup;
+
 return [
 
     'setup' => [
@@ -51,9 +53,29 @@ return [
          */
         'default' => true,
 
+        /**
+         * Add your own resources to the Made CMS panel.
+         */
         'resources' => [],
 
+        /**
+         * Add your own pages to the Made CMS panel.
+         */
         'pages' => [],
+
+        /**
+         * Add your own plugins to the Made CMS panel.
+         */
+        'plugins' => [],
+
+        /**
+         * Add your own navigation_groups to the Made CMS panel.
+         */
+        'navigation_groups' => [
+            NavigationGroup::make()
+                ->label('Test')
+                ->icon('heroicon-o-newspaper'),
+        ],
 
         /**
          * ### Custom link types
