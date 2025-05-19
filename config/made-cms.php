@@ -106,6 +106,8 @@ return [
      * ### Content
      */
     'content' => [
+        'builder_selector_columns' => 1,
+
         'blocks' => [
             /**
              * List of default content stip blocks.
