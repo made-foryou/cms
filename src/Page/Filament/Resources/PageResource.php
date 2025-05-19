@@ -209,7 +209,8 @@ class PageResource extends Resource
             ->collapsible()
             ->collapsed()
             ->blocks(self::contentStrips(Page::class, $context))
-            ->blockPickerColumns(config('made-cms.content.builder_selector_columns'));
+            ->blockPickerColumns(config('made-cms.content.builder_selector_columns'))
+            ->blockPickerWidth(config('made-cms.content.builder_selector_width'));
     }
 
     public static function table(Table $table): Table
