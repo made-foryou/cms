@@ -131,6 +131,8 @@ class CmsPanelServiceProvider extends PanelProvider
     {
         return [
             FilamentPeekPlugin::make(),
+
+            ...config('made-cms.panel.plugins', []),
         ];
     }
 
@@ -156,6 +158,8 @@ class CmsPanelServiceProvider extends PanelProvider
             NavigationGroup::make()
                 ->label(fn (): string => __('made-cms::cms.navigation_groups.company'))
                 ->icon('heroicon-o-information-circle'),
+
+            ...config('made-cms.panel.navigation_groups', []),
         ];
     }
 }
