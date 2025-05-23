@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Made\Cms\News\Models;
 
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -59,7 +59,7 @@ class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta,
     /**
      * The attributes that should be cast.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'id' => 'integer',
@@ -115,7 +115,7 @@ class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta,
     /**
      * The related page which this was translated from.
      *
-     * @returns BelongsTo The relationship instance
+     * @return BelongsTo The relationship instance
      */
     public function translatedFrom(): BelongsTo
     {
@@ -200,10 +200,6 @@ class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta,
             $parts = $page->urlSchema($parts);
         }
 
-        if ($this->parent !== null) {
-            $parts = $this->parent->urlSchema($parts);
-        }
-
         $parts[] = $this->slug;
 
         return $parts;
@@ -236,8 +232,9 @@ class Post extends Model implements DefinesCreatedByContract, HasMedia, HasMeta,
     /**
      * {@inheritDoc}
      */
-    public function scopeForLinkSelection(PostQueryBuilder | Builder $query): PostQueryBuilder
+    public function scopeForLinkSelection(Builder $query): Builder
     {
+        /** @var PostQueryBuilder $query */
         return $query->published();
     }
 

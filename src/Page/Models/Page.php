@@ -258,8 +258,9 @@ class Page extends Model implements DefinesCreatedByContract, HasMeta, Routeable
     /**
      * {@inheritDoc}
      */
-    public function scopeForLinkSelection(PageQueryBuilder | Builder $query): PageQueryBuilder
+    public function scopeForLinkSelection(Builder $query): Builder
     {
+        /** @var PageQueryBuilder $query */
         return $query
             ->select(['id', 'name'])
             ->published();

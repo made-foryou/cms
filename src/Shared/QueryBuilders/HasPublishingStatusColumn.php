@@ -3,10 +3,11 @@
 namespace Made\Cms\Shared\QueryBuilders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Made\Cms\Shared\Enums\PublishingStatus;
 
 /**
- * @mixin Builder
+ * @extends Builder<Model>
  */
 trait HasPublishingStatusColumn
 {
