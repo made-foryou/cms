@@ -131,7 +131,7 @@ class Cms
      *
      * @param  RouteableContract|Route  $route  The RouteableContract model or the route itself to
      *                                          generate the url from.
-     * @param  array  $params  Optional. An associative array of query parameters to append to the URL.
+     * @param  array  $parameters  Optional. An associative array of query parameters to append to the URL.
      * @param  bool  $secure  Optional. Whether to generate a secure (HTTPS) URL. Default is false.
      * @return string The generated URL.
      */

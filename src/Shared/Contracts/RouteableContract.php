@@ -5,9 +5,12 @@ namespace Made\Cms\Shared\Contracts;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Made\Cms\Shared\Models\Route;
 
 /**
  * @mixin Model
+ *
+ * @property Route $route
  *
  * @method static Builder query()
  * @method mixed getKey()
