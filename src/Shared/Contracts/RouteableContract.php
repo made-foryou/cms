@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
- * @extends Model
+ * @mixin Model
  *
  * @method static Builder query()
  * @method mixed getKey()

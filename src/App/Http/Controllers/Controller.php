@@ -37,7 +37,7 @@ class Controller extends BaseController
      */
     public function __invoke(Request $request)
     {
-        $uri = $request->getRequestUri();
+        $uri = parse_url($request->getRequestUri())['path'];
 
         if (strlen(trim($uri, '/')) === 0) {
             // Landing page

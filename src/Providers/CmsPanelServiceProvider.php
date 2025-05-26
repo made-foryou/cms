@@ -156,7 +156,7 @@ class CmsPanelServiceProvider extends PanelProvider
                 ->icon('heroicon-o-shield-check'),
 
             NavigationGroup::make()
-                ->label(fn (): string => __('made-cms::cms.navigation_groups.company'))
+                ->label(fn (): string => __('made-cms::cms.navigation_groups.information'))
                 ->icon('heroicon-o-information-circle'),
 
             ...config('made-cms.panel.navigation_groups', []),
