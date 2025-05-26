@@ -1,86 +1,86 @@
 {
-    "name": "made-foryou/cms",
-    "description": "CMS Package for Made in Filament",
-    "version": "0.15.6",
-    "keywords": [
-        "made-foryou",
-        "laravel",
-        "cms"
-    ],
-    "homepage": "https://github.com/made-foryou/cms",
-    "support": {
-        "issues": "https://github.com/made-foryou/cms/issues",
-        "source": "https://github.com/made-foryou/cms"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Menno Tempelaar",
-            "email": "menno@made-foryou.nl",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "php": "^8.3",
-        "filament/filament": "^3.0",
-        "filament/spatie-laravel-media-library-plugin": "^3.2",
-        "filament/spatie-laravel-settings-plugin": "^3.2",
-        "filament/widgets": "^3.2",
-        "foroco/php-browser-detection": "^2.8",
-        "lorisleiva/laravel-actions": "^2.8",
-        "maatwebsite/excel": "^3.1",
-        "pboivin/filament-peek": "^2.3",
-        "spatie/laravel-package-tools": "^1.15.0"
-    },
-    "require-dev": {
-        "larastan/larastan": "^2.9",
-        "laravel/pint": "^1.0",
-        "nunomaduro/collision": "^8.0",
-        "phpunit/phpunit": "^11.0.1",
-        "orchestra/testbench": "^9.0",
-        "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-phpunit": "^1.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "Made\\Cms\\": "src/",
-            "Made\\Cms\\Database\\Factories\\": "database/factories/",
-            "Made\\Cms\\Database\\Seeders\\": "database/seeders/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Made\\Cms\\Tests\\": "tests/"
-        }
-    },
-    "scripts": {
-        "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
-        "analyse": "vendor/bin/phpstan analyse",
-        "test": "vendor/bin/pest",
-        "test-coverage": "vendor/bin/pest --coverage",
-        "format": "vendor/bin/pint"
-    },
-    "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "phpstan/extension-installer": true
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Made\\Cms\\CmsServiceProvider",
-                "Made\\Cms\\Providers\\CmsPanelServiceProvider"
-            ],
-            "aliases": {
-                "Cms": "Made\\Cms\\Facades\\Cms",
-                "Made": "Made\\Cms\\Facades\\Made",
-                "MadeNews": "Made\\Cms\\News\\Facades\\MadeNews"
-            }
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+  "name": "made-foryou/cms",
+  "description": "CMS Package for Made in Filament",
+  "version": "0.15.7",
+  "keywords": [
+    "made-foryou",
+    "laravel",
+    "cms"
+  ],
+  "homepage": "https://github.com/made-foryou/cms",
+  "support": {
+    "issues": "https://github.com/made-foryou/cms/issues",
+    "source": "https://github.com/made-foryou/cms"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Menno Tempelaar",
+      "email": "menno@made-foryou.nl",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.3",
+    "filament/filament": "^3.0",
+    "filament/spatie-laravel-media-library-plugin": "^3.2",
+    "filament/spatie-laravel-settings-plugin": "^3.2",
+    "filament/widgets": "^3.2",
+    "foroco/php-browser-detection": "^2.8",
+    "lorisleiva/laravel-actions": "^2.8",
+    "maatwebsite/excel": "^3.1",
+    "pboivin/filament-peek": "^2.3",
+    "spatie/laravel-package-tools": "^1.15.0"
+  },
+  "require-dev": {
+    "larastan/larastan": "^2.9",
+    "laravel/pint": "^1.0",
+    "nunomaduro/collision": "^8.0",
+    "phpunit/phpunit": "^11.0.1",
+    "orchestra/testbench": "^9.0",
+    "phpstan/extension-installer": "^1.1",
+    "phpstan/phpstan-deprecation-rules": "^1.0",
+    "phpstan/phpstan-phpunit": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Made\\Cms\\": "src/",
+      "Made\\Cms\\Database\\Factories\\": "database/factories/",
+      "Made\\Cms\\Database\\Seeders\\": "database/seeders/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Made\\Cms\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
+    "analyse": "vendor/bin/phpstan analyse",
+    "test": "vendor/bin/pest",
+    "test-coverage": "vendor/bin/pest --coverage",
+    "format": "vendor/bin/pint"
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true,
+      "phpstan/extension-installer": true
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Made\\Cms\\CmsServiceProvider",
+        "Made\\Cms\\Providers\\CmsPanelServiceProvider"
+      ],
+      "aliases": {
+        "Cms": "Made\\Cms\\Facades\\Cms",
+        "Made": "Made\\Cms\\Facades\\Made",
+        "MadeNews": "Made\\Cms\\News\\Facades\\MadeNews"
+      }
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
