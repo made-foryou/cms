@@ -6,10 +6,12 @@ namespace Made\Cms\News\Facades;
 
 use Illuminate\Support\Facades\Facade;
 use Made\Cms\News\MadeNews as NewsMadeNews;
+use Made\Cms\News\Models\Post;
+use Made\Cms\News\QueryBuilders\PostQueryBuilder;
 use Made\Cms\Page\Models\Page;
 
 /**
- * @method static \Illuminate\Database\Eloquent\Collection news()
+ * @method static PostQueryBuilder<Post> news()
  * @method static ?Page overviewPage()
  *
  * @see \Made\Cms\News\MadeNews
