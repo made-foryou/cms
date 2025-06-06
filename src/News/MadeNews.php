@@ -31,7 +31,7 @@ class MadeNews
         $found = Post::query()
             ->overview()
             ->published()
-            ->where('date', '>=', $post->date)
+            ->where('date', '<=', $post->date)
             ->where('id', '!=', $post->id)
             ->limit($numberOfItems)
             ->get();
