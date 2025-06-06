@@ -2,6 +2,7 @@
 
 namespace Made\Cms\Tests\Feature\News;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Made\Cms\News\Facades\MadeNews;
 use Made\Cms\News\Models\Post;
@@ -56,5 +57,36 @@ class MadeNewsTest extends TestCase
         }
 
         $this->assertTrue($same);
+    }
+
+    #[Test]
+    public function it_can_return_the_next_posts(): void
+    {
+        $post = Post::factory()
+            ->published()
+            ->create();
+
+        $posts = MadeNews::nextPosts($post);
+
+        $this->assertInstanceOf(
+            Collection::class,
+            $posts,
+        );
+
+        $this->assertCount(0, $posts);
+
+        Post::factory()
+            ->count(3)
+            ->published()
+            ->create();
+
+        $posts = MadeNews::nextPosts($post);
+
+        $this->assertCount(3, $posts);
+
+        $this->assertInstanceOf(
+            Post::class,
+            $posts->first()
+        );
     }
 }

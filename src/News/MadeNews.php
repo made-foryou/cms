@@ -28,12 +28,26 @@ class MadeNews
      */
     public function nextPosts(Post $post, int $numberOfItems = 3): Collection
     {
-        return Post::query()
+        $found = Post::query()
             ->overview()
             ->published()
             ->where('date', '>=', $post->date)
+            ->where('id', '!=', $post->id)
             ->limit($numberOfItems)
             ->get();
+
+        if ($found->count() < $numberOfItems) {
+            $extra = Post::query()
+                ->overview()
+                ->published()
+                ->whereNotIn('id', $found->pluck('id')->add($post->id)->toArray())
+                ->limit($numberOfItems - $found->count())
+                ->get();
+
+            return $found->merge($extra);
+        }
+
+        return $found;
     }
 
     public function overviewPage(): ?Page
