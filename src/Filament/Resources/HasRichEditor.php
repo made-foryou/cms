@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-trait HasRichEditor {
+namespace Made\Cms\Filament\Resources;
 
+trait HasRichEditor {
     public static function toolbarButtons(): array
     {
         return config('made-cms.settings.toolbarButtons', []);
     }
-
 }
