@@ -230,6 +230,28 @@ return [
          */
         'news' => [],
 
+
+        /**
+         * ### Editor Toolbar buttons
+         */
+        "toolbarButtons" => [
+            "attachFiles",
+            "blockquote",
+            "bold",
+            "bulletList",
+            "codeBlock",
+            "h1",
+            "h2",
+            "h3",
+            "italic",
+            "link",
+            "orderedList",
+            "redo",
+            "strike",
+            "underline",
+            "undo",
+        ],
+
     ],
 
 ];
