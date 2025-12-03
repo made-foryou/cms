@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Made\Cms\Page\Models\Page;
 use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * @property-read int $id
@@ -21,10 +23,11 @@ use Made\Cms\Shared\Database\HasDatabaseTablePrefix;
  * @property Carbon $updated_at
  * @property-read Page $describable
  */
-class Meta extends Model
+class Meta extends Model implements HasMedia
 {
     use HasDatabaseTablePrefix;
     use HasFactory;
+    use InteractsWithMedia;
 
     protected $fillable = [
         'title',
@@ -59,5 +62,13 @@ class Meta extends Model
     public function getTable(): string
     {
         return $this->prefixTableName('meta');
+    }
+
+    /**
+     * Registers media collections for the model.
+     */
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('meta_image');
     }
 }

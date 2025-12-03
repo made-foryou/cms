@@ -8,6 +8,7 @@ use Filament\Forms\Components\Builder as ComponentsBuilder;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -166,6 +167,11 @@ class PageResource extends Resource
                                             ->label(__('made-cms::cms.resources.meta.description.label'))
                                             ->helperText(__('made-cms::cms.resources.meta.description.description'))
                                             ->maxLength(160),
+
+                                        SpatieMediaLibraryFileUpload::make('meta_image')
+                                            ->collection('meta_image')
+                                            ->image()
+                                            ->imageEditor(),
                                     ])
                                     ->columnSpan(['lg' => 2]),
 
