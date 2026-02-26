@@ -38,6 +38,11 @@ readonly class RegisterVisitMiddleware
             return $next($request);
         }
 
+        if ($request->userAgent() === null) {
+            // Skip becauuuuusse BOT
+            return $next($request);
+        }
+
         $userAgentData = (new BrowserDetection)->getAll($request->userAgent());
 
         $visit = Visit::create([
